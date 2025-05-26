@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { getCurrentUser } from "@/lib/user.actions"
 import Sidebar from "@/components/Sidebar"
 import { Toaster } from "sonner"
+import { MobileNav } from "@/components/MobileNav"
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const currentUser = await getCurrentUser()
@@ -16,7 +17,9 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <section className="flex w-full flex-col overflow-hidden">
-        <div className="md:hidden">MOBILENAV</div>
+        <div className="md:hidden">
+          <MobileNav {...currentUser} />
+        </div>
         <div className="flex-1 overflow-y-auto">
           {children}
           <Toaster richColors />
