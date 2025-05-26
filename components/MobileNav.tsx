@@ -2,7 +2,6 @@
 import React from "react"
 import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { signOutUser } from "@/lib/user.actions"
@@ -14,7 +13,7 @@ interface Props {
   email: string
 }
 
-export const MobileNav = ({ fullName, avatar, email }: Props) => {
+export const MobileNav = ({ avatar }: Props) => {
   const pathname = usePathname()
   const handleSignOut = () => {
     signOutUser()
