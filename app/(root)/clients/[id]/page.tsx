@@ -18,9 +18,9 @@ const ClientDetails = async ({ params }: Props) => {
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
       <div className="bg-white max-w-5xl w-full border rounded-3xl m-10">
-        <div className="h-screen  bg-white max-w-5xl w-full border rounded-3xl m-5 shadow-xl">
+
           <ClientDetailsComponent client={client} />
-        </div>
+
       </div>
     </div>
   )

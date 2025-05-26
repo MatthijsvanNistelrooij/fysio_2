@@ -106,7 +106,7 @@ export default function PetDetailsComponent({
             <Button
               type="button"
               onClick={handleEditToggle}
-              className="hover:bg-gray-100 cursor-pointer -mt-2"
+              className="hover:bg-gray-700 bg-gray-800 cursor-pointer -mt-2"
             >
               <X />
             </Button>
