@@ -31,7 +31,7 @@ export const MobileNav = ({ avatar }: Props) => {
                 <Link
                   key={item.name}
                   href={item.url}
-                  className={`p-2 rounded-xl hover:text-gray-800 hover:shadow font-bold transition w-40 ${
+                  className={`p-2 rounded-xl hover:text-gray-800 hover:shadow font-bold transition w-15 ${
                     isActive ? "" : "text-gray-400"
                   }`}
                   style={{
