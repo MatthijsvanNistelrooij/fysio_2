@@ -72,7 +72,7 @@ const Clients = () => {
             <div className="flex flex-col border p-10 gap-3">
               No clients listed.
               <Link
-                className="border bg-gray-800 hover:bg-gray-700 rounded-md p-2 text-white"
+                className="border bg-gray-600 hover:bg-gray-700 rounded-md p-2 text-white"
                 href="/create"
               >
                 Create new Client
@@ -84,7 +84,7 @@ const Clients = () => {
             <div className="w-full flex justify-between">
               <Header />
               <Link
-                className="p-2 rounded-xl hover:text-gray-800 text-gray-500 font-bold transition"
+                className="p-2 rounded-xl hover:text-gray-800 text-gray-200 font-bold transition"
                 href="/create"
               >
                 <PlusCircle />
