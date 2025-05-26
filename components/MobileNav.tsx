@@ -52,34 +52,13 @@ export const MobileNav = ({ fullName, avatar, email }: Props) => {
           </div>
           <div>
             <Button
-              className="border hover:bg-gray-500 cursor-pointer mt-1"
+              className="cursor-pointer mt-2 p-2"
               onClick={handleSignOut}
             >
               Sign Out
             </Button>
           </div>
         </nav>
-      </div>
-
-      <div className="bg-gray-800 p-3 rounded-xl mb-10 flex flex-col gap-2">
-        <div className="flex flex-row justify-start">
-          <Image
-            src={avatar}
-            width={32}
-            height={32}
-            alt="avatar"
-            className="rounded-full object-cover h-8 w-8"
-          />
-
-          <p className="font-semibold text-white m-1 ml-4">{fullName}</p>
-        </div>
-        <p className="text-xs text-gray-200">{email}</p>
-        <Button
-          className="border hover:bg-gray-500 text-white cursor-pointer"
-          onClick={handleSignOut}
-        >
-          Sign Out
-        </Button>
       </div>
     </div>
   )
