@@ -22,7 +22,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         </div>
         <div className="flex-1 overflow-y-auto">
           {children}
-          <Toaster richColors position="top-right" />
+          <Toaster richColors position="bottom-right" />
         </div>
       </section>
     </main>

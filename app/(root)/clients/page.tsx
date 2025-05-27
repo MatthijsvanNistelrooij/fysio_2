@@ -3,16 +3,29 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { getCurrentUser } from "@/lib/user.actions"
 import Link from "next/link"
-import { HomeIcon, Mail, Phone, PlusCircle } from "lucide-react"
+import { HomeIcon, Mail, Phone, Plus, X } from "lucide-react"
 import { getClientsByUserId } from "@/lib/client.actions"
 import Header from "@/components/Header"
 import { Client, User } from "@/types"
 import { toast } from "sonner"
+import CreateForm from "@/components/CreateForm"
 
 const Clients = () => {
   const [clients, setClients] = useState<Client[]>([])
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState<boolean>(true) // NEW
+  const [edit, setEdit] = useState(false)
+  const [loading, setLoading] = useState<boolean>(true)
+
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    if (edit) {
+      // Small timeout to allow transition to apply
+      setTimeout(() => setShow(true), 10)
+    } else {
+      setShow(false)
+    }
+  }, [edit])
 
   const router = useRouter()
 
@@ -66,6 +79,10 @@ const Clients = () => {
     }
   }
 
+  const handleToggleEdit = () => {
+    setEdit((prev) => !prev)
+  }
+
   return (
     <div className="min-h-screen flex justify-center bg-gray-50 p-5">
       <div className="p-5 bg-white max-w-7xl w-full border rounded-3xl">
@@ -87,16 +104,33 @@ const Clients = () => {
           </div>
         ) : (
           <div className="">
-            <div className="w-full flex justify-between">
+            <div className="w-full flex justify-between mb-4">
               <Header />
-              <Link
-                className="p-2 rounded-xl hover:text-gray-800 text-gray-700 font-bold transition"
-                href="/create"
-              >
-                <PlusCircle />
-              </Link>
+              {edit ? (
+                <X
+                  onClick={handleToggleEdit}
+                  className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
+                />
+              ) : (
+                <Plus
+                  onClick={handleToggleEdit}
+                  className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
+                />
+              )}
             </div>
             <div className="flex flex-col w-full gap-2">
+              {edit && (
+                <div
+                  className={`transition-all duration-500 transform ${
+                    show
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 -translate-y-2"
+                  }`}
+                >
+                  <CreateForm {...user} />
+                </div>
+              )}
+
               {clients.map((client) => (
                 <div
                   key={client.$id}

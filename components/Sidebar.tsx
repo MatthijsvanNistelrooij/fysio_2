@@ -36,7 +36,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
               <Link
                 key={item.name}
                 href={item.url}
-                className={`p-2 rounded-xl hover:text-gray-800 hover:shadow font-bold transition ${
+                className={`p-2 rounded-xl hover:text-gray-800 hover:shadow font-bold transition mt-1 ${
                   isActive ? "" : "text-gray-400"
                 }`}
                 style={{

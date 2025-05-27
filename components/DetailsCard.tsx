@@ -30,7 +30,7 @@ const DetailsCard = ({
           {title && (
             <Link
               href={url}
-              className="flex text-gray-800 mb-2 text-sm cursor-pointer"
+              className="flex text-gray-800 mb-3 text-sm cursor-pointer"
             >
               <ArrowLeft size={14} className="m-1" />
               {title}
