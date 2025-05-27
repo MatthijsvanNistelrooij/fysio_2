@@ -71,7 +71,7 @@ export const CreateForm = ({ $id }: Props) => {
     <div className="mt-2">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex flex-col justify-between gap-4 border border-gray-100 shadow-xl rounded-xl p-3">
-          <div className="flex flex-row gap-2 justify-between">
+          <div className="flex flex-col md:flex-row gap-2 justify-between">
             <div className="w-full flex bg-gray-800 rounded-xl">
               <Contact size={18} className="text-gray-400 m-2" />
               <Input

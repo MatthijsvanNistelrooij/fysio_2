@@ -16,30 +16,19 @@ interface DetailsCardProps {
   customActions?: ReactNode
 }
 
-const DetailsCard = ({
-  title,
-  url,
-  details,
-  onEdit,
-  onDelete,
-}: DetailsCardProps) => {
+const DetailsCard = ({ url, details, onEdit, onDelete }: DetailsCardProps) => {
   return (
     <>
-      <div className="flex justify-between w-full">
-        <div className="flex">
-          {title && (
-            <Link
-              href={url}
-              className="flex text-gray-800 mb-3 text-sm cursor-pointer"
-            >
-              <ArrowLeft size={14} className="m-1" />
-              {title}
-            </Link>
-          )}
-        </div>
-      </div>
-
       <div className="bg-white rounded-2xl p-5 shadow-xl flex flex-col justify-between border">
+        <div className="flex justify-end">
+          <Link
+            href={url}
+            className="flex text-gray-800 mb-3 text-sm cursor-pointer"
+          >
+            <ArrowLeft size={14} className="m-1" />
+          </Link>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm mb-4 break-words">
           {details.map((detail, index) => (
             <React.Fragment key={index}>
