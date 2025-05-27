@@ -3,8 +3,7 @@
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useState } from "react"
-import { Button } from "./ui/button"
-import { ArrowLeftCircle, Plus } from "lucide-react"
+import { Plus, X } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
 import { toast } from "sonner"
 
@@ -79,16 +78,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   if (edit) {
     return (
-      <div className="main-container p-6">
+      <div className="main-container">
         <div className="flex justify-between">
           <h1 className="text-xl font-bold mb-4">Edit Client</h1>
-          <Button
-            type="button"
-            onClick={handleEditToggle}
-            className="bg-gray-800 hover:bg-gray-700 cursor-pointer"
-          >
-            X
-          </Button>
+          <X onClick={handleEditToggle} className="b cursor-pointer" />
         </div>
         <ClientForm initialData={client} onSubmit={handleUpdate} />
       </div>
@@ -97,44 +90,38 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <div className="rounded-t-2xl text-white flex" key={client.$id}>
-        <div className="flex justify-between w-full">
-          <div className="flex w-full justify-end p-1">
-            <Link
-              href={`/clients`}
-              className="bg-white hover:bg-white text-gray-800 cursor-pointer m-2"
-            >
-              <ArrowLeftCircle />
-            </Link>
-          </div>
-        </div>
-      </div>
-
       <DetailsCard
-        title="Client Details"
+        title="clients"
         details={[
           { label: "Name", value: client.name },
           { label: "Email", value: client.email },
           { label: "Phone", value: client.phone },
           { label: "Address", value: client.address },
         ]}
+        url="/clients"
         onEdit={handleEditToggle}
         onDelete={() => handleDelete(client.$id)}
       />
 
-      <div className="mt-5 p-5">
+      <div className="mt-5 p-1">
         <div className="flex justify-between">
           <h2 className="text-xl font-semibold mb-2">Pets</h2>
-          <Button
-            onClick={() => handleTogglePetForm()}
-            className="bg-gray-800 hover:bg-gray-700 cursor-pointer"
-          >
-            <Plus />
-          </Button>
+
+          {addPet ? (
+            <X
+              onClick={() => handleTogglePetForm()}
+              className="cursor-pointer"
+            />
+          ) : (
+            <Plus
+              onClick={() => handleTogglePetForm()}
+              className="cursor-pointer"
+            />
+          )}
         </div>
 
         {addPet ? (
-          <div className="p-3">
+          <div>
             <AddPetForm
               clientId={client.$id}
               onSubmit={(data) => handleCreate(data)}

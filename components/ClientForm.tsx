@@ -39,7 +39,7 @@ export default function ClientForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 rounded shadow"
+      className="space-y-4 bg-white p-4 rounded-xl shadow-xl"
     >
       <div>
         <label htmlFor="name" className="block font-semibold">
@@ -102,7 +102,7 @@ export default function ClientForm({
       <div className="flex justify-end">
         <Button
           type="submit"
-          className="bg-gray-800 hover:bg-gray-700 cursor-pointer"
+          className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
         >
           <Check />
         </Button>

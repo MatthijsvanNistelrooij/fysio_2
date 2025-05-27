@@ -90,7 +90,7 @@ const Clients = () => {
             <div className="w-full flex justify-between">
               <Header />
               <Link
-                className="p-2 rounded-xl hover:text-gray-800 text-gray-400 font-bold transition"
+                className="p-2 rounded-xl hover:text-gray-800 text-gray-700 font-bold transition"
                 href="/create"
               >
                 <PlusCircle />
@@ -102,7 +102,6 @@ const Clients = () => {
                   key={client.$id}
                   className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-2"
                 >
-                  {/* Client name */}
                   <div
                     className="bg-gray-800 rounded-xl hover:bg-gray-700 p-2 py-1 cursor-pointer w-full sm:w-40"
                     onClick={() => handleTableRowClick(client.$id)}
@@ -110,9 +109,7 @@ const Clients = () => {
                     {client.name}
                   </div>
 
-                  {/* Info + pets */}
                   <div className="flex flex-col gap-2 w-full">
-                    {/* Address / Phone / Email */}
                     <div className="flex flex-wrap gap-2">
                       <div
                         className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1"
@@ -152,7 +149,6 @@ const Clients = () => {
                       </div>
                     </div>
 
-                    {/* Pets */}
                     <div className="flex flex-wrap gap-2">
                       {client.pets.length ? (
                         client.pets.map((pet) => (

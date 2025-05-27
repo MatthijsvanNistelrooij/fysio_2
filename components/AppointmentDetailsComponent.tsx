@@ -3,13 +3,11 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import DetailsCard from "./DetailsCard"
-import { Button } from "./ui/button"
 import { deleteAppointment, updateAppointment } from "@/lib/appointment.actions"
 import AppointmentForm from "./AppointmentForm"
 import { toast } from "sonner"
-import { ArrowLeftCircle, X } from "lucide-react"
+import { X } from "lucide-react"
 import { Appointment } from "@/types"
-import Link from "next/link"
 
 export default function AppointmentDetailsComponent({
   appointment,
@@ -54,16 +52,11 @@ export default function AppointmentDetailsComponent({
   if (edit) {
     return (
       <div className="min-h-screen flex justify-center bg-gray-50">
-        <div className="main-container p-5 bg-white max-w-7xl w-full border rounded-3xl m-5">
+        <div className="main-container max-w-7xl w-full m-5">
           <div className="flex justify-between">
             <h1 className="text-xl font-bold mb-4">Edit Appointment</h1>
-            <Button
-              type="button"
-              onClick={handleEditToggle}
-              className="bg-gray-800 hover:bg-gray-700 cursor-pointer"
-            >
-              <X />
-            </Button>
+
+            <X onClick={handleEditToggle} className="cursor-pointer" />
           </div>
 
           <AppointmentForm initialData={appointment} onSubmit={handleUpdate} />
@@ -74,15 +67,9 @@ export default function AppointmentDetailsComponent({
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="main-container p-1 bg-white max-w-7xl w-full border rounded-3xl m-5">
-        <div className="flex w-full justify-end p-2">
-          <Link href={`/pets/${appointment.petId}`}>
-            <ArrowLeftCircle />
-          </Link>
-        </div>
-
+      <div className="max-w-7xl w-full m-5">
         <DetailsCard
-          title="Appointment Info"
+          title="pet"
           details={[
             { label: "Description", value: appointment.description },
             { label: "Treatment", value: appointment.treatment },
@@ -97,6 +84,7 @@ export default function AppointmentDetailsComponent({
                 : "N/A",
             },
           ]}
+          url={`/pets/${appointment.petId}`}
           onEdit={handleEditToggle}
           onDelete={() => handleDelete(appointment.$id)}
         />

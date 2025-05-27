@@ -4,8 +4,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import DetailsCard from "./DetailsCard"
-import { Button } from "./ui/button"
-import { ArrowLeftCircle, Plus, X } from "lucide-react"
+import { Plus, X } from "lucide-react"
 import { deletePet, updatePet } from "@/lib/pet.actions"
 import {
   addAppointmentToPet,
@@ -100,16 +99,11 @@ export default function PetDetailsComponent({
   if (edit) {
     return (
       <div className="min-h-screen flex justify-center bg-gray-50">
-        <div className="main-container p-5 bg-white max-w-7xl w-full border rounded-3xl m-5">
+        <div className="p-5 max-w-7xl w-full rounded-3xl">
           <div className="flex justify-between">
             <h1 className="text-xl font-bold mb-4">Edit Pet</h1>
-            <Button
-              type="button"
-              onClick={handleEditToggle}
-              className="hover:bg-gray-700 bg-gray-800 cursor-pointer -mt-2"
-            >
-              <X />
-            </Button>
+
+            <X onClick={handleEditToggle} className="cursor-pointer" />
           </div>
 
           <PetForm initialData={pet} onSubmit={handleUpdate} />
@@ -120,15 +114,9 @@ export default function PetDetailsComponent({
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="main-container p-1 bg-white max-w-7xl w-full border rounded-3xl m-5">
-        <div className="flex w-full justify-end p-2">
-          <Link href={`/clients/${pet.ownerId}`}>
-            <ArrowLeftCircle />
-          </Link>
-        </div>
-
+      <div className="max-w-7xl w-full rounded-3xl m-5">
         <DetailsCard
-          title="Pet Info"
+          title="client info"
           details={[
             { label: "Name", value: pet.name },
             { label: "Type", value: pet.type },
@@ -137,19 +125,25 @@ export default function PetDetailsComponent({
             { label: "Age", value: pet.age ?? "Unknown" },
             { label: "Notes", value: pet.notes },
           ]}
+          url={`/clients/${pet.ownerId}`}
           onEdit={handleEditToggle}
           onDelete={() => handleDelete(pet.$id)}
         />
 
-        <div className="mt-5 p-5">
+        <div className="mt-5 p-1">
           <div className="flex justify-between">
             <h2 className="text-xl font-semibold mb-2">Appointments</h2>
-            <Button
-              onClick={() => handleToggleAddAppointment()}
-              className="bg-gray-800 hover:bg-gray-700 cursor-pointer"
-            >
-              <Plus />
-            </Button>
+            {addAppointment ? (
+              <X
+                onClick={() => handleToggleAddAppointment()}
+                className="cursor-pointer"
+              />
+            ) : (
+              <Plus
+                onClick={() => handleToggleAddAppointment()}
+                className="cursor-pointer"
+              />
+            )}
           </div>
 
           {addAppointment && user ? (

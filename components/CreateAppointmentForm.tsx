@@ -63,7 +63,7 @@ export default function CreateAppointmentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 rounded shadow"
+      className="space-y-4 bg-white p-4 rounded-xl shadow-xl"
     >
       <div>
         <label htmlFor="description" className="block font-semibold">
@@ -113,7 +113,7 @@ export default function CreateAppointmentForm({
       <div className="flex justify-end">
         <Button
           type="submit"
-          className="bg-gray-800 hover:bg-gray-700 cursor-pointer"
+          className="bg-white text-gray-800 hover:bg-gray-100 cursor-pointer"
         >
           <Check />
         </Button>

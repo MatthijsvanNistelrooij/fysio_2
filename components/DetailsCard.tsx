@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react"
-import { Button } from "@/components/ui/button"
+import { ArrowLeft, Edit, TrashIcon } from "lucide-react"
+import Link from "next/link"
 
 interface Detail {
   label: string
@@ -8,6 +9,7 @@ interface Detail {
 
 interface DetailsCardProps {
   title?: string
+  url: string
   details: Detail[]
   onEdit?: () => void
   onDelete?: () => void
@@ -16,48 +18,47 @@ interface DetailsCardProps {
 
 const DetailsCard = ({
   title,
+  url,
   details,
   onEdit,
   onDelete,
-  customActions,
 }: DetailsCardProps) => {
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-xl flex flex-col justify-between w-full max-w-full">
-      {title && (
-        <h2 className="text-lg font-semibold mb-4 text-gray-800">{title}</h2>
-      )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm mb-4 break-words">
-        {details.map((detail, index) => (
-          <React.Fragment key={index}>
-            <div className="font-medium text-gray-600">{detail.label}:</div>
-            <div className="text-gray-800 min-w-0">{detail.value}</div>
-          </React.Fragment>
-        ))}
-      </div>
-
-      {(onEdit || onDelete || customActions) && (
-        <div className="flex justify-end flex-wrap gap-2 mt-4">
-          {customActions}
-          {onEdit && (
-            <Button
-              onClick={onEdit}
-              className="bg-gray-800 hover:bg-gray-700 text-white"
-            >
-              Edit
-            </Button>
-          )}
-          {onDelete && (
-            <Button
-              onClick={onDelete}
-              className="bg-gray-800 hover:bg-gray-700 text-white"
-            >
-              Delete
-            </Button>
+    <>
+      <div className="flex justify-between w-full h-8">
+        <div className="flex">
+          {title && (
+            <Link href={url} className="flex text-gray-800 cursor-pointer">
+              <ArrowLeft />
+              {title}
+            </Link>
           )}
         </div>
-      )}
-    </div>
+      </div>
+
+      <div className="bg-white rounded-2xl p-5 shadow-xl flex flex-col justify-between border">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm mb-4 break-words">
+          {details.map((detail, index) => (
+            <React.Fragment key={index}>
+              <div className="font-medium text-gray-600">{detail.label}:</div>
+              <div className="text-gray-800 min-w-0">{detail.value}</div>
+            </React.Fragment>
+          ))}
+        </div>
+        <div className="flex gap-4 justify-end">
+          <Edit
+            size={14}
+            onClick={onEdit}
+            className="text-gray-400 hover:text-gray-800 cursor-pointer"
+          />
+          <TrashIcon
+            size={14}
+            onClick={onDelete}
+            className="text-gray-400 hover:text-gray-800 cursor-pointer"
+          />
+        </div>
+      </div>
+    </>
   )
 }
 
