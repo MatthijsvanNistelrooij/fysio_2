@@ -102,6 +102,19 @@ export default function PetForm({ initialData = {}, onSubmit }: PetFormProps) {
       </div>
 
       <div>
+        <label htmlFor="age" className="block font-semibold">
+          Description
+        </label>
+        <input
+          id="description"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          className="border p-2 w-full rounded"
+        />
+      </div>
+
+      <div>
         <label htmlFor="notes" className="block font-semibold">
           Notes
         </label>

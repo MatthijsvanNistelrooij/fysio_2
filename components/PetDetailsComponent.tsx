@@ -132,7 +132,10 @@ export default function PetDetailsComponent({
           details={[
             { label: "Name", value: pet.name },
             { label: "Type", value: pet.type },
+            { label: "Breed", value: pet.breed },
+            { label: "Description", value: pet.description },
             { label: "Age", value: pet.age ?? "Unknown" },
+            { label: "Notes", value: pet.notes },
           ]}
           onEdit={handleEditToggle}
           onDelete={() => handleDelete(pet.$id)}

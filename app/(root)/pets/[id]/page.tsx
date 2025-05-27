@@ -18,6 +18,8 @@ const PetDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
     name: rawPet?.name,
     type: rawPet?.type,
     age: rawPet?.age,
+    breed: rawPet?.breed,
+    notes: rawPet?.notes,
     description: rawPet?.description,
     appointments: rawPet?.appointments ?? [],
   }

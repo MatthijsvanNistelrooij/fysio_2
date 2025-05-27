@@ -22,25 +22,27 @@ const DetailsCard = ({
   customActions,
 }: DetailsCardProps) => {
   return (
-    <div className="bg-white rounded p-5 flex flex-col justify-between min-w-[200px]">
-      {title && <h2 className="text-lg font-semibold mb-4">{title}</h2>}
+    <div className="bg-white rounded-2xl p-5 shadow-xl flex flex-col justify-between w-full max-w-full">
+      {title && (
+        <h2 className="text-lg font-semibold mb-4 text-gray-800">{title}</h2>
+      )}
 
-      <div className="grid grid-cols-2 gap-2 text-sm mb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm mb-4 break-words">
         {details.map((detail, index) => (
           <React.Fragment key={index}>
             <div className="font-medium text-gray-600">{detail.label}:</div>
-            <div className="text-gray-800">{detail.value}</div>
+            <div className="text-gray-800 min-w-0">{detail.value}</div>
           </React.Fragment>
         ))}
       </div>
 
       {(onEdit || onDelete || customActions) && (
-        <div className="flex justify-end gap-2 mt-4">
+        <div className="flex justify-end flex-wrap gap-2 mt-4">
           {customActions}
           {onEdit && (
             <Button
               onClick={onEdit}
-              className="cursor-pointer bg-gray-800 hover:bg-gray-700"
+              className="bg-gray-800 hover:bg-gray-700 text-white"
             >
               Edit
             </Button>
@@ -48,7 +50,7 @@ const DetailsCard = ({
           {onDelete && (
             <Button
               onClick={onDelete}
-              className="cursor-pointer bg-gray-800 hover:bg-gray-700"
+              className="bg-gray-800 hover:bg-gray-700 text-white"
             >
               Delete
             </Button>
