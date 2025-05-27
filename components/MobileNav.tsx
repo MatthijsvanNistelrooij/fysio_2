@@ -26,7 +26,11 @@ export const MobileNav = ({ avatar }: Props) => {
         <nav className="flex flex-row justify-between w-full">
           <div className="mt-2 flex flex-row">
             {navItems.map((item) => {
-              const isActive = pathname.includes(item.url)
+              const isActive =
+                (item.url === "/clients" &&
+                  (pathname.includes("/clients") ||
+                    pathname.includes("/pets"))) ||
+                (pathname.startsWith(item.url) && item.url !== "/clients")
               return (
                 <Link
                   key={item.name}
@@ -50,10 +54,7 @@ export const MobileNav = ({ avatar }: Props) => {
             })}
           </div>
           <div>
-            <Button
-              className="cursor-pointer mt-2 p-2"
-              onClick={handleSignOut}
-            >
+            <Button className="cursor-pointer mt-2 p-2" onClick={handleSignOut}>
               Sign Out
             </Button>
           </div>
