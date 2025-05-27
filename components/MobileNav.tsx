@@ -8,9 +8,7 @@ import { signOutUser } from "@/lib/user.actions"
 import {
   CalendarRange,
   Contact,
-  LogOut,
   LogOutIcon,
-  LucideAirVent,
 } from "lucide-react"
 
 interface Props {
