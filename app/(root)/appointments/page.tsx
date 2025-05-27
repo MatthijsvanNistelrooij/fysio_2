@@ -59,7 +59,7 @@ const Appointments = () => {
   console.log("appointments  here", appointments)
 
   return (
-    <div className="h-screen flex justify-center bg-gray-50 p-1">
+    <div className="h-screen flex justify-center bg-gray-50">
       <div className="main-container bg-white max-w-7xl w-full border rounded-3xl m-5">
         <MyCalendar events={events} setEvents={setEvents} />
       </div>
