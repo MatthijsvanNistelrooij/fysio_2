@@ -105,7 +105,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
           <Link
             href={"/clients"}
-            className="bg-white hover:bg-white text-gray-800 cursor-pointer m-5"
+            className="bg-white hover:bg-white text-gray-800 cursor-pointer m-2"
           >
             <ArrowLeftCircle />
           </Link>
