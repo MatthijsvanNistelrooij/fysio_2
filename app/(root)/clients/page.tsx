@@ -1,18 +1,20 @@
 "use client"
 import React, { useEffect, useState } from "react"
-
 import { useRouter } from "next/navigation"
 import { getCurrentUser } from "@/lib/user.actions"
-
 import Link from "next/link"
 import { HomeIcon, Mail, Phone, PlusCircle } from "lucide-react"
 import { getClientsByUserId } from "@/lib/client.actions"
 import Header from "@/components/Header"
 import { Client, User } from "@/types"
+import { toast } from "sonner"
 
 const Clients = () => {
   const [clients, setClients] = useState<Client[]>([])
   const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState<boolean>(true) // NEW
+
+  const router = useRouter()
 
   useEffect(() => {
     async function fetchUser() {
@@ -26,6 +28,7 @@ const Clients = () => {
     if (!user) return
 
     const fetchClients = async () => {
+      setLoading(true) // start loading
       const data = await getClientsByUserId(user.$id)
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,12 +43,11 @@ const Clients = () => {
       }))
 
       setClients(formattedClients)
+      setLoading(false) // finish loading
     }
 
     fetchClients()
   }, [user])
-
-  const router = useRouter()
 
   const handleTableRowClick = (id: string) => {
     router.push(`/clients/${id}`)
@@ -66,8 +68,12 @@ const Clients = () => {
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="p-5 bg-white max-w-5xl w-full border rounded-3xl m-10">
-        {clients.length === 0 ? (
+      <div className="p-5 bg-white max-w-6xl w-full border rounded-3xl m-10">
+        {loading ? (
+          <div className="flex items-center justify-center h-96 text-gray-400 text-xl">
+            Loading clients...
+          </div>
+        ) : clients.length === 0 ? (
           <div className="flex text-center items-center justify-center h-96 w-full">
             <div className="flex flex-col border p-10 gap-3">
               No clients listed.
@@ -84,7 +90,7 @@ const Clients = () => {
             <div className="w-full flex justify-between">
               <Header />
               <Link
-                className="p-2 rounded-xl hover:text-gray-800 text-gray-200 font-bold transition"
+                className="p-2 rounded-xl hover:text-gray-800 text-gray-400 font-bold transition"
                 href="/create"
               >
                 <PlusCircle />
@@ -105,27 +111,45 @@ const Clients = () => {
 
                   <div className="flex justify-between w-full">
                     <div className="flex">
-                      <div className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100">
+                      <div
+                        className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100"
+                        onClick={() => {
+                          navigator.clipboard.writeText(client.address)
+                          toast.success("Address copied to clipboard!")
+                        }}
+                      >
                         <HomeIcon
                           size={18}
                           className="text-xs text-gray-300 m-1"
                         />
                         {client.address}
                       </div>
-                      <div className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100">
+                      <div
+                        className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100"
+                        onClick={() => {
+                          navigator.clipboard.writeText(client.phone)
+                          toast.success("Phone number copied to clipboard!")
+                        }}
+                      >
                         <Phone
                           size={18}
                           className="text-xs text-gray-300 m-1"
                         />
                         {client.phone}
                       </div>
-                      <div className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100">
+                      <div
+                        className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100"
+                        onClick={() => {
+                          navigator.clipboard.writeText(client.email)
+                          toast.success("Email copied to clipboard!")
+                        }}
+                      >
                         <Mail size={18} className="text-xs text-gray-300 m-1" />
                         {client.email}
                       </div>
                     </div>
 
-                    <div className="mt-1 ">
+                    <div className="mt-1">
                       {client.pets.length ? (
                         <div className="flex gap-2 mr-2">
                           {client.pets.map((pet) => (

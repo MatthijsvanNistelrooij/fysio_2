@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useState } from "react"
 import { Button } from "./ui/button"
-import { Mail, Phone, Plus, X } from "lucide-react"
+import { ArrowLeftCircle, Mail, Phone, Plus } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
 import { toast } from "sonner"
 
@@ -77,10 +77,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     }
   }
 
-  const handleClick = () => {
-    router.push("/clients")
-  }
-
   if (edit) {
     return (
       <div className="main-container p-6">
@@ -117,12 +113,12 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               {client.email}
             </div>
           </div>
-          <Button
-            className="bg-white hover:bg-white text-gray-800 cursor-pointer"
-            onClick={handleClick}
+          <Link
+            href={"/clients"}
+            className="bg-white hover:bg-white text-gray-800 cursor-pointer m-5"
           >
-            <X />
-          </Button>
+            <ArrowLeftCircle />
+          </Link>
         </div>
       </div>
 

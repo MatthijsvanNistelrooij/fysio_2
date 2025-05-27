@@ -7,7 +7,7 @@ import { Button } from "./ui/button"
 import { deleteAppointment, updateAppointment } from "@/lib/appointment.actions"
 import AppointmentForm from "./AppointmentForm"
 import { toast } from "sonner"
-import { X } from "lucide-react"
+import { ArrowLeftCircle, X } from "lucide-react"
 import { Appointment } from "@/types"
 import Link from "next/link"
 
@@ -54,7 +54,7 @@ export default function AppointmentDetailsComponent({
   if (edit) {
     return (
       <div className="min-h-screen flex justify-center bg-gray-50">
-        <div className="main-container p-10 bg-white max-w-5xl w-full border rounded-3xl m-10">
+        <div className="main-container p-10 bg-white max-w-6xl w-full border rounded-3xl m-10">
           <div className="flex justify-between">
             <h1 className="text-xl font-bold mb-4">Edit Appointment</h1>
             <Button
@@ -74,10 +74,10 @@ export default function AppointmentDetailsComponent({
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="main-container p-1 bg-white max-w-5xl w-full border rounded-3xl m-10">
+      <div className="main-container p-1 bg-white max-w-6xl w-full border rounded-3xl m-10">
         <div className="flex w-full justify-end p-2">
           <Link href={`/pets/${appointment.petId}`}>
-            <X />
+            <ArrowLeftCircle />
           </Link>
         </div>
 

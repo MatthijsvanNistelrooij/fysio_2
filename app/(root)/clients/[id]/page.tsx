@@ -1,6 +1,5 @@
 import ClientDetailsComponent from "@/components/ClientDetailsComponent"
 import { getClientById } from "@/lib/client.actions"
-
 import { notFound } from "next/navigation"
 
 interface Props {
@@ -17,10 +16,8 @@ const ClientDetails = async ({ params }: Props) => {
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="bg-white max-w-5xl w-full border rounded-3xl m-10">
-
-          <ClientDetailsComponent client={client} />
-
+      <div className="bg-white max-w-6xl w-full border rounded-3xl m-10">
+        <ClientDetailsComponent client={client} />
       </div>
     </div>
   )

@@ -60,7 +60,7 @@ const Appointments = () => {
 
   return (
     <div className="h-screen flex justify-center bg-gray-50">
-      <div className="main-container p-10 bg-white max-w-5xl w-full border rounded-3xl m-10">
+      <div className="main-container p-10 bg-white max-w-6xl w-full border rounded-3xl m-10">
         <MyCalendar events={events} setEvents={setEvents} />
       </div>
     </div>

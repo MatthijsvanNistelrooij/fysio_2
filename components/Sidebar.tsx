@@ -16,6 +16,8 @@ interface Props {
 export const Sidebar = ({ fullName, email }: Props) => {
   const pathname = usePathname()
 
+  console.log(pathname)
+
   const handleSignOut = () => {
     signOutUser()
   }
@@ -25,7 +27,11 @@ export const Sidebar = ({ fullName, email }: Props) => {
       <div className=" flex flex-col justify-between h-full">
         <div className="flex flex-col h-full gap-2 p-4">
           {navItems.map((item) => {
-            const isActive = pathname.includes(item.url)
+            const isActive =
+              (item.url === "/clients" &&
+                (pathname.includes("/clients") ||
+                  pathname.includes("/pets"))) ||
+              (pathname.startsWith(item.url) && item.url !== "/clients")
             return (
               <Link
                 key={item.name}
