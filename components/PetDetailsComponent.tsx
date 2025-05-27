@@ -100,7 +100,7 @@ export default function PetDetailsComponent({
   if (edit) {
     return (
       <div className="min-h-screen flex justify-center bg-gray-50">
-        <div className="main-container p-10 bg-white max-w-6xl w-full border rounded-3xl m-10">
+        <div className="main-container p-10 bg-white max-w-7xl w-full border rounded-3xl m-5">
           <div className="flex justify-between">
             <h1 className="text-xl font-bold mb-4">Edit Pet</h1>
             <Button
@@ -120,12 +120,13 @@ export default function PetDetailsComponent({
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="main-container p-1 bg-white max-w-6xl w-full border rounded-3xl m-10">
+      <div className="main-container p-1 bg-white max-w-7xl w-full border rounded-3xl m-5">
         <div className="flex w-full justify-end p-2">
           <Link href={`/clients/${pet.ownerId}`}>
             <ArrowLeftCircle />
           </Link>
         </div>
+
         <DetailsCard
           title="Pet Info"
           details={[

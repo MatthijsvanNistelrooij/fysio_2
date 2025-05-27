@@ -67,14 +67,14 @@ const Clients = () => {
   }
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="p-5 bg-white max-w-6xl w-full border rounded-3xl m-10">
+    <div className="min-h-screen flex justify-center bg-gray-50 p-5">
+      <div className="p-5 bg-white max-w-7xl w-full border rounded-3xl">
         {loading ? (
           <div className="flex items-center justify-center h-96 text-gray-400 text-xl">
             Loading clients...
           </div>
         ) : clients.length === 0 ? (
-          <div className="flex text-center items-center justify-center h-96 w-full">
+          <div className="flex text-center items-center max-w-7xl justify-center h-96 w-full">
             <div className="flex flex-col border p-10 gap-3">
               No clients listed.
               <Link
@@ -86,7 +86,7 @@ const Clients = () => {
             </div>
           </div>
         ) : (
-          <>
+          <div className="">
             <div className="w-full flex justify-between">
               <Header />
               <Link
@@ -96,23 +96,26 @@ const Clients = () => {
                 <PlusCircle />
               </Link>
             </div>
-            <div className="flex flex-col w-full gap-2 pt-4">
+            <div className="flex flex-col w-full gap-2">
               {clients.map((client) => (
                 <div
-                  className="p-1 rounded-2xl bg-white text-white flex shadow-xl"
                   key={client.$id}
+                  className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-2"
                 >
+                  {/* Client name */}
                   <div
-                    className="bg-gray-800 rounded-xl hover:bg-gray-700 p-2 py-1 flex justify-start w-40 cursor-pointer"
+                    className="bg-gray-800 rounded-xl hover:bg-gray-700 p-2 py-1 cursor-pointer w-full sm:w-40"
                     onClick={() => handleTableRowClick(client.$id)}
                   >
                     {client.name}
                   </div>
 
-                  <div className="flex justify-between w-full">
-                    <div className="flex">
+                  {/* Info + pets */}
+                  <div className="flex flex-col gap-2 w-full">
+                    {/* Address / Phone / Email */}
+                    <div className="flex flex-wrap gap-2">
                       <div
-                        className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100"
+                        className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1"
                         onClick={() => {
                           navigator.clipboard.writeText(client.address)
                           toast.success("Address copied to clipboard!")
@@ -125,7 +128,7 @@ const Clients = () => {
                         {client.address}
                       </div>
                       <div
-                        className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100"
+                        className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1"
                         onClick={() => {
                           navigator.clipboard.writeText(client.phone)
                           toast.success("Phone number copied to clipboard!")
@@ -138,7 +141,7 @@ const Clients = () => {
                         {client.phone}
                       </div>
                       <div
-                        className="ml-2 p-1 rounded-xl text-gray-600 flex w-40 bg-gray-100"
+                        className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1"
                         onClick={() => {
                           navigator.clipboard.writeText(client.email)
                           toast.success("Email copied to clipboard!")
@@ -149,21 +152,20 @@ const Clients = () => {
                       </div>
                     </div>
 
-                    <div className="mt-1">
+                    {/* Pets */}
+                    <div className="flex flex-wrap gap-2">
                       {client.pets.length ? (
-                        <div className="flex gap-2 mr-2">
-                          {client.pets.map((pet) => (
-                            <Link
-                              key={pet.$id}
-                              href={`/pets/${pet.$id}`}
-                              className={`shadow text-gray-800 rounded-xl px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
-                                pet.type
-                              )}`}
-                            >
-                              {pet.name}
-                            </Link>
-                          ))}
-                        </div>
+                        client.pets.map((pet) => (
+                          <Link
+                            key={pet.$id}
+                            href={`/pets/${pet.$id}`}
+                            className={`shadow text-gray-800 rounded-xl px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
+                              pet.type
+                            )}`}
+                          >
+                            {pet.name}
+                          </Link>
+                        ))
                       ) : (
                         <div>-</div>
                       )}
@@ -172,7 +174,7 @@ const Clients = () => {
                 </div>
               ))}
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

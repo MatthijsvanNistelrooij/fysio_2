@@ -54,7 +54,7 @@ export default function AppointmentDetailsComponent({
   if (edit) {
     return (
       <div className="min-h-screen flex justify-center bg-gray-50">
-        <div className="main-container p-10 bg-white max-w-6xl w-full border rounded-3xl m-10">
+        <div className="main-container p-5 bg-white max-w-7xl w-full border rounded-3xl m-5">
           <div className="flex justify-between">
             <h1 className="text-xl font-bold mb-4">Edit Appointment</h1>
             <Button
@@ -74,7 +74,7 @@ export default function AppointmentDetailsComponent({
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="main-container p-1 bg-white max-w-6xl w-full border rounded-3xl m-10">
+      <div className="main-container p-1 bg-white max-w-7xl w-full border rounded-3xl m-5">
         <div className="flex w-full justify-end p-2">
           <Link href={`/pets/${appointment.petId}`}>
             <ArrowLeftCircle />

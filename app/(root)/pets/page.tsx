@@ -60,7 +60,7 @@ const Pets = () => {
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="main-container p-6 bg-white max-w-6xl w-full">
+      <div className="main-container p-6 bg-white max-w-7xl w-full">
         <h1 className="text-xl font-bold mb-4">Pets</h1>
 
         <Table>

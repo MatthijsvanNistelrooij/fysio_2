@@ -10,7 +10,7 @@ const Create = async () => {
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="main-container p-8 py-5 bg-white max-w-6xl w-full border rounded-3xl m-10">
+      <div className="main-container p-8 py-5 bg-white max-w-7xl w-full border rounded-3xl m-5">
         <CreateForm {...currentUser} />
       </div>
     </div>
