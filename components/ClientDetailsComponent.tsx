@@ -99,16 +99,14 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     <>
       <div className="rounded-t-2xl text-white flex" key={client.$id}>
         <div className="flex justify-between w-full">
-          <div className="bg-gray-800 p-2 py-1 flex justify-start w-40 rounded-tl-xl">
-            {client.name}
+          <div className="flex w-full justify-end p-1">
+            <Link
+              href={`/clients`}
+              className="bg-white hover:bg-white text-gray-800 cursor-pointer m-2"
+            >
+              <ArrowLeftCircle />
+            </Link>
           </div>
-
-          <Link
-            href={"/clients"}
-            className="bg-white hover:bg-white text-gray-800 cursor-pointer m-2"
-          >
-            <ArrowLeftCircle />
-          </Link>
         </div>
       </div>
 
