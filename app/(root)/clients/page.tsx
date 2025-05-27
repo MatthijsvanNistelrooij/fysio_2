@@ -9,12 +9,14 @@ import Header from "@/components/Header"
 import { Client, User } from "@/types"
 import { toast } from "sonner"
 import CreateForm from "@/components/CreateForm"
+import { Input } from "@/components/ui/input"
 
 const Clients = () => {
   const [clients, setClients] = useState<Client[]>([])
   const [user, setUser] = useState<User | null>(null)
   const [edit, setEdit] = useState(false)
   const [loading, setLoading] = useState<boolean>(true)
+  const [search, setSearch] = useState("")
 
   const [show, setShow] = useState(false)
 
@@ -83,6 +85,16 @@ const Clients = () => {
     setEdit((prev) => !prev)
   }
 
+  const filteredClients = clients.filter((client) => {
+    const term = search.toLowerCase()
+    return (
+      client.name.toLowerCase().includes(term) ||
+      client.email.toLowerCase().includes(term) ||
+      client.phone.toLowerCase().includes(term) ||
+      client.address.toLowerCase().includes(term)
+    )
+  })
+
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
       <div className="p-5 pt-6 max-w-7xl w-full rounded-3xl">
@@ -105,7 +117,12 @@ const Clients = () => {
         ) : (
           <div className="">
             <div className="w-full flex justify-between mb-4">
-              <Header />
+              <Input
+                className="bg-white mr-8"
+                placeholder="Search by name, email, phone, or address..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
               {edit ? (
                 <X
                   onClick={handleToggleEdit}
@@ -119,7 +136,6 @@ const Clients = () => {
               )}
             </div>
             <div className="relative min-h-[400px]">
-              {/* Create Form */}
               <div
                 className={`absolute inset-0 transition-all duration-500 ${
                   edit && show
@@ -130,7 +146,6 @@ const Clients = () => {
                 <CreateForm {...user} />
               </div>
 
-              {/* Client List */}
               <div
                 className={`transition-all duration-500 ${
                   !edit && !show
@@ -138,7 +153,7 @@ const Clients = () => {
                     : "opacity-0 -translate-y-2 pointer-events-none"
                 }`}
               >
-                {clients.map((client) => (
+                {filteredClients.map((client) => (
                   <div
                     key={client.$id}
                     className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4 mb-3"
