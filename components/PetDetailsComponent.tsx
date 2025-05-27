@@ -114,7 +114,7 @@ export default function PetDetailsComponent({
     <div className="min-h-screen flex justify-center bg-gray-50">
       <div className="max-w-7xl w-full rounded-3xl m-5">
         <DetailsCard
-          title="/client"
+          title="client"
           details={[
             { label: "Name", value: pet.name },
             { label: "Type", value: pet.type },

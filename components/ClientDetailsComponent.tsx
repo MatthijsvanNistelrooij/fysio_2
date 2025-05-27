@@ -97,7 +97,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   return (
     <>
       <DetailsCard
-        title="/clients"
+        title="clients"
         details={[
           { label: "Name", value: client.name },
           { label: "Email", value: client.email },
