@@ -22,7 +22,7 @@ export const MobileNav = ({ avatar }: Props) => {
 
   return (
     <div className="flex flex-col justify-between w-full text-black p-4 shadow">
-      <div className="flex flex-row gap-3">
+      <div className="flex flex-row gap-2">
         <nav className="flex flex-row justify-between w-full">
           <div className="mt-2 flex flex-row">
             {navItems.map((item) => {
@@ -35,7 +35,7 @@ export const MobileNav = ({ avatar }: Props) => {
                 <Link
                   key={item.name}
                   href={item.url}
-                  className={`p-2 rounded-xl hover:text-gray-800 hover:shadow font-bold transition w-15 ${
+                  className={`p-2 rounded-xl hover:text-gray-800 hover:shadow font-bold transition w-10 ml-2 ${
                     isActive ? "" : "text-gray-400"
                   }`}
                   style={{
