@@ -19,6 +19,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   const [edit, setEdit] = useState(false)
 
+  console.log("client", client)
+
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this client?"
@@ -83,7 +85,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           <h1 className="text-xl font-bold mb-4">Edit Client</h1>
           <X onClick={handleEditToggle} className="b cursor-pointer" />
         </div>
-        <ClientForm initialData={client} onSubmit={handleUpdate} />
+        <ClientForm
+          initialData={client}
+          onSubmit={handleUpdate}
+          userId={client.userId}
+        />
       </div>
     )
   }

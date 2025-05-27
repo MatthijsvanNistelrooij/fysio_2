@@ -75,10 +75,10 @@ const Clients = () => {
           </div>
         ) : clients.length === 0 ? (
           <div className="flex text-center items-center max-w-7xl justify-center h-96 w-full">
-            <div className="flex flex-col border p-10 gap-3">
+            <div className="flex flex-col  p-10 gap-3">
               No clients listed.
               <Link
-                className="border bg-gray-600 hover:bg-gray-700 rounded-md p-2 text-white"
+                className="border bg-gray-800 hover:bg-gray-700 rounded-md p-2 text-white"
                 href="/create"
               >
                 Create new Client

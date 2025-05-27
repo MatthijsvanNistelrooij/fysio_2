@@ -25,11 +25,11 @@ const DetailsCard = ({
 }: DetailsCardProps) => {
   return (
     <>
-      <div className="flex justify-between w-full h-8">
+      <div className="flex justify-between w-full">
         <div className="flex">
           {title && (
-            <Link href={url} className="flex text-gray-800 cursor-pointer">
-              <ArrowLeft />
+            <Link href={url} className="flex text-gray-800 mb-2 cursor-pointer">
+              <ArrowLeft size={14} className="m-1 mt-1.5" />
               {title}
             </Link>
           )}

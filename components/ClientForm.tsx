@@ -7,12 +7,14 @@ import { Client } from "@/types"
 
 interface ClientFormProps {
   initialData?: Partial<Client>
+  userId: string
   onSubmit: (data: Client) => Promise<void>
 }
 
 export default function ClientForm({
   initialData = {},
   onSubmit,
+  userId,
 }: ClientFormProps) {
   const [formData, setFormData] = useState({
     $id: initialData.$id || "",
@@ -21,7 +23,7 @@ export default function ClientForm({
     phone: initialData.phone || "",
     address: initialData.address || "",
     pets: initialData.pets || [],
-    userId: initialData.$id || "",
+    userId: userId,
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
