@@ -5,7 +5,13 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { signOutUser } from "@/lib/user.actions"
-import { CalendarRange, Contact } from "lucide-react"
+import {
+  CalendarRange,
+  Contact,
+  LogOut,
+  LogOutIcon,
+  LucideAirVent,
+} from "lucide-react"
 
 interface Props {
   fullName: string
@@ -54,8 +60,12 @@ export const MobileNav = ({ avatar }: Props) => {
             })}
           </div>
           <div>
-            <Button className="cursor-pointer mt-2 p-2" onClick={handleSignOut}>
-              Sign Out
+            <Button
+              className="bg-transparent rounded-xl hover:bg-white cursor-pointer mt-2 text-gray-400 hover:text-gray-800 border shadow shadow-purple-200"
+              onClick={handleSignOut}
+
+            >
+              <LogOutIcon className="transform rotate-180" />
             </Button>
           </div>
         </nav>
