@@ -22,7 +22,7 @@ const DetailsCard = ({
   customActions,
 }: DetailsCardProps) => {
   return (
-    <div className="bg-white rounded p-5 flex flex-col justify-between min-w-[400px]">
+    <div className="bg-white rounded p-5 flex flex-col justify-between min-w-[200px]">
       {title && <h2 className="text-lg font-semibold mb-4">{title}</h2>}
 
       <div className="grid grid-cols-2 gap-2 text-sm mb-4">

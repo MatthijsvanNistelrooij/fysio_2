@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useState } from "react"
 import { Button } from "./ui/button"
-import { ArrowLeftCircle, Mail, Phone, Plus } from "lucide-react"
+import { ArrowLeftCircle, Plus } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
 import { toast } from "sonner"
 
@@ -98,21 +98,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   return (
     <>
       <div className="rounded-t-2xl text-white flex" key={client.$id}>
-        <div className="bg-gray-800 p-2 py-1 flex justify-start w-40 rounded-tl-xl">
-          {client.name}
-        </div>
-
         <div className="flex justify-between w-full">
-          <div className="flex">
-            <div className="bg-white ml-2 p-1 rounded-xl text-gray-600 flex w-40 ">
-              <Phone className="text-xs text-gray-300" />
-              {client.phone}
-            </div>
-            <div className="bg-white ml-2 p-1 rounded-xl text-gray-600 flex w-40 ">
-              <Mail className="text-xs text-gray-300" />
-              {client.email}
-            </div>
+          <div className="bg-gray-800 p-2 py-1 flex justify-start w-40 rounded-tl-xl">
+            {client.name}
           </div>
+
           <Link
             href={"/clients"}
             className="bg-white hover:bg-white text-gray-800 cursor-pointer m-5"
