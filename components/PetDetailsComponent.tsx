@@ -102,10 +102,8 @@ export default function PetDetailsComponent({
         <div className="p-5 max-w-7xl w-full rounded-3xl">
           <div className="flex justify-between">
             <h1 className="text-xl font-bold mb-4">Edit Pet</h1>
-
             <X onClick={handleEditToggle} className="cursor-pointer" />
           </div>
-
           <PetForm initialData={pet} onSubmit={handleUpdate} />
         </div>
       </div>
@@ -116,7 +114,7 @@ export default function PetDetailsComponent({
     <div className="min-h-screen flex justify-center bg-gray-50">
       <div className="max-w-7xl w-full rounded-3xl m-5">
         <DetailsCard
-          title="client info"
+          title="/client"
           details={[
             { label: "Name", value: pet.name },
             { label: "Type", value: pet.type },

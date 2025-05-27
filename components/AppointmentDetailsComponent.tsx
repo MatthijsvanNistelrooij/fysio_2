@@ -69,7 +69,7 @@ export default function AppointmentDetailsComponent({
     <div className="min-h-screen flex justify-center bg-gray-50">
       <div className="max-w-7xl w-full m-5">
         <DetailsCard
-          title="pet"
+          title="/pet"
           details={[
             { label: "Description", value: appointment.description },
             { label: "Treatment", value: appointment.treatment },

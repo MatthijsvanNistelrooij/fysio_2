@@ -64,7 +64,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     try {
       const petResponse = await createPet({
         ...data,
-        ownerId: data.ownerId, // if this is meant to be the clientId
+        ownerId: data.ownerId, 
       })
 
       await addPetToClient(data.ownerId, petResponse.$id)
@@ -97,7 +97,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   return (
     <>
       <DetailsCard
-        title="clients"
+        title="/clients"
         details={[
           { label: "Name", value: client.name },
           { label: "Email", value: client.email },
