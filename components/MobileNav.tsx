@@ -3,26 +3,14 @@ import React from "react"
 import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { Button } from "./ui/button"
 import { signOutUser } from "@/lib/user.actions"
-import {
-  CalendarRange,
-  Contact,
-  LogOutIcon,
-} from "lucide-react"
+import { CalendarRange, Contact, LogOutIcon } from "lucide-react"
 
-interface Props {
-  fullName: string
-  avatar: string
-  email: string
-}
-
-export const MobileNav = ({ avatar }: Props) => {
+export const MobileNav = () => {
   const pathname = usePathname()
   const handleSignOut = () => {
     signOutUser()
   }
-  console.log(avatar)
 
   return (
     <div className="flex flex-col justify-between w-full text-black p-4 shadow">
@@ -58,13 +46,13 @@ export const MobileNav = ({ avatar }: Props) => {
             })}
           </div>
           <div>
-            <Button
-              className="bg-transparent rounded-xl hover:bg-white cursor-pointer mt-2 text-gray-400 hover:text-gray-800 border shadow shadow-purple-200"
+            <Link
+              href={"/"}
+              className="rounded-xl hover:text-gray-800 text-gray-400 hover:shadow font-bold transition"
               onClick={handleSignOut}
-
             >
-              <LogOutIcon className="transform rotate-180" />
-            </Button>
+              <LogOutIcon className="transform rotate-180 mt-4" />
+            </Link>
           </div>
         </nav>
       </div>
