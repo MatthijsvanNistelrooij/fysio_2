@@ -15,6 +15,7 @@ import CreateAppointmentForm from "./CreateAppointmentForm"
 import { toast } from "sonner"
 import { Appointment, Pet, User } from "@/types"
 import { getCurrentUser } from "@/lib/user.actions"
+import { Button } from "./ui/button"
 
 export default function PetDetailsComponent({
   pet,
@@ -134,16 +135,19 @@ export default function PetDetailsComponent({
             <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
           </div>
           <div className="flex justify-end p-5 gap-2">
-            <Edit
-              size={18}
-              className="text-gray-400 hover:text-gray-800 cursor-pointer"
+            <Button
               onClick={handleEditToggle}
-            />
-            <Trash
-              size={18}
-              className="text-gray-400 hover:text-gray-800 cursor-pointer"
+              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+            >
+              <Edit size={18} />
+            </Button>
+
+            <Button
               onClick={() => handleDelete(pet.$id)}
-            />
+              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+            >
+              <Trash size={18} />
+            </Button>
           </div>
           <div className="border-t p-5">
             {addAppointment && user ? (

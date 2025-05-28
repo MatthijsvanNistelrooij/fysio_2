@@ -54,7 +54,7 @@ export default function ClientForm({
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="border-none shadow-none rounded-xl text-white"
+                className="border-none shadow-none rounded-xl text-white p-0"
               />
             </div>
 
@@ -85,13 +85,13 @@ export default function ClientForm({
                 className="border-none shadow-none rounded-xl p-0"
               />
             </div>
-            <div className="mt-2">
-              <X
-                size={18}
-                className="text-gray-400 hover:text-gray-800 cursor-pointer"
-                onClick={() => setEdit?.(false)}
-              />
-            </div>
+
+            <Button
+              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+              onClick={() => setEdit?.(false)}
+            >
+              <X size={18} />
+            </Button>
           </div>
           <div className="flex justify-end gap-2 mt-2">
             <Button

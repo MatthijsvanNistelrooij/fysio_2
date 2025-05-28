@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   CalendarRange,
   Contact,
@@ -38,6 +38,7 @@ import {
 } from "@/lib/appointment.actions"
 import AppointmentForm from "./AppointmentForm"
 import PetForm from "./PetForm"
+import { Button } from "./ui/button"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ClientDetailsComponent({ client }: { client: any }) {
@@ -373,11 +374,12 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 <Mail size={18} className="text-xs text-gray-300 m-1" />
                 <div className="ml-1">{client.email}</div>
               </div>
-              <Edit
-                size={20}
+              <Button
                 onClick={handleEditToggle}
-                className="text-gray-400 hover:text-gray-800 cursor-pointer mt-1.5"
-              />
+                className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+              >
+                <Edit size={20} />
+              </Button>
             </div>
           )}
         </div>
@@ -410,7 +412,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
               <div className="space-y-1">
                 {editPet ? (
-                  <div className="max-w-3xl">
+                  <div className="">
                     <PetForm
                       initialData={selectedPet}
                       onSubmit={handleUpdatePet}
@@ -418,47 +420,66 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     />
                   </div>
                 ) : (
-                  <div className="p-1">
-                    <div className="p-4">
-                      <p className="text-sm font-medium mb-1">Name:</p>
-                      <p className="text-base mb-4">
-                        {selectedPet?.name || "N/A"}
-                      </p>
-                      <p className="text-sm font-medium mb-1">Type:</p>
-                      <p className="text-base mb-4">
-                        {selectedPet?.type || "N/A"}
-                      </p>
-                      <p className="text-sm font-medium mb-1">Breed:</p>
-                      <p className="text-base mb-4">
-                        {selectedPet?.breed || "N/A"}
-                      </p>
-                      <p className="text-sm font-medium mb-1">Age:</p>
-                      <p className="text-base mb-4">
-                        {selectedPet?.age || "N/A"}
-                      </p>
-                      <p className="text-sm font-medium mb-1">Description:</p>
-                      <p className="text-base mb-4">
-                        {selectedPet?.description || "N/A"}
-                      </p>
-                      <p className="text-sm font-medium mb-1">Notes:</p>
-                      <p className="text-base mb-4">
-                        {selectedPet?.notes || "N/A"}
-                      </p>
+                  <div className="">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5">
+                      <div className="p-5 pt-2">
+                        <p className="text-sm font-medium mb-1">Name:</p>
+                        <p className="text-base mb-4">
+                          {selectedPet?.name || "N/A"}
+                        </p>
+
+                        <p className="text-sm font-medium mb-1">Type:</p>
+                        <p className="text-base mb-4">
+                          {selectedPet?.type || "N/A"}
+                        </p>
+
+                        <p className="text-sm font-medium mb-1">Breed:</p>
+                        <p className="text-base mb-4">
+                          {selectedPet?.breed || "N/A"}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="text-sm font-medium mb-1">Age:</p>
+                        <p className="text-base mb-4">
+                          {selectedPet?.age || "N/A"}
+                        </p>
+                        <p className="text-sm font-medium mb-1">Description:</p>
+                        <p className="text-base mb-4">
+                          {selectedPet?.description || "N/A"}
+                        </p>
+
+                        <p className="text-sm font-medium mb-1">Notes:</p>
+                        <p className="text-base mb-4">
+                          {selectedPet?.notes || "N/A"}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
 
                 <div className="flex justify-end gap-2 p-5">
-                  <Edit
-                    size={18}
-                    className="text-gray-400 hover:text-gray-800 cursor-pointer"
-                    onClick={() => handleToggleUpdatePet()}
-                  />
-                  <Trash
-                    size={18}
-                    className="text-gray-400 hover:text-gray-800 cursor-pointer"
+                  {editPet ? (
+                    <Button
+                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                      onClick={() => handleToggleUpdatePet()}
+                    >
+                      <X size={18} />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => handleToggleUpdatePet()}
+                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Edit size={18} />
+                    </Button>
+                  )}
+                  <Button
                     onClick={() => handleDeletePet(selectedPet.$id)}
-                  />
+                    className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                  >
+                    <Trash size={18} />
+                  </Button>
                 </div>
                 {openAppointment ? (
                   <div
@@ -586,7 +607,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
                           {selectedPet.appointments.map(
                             (appointment: Appointment, index) => (
-                              <>
+                              <React.Fragment key={appointment.$id || index}>
                                 <div
                                   key={appointment.$id || index}
                                   onClick={() =>
@@ -612,7 +633,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                     </p>
                                   </div>
                                 </div>
-                              </>
+                              </React.Fragment>
                             )
                           )}
                         </div>
