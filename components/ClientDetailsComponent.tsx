@@ -445,7 +445,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
                 {openAppointment ? (
                   <div
-                    className={`w-full bg-white overflow-hidden border inset-0 z-10 fixed transform transition-all duration-500 ${
+                    className={`w-full bg-white overflow-hidden border inset-0 z-10 p-10 fixed transform transition-all duration-500 ${
                       openAppointment
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95 py-0"
@@ -501,8 +501,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
                           <div className="w-full md:w-48 flex flex-col justify-center items-center">
                             <Image
-                              width={200}
-                              height={200}
+                              width={40}
+                              height={40}
                               src={image}
                               alt="Appointment"
                               className="w-full h-auto max-h-48 object-cover shadow"
