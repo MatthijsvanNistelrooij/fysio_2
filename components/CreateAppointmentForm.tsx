@@ -90,9 +90,7 @@ export default function CreateAppointmentForm({
       </div>
 
       <div>
-        <label htmlFor="treatment" className="block font-semibold">
-          Treatment
-        </label>
+
         <input
           id="treatment"
           name="treatment"

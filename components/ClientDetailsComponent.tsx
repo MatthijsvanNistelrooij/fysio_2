@@ -332,7 +332,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             <div className="flex flex-col lg:flex-row gap-2 w-full ">
               <div
                 className="p-1 bg-gray-800 rounded-xl min-w-[140px] flex-1 text-white flex"
-                onClick={handleEditToggle}
+                onClick={() => {
+                  navigator.clipboard.writeText(client.name)
+                  toast.success("Client name copied to clipboard!")
+                }}
               >
                 <Contact size={18} className="text-xs text-gray-300 m-1" />
                 <div className="text-sm mt-1 ml-1">{client.name}</div>
@@ -370,6 +373,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 <Mail size={18} className="text-xs text-gray-300 m-1" />
                 <div className="ml-1">{client.email}</div>
               </div>
+              <Edit
+                size={20}
+                onClick={handleEditToggle}
+                className="text-gray-400 hover:text-gray-800 cursor-pointer mt-1.5"
+              />
             </div>
           )}
         </div>
@@ -406,6 +414,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     <PetForm
                       initialData={selectedPet}
                       onSubmit={handleUpdatePet}
+                      handleClose={handleToggleUpdatePet}
                     />
                   </div>
                 ) : (
@@ -517,10 +526,12 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             {selectedAppointment && (
                               <div className="flex w-full mt-5 justify-end gap-3">
                                 <Edit
+                                  size={20}
                                   onClick={handleEditToggleAppointment}
                                   className="cursor-pointer text-gray-400 hover:text-gray-800"
                                 />
                                 <Trash
+                                  size={20}
                                   onClick={() =>
                                     handleDeleteAppointment(
                                       selectedAppointment.$id
@@ -562,7 +573,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <>
                         <div className="text-gray-800 font-semibold flex flex-col md:flex-row">
                           <Button
-                            className="bg-white text-gray-500 hover:bg-gray-100 border p-2 m-2 cursor-pointer"
+                            className="bg-white text-gray-500 hover:bg-gray-100 border p-2 m-2 cursor-pointer rounded"
                             onClick={() => handleToggleAddAppointment()}
                           >
                             Add Appointment
@@ -576,7 +587,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                 onClick={() =>
                                   handleSelectAppointment(appointment)
                                 }
-                                className="bg-white text-gray-500 hover:bg-gray-100 border p-2 m-2 cursor-pointer"
+                                className="bg-white text-gray-500 hover:bg-gray-100 border p-2 m-2 cursor-pointer rounded"
                               >
                                 <CalendarRange size={18} />
                                 {appointment?.date

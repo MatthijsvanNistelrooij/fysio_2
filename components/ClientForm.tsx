@@ -86,10 +86,10 @@ export default function ClientForm({
               />
             </div>
             <div className="mt-2">
-              <Trash
+              <X
                 size={18}
-                onClick={() => handleDelete(formData.$id)}
                 className="text-gray-400 hover:text-gray-800 cursor-pointer"
+                onClick={() => setEdit?.(false)}
               />
             </div>
           </div>
@@ -101,10 +101,10 @@ export default function ClientForm({
               <Check />
             </Button>
             <Button
-              onClick={() => setEdit?.(false)}
               className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+              onClick={() => handleDelete(formData.$id)}
             >
-              <X />
+              <Trash size={18} />
             </Button>
           </div>
         </div>

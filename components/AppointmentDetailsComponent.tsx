@@ -86,7 +86,10 @@ export default function AppointmentDetailsComponent({
             </div>
 
             <Link href={`/pets/${appointment.petId}`}>
-              <X size={20} className="cursor-pointer text-gray-400 hover:text-gray-200 m-2" />
+              <X
+                size={20}
+                className="cursor-pointer text-gray-400 hover:text-gray-200 m-2"
+              />
             </Link>
           </div>
           <div className="flex flex-col md:flex-row bg-white border p-5 gap-6">
@@ -101,7 +104,7 @@ export default function AppointmentDetailsComponent({
             ) : (
               <div className="flex w-full">
                 <div className="flex-1 text-gray-800">
-                  <p className="text-sm font-medium mb-1">Description 2:</p>
+                  <p className="text-sm font-medium mb-1">Description:</p>
                   <p className="text-base mb-4">{appointment?.description}</p>
 
                   <p className="text-sm font-medium mb-1">Treatment:</p>
@@ -117,15 +120,15 @@ export default function AppointmentDetailsComponent({
                     className="w-full h-auto max-h-48 object-cover shadow"
                   />
 
-                  <div className="flex mt-5">
+                  <div className="flex mt-5 gap-2">
                     <Edit
-                    size={20}
+                      size={20}
                       className="cursor-pointer text-gray-400 hover:text-gray-800"
                       onClick={handleEditToggle}
                     />
 
                     <Trash
-                    size={20}
+                      size={20}
                       onClick={() => handleDelete(appointment.$id)}
                       className="cursor-pointer text-gray-400 hover:text-gray-800"
                     />

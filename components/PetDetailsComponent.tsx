@@ -15,6 +15,7 @@ import CreateAppointmentForm from "./CreateAppointmentForm"
 import { toast } from "sonner"
 import { Appointment, Pet, User } from "@/types"
 import { getCurrentUser } from "@/lib/user.actions"
+import { Button } from "./ui/button"
 
 export default function PetDetailsComponent({
   pet,
@@ -99,108 +100,116 @@ export default function PetDetailsComponent({
     return (
       <div className="min-h-screen flex justify-center bg-gray-50">
         <div className="p-5 max-w-7xl w-full rounded-3xl">
-          <div className="flex justify-between">
-            <h1 className="text-xl font-bold mb-4">Edit Pet</h1>
-            <X
-              onClick={handleEditToggle}
-              className="cursor-pointer text-gray-400 hover:text-gray-800"
-            />
-          </div>
-          <PetForm initialData={pet} onSubmit={handleUpdate} />
+
+          <PetForm initialData={pet} onSubmit={handleUpdate} handleClose={handleEditToggle} />
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="max-w-7xl w-full rounded-3xl m-5">
-        <div>{pet.name}</div>
-        <div>{pet.age}</div>
-        <div className="flex">
-          <Trash onClick={() => handleDelete(pet.$id)} />
-          <Edit onClick={handleEditToggle} />
-        </div>
-
-        {/* <DetailsCard
-          title="client"
-          details={[
-            { label: "Name", value: pet.name },
-            { label: "Type", value: pet.type },
-            { label: "Breed", value: pet.breed },
-            { label: "Description", value: pet.description },
-            { label: "Age", value: pet.age ?? "Unknown" },
-            { label: "Notes", value: pet.notes },
-          ]}
-          url={`/clients/${pet.ownerId}`}
-          onEdit={handleEditToggle}
-          onDelete={() => handleDelete(pet.$id)}
-        /> */}
-
-        <div className="mt-5 p-1">
-          <div className="flex justify-between">
-            <h2 className="text-xl font-semibold mb-2">Appointments</h2>
-            {addAppointment ? (
-              <X
-                onClick={() => handleToggleAddAppointment()}
-                className="cursor-pointer text-gray-400 hover:text-gray-800"
-              />
-            ) : (
-              <Plus
-                onClick={() => handleToggleAddAppointment()}
-                className="cursor-pointer text-gray-400 hover:text-gray-800"
-              />
-            )}
+    <>
+      <div className="flex justify-center bg-gray-50">
+        <div className="max-w-7xl w-full rounded m-5 bg-white shadow-xl">
+          <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between items-center">
+            <span>{pet.name}</span>
+            <Link href={`/clients`}>
+              <X className="cursor-pointer text-gray-400 hover:text-gray-200" />
+            </Link>
           </div>
-
-          {addAppointment && user ? (
-            <div>
-              <CreateAppointmentForm
-                userId={user.$id}
-                petId={pet.$id}
-                onSubmit={(data) => handleCreate(pet.$id, pet.ownerId, data)}
-              />
-            </div>
-          ) : (
-            <div>
-              {Array.isArray(appointments) && appointments.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
-                  {appointments.map(
-                    (appointment: Appointment, index: number) => (
-                      <Link
-                        key={appointment.$id || index}
-                        href={`/appointments/${appointment.$id}`}
-                        className="block rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
-                      >
-                        <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
-                          {new Date(appointment.date).toLocaleDateString(
-                            "en-US",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            }
-                          )}
-                        </div>
-                        <div className="p-4 space-y-1">
-                          <p className="text-gray-800 font-semibold">
-                            Description: {appointment.description}
-                          </p>
-                          <p className="text-gray-500 font-light">
-                            Treatment: {appointment.treatment}
-                          </p>
-                        </div>
-                      </Link>
-                    )
-                  )}
-                </div>
+          <div className="p-5">
+            <p className="text-sm font-medium mb-1">Name:</p>
+            <p className="text-base mb-4">{pet?.name || "N/A"}</p>
+            <p className="text-sm font-medium mb-1">Type:</p>
+            <p className="text-base mb-4">{pet?.type || "N/A"}</p>
+            <p className="text-sm font-medium mb-1">Breed:</p>
+            <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
+            <p className="text-sm font-medium mb-1">Age:</p>
+            <p className="text-base mb-4">{pet?.age || "N/A"}</p>
+            <p className="text-sm font-medium mb-1">Description:</p>
+            <p className="text-base mb-4">{pet?.description || "N/A"}</p>
+            <p className="text-sm font-medium mb-1">Notes:</p>
+            <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
+          </div>
+          <div className="flex justify-end p-5 gap-2">
+            <Edit
+              size={18}
+              className="text-gray-400 hover:text-gray-800 cursor-pointer"
+              onClick={handleEditToggle}
+            />
+            <Trash
+              size={18}
+              className="text-gray-400 hover:text-gray-800 cursor-pointer"
+              onClick={() => handleDelete(pet.$id)}
+            />
+          </div>
+          <div className="border-t p-5">
+            <div className="flex justify-between">
+              {addAppointment ? (
+                <X
+                  onClick={() => handleToggleAddAppointment()}
+                  className="cursor-pointer text-gray-400 hover:text-gray-800"
+                />
               ) : (
-                <p className="text-gray-500">No appointments listed.</p>
+                <Button
+                  className="bg-white border rounded text-gray-800 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => handleToggleAddAppointment()}
+                >
+                  Add Appointment
+                  <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />
+                </Button>
               )}
             </div>
-          )}
+
+            {addAppointment && user ? (
+              <div>
+                <CreateAppointmentForm
+                  userId={user.$id}
+                  petId={pet.$id}
+                  onSubmit={(data) => handleCreate(pet.$id, pet.ownerId, data)}
+                />
+              </div>
+            ) : (
+              <div>
+                {Array.isArray(appointments) && appointments.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+                    {appointments.map(
+                      (appointment: Appointment, index: number) => (
+                        <Link
+                          key={appointment.$id || index}
+                          href={`/appointments/${appointment.$id}`}
+                          className="block rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
+                        >
+                          <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                            {new Date(appointment.date).toLocaleDateString(
+                              "en-US",
+                              {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
+                          </div>
+                          <div className="p-4 space-y-1">
+                            <p className="text-gray-800 font-semibold">
+                              Description: {appointment.description}
+                            </p>
+                            <p className="text-gray-500 font-light">
+                              Treatment: {appointment.treatment}
+                            </p>
+                          </div>
+                        </Link>
+                      )
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-gray-500"></p>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
