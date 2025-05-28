@@ -310,7 +310,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <div className="p-3 pb-5 rounded-2xl ">
+      <div className="p-1 pb-5 rounded-2xl ">
         <div className="mb-6">
           {edit ? (
             <div>
