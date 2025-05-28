@@ -445,13 +445,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
                 {openAppointment ? (
                   <div
-                    className={`w-full bg-white overflow-hidden border inset-0 z-10 p-5 fixed transform transition-all duration-500 ${
+                    className={`w-full bg-white overflow-hidden inset-0 z-10 p-2 fixed ${
                       openAppointment
                         ? "opacity-100 scale-100"
-                        : "opacity-0 scale-95 py-0"
+                        : "opacity-0 scale-85 py-0"
                     }`}
                   >
-                    <div className="flex justify-between bg-gray-800 rounded-t">
+                    <div className="flex justify-between bg-gray-800">
                       <div className="text-white p-2 px-4 text-sm flex gap-2">
                         <CalendarRange size={18} />
                         Date:&nbsp;
@@ -472,7 +472,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         className="text-gray-400 cursor-pointer hover:text-gray-700 m-2"
                       />
                     </div>
-                    <div className="flex flex-col md:flex-row bg-white shadow p-5 gap-6">
+                    <div className="flex flex-col md:flex-row bg-white border p-5 gap-6">
                       {editAppointment ? (
                         <div className="flex justify-between w-full">
                           <AppointmentForm
@@ -499,7 +499,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             </p>
                           </div>
 
-                          <div className="flex flex-col justify-center items-center">
+                          <div className="flex flex-col">
                             <Image
                               width={40}
                               height={40}
