@@ -445,7 +445,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
                 {openAppointment ? (
                   <div
-                    className={`w-full bg-white overflow-hidden border inset-0 z-10 p-10 fixed transform transition-all duration-500 ${
+                    className={`w-full bg-white overflow-hidden border inset-0 z-10 p-5 fixed transform transition-all duration-500 ${
                       openAppointment
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95 py-0"
