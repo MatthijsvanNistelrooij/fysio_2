@@ -52,20 +52,6 @@ export default function AppointmentDetailsComponent({
     }
   }
 
-  if (edit) {
-    return (
-      <div className="w-full bg-white overflow-hidden inset-0 z-10 p-2 fixed">
-        <div className="main-container w-full p-5">
-          <AppointmentForm
-            initialData={appointment}
-            onSubmit={handleUpdate}
-            onClick={handleEditToggle}
-          />
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
       <div className="w-full bg-white overflow-hidden inset-0 z-10 p-2 fixed">

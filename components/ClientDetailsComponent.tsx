@@ -501,7 +501,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         <div className="flex w-full">
                           <div className="flex-1 text-gray-800">
                             <p className="text-sm font-medium mb-1">
-                              Description 2:
+                              Description:
                             </p>
                             <p className="text-base mb-4">
                               {selectedAppointment?.description || "N/A"}
