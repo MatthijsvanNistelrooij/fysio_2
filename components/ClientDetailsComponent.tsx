@@ -47,7 +47,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const [editAppointment, setEditAppointment] = useState(false)
   const [user, setUser] = useState<User | null>(null)
   const [localClient, setLocalClient] = useState<Client>(client)
-
   const [addAppointment, setAddAppointment] = useState(false)
   const [editPet, setEditPet] = useState(false)
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
@@ -308,6 +307,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     }
   }
 
+  const handleCloseAddPet = () => {
+    setAddPet(false)
+    setSelectedPet(null)
+    setOpenAppointment(false)
+    setSelectedAppointment(null)
+  }
+
   return (
     <>
       <div className="p-1 pb-5 rounded-2xl ">
@@ -319,6 +325,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 userId={user.$id}
                 onSubmit={handleUpdate}
                 setEdit={setEdit}
+                handleDelete={handleDeleteClient}
               />
             </div>
           ) : (
@@ -369,28 +376,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
         <div className="mt-10 p-1">
           {addPet ? (
-            <div className="">
-              <div className="flex justify-end">
-                {(addPet || selectedPet) && (
-                  <X
-                    onClick={() => {
-                      setAddPet(false)
-                      setSelectedPet(null)
-                      setOpenAppointment(false)
-                      setSelectedAppointment(null)
-                    }}
-                    className="cursor-pointer text-gray-400 hover:text-gray-400"
-                  />
-                )}
-              </div>
-              <AddPetForm clientId={client.$id} onSubmit={handleCreate} />
-            </div>
+            <AddPetForm
+              clientId={client.$id}
+              onSubmit={handleCreate}
+              handleClose={handleCloseAddPet}
+            />
           ) : selectedPet ? (
-            <div
-              className={`shadow-xl text-gray-800 rounded bg-white ${getPetColorClass(
-                selectedPet.type
-              )}`}
-            >
+            <div className={`shadow-xl text-gray-800 rounded bg-white `}>
               <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between mt-5">
                 {selectedPet.name}
                 <div className="flex justify-end">
@@ -410,42 +402,58 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
               <div className="space-y-1">
                 {editPet ? (
-                  <div>
+                  <div className="max-w-3xl">
                     <PetForm
                       initialData={selectedPet}
                       onSubmit={handleUpdatePet}
                     />
                   </div>
                 ) : (
-                  <div className="p-5">
-                    <p className="text-sm font-medium mb-1">
-                      Age: {selectedPet.age}
-                    </p>
-                    <p className="text-base mb-4">
-                      {selectedPet?.age || "N/A"}
-                    </p>
-                    <p className="text-sm font-medium mb-1">
-                      Type: {selectedPet.type}
-                    </p>
-                    <p className="text-base mb-4">
-                      {selectedPet?.type || "N/A"}
-                    </p>
-                    <p className="text-sm font-medium mb-1">
-                      Breed: {selectedPet.breed}
-                    </p>
-                    <p className="text-base mb-4">
-                      {selectedPet?.breed || "N/A"}
-                    </p>
-                    <p className="text-sm font-medium mb-1">Description:</p>
-                    <p className="text-base mb-4">
-                      {selectedPet?.description || "N/A"}
-                    </p>
+                  <div className="p-1">
+                    <div className="p-4">
+                      <p className="text-sm font-medium mb-1">Name:</p>
+                      <p className="text-base mb-4">
+                        {selectedPet?.name || "N/A"}
+                      </p>
+                      <p className="text-sm font-medium mb-1">Type:</p>
+                      <p className="text-base mb-4">
+                        {selectedPet?.type || "N/A"}
+                      </p>
+                      <p className="text-sm font-medium mb-1">Breed:</p>
+                      <p className="text-base mb-4">
+                        {selectedPet?.breed || "N/A"}
+                      </p>
+                      <p className="text-sm font-medium mb-1">Age:</p>
+                      <p className="text-base mb-4">
+                        {selectedPet?.age || "N/A"}
+                      </p>
+                      <p className="text-sm font-medium mb-1">Description:</p>
+                      <p className="text-base mb-4">
+                        {selectedPet?.description || "N/A"}
+                      </p>
+                      <p className="text-sm font-medium mb-1">Notes:</p>
+                      <p className="text-base mb-4">
+                        {selectedPet?.notes || "N/A"}
+                      </p>
+                    </div>
                   </div>
                 )}
 
+                <div className="flex justify-end gap-2 p-5">
+                  <Edit
+                    size={18}
+                    className="text-gray-400 hover:text-gray-800 cursor-pointer"
+                    onClick={() => handleToggleUpdatePet()}
+                  />
+                  <Trash
+                    size={18}
+                    className="text-gray-400 hover:text-gray-800 cursor-pointer"
+                    onClick={() => handleDeletePet(selectedPet.$id)}
+                  />
+                </div>
                 {openAppointment ? (
                   <div
-                    className={`w-full bg-white overflow-hidden inset-0 z-10 p-2 fixed ${
+                    className={`w-full bg-white overflow-hidden inset-0 z-10 fixed p-2 ${
                       openAppointment
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-85 py-0"
@@ -465,11 +473,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             })
                           : "N/A"}
                       </div>
-
                       <X
                         size={20}
                         onClick={handleCloseAppointment}
-                        className="text-gray-400 cursor-pointer hover:text-gray-700 m-2"
+                        className="text-gray-400 cursor-pointer hover:text-gray-200 m-2"
                       />
                     </div>
                     <div className="flex flex-col md:flex-row bg-white border p-5 gap-6">
@@ -585,16 +592,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             )
                           )}
                         </div>
-                        <div className="flex justify-end gap-2 p-5">
-                          <Edit
-                            className="text-gray-400 hover:text-gray-800 cursor-pointer"
-                            onClick={() => handleToggleUpdatePet()}
-                          />
-                          <Trash
-                            className="text-gray-400 hover:text-gray-800 cursor-pointer"
-                            onClick={() => handleDeletePet(selectedPet.$id)}
-                          />
-                        </div>
                       </>
                     )}
                   </div>
@@ -638,13 +635,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               ))}
             </div>
           )}
-        </div>
-
-        <div className="flex justify-end mt-10">
-          <Trash
-            onClick={() => handleDeleteClient(client.$id)}
-            className="text-gray-400 hover:text-gray-800 cursor-pointer"
-          />
         </div>
       </div>
     </>

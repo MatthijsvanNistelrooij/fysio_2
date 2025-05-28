@@ -4,6 +4,14 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 import { Pet } from "@/types"
+import { Input } from "./ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select"
 
 interface PetFormProps {
   initialData?: Partial<Pet>
@@ -39,91 +47,100 @@ export default function PetForm({ initialData = {}, onSubmit }: PetFormProps) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 rounded-xl shadow-xl"
-    >
+    <form onSubmit={handleSubmit} className="space-y-2 bg-white p-5 rounded">
       <div>
-        <label htmlFor="name" className="block font-semibold">
+        <label htmlFor="name" className="text-sm font-medium mb-1">
           Name
         </label>
-        <input
+        <Input
           id="name"
           name="name"
           type="text"
+          placeholder="name"
           value={formData.name}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border p-1 w-full rounded"
           required
         />
       </div>
 
       <div>
-        <label htmlFor="type" className="block font-semibold">
+        <label htmlFor="type" className="text-sm font-medium mb-1">
           Type
         </label>
-        <input
-          id="type"
-          name="type"
-          type="text"
+        <Select
           value={formData.type}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
-          required
-        />
+          onValueChange={(value) =>
+            setFormData((prev) => ({ ...prev, type: value }))
+          }
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select pet type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Dog">Dog</SelectItem>
+            <SelectItem value="Cat">Cat</SelectItem>
+            <SelectItem value="Horse">Horse</SelectItem>
+            <SelectItem value="Other">Other</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       <div>
-        <label htmlFor="breed" className="block font-semibold">
+        <label htmlFor="breed" className="text-sm font-medium mb-1">
           Breed
         </label>
-        <input
+        <Input
           id="breed"
           name="breed"
           type="text"
+          placeholder="breed"
           value={formData.breed}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border p-1 w-full rounded"
         />
       </div>
 
       <div>
-        <label htmlFor="age" className="block font-semibold">
+        <label htmlFor="age" className="text-sm font-medium mb-1">
           Age
         </label>
-        <input
+        <Input
           id="age"
           name="age"
+          placeholder="age"
           type="number"
           value={formData.age}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border p-1 w-full rounded"
         />
       </div>
 
       <div>
-        <label htmlFor="age" className="block font-semibold">
+        <label htmlFor="age" className="text-sm font-medium mb-1">
           Description
         </label>
-        <input
+        <Input
           id="description"
           name="description"
+          placeholder="description"
           value={formData.description}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border p-1 w-full rounded"
         />
       </div>
 
       <div>
-        <label htmlFor="notes" className="block font-semibold">
+        <label htmlFor="notes" className="text-sm font-medium mb-1">
           Notes
         </label>
         <textarea
           id="notes"
           name="notes"
+          placeholder="notes"
           value={formData.notes}
           onChange={handleChange}
-          className="border p-2 w-full rounded resize-none"
+          className="border p-1 w-full rounded resize-none"
           rows={3}
         />
       </div>

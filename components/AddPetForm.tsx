@@ -17,6 +17,7 @@ interface AddPetFormProps {
   initialData?: Pet
   clientId: string
   onSubmit: (data: Pet) => Promise<void>
+  handleClose: () => void
 }
 
 export default function AddPetForm({
@@ -31,6 +32,7 @@ export default function AddPetForm({
   },
   clientId,
   onSubmit,
+  handleClose,
 }: AddPetFormProps) {
   const [formData, setFormData] = useState<Pet>({
     ownerId: clientId || "",
@@ -61,16 +63,19 @@ export default function AddPetForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white rounded shadow-xl -mt-1"
+      className="space-y-5 bg-white rounded shadow-xl mt-5"
     >
       <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between">
         Add New Pet
-        <X className="text-gray-200" />
+        <X
+          className="cursor-pointer text-gray-400 hover:text-gray-200"
+          onClick={handleClose}
+        />
       </div>
 
-      <div className="p-4">
+      <div className="space-y-4 p-4 max-w-3xl">
         <div className="">
-          <label htmlFor="name" className="block font-semibold">
+          <label htmlFor="name" className="text-sm font-medium mb-1">
             Name
           </label>
           <input
@@ -79,13 +84,13 @@ export default function AddPetForm({
             type="text"
             value={formData.name}
             onChange={handleChange}
-            className="border p-2 w-full rounded"
+            className="border p-1 w-full rounded"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="type" className="block font-semibold mb-1">
+          <label htmlFor="type" className="text-sm font-medium mb-1">
             Type
           </label>
           <Select
@@ -108,7 +113,7 @@ export default function AddPetForm({
         </div>
 
         <div>
-          <label htmlFor="age" className="block font-semibold">
+          <label htmlFor="age" className="text-sm font-medium mb-1">
             Age
           </label>
           <input
@@ -117,12 +122,12 @@ export default function AddPetForm({
             type="text"
             value={formData.age}
             onChange={handleChange}
-            className="border p-2 w-full rounded"
+            className="border p-1 w-full rounded"
           />
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end p-4">
         <Button
           type="submit"
           className="bg-white hover:bg-gray-100 text-gray-900 cursor-pointer"

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Check, Contact, HomeIcon, Mail, Phone, X } from "lucide-react"
+import { Check, Contact, HomeIcon, Mail, Phone, Trash, X } from "lucide-react"
 import { Client } from "@/types"
 import { Input } from "./ui/input"
 
@@ -11,6 +11,7 @@ interface ClientFormProps {
   userId: string
   setEdit?: (value: boolean) => void // 👈 Add this
   onSubmit: (data: Client) => Promise<void>
+  handleDelete: (id: string) => void
 }
 
 export default function ClientForm({
@@ -18,6 +19,7 @@ export default function ClientForm({
   onSubmit,
   userId,
   setEdit,
+  handleDelete,
 }: ClientFormProps) {
   const [formData, setFormData] = useState({
     $id: initialData.$id || "",
@@ -83,6 +85,13 @@ export default function ClientForm({
                 className="border-none shadow-none rounded-xl p-0"
               />
             </div>
+            <div className="mt-2">
+              <Trash
+                size={18}
+                onClick={() => handleDelete(formData.$id)}
+                className="text-gray-400 hover:text-gray-800 cursor-pointer"
+              />
+            </div>
           </div>
           <div className="flex justify-end gap-2 mt-2">
             <Button
@@ -92,7 +101,7 @@ export default function ClientForm({
               <Check />
             </Button>
             <Button
-              onClick={() => setEdit?.(false)} // 👈 Call it safely (optional chaining)
+              onClick={() => setEdit?.(false)}
               className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
             >
               <X />

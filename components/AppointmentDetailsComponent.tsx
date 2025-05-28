@@ -6,9 +6,11 @@ import { useState } from "react"
 import { deleteAppointment, updateAppointment } from "@/lib/appointment.actions"
 import AppointmentForm from "./AppointmentForm"
 import { toast } from "sonner"
-import { Trash, X } from "lucide-react"
+import { CalendarRange, Edit, Trash, X } from "lucide-react"
 import { Appointment } from "@/types"
 import Link from "next/link"
+import Image from "next/image"
+import image from "../public/logo.png"
 
 export default function AppointmentDetailsComponent({
   appointment,
@@ -52,14 +54,8 @@ export default function AppointmentDetailsComponent({
 
   if (edit) {
     return (
-      <div className="min-h-screen flex justify-center bg-gray-50">
-        <div className="main-container max-w-7xl w-full m-5">
-          <div className="flex justify-between">
-            <h1 className="text-xl font-bold mb-4">Edit Appointment</h1>
-
-            <X onClick={handleEditToggle} className="cursor-pointer" />
-          </div>
-
+      <div className="w-full bg-white overflow-hidden inset-0 z-10 p-2 fixed">
+        <div className="main-container w-full p-5">
           <AppointmentForm
             initialData={appointment}
             onSubmit={handleUpdate}
@@ -72,46 +68,73 @@ export default function AppointmentDetailsComponent({
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="max-w-7xl w-full m-5 border p-5 bg-white rounded-xl shadow-xl">
-        HELLO
-        <div>Descr : {appointment.description}</div>
-        <div>
-          Date :{" "}
-          {appointment.date
-            ? appointment.date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })
-            : "N/A"}
-        </div>
-        <Trash
-          onClick={() => handleDelete(appointment.$id)}
-          className="cursor-pointer text-gray-400 hover:text-gray-800"
-        />
-        <Link href={`/pets/${appointment.petId}`}>
-          <X className="cursor-pointer text-gray-400 hover:text-gray-800" />
-        </Link>
-        {/* <DetailsCard
-          title="pet"
-          details={[
-            { label: "Description", value: appointment.description },
-            { label: "Treatment", value: appointment.treatment },
-            {
-              label: "Date",
-              value: appointment.date
-                ? appointment.date.toLocaleDateString("en-US", {
+      <div className="w-full bg-white overflow-hidden inset-0 z-10 p-2 fixed">
+        <div
+          className={`w-full bg-white overflow-hidden inset-0 z-10 fixed p-2`}
+        >
+          <div className="flex justify-between bg-gray-800">
+            <div className="text-white p-2 px-4 text-sm flex gap-2">
+              <CalendarRange size={18} />
+              Date:&nbsp;
+              {appointment?.date
+                ? new Date(appointment.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                   })
-                : "N/A",
-            },
-          ]}
-          url={`/pets/${appointment.petId}`}
-          onEdit={handleEditToggle}
-          onDelete={() => handleDelete(appointment.$id)}
-        /> */}
+                : "N/A"}
+            </div>
+
+            <Link href={`/pets/${appointment.petId}`}>
+              <X size={20} className="cursor-pointer text-gray-400 hover:text-gray-200 m-2" />
+            </Link>
+          </div>
+          <div className="flex flex-col md:flex-row bg-white border p-5 gap-6">
+            {edit ? (
+              <div className="flex justify-between w-full">
+                <AppointmentForm
+                  initialData={appointment}
+                  onSubmit={handleUpdate}
+                  onClick={handleEditToggle}
+                />
+              </div>
+            ) : (
+              <div className="flex w-full">
+                <div className="flex-1 text-gray-800">
+                  <p className="text-sm font-medium mb-1">Description 2:</p>
+                  <p className="text-base mb-4">{appointment?.description}</p>
+
+                  <p className="text-sm font-medium mb-1">Treatment:</p>
+                  <p className="text-base">{appointment?.treatment}</p>
+                </div>
+
+                <div className="flex flex-col">
+                  <Image
+                    width={40}
+                    height={40}
+                    src={image}
+                    alt="Appointment"
+                    className="w-full h-auto max-h-48 object-cover shadow"
+                  />
+
+                  <div className="flex mt-5">
+                    <Edit
+                    size={20}
+                      className="cursor-pointer text-gray-400 hover:text-gray-800"
+                      onClick={handleEditToggle}
+                    />
+
+                    <Trash
+                    size={20}
+                      onClick={() => handleDelete(appointment.$id)}
+                      className="cursor-pointer text-gray-400 hover:text-gray-800"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )
