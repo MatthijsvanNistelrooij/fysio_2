@@ -61,10 +61,7 @@ export default function CreateAppointmentForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 rounded-xl shadow-xl"
-    >
+    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 shadow-xl">
       <div>
         <input
           id="date"
@@ -90,7 +87,6 @@ export default function CreateAppointmentForm({
       </div>
 
       <div>
-
         <input
           id="treatment"
           name="treatment"

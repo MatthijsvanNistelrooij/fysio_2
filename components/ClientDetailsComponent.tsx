@@ -27,7 +27,7 @@ import { Appointment, Client, Pet, User } from "@/types"
 
 import { getCurrentUser } from "@/lib/user.actions"
 import ClientForm from "./ClientForm"
-import { Button } from "./ui/button"
+
 import Image from "next/image"
 import CreateAppointmentForm from "./CreateAppointmentForm"
 import {
@@ -547,16 +547,16 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                   </div>
                 ) : (
-                  <div className="border-t p-2">
+                  <div className="border-t p-5">
                     {addAppointment ? (
                       <div>
-                        <div className="flex justify-end">
+                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t mt-5 px-4">
+                          Add New Appointment
                           <X
-                            className="cursor-pointer text-gray-400 hover:text-gray-800 m-3"
                             onClick={() => handleToggleAddAppointment()}
+                            className="cursor-pointer text-gray-400 hover:text-gray-200"
                           />
                         </div>
-
                         <CreateAppointmentForm
                           userId={user.$id}
                           petId={selectedPet.$id}
@@ -571,35 +571,48 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       </div>
                     ) : (
                       <>
-                        <div className="text-gray-800 font-semibold flex flex-col md:flex-row">
-                          <Button
-                            className="bg-white text-gray-500 hover:bg-gray-100 border p-2 m-2 cursor-pointer rounded"
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+                          <div
+                            className="cursor-pointer rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
                             onClick={() => handleToggleAddAppointment()}
                           >
-                            Add Appointment
-                            <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />
-                          </Button>
+                            <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                              Add Appointment
+                            </div>
+                            <div className="p-4 flex justify-center">
+                              <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />
+                            </div>
+                          </div>
 
                           {selectedPet.appointments.map(
                             (appointment: Appointment, index) => (
-                              <Button
-                                key={appointment.$id || index}
-                                onClick={() =>
-                                  handleSelectAppointment(appointment)
-                                }
-                                className="bg-white text-gray-500 hover:bg-gray-100 border p-2 m-2 cursor-pointer rounded"
-                              >
-                                <CalendarRange size={18} />
-                                {appointment?.date
-                                  ? new Date(
+                              <>
+                                <div
+                                  key={appointment.$id || index}
+                                  onClick={() =>
+                                    handleSelectAppointment(appointment)
+                                  }
+                                  className="cursor-pointer rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
+                                >
+                                  <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                                    {new Date(
                                       appointment.date
                                     ).toLocaleDateString("en-US", {
                                       year: "numeric",
                                       month: "long",
                                       day: "numeric",
-                                    })
-                                  : "N/A"}
-                              </Button>
+                                    })}
+                                  </div>
+                                  <div className="p-4 space-y-1">
+                                    <p className="text-gray-800 font-semibold">
+                                      Description: {appointment.description}
+                                    </p>
+                                    <p className="text-gray-500 font-light">
+                                      Treatment: {appointment.treatment}
+                                    </p>
+                                  </div>
+                                </div>
+                              </>
                             )
                           )}
                         </div>

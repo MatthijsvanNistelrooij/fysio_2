@@ -15,7 +15,6 @@ import CreateAppointmentForm from "./CreateAppointmentForm"
 import { toast } from "sonner"
 import { Appointment, Pet, User } from "@/types"
 import { getCurrentUser } from "@/lib/user.actions"
-import { Button } from "./ui/button"
 
 export default function PetDetailsComponent({
   pet,
@@ -100,8 +99,11 @@ export default function PetDetailsComponent({
     return (
       <div className="min-h-screen flex justify-center bg-gray-50">
         <div className="p-5 max-w-7xl w-full rounded-3xl">
-
-          <PetForm initialData={pet} onSubmit={handleUpdate} handleClose={handleEditToggle} />
+          <PetForm
+            initialData={pet}
+            onSubmit={handleUpdate}
+            handleClose={handleEditToggle}
+          />
         </div>
       </div>
     )
@@ -144,25 +146,15 @@ export default function PetDetailsComponent({
             />
           </div>
           <div className="border-t p-5">
-            <div className="flex justify-between">
-              {addAppointment ? (
-                <X
-                  onClick={() => handleToggleAddAppointment()}
-                  className="cursor-pointer text-gray-400 hover:text-gray-800"
-                />
-              ) : (
-                <Button
-                  className="bg-white border rounded text-gray-800 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => handleToggleAddAppointment()}
-                >
-                  Add Appointment
-                  <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />
-                </Button>
-              )}
-            </div>
-
             {addAppointment && user ? (
-              <div>
+              <div className="">
+                <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t mt-5 px-4">
+                  Add New Appointment
+                  <X
+                    onClick={() => handleToggleAddAppointment()}
+                    className="cursor-pointer text-gray-400 hover:text-gray-200"
+                  />
+                </div>
                 <CreateAppointmentForm
                   userId={user.$id}
                   petId={pet.$id}
@@ -173,6 +165,17 @@ export default function PetDetailsComponent({
               <div>
                 {Array.isArray(appointments) && appointments.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+                    <div
+                      onClick={() => handleToggleAddAppointment()}
+                      className="cursor-pointer rounded shadow hover:shadow-md hover:bg-gray-100 transition-shadow bg-white text-sm"
+                    >
+                      <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                        Add New Appointment
+                      </div>
+                      <div className="flex justify-center p-5">
+                        <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />{" "}
+                      </div>
+                    </div>
                     {appointments.map(
                       (appointment: Appointment, index: number) => (
                         <Link
