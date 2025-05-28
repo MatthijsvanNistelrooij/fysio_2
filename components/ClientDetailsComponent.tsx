@@ -577,7 +577,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             onClick={() => handleToggleAddAppointment()}
                           >
                             <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
-                              Add Appointment
+                              Add New Appointment
                             </div>
                             <div className="p-4 flex justify-center">
                               <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />
