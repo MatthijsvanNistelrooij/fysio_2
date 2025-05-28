@@ -208,15 +208,14 @@ const Clients = () => {
                       <div className="flex flex-row justify-end gap-2">
                         {client.pets.length ? (
                           client.pets.map((pet) => (
-                            <Link
+                            <div
                               key={pet.$id}
-                              href={`/pets/${pet.$id}`}
-                              className={`shadow text-gray-800 rounded hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
+                              className={`shadow text-gray-800 rounded px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
                                 pet.type
                               )}`}
                             >
                               {pet.name}
-                            </Link>
+                            </div>
                           ))
                         ) : (
                           <div>-</div>
