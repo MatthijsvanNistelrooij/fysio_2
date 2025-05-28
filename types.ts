@@ -4,7 +4,7 @@ export interface Pet {
   age?: string
   type: string
   description: string
-  appointments: []
+  appointments: Appointment[]
   breed?: string
   notes?: string
   ownerId: string

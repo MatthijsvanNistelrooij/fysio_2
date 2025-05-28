@@ -66,15 +66,24 @@ export default function CreateAppointmentForm({
       className="space-y-4 bg-white p-4 rounded-xl shadow-xl"
     >
       <div>
-        <label htmlFor="description" className="block font-semibold">
-          Description
-        </label>
+        <input
+          id="date"
+          name="date"
+          type="date"
+          value={formatDateForInput(formData.date)}
+          onChange={handleChange}
+          className="border p-2 w-full rounded"
+          required
+        />
+      </div>
+      <div>
         <textarea
           id="description"
           name="description"
+          placeholder="description"
           value={formData.description}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border p-2 w-full rounded font-light"
           required
           rows={3}
         />
@@ -88,24 +97,10 @@ export default function CreateAppointmentForm({
           id="treatment"
           name="treatment"
           type="text"
+          placeholder="treatment"
           value={formData.treatment}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
-          required
-        />
-      </div>
-
-      <div>
-        <label htmlFor="date" className="block font-semibold">
-          Date
-        </label>
-        <input
-          id="date"
-          name="date"
-          type="date"
-          value={formatDateForInput(formData.date)}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border p-2 w-full rounded font-light"
           required
         />
       </div>

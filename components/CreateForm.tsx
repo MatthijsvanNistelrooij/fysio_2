@@ -11,10 +11,13 @@ interface Props {
   fullName?: string
   $id?: string
   email?: string
+  edit?: boolean
 }
 
-export const CreateForm = ({ $id }: Props) => {
+export const CreateForm = ({ $id, edit }: Props) => {
   const router = useRouter()
+
+  console.log("onEdit", edit)
 
   const [errors, setErrors] = useState({
     name: "",

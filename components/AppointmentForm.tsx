@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Check } from "lucide-react"
+import { Check, X } from "lucide-react"
 import { Appointment } from "@/types"
 
 interface AppointmentFormProps {
   initialData?: Appointment
   onSubmit: (data: Appointment) => Promise<void>
+  onClick: () => void
 }
 
 export default function AppointmentForm({
@@ -20,6 +21,7 @@ export default function AppointmentForm({
     userId: "",
   },
   onSubmit,
+  onClick,
 }: AppointmentFormProps) {
   const [formData, setFormData] = useState({
     $id: initialData.$id || "",
@@ -65,8 +67,11 @@ export default function AppointmentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 rounded-xl shadow-xl"
+      className="space-y-4 bg-white p-4 rounded-xl shadow-xl w-full"
     >
+      <div className="w-full flex justify-end">
+        <X onClick={onClick} />
+      </div>
       <div>
         <label htmlFor="description" className="block font-semibold">
           Description

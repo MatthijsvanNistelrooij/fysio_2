@@ -3,8 +3,7 @@
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import DetailsCard from "./DetailsCard"
-import { Plus, X } from "lucide-react"
+import { Edit, Plus, Trash, X } from "lucide-react"
 import { deletePet, updatePet } from "@/lib/pet.actions"
 import {
   addAppointmentToPet,
@@ -102,7 +101,10 @@ export default function PetDetailsComponent({
         <div className="p-5 max-w-7xl w-full rounded-3xl">
           <div className="flex justify-between">
             <h1 className="text-xl font-bold mb-4">Edit Pet</h1>
-            <X onClick={handleEditToggle} className="cursor-pointer" />
+            <X
+              onClick={handleEditToggle}
+              className="cursor-pointer text-gray-400 hover:text-gray-800"
+            />
           </div>
           <PetForm initialData={pet} onSubmit={handleUpdate} />
         </div>
@@ -113,7 +115,14 @@ export default function PetDetailsComponent({
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
       <div className="max-w-7xl w-full rounded-3xl m-5">
-        <DetailsCard
+        <div>{pet.name}</div>
+        <div>{pet.age}</div>
+        <div className="flex">
+          <Trash onClick={() => handleDelete(pet.$id)} />
+          <Edit onClick={handleEditToggle} />
+        </div>
+
+        {/* <DetailsCard
           title="client"
           details={[
             { label: "Name", value: pet.name },
@@ -126,7 +135,7 @@ export default function PetDetailsComponent({
           url={`/clients/${pet.ownerId}`}
           onEdit={handleEditToggle}
           onDelete={() => handleDelete(pet.$id)}
-        />
+        /> */}
 
         <div className="mt-5 p-1">
           <div className="flex justify-between">
@@ -134,12 +143,12 @@ export default function PetDetailsComponent({
             {addAppointment ? (
               <X
                 onClick={() => handleToggleAddAppointment()}
-                className="cursor-pointer"
+                className="cursor-pointer text-gray-400 hover:text-gray-800"
               />
             ) : (
               <Plus
                 onClick={() => handleToggleAddAppointment()}
-                className="cursor-pointer"
+                className="cursor-pointer text-gray-400 hover:text-gray-800"
               />
             )}
           </div>

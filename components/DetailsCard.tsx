@@ -2,52 +2,49 @@ import React, { ReactNode } from "react"
 import { ArrowLeft, Edit, TrashIcon } from "lucide-react"
 import Link from "next/link"
 
-interface Detail {
-  label: string
-  value: ReactNode
-}
-
 interface DetailsCardProps {
-  title?: string
-  url: string
-  details: Detail[]
+ url: string
+  details: []
   onEdit?: () => void
   onDelete?: () => void
   customActions?: ReactNode
 }
 
-const DetailsCard = ({ url, details, onEdit, onDelete }: DetailsCardProps) => {
+const DetailsCard = ({
+  url,
+  onEdit,
+  onDelete,
+}: DetailsCardProps) => {
   return (
     <>
-      <div className="bg-white rounded-2xl p-5 shadow-xl flex flex-col justify-between border">
-        <div className="flex justify-end">
-          <Link
-            href={url}
-            className="flex text-gray-800 mb-3 text-sm cursor-pointer"
-          >
-            <ArrowLeft size={14} className="m-1" />
-          </Link>
+      <div className="bg-white">
+        <div className="bg-gray-800 h-8 w-full rounded-t-xl">
+          <div className="flex justify-between">
+            <Link
+              href={url}
+              className="flex text-gray-800 mb-3 text-sm cursor-pointer"
+            >
+              <ArrowLeft
+                size={20}
+                className="m-2 text-gray-400 hover:text-gray-100"
+              />
+            </Link>
+            <div className="flex m-2 gap-2">
+              <Edit
+                size={18}
+                onClick={onEdit}
+                className="text-gray-400 hover:text-gray-100 cursor-pointer"
+              />
+              <TrashIcon
+                size={18}
+                onClick={onDelete}
+                className="text-gray-400 hover:text-gray-100 cursor-pointer"
+              />
+            </div>
+          </div>
         </div>
+        <div className="flex flex-row">
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm mb-4 break-words">
-          {details.map((detail, index) => (
-            <React.Fragment key={index}>
-              <div className="font-medium text-gray-600">{detail.label}:</div>
-              <div className="text-gray-800 min-w-0">{detail.value}</div>
-            </React.Fragment>
-          ))}
-        </div>
-        <div className="flex gap-4 justify-end">
-          <Edit
-            size={14}
-            onClick={onEdit}
-            className="text-gray-400 hover:text-gray-800 cursor-pointer"
-          />
-          <TrashIcon
-            size={14}
-            onClick={onDelete}
-            className="text-gray-400 hover:text-gray-800 cursor-pointer"
-          />
         </div>
       </div>
     </>

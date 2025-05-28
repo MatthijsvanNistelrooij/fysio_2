@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Check } from "lucide-react"
+import { Check, X } from "lucide-react"
 import { petTypes } from "@/constants"
 import {
   Select,
@@ -61,58 +61,65 @@ export default function AddPetForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 rounded-xl shadow-xl"
+      className="space-y-4 bg-white rounded shadow-xl -mt-1"
     >
-      <div>
-        <label htmlFor="name" className="block font-semibold">
-          Name
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
-          required
-        />
+      <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between">
+        Add New Pet
+        <X className="text-gray-200" />
       </div>
 
-      <div>
-        <label htmlFor="type" className="block font-semibold mb-1">
-          Type
-        </label>
-        <Select
-          value={formData.type}
-          onValueChange={(value: string) =>
-            setFormData({ ...formData, type: value })
-          }
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select pet type" />
-          </SelectTrigger>
-          <SelectContent>
-            {petTypes.map((type) => (
-              <SelectItem key={type} value={type}>
-                {type}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <div className="p-4">
+        <div className="">
+          <label htmlFor="name" className="block font-semibold">
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            value={formData.name}
+            onChange={handleChange}
+            className="border p-2 w-full rounded"
+            required
+          />
+        </div>
 
-      <div>
-        <label htmlFor="age" className="block font-semibold">
-          Age
-        </label>
-        <input
-          id="age"
-          name="age"
-          type="text"
-          value={formData.age}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
-        />
+        <div>
+          <label htmlFor="type" className="block font-semibold mb-1">
+            Type
+          </label>
+          <Select
+            value={formData.type}
+            onValueChange={(value: string) =>
+              setFormData({ ...formData, type: value })
+            }
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select pet type" />
+            </SelectTrigger>
+            <SelectContent>
+              {petTypes.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div>
+          <label htmlFor="age" className="block font-semibold">
+            Age
+          </label>
+          <input
+            id="age"
+            name="age"
+            type="text"
+            value={formData.age}
+            onChange={handleChange}
+            className="border p-2 w-full rounded"
+          />
+        </div>
       </div>
 
       <div className="flex justify-end">

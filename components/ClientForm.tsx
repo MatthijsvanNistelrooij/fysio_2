@@ -2,12 +2,14 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Check } from "lucide-react"
+import { Check, Contact, HomeIcon, Mail, Phone, X } from "lucide-react"
 import { Client } from "@/types"
+import { Input } from "./ui/input"
 
 interface ClientFormProps {
   initialData?: Partial<Client>
   userId: string
+  setEdit?: (value: boolean) => void // 👈 Add this
   onSubmit: (data: Client) => Promise<void>
 }
 
@@ -15,6 +17,7 @@ export default function ClientForm({
   initialData = {},
   onSubmit,
   userId,
+  setEdit,
 }: ClientFormProps) {
   const [formData, setFormData] = useState({
     $id: initialData.$id || "",
@@ -39,76 +42,64 @@ export default function ClientForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 rounded-xl shadow-xl"
-    >
-      <div>
-        <label htmlFor="name" className="block font-semibold">
-          Name
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
-          required
-        />
-      </div>
+    <div>
+      <form onSubmit={handleSubmit} className="space-y-4  flex flex-row gap-2">
+        <div className="w-full">
+          <div className="flex flex-col lg:flex-row gap-2 justify-between w-full">
+            <div className="w-full flex bg-gray-800 rounded-xl ">
+              <Contact size={20} className="text-gray-300 m-2" />
+              <Input
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="border-none shadow-none rounded-xl text-white"
+              />
+            </div>
 
-      <div>
-        <label htmlFor="email" className="block font-semibold">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
-          required
-        />
-      </div>
-
-      <div>
-        <label htmlFor="phone" className="block font-semibold">
-          Phone
-        </label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="address" className="block font-semibold">
-          Address
-        </label>
-        <input
-          id="address"
-          name="address"
-          type="text"
-          value={formData.address}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
-        />
-      </div>
-
-      <div className="flex justify-end">
-        <Button
-          type="submit"
-          className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-        >
-          <Check />
-        </Button>
-      </div>
-    </form>
+            <div className="w-full flex bg-gray-100 rounded-xl">
+              <HomeIcon size={20} className="text-gray-300 m-2" />
+              <Input
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="border-none shadow-none rounded-xl p-0"
+              />
+            </div>
+            <div className="w-full flex bg-gray-100 rounded-xl">
+              <Phone size={20} className="text-gray-300 m-2" />
+              <Input
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="border-none shadow-none rounded-xl p-0"
+              />
+            </div>
+            <div className="w-full flex bg-gray-100 rounded-xl">
+              <Mail size={20} className="text-gray-300 m-2" />
+              <Input
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="border-none shadow-none rounded-xl p-0"
+              />
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 mt-2">
+            <Button
+              type="submit"
+              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+            >
+              <Check />
+            </Button>
+            <Button
+              onClick={() => setEdit?.(false)} // 👈 Call it safely (optional chaining)
+              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+            >
+              <X />
+            </Button>
+          </div>
+        </div>
+      </form>
+    </div>
   )
 }

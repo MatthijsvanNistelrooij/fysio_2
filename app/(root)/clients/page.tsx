@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { getCurrentUser } from "@/lib/user.actions"
 import Link from "next/link"
-import { HomeIcon, Mail, Phone, Plus, X } from "lucide-react"
+import { Contact, Edit2, HomeIcon, List, Mail, Phone } from "lucide-react"
 import { getClientsByUserId } from "@/lib/client.actions"
 import { Client, User } from "@/types"
 import { toast } from "sonner"
@@ -122,13 +122,13 @@ const Clients = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              {edit ? (
-                <X
+              {!edit ? (
+                <List
                   onClick={handleToggleEdit}
                   className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
                 />
               ) : (
-                <Plus
+                <Edit2
                   onClick={handleToggleEdit}
                   className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
                 />
@@ -157,30 +157,28 @@ const Clients = () => {
                     key={client.$id}
                     className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4 mb-3"
                   >
-                    <div
-                      className="bg-gray-800 rounded-xl hover:bg-gray-700 p-2 py-1 cursor-pointer w-full sm:w-40"
-                      onClick={() => handleTableRowClick(client.$id)}
-                    >
-                      {client.name}
-                    </div>
-
                     <div className="flex flex-col gap-2 w-full">
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-col md:flex-row gap-2">
                         <div
-                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1"
+                          className="bg-gray-800 p-1 rounded-xl text-white flex items-center w-full cursor-pointer"
+                          onClick={() => handleTableRowClick(client.$id)}
+                        >
+                          <Contact size={18} className=" text-gray-300 m-1" />
+                          <div>{client.name}</div>
+                        </div>
+
+                        <div
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
                           onClick={() => {
                             navigator.clipboard.writeText(client.address)
                             toast.success("Address copied to clipboard!")
                           }}
                         >
-                          <HomeIcon
-                            size={18}
-                            className="text-xs text-gray-300 m-1"
-                          />
+                          <HomeIcon size={18} className=" text-gray-300 m-1" />
                           {client.address}
                         </div>
                         <div
-                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1"
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
                           onClick={() => {
                             navigator.clipboard.writeText(client.phone)
                             toast.success("Phone number copied to clipboard!")
@@ -193,7 +191,7 @@ const Clients = () => {
                           {client.phone}
                         </div>
                         <div
-                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1"
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
                           onClick={() => {
                             navigator.clipboard.writeText(client.email)
                             toast.success("Email copied to clipboard!")
@@ -207,7 +205,7 @@ const Clients = () => {
                         </div>
                       </div>
 
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-row justify-end gap-2">
                         {client.pets.length ? (
                           client.pets.map((pet) => (
                             <Link
