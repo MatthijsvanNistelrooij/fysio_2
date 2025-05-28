@@ -499,7 +499,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             </p>
                           </div>
 
-                          <div className="w-full md:w-48 flex flex-col justify-center items-center">
+                          <div className="flex flex-col justify-center items-center">
                             <Image
                               width={40}
                               height={40}
