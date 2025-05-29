@@ -85,6 +85,7 @@ export default function AppointmentDetailsComponent({
                   initialData={appointment}
                   onSubmit={handleUpdate}
                   onClick={handleEditToggle}
+                  onDelete={handleDelete}
                 />
               </div>
             ) : (

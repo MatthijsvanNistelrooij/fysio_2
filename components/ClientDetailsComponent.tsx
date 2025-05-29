@@ -15,7 +15,7 @@ import {
 } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
 import { toast } from "sonner"
-import image from "../public/logo.png"
+
 import {
   addPetToClient,
   createPet,
@@ -28,7 +28,6 @@ import { Appointment, Client, Pet, User } from "@/types"
 import { getCurrentUser } from "@/lib/user.actions"
 import ClientForm from "./ClientForm"
 
-import Image from "next/image"
 import CreateAppointmentForm from "./CreateAppointmentForm"
 import {
   addAppointmentToPet,
@@ -39,6 +38,7 @@ import {
 import AppointmentForm from "./AppointmentForm"
 import PetForm from "./PetForm"
 import { Button } from "./ui/button"
+import { PetDrawingCanvas } from "./PetDrawingCanvas"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ClientDetailsComponent({ client }: { client: any }) {
@@ -51,6 +51,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const [addAppointment, setAddAppointment] = useState(false)
   const [editPet, setEditPet] = useState(false)
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
+  const [savedImage, setSavedImage] = useState<string | null>(null)
 
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null)
@@ -70,6 +71,23 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   }, [])
 
   if (!user) return
+
+  const handleSave = ({
+    imageDataUrl,
+    drawingJson,
+  }: {
+    imageDataUrl: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    drawingJson: any
+  }) => {
+    console.log("Drawing JSON:", drawingJson)
+    setSavedImage(imageDataUrl)
+
+    // ➕ Upload drawingJson to Appwrite document for the appointment
+    // ➕ Upload imageDataUrl (base64) as a file using Appwrite Storage
+  }
+
+  console.log(savedImage)
 
   const handleDeleteClient = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -510,62 +528,60 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         className="text-gray-400 cursor-pointer hover:text-gray-200 m-2"
                       />
                     </div>
-                    <div className="flex flex-col md:flex-row bg-white border pb-12 p-5 gap-6">
-                      {editAppointment ? (
-                        <div className="flex justify-between w-full">
-                          <AppointmentForm
-                            initialData={selectedAppointment ?? undefined}
-                            onSubmit={handleUpdateAppointment}
-                            onClick={handleEditToggleAppointment}
-                          />
-                        </div>
-                      ) : (
-                        <div className="flex w-full">
-                          <div className="flex-1 text-gray-800">
-                            <p className="text-sm font-medium mb-1">
-                              Description:
-                            </p>
-                            <p className="text-base mb-4">
-                              {selectedAppointment?.description || "N/A"}
-                            </p>
-
-                            <p className="text-sm font-medium mb-1">
-                              Treatment:
-                            </p>
-                            <p className="text-base">
-                              {selectedAppointment?.treatment || "N/A"}
-                            </p>
-                          </div>
-
-                          <div className="flex flex-col">
-                            <Image
-                              width={40}
-                              height={40}
-                              src={image}
-                              alt="Appointment"
-                              className="w-full h-auto max-h-48 object-cover shadow"
+                    <div className="flex flex-col md:flex-row bg-white pb-12 p-5 gap-6">
+                      <div className="flex flex-col w-full justify-between">
+                        <div>
+                          <div className="border w-full">
+                            <PetDrawingCanvas
+                              petType={"horse"}
+                              onSave={handleSave}
                             />
-                            {selectedAppointment && (
-                              <div className="flex w-full mt-5 justify-end gap-3">
-                                <Edit
-                                  size={20}
-                                  onClick={handleEditToggleAppointment}
-                                  className="cursor-pointer text-gray-400 hover:text-gray-800"
-                                />
-                                <Trash
-                                  size={20}
-                                  onClick={() =>
-                                    handleDeleteAppointment(
-                                      selectedAppointment.$id
-                                    )
-                                  }
-                                  className="cursor-pointer text-gray-400 hover:text-gray-800"
-                                />
-                              </div>
-                            )}
                           </div>
                         </div>
-                      )}
+                        <div>
+                          {editAppointment ? (
+                            <div className="flex justify-between w-full mt-5">
+                              <AppointmentForm
+                                initialData={selectedAppointment ?? undefined}
+                                onSubmit={handleUpdateAppointment}
+                                onClick={handleEditToggleAppointment}
+                                onDelete={handleDeleteAppointment}
+                              />
+                            </div>
+                          ) : (
+                            <div className="flex w-full">
+                              <div className="w-full">
+                                {selectedAppointment && (
+                                  <div className="flex w-full mt-5 justify-end gap-3">
+                                    <Button
+                                      onClick={handleEditToggleAppointment}
+                                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                                    >
+                                      <Edit size={20} />
+                                    </Button>
+                                  </div>
+                                )}
+
+                                <div className="">
+                                  <p className="text-sm font-medium mb-1">
+                                    Description:
+                                  </p>
+                                  <p className="text-base mb-4">
+                                    {selectedAppointment?.description || "N/A"}
+                                  </p>
+
+                                  <p className="text-sm font-medium mb-1">
+                                    Treatment:
+                                  </p>
+                                  <p className="text-base">
+                                    {selectedAppointment?.treatment || "N/A"}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -573,7 +589,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     {addAppointment ? (
                       <div>
                         <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t mt-5 px-4">
-                          Add New Appointment
+                          Add Appointment
                           <X
                             onClick={() => handleToggleAddAppointment()}
                             className="cursor-pointer text-gray-400 hover:text-gray-200"
@@ -599,7 +615,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             onClick={() => handleToggleAddAppointment()}
                           >
                             <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
-                              Add New Appointment
+                              Add Appointment
                             </div>
                             <div className="p-4 flex justify-center">
                               <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />
