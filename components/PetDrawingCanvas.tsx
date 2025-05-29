@@ -51,33 +51,9 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
   const handleUndo = () => canvasRef.current?.undo()
 
   return (
-    <div className="flex w-full max-h-[600px] h-full gap-4">
-      <div className="flex flex-col justify-between py-4 px-2 gap-4 w-14">
-        <div className="flex flex-col gap-2">
-          <Button
-            onClick={handleUndo}
-            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
-          >
-            <Recycle />
-          </Button>
-          <Button
-            onClick={handleClear}
-            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
-          >
-            <Eraser />
-          </Button>
-        </div>
-
-        <Button
-          onClick={handleExport}
-          className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
-        >
-          <Check />
-        </Button>
-      </div>
-
-      {/* Right: Canvas */}
-      <div className="relative flex-1 rounded overflow-hidden aspect-video">
+    <div className="flex flex-col w-full p-5 mx-auto max-h-[600px] h-full gap-4">
+      {/* Canvas */}
+      <div className="relative w-full aspect-video max-h-[500px] rounded overflow-hidden">
         <Image
           height={800}
           width={800}
@@ -99,6 +75,30 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
             cursor: "crosshair",
           }}
         />
+      </div>
+
+      <div className="flex justify-between px-2">
+        <div className="flex gap-2">
+          <Button
+            onClick={handleUndo}
+            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+          >
+            <Recycle />
+          </Button>
+          <Button
+            onClick={handleClear}
+            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+          >
+            <Eraser />
+          </Button>
+        </div>
+
+        <Button
+          onClick={handleExport}
+          className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+        >
+          <Check />
+        </Button>
       </div>
     </div>
   )
