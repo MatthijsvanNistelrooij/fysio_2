@@ -317,7 +317,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <div className="p-1 pb-5 rounded-2xl ">
+      <div className="pb-5 rounded-2xl ">
         <div className="mb-6">
           {edit ? (
             <div>
@@ -384,7 +384,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           )}
         </div>
 
-        <div className="mt-10 p-1">
+        <div className="mt-10 ">
           {addPet ? (
             <AddPetForm
               clientId={client.$id}
@@ -421,7 +421,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 ) : (
                   <div className="">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="p-5 pt-2">
                         <p className="text-sm font-medium mb-1">Name:</p>
                         <p className="text-base mb-4">
@@ -439,7 +439,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         </p>
                       </div>
 
-                      <div>
+                      <div className="p-5 pt-2">
                         <p className="text-sm font-medium mb-1">Age:</p>
                         <p className="text-base mb-4">
                           {selectedPet?.age || "N/A"}
@@ -483,7 +483,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 </div>
                 {openAppointment ? (
                   <div
-                    className={`w-full bg-white overflow-hidden inset-0 z-10 fixed p-2 ${
+                    className={`w-full bg-white overflow-hidden inset-0 z-10 fixed p-2  ${
                       openAppointment
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-85 py-0"

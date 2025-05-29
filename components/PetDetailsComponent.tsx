@@ -120,19 +120,28 @@ export default function PetDetailsComponent({
               <X className="cursor-pointer text-gray-400 hover:text-gray-200" />
             </Link>
           </div>
-          <div className="p-5">
-            <p className="text-sm font-medium mb-1">Name:</p>
-            <p className="text-base mb-4">{pet?.name || "N/A"}</p>
-            <p className="text-sm font-medium mb-1">Type:</p>
-            <p className="text-base mb-4">{pet?.type || "N/A"}</p>
-            <p className="text-sm font-medium mb-1">Breed:</p>
-            <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
-            <p className="text-sm font-medium mb-1">Age:</p>
-            <p className="text-base mb-4">{pet?.age || "N/A"}</p>
-            <p className="text-sm font-medium mb-1">Description:</p>
-            <p className="text-base mb-4">{pet?.description || "N/A"}</p>
-            <p className="text-sm font-medium mb-1">Notes:</p>
-            <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
+          <div className="p-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pt-0">
+              {/* LEFT COLUMN */}
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm font-medium mb-1">Name:</p>
+                  <p className="text-base mb-4">{pet?.name || "N/A"}</p>
+                  <p className="text-sm font-medium mb-1">Type:</p>
+                  <p className="text-base mb-4">{pet?.type || "N/A"}</p>
+                  <p className="text-sm font-medium mb-1">Breed:</p>
+                  <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-1">Age:</p>
+                  <p className="text-base mb-4">{pet?.age || "N/A"}</p>
+                  <p className="text-sm font-medium mb-1">Description:</p>
+                  <p className="text-base mb-4">{pet?.description || "N/A"}</p>
+                  <p className="text-sm font-medium mb-1">Notes:</p>
+                  <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="flex justify-end p-5 gap-2">
             <Button
