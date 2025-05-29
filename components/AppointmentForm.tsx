@@ -67,7 +67,7 @@ export default function AppointmentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-4 rounded-xl shadow-xl w-full"
+      className="space-y-4 bg-white rounded-xl w-full"
     >
       <div className="w-full flex justify-end">
         <X onClick={onClick} className="cursor-pointer text-gray-400 hover:text-gray-800" />
