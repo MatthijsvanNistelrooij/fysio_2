@@ -51,8 +51,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
   const handleUndo = () => canvasRef.current?.undo()
 
   return (
-    <div className="flex flex-col w-full p-5 mx-auto max-h-[600px] h-full gap-4">
-      {/* Canvas */}
+    <div className="flex flex-col w-full mx-auto max-h-[600px] h-full gap-4">
       <div className="relative w-full aspect-video max-h-[500px] rounded overflow-hidden">
         <Image
           height={800}
@@ -77,7 +76,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         />
       </div>
 
-      <div className="flex justify-between px-2">
+      <div className="flex justify-between">
         <div className="flex gap-2">
           <Button
             onClick={handleUndo}

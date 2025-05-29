@@ -530,14 +530,14 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                     <div className="flex flex-col md:flex-row bg-white pb-12 p-5 gap-6">
                       <div className="flex flex-col w-full justify-between">
-                        <div>
-                          <div className="border w-full">
+                  
+                          <div className="w-full">
                             <PetDrawingCanvas
                               petType={"horse"}
                               onSave={handleSave}
                             />
                           </div>
-                        </div>
+                
                         <div>
                           {editAppointment ? (
                             <div className="flex justify-between w-full mt-5">
