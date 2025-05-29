@@ -483,7 +483,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 </div>
                 {openAppointment ? (
                   <div
-                    className={`bg-white overflow-hidden p-5 shadow mt-6 rounded ${
+                    className={`bg-white overflow-hidden mt-6 rounded ${
                       openAppointment
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-85 py-0"
