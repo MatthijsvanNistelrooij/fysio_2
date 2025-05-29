@@ -49,7 +49,7 @@ export default function PetForm({ initialData = {}, onSubmit }: PetFormProps) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="space-y-2 bg-white p-5 rounded">
+      <form onSubmit={handleSubmit} className="space-y-2 bg-white rounded">
         <div className="p-1">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pt-0">
             {/* LEFT COLUMN */}
