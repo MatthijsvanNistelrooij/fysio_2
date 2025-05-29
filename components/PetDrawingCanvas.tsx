@@ -163,8 +163,20 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           </Button>
 
           <Button
-            onClick={() => handleSelectColor("red")}
-            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+            onClick={() => handleSelectColor("orange")}
+            className="text-orange-800 bg-white hover:bg-gray-100 border cursor-pointer"
+          >
+            <Pencil />
+          </Button>
+          <Button
+            onClick={() => handleSelectColor("limegreen")}
+            className="text-green-800 bg-white hover:bg-gray-100 border cursor-pointer"
+          >
+            <Pencil />
+          </Button>
+          <Button
+            onClick={() => handleSelectColor("blue")}
+            className="text-blue-800 bg-white hover:bg-gray-100 border cursor-pointer"
           >
             <Pencil />
           </Button>
