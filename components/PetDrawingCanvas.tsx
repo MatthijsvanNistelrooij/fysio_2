@@ -1,9 +1,9 @@
 import Image from "next/image"
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas"
 import horse from "../public/horse.jpg"
 import { Button } from "./ui/button"
-import { Check, Eraser, Recycle } from "lucide-react"
+import { ArrowLeft, Check, Eraser, Pencil } from "lucide-react"
 
 type PetType = "dog" | "horse" | "cat" | "other"
 
@@ -53,7 +53,14 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
     }
   }
 
+  const [color, setColor] = useState("green")
+
+  const handleSelectColor = (color: string) => {
+    setColor(color)
+  }
+
   const handleClear = () => canvasRef.current?.clearCanvas()
+
   const handleUndo = () => canvasRef.current?.undo()
 
   const generateSnapshot = async ({
@@ -111,7 +118,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
   }
 
   return (
-    <div className="flex flex-col border justify-center w-full mx-auto max-h-[600px] h-full gap-4">
+    <div className="flex flex-col w-full mx-auto max-h-[600px] h-full gap-4">
       <div
         className="relative rounded overflow-hidden"
         style={{ width: 800, height: 600, alignSelf: "center" }}
@@ -121,20 +128,20 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           alt={`${petType} outline`}
           width={800}
           height={600}
-          className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none"
+          className="absolute inset-0 object-contain opacity-50 pointer-events-none"
         />
         <ReactSketchCanvas
           ref={canvasRef}
           strokeWidth={2}
           width="800px"
           height="600px"
-          strokeColor="limegreen"
+          strokeColor={color}
           canvasColor="transparent"
           allowOnlyPointerType="all"
           style={{
             position: "absolute",
-            inset: 0,
-            border: "none",
+            inset: 1,
+            opacity: 0.5,
             cursor: "crosshair",
           }}
         />
@@ -146,13 +153,20 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
             onClick={handleUndo}
             className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
           >
-            <Recycle />
+            <ArrowLeft />
           </Button>
           <Button
             onClick={handleClear}
             className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
           >
             <Eraser />
+          </Button>
+
+          <Button
+            onClick={() => handleSelectColor("red")}
+            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+          >
+            <Pencil />
           </Button>
         </div>
 

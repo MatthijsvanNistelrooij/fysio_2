@@ -51,6 +51,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const [localClient, setLocalClient] = useState<Client>(client)
   const [addAppointment, setAddAppointment] = useState(false)
   const [editPet, setEditPet] = useState(false)
+
+  const [showCanvas, setShowCanvas] = useState(false)
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
   const [savedImage, setSavedImage] = useState<string | null>(null)
 
@@ -353,6 +355,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     setSelectedAppointment(null)
   }
 
+  const handleClickCanvas = () => {
+    setShowCanvas((prev) => !prev)
+  }
+
   return (
     <>
       <div className="pb-5 rounded-2xl ">
@@ -508,6 +514,15 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     />
                   </div>
                 )}
+                <Button onClick={() => handleClickCanvas()}>Canvas</Button>
+
+                {showCanvas && (
+                  <div className="w-full p-5">
+                    <div className="flex flex-col w-full">
+                      <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex justify-end gap-2 p-5">
                   {editPet ? (
@@ -560,18 +575,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         className="text-gray-400 cursor-pointer hover:text-gray-200 m-2"
                       />
                     </div>
-                    <div className="flex flex-col md:flex-row bg-white pb-12 p-5 gap-6">
-                      <div className="flex flex-col w-full justify-between">
-                        <div className="w-full">
-                          <PetDrawingCanvas
-                            petType={"horse"}
-                            onSave={handleSave}
-                          />
-                        </div>
-
+                    <div className="flex flex-col md:flex-row bg-white pb-12 gap-6">
+                      <div className="flex p-5 flex-col w-full">
                         <div>
                           {editAppointment ? (
-                            <div className="flex justify-between w-full mt-5">
+                            <div className="flex justify-between w-full">
                               <AppointmentForm
                                 initialData={selectedAppointment ?? undefined}
                                 onSubmit={handleUpdateAppointment}
@@ -583,7 +591,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             <div className="flex w-full">
                               <div className="w-full">
                                 {selectedAppointment && (
-                                  <div className="flex w-full mt-5 justify-end gap-3">
+                                  <div className="flex w-full justify-end gap-3">
                                     <Button
                                       onClick={handleEditToggleAppointment}
                                       className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
