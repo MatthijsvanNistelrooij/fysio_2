@@ -1,10 +1,6 @@
 import Image from "next/image"
 import React, { useRef } from "react"
-import {
-  ReactSketchCanvas,
-  ReactSketchCanvasRef,
-  ExportImageType,
-} from "react-sketch-canvas"
+import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas"
 import horse from "../public/horse.jpg"
 import { Button } from "./ui/button"
 import { Check, Eraser, Recycle } from "lucide-react"
@@ -34,12 +30,22 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
 
     try {
       const paths = await canvasRef.current.exportPaths()
-      const image = await canvasRef.current.exportImage(
-        "png" as ExportImageType
-      )
 
+      // Use the natural size of your canvas/image here
+      const width = 800
+      const height = 600
+
+      // Generate a snapshot image by combining background + strokes
+      const snapshot = await generateSnapshot({
+        backgroundSrc: horse.src, // Access src of imported Next.js image
+        paths,
+        width,
+        height,
+      })
+
+      // Pass the merged snapshot along with raw JSON paths
       onSave({
-        imageDataUrl: image,
+        imageDataUrl: snapshot,
         drawingJson: paths,
       })
     } catch (err) {
@@ -50,20 +56,78 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
   const handleClear = () => canvasRef.current?.clearCanvas()
   const handleUndo = () => canvasRef.current?.undo()
 
+  const generateSnapshot = async ({
+    backgroundSrc,
+    paths,
+    width,
+    height,
+  }: {
+    backgroundSrc: string
+    paths: StrokeGroup[]
+    width: number
+    height: number
+  }): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement("canvas")
+      canvas.width = width
+      canvas.height = height
+      const ctx = canvas.getContext("2d")
+      if (!ctx) return reject("Could not get canvas context")
+
+      const background = new window.Image()
+      background.crossOrigin = "anonymous"
+      background.src = backgroundSrc
+      background.crossOrigin = "anonymous"
+      background.src = backgroundSrc
+
+      background.onload = () => {
+        // Draw background
+        ctx.drawImage(background, 0, 0, width, height)
+
+        // Draw strokes
+        paths.forEach((group) => {
+          ctx.strokeStyle = group.strokeColor
+          ctx.lineWidth = group.strokeWidth
+          ctx.lineJoin = "round"
+          ctx.lineCap = "round"
+          ctx.beginPath()
+          group.paths.forEach((point, index) => {
+            if (index === 0) {
+              ctx.moveTo(point.x, point.y)
+            } else {
+              ctx.lineTo(point.x, point.y)
+            }
+          })
+          ctx.stroke()
+        })
+
+        // Export
+        const dataURL = canvas.toDataURL("image/png")
+        resolve(dataURL)
+      }
+
+      background.onerror = () => reject("Failed to load background image")
+    })
+  }
+
   return (
-    <div className="flex flex-col w-full mx-auto max-h-[600px] h-full gap-4">
-      <div className="relative w-full aspect-video max-h-[500px] rounded overflow-hidden">
+    <div className="flex flex-col border justify-center w-full mx-auto max-h-[600px] h-full gap-4">
+      <div
+        className="relative rounded overflow-hidden"
+        style={{ width: 800, height: 600, border: "1px solid red", alignSelf: "center" }}
+      >
         <Image
-          height={800}
-          width={800}
           src={horse}
           alt={`${petType} outline`}
-          className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none"
+          width={800}
+          height={600}
+          className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none border border-red-600"
         />
-
         <ReactSketchCanvas
           ref={canvasRef}
           strokeWidth={2}
+          width="800px"
+          height="600px"
           strokeColor="limegreen"
           canvasColor="transparent"
           allowOnlyPointerType="all"

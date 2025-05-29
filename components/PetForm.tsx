@@ -30,6 +30,7 @@ export default function PetForm({ initialData = {}, onSubmit }: PetFormProps) {
     ownerId: initialData.ownerId || "",
     description: initialData.description || "",
     appointments: initialData.appointments || [],
+    drawing: initialData.drawing || "",
   })
 
   const handleChange = (

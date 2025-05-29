@@ -145,3 +145,26 @@ export const deletePet = async (id: string) => {
     throw error
   }
 }
+
+export const storeDrawing = async ({
+  petId,
+  imageDataUrl,
+}: {
+  petId: string
+  imageDataUrl: string
+}) => {
+  try {
+    const response = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.petsCollectionId,
+      petId,
+      {
+        drawing: imageDataUrl,
+      }
+    )
+    return response
+  } catch (error) {
+    console.error("Failed to store drawing:", error)
+    throw error
+  }
+}

@@ -8,6 +8,7 @@ export interface Pet {
   breed?: string
   notes?: string
   ownerId: string
+  drawing: string
 }
 
 export interface Client {

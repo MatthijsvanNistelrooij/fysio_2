@@ -39,6 +39,7 @@ import AppointmentForm from "./AppointmentForm"
 import PetForm from "./PetForm"
 import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
+import Image from "next/image"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ClientDetailsComponent({ client }: { client: any }) {
@@ -70,6 +71,20 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     fetchUser()
   }, [])
 
+  useEffect(() => {
+    if (!selectedPet) return
+
+    const key = `petDrawing-${selectedPet.$id}`
+    const saved = localStorage.getItem(key)
+    if (saved) {
+      const { imageDataUrl } = JSON.parse(saved)
+      setSavedImage(imageDataUrl)
+      // Optionally restore the drawingJson to canvas here
+    } else {
+      setSavedImage(null)
+    }
+  }, [selectedPet])
+
   if (!user) return
 
   const handleSave = ({
@@ -80,11 +95,16 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drawingJson: any
   }) => {
-    console.log("Drawing JSON:", drawingJson)
-    setSavedImage(imageDataUrl)
+    if (!selectedPet) return
 
-    // ➕ Upload drawingJson to Appwrite document for the appointment
-    // ➕ Upload imageDataUrl (base64) as a file using Appwrite Storage
+    const key = `petDrawing-${selectedPet.$id}`
+
+    localStorage.setItem(
+      key,
+      JSON.stringify({ imageDataUrl, drawingJson, petId: selectedPet.$id })
+    )
+
+    setSavedImage(imageDataUrl)
   }
 
   console.log(savedImage)
@@ -477,6 +497,18 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 )}
 
+                {savedImage && (
+                  <div className="relative w-full aspect-video max-h-[500px] rounded overflow-hidden">
+                    <Image
+                      width={800}
+                      height={800}
+                      src={savedImage}
+                      alt="Saved drawing"
+                      className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none border border-red-600"
+                    />
+                  </div>
+                )}
+
                 <div className="flex justify-end gap-2 p-5">
                   {editPet ? (
                     <Button
@@ -530,14 +562,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                     <div className="flex flex-col md:flex-row bg-white pb-12 p-5 gap-6">
                       <div className="flex flex-col w-full justify-between">
-                  
-                          <div className="w-full">
-                            <PetDrawingCanvas
-                              petType={"horse"}
-                              onSave={handleSave}
-                            />
-                          </div>
-                
+                        <div className="w-full">
+                          <PetDrawingCanvas
+                            petType={"horse"}
+                            onSave={handleSave}
+                          />
+                        </div>
+
                         <div>
                           {editAppointment ? (
                             <div className="flex justify-between w-full mt-5">

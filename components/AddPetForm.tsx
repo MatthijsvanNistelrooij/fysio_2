@@ -29,6 +29,7 @@ export default function AddPetForm({
     $id: "",
     description: "",
     appointments: [],
+    drawing: ""
   },
   clientId,
   onSubmit,
@@ -42,6 +43,7 @@ export default function AddPetForm({
     $id: initialData.$id || "",
     description: initialData.description || "",
     appointments: initialData.appointments || [],
+    drawing: initialData.drawing || ""
   })
 
   const handleChange = (
