@@ -114,14 +114,14 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
     <div className="flex flex-col border justify-center w-full mx-auto max-h-[600px] h-full gap-4">
       <div
         className="relative rounded overflow-hidden"
-        style={{ width: 800, height: 600, border: "1px solid red", alignSelf: "center" }}
+        style={{ width: 800, height: 600, alignSelf: "center" }}
       >
         <Image
           src={horse}
           alt={`${petType} outline`}
           width={800}
           height={600}
-          className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none border border-red-600"
+          className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none"
         />
         <ReactSketchCanvas
           ref={canvasRef}

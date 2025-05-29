@@ -102,6 +102,7 @@ export const updatePet = async (
     notes,
     ownerId,
     description,
+    drawing,
   }: {
     name: string
     type: string
@@ -110,6 +111,7 @@ export const updatePet = async (
     notes?: string
     ownerId: string
     description: string
+    drawing: string
   }
 ) => {
   try {
@@ -125,6 +127,7 @@ export const updatePet = async (
         ownerId,
         breed,
         notes,
+        drawing,
       }
     )
   } catch (error) {

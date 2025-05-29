@@ -22,6 +22,7 @@ const PetDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
     notes: rawPet?.notes,
     description: rawPet?.description,
     appointments: rawPet?.appointments ?? [],
+    drawing: rawPet?.drawing
   }
 
   if (!pet) return notFound()

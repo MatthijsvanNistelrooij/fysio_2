@@ -504,7 +504,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       height={800}
                       src={savedImage}
                       alt="Saved drawing"
-                      className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none border border-red-600"
+                      className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none"
                     />
                   </div>
                 )}
