@@ -70,7 +70,7 @@ export default function AppointmentForm({
       className="space-y-4 bg-white rounded-xl w-full"
     >
       <div className="w-full flex justify-end">
-        <X onClick={onClick} className="cursor-pointer text-gray-400 hover:text-gray-800" />
+        <X size={20} onClick={onClick} className="cursor-pointer text-gray-400 hover:text-gray-800" />
       </div>
       <div>
         <label htmlFor="description" className="block font-semibold">

@@ -398,6 +398,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 <div className="flex justify-end">
                   {(addPet || selectedPet) && (
                     <X
+                      size={20}
                       onClick={() => {
                         setAddPet(false)
                         setSelectedPet(null)
