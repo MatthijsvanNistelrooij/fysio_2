@@ -51,7 +51,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const [addAppointment, setAddAppointment] = useState(false)
   const [editPet, setEditPet] = useState(false)
 
-  const [showCanvas, setShowCanvas] = useState(false)
+  const [showCanvas, setShowCanvas] = useState(true)
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
   const [savedImage, setSavedImage] = useState<string | null>(null)
 
