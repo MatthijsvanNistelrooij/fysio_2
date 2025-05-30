@@ -178,7 +178,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           </Button>
           <Button
             onClick={handleExport}
-            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer ml-20"
+            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer ml-10"
           >
             <Check />
           </Button>
