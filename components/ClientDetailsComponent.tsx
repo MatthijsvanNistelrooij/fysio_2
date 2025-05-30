@@ -522,23 +522,14 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 {savedImage && !showCanvas && (
                   <div className="relative w-full aspect-video max-h-[500px] rounded overflow-hidden">
                     <Image
-                      width={800}
-                      height={800}
+                      width={900}
+                      height={900}
                       src={savedImage}
                       alt="Saved drawing"
                       className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none"
                     />
                   </div>
                 )}
-
-                <div className="w-full p-5 flex justify-end">
-                  <Button
-                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 border"
-                    onClick={() => handleClickCanvas()}
-                  >
-                    Open Canvas
-                  </Button>
-                </div>
 
                 {showCanvas && (
                   <div className="w-full p-5">
@@ -547,6 +538,15 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                   </div>
                 )}
+
+                <div className="w-full p-5 flex justify-end">
+                  <Button
+                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 border"
+                    onClick={() => handleClickCanvas()}
+                  >
+                    {showCanvas ? "Close Canvas" : "Open Canvas"}
+                  </Button>
+                </div>
 
                 {openAppointment ? (
                   <div

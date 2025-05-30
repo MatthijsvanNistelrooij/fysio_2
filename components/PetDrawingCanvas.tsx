@@ -129,7 +129,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         />
         <ReactSketchCanvas
           ref={canvasRef}
-          strokeWidth={2}
+          strokeWidth={1.5}
           width="800px"
           height="600px"
           strokeColor={color}
@@ -138,7 +138,6 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           style={{
             position: "absolute",
             inset: 1,
-            opacity: 0.5,
             cursor: "crosshair",
           }}
         />
