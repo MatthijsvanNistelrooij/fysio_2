@@ -104,6 +104,7 @@ export default function PetDetailsComponent({
             initialData={pet}
             onSubmit={handleUpdate}
             handleClose={handleEditToggle}
+            handleDelete={handleDelete}
           />
         </div>
       </div>

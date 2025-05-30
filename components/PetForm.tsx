@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Check } from "lucide-react"
+import { Check, Trash } from "lucide-react"
 import { Pet } from "@/types"
 import { Input } from "./ui/input"
 import {
@@ -17,9 +17,14 @@ interface PetFormProps {
   initialData?: Partial<Pet>
   onSubmit: (data: Pet) => Promise<void>
   handleClose: () => void
+  handleDelete: (id: string) => void
 }
 
-export default function PetForm({ initialData = {}, onSubmit }: PetFormProps) {
+export default function PetForm({
+  initialData = {},
+  onSubmit,
+  handleDelete,
+}: PetFormProps) {
   const [formData, setFormData] = useState({
     $id: initialData.$id || "",
     name: initialData.name || "",
@@ -164,6 +169,12 @@ export default function PetForm({ initialData = {}, onSubmit }: PetFormProps) {
                   className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
                 >
                   <Check />
+                </Button>
+                <Button
+                  onClick={() => handleDelete(formData.$id)}
+                  className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                >
+                  <Trash size={18} />
                 </Button>
               </div>
             </div>

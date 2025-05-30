@@ -10,7 +10,6 @@ import {
   Mail,
   Phone,
   Plus,
-  Trash,
   X,
 } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
@@ -107,9 +106,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     )
 
     setSavedImage(imageDataUrl)
+    setShowCanvas(false)
   }
-
-  console.log(savedImage)
 
   const handleDeleteClient = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -456,12 +454,30 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
 
               <div className="space-y-1">
+                <div className="flex justify-end gap-2 p-5">
+                  {editPet ? (
+                    <Button
+                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                      onClick={() => handleToggleUpdatePet()}
+                    >
+                      <X size={18} />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => handleToggleUpdatePet()}
+                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Edit size={18} />
+                    </Button>
+                  )}
+                </div>
                 {editPet ? (
                   <div className="">
                     <PetForm
                       initialData={selectedPet}
                       onSubmit={handleUpdatePet}
                       handleClose={handleToggleUpdatePet}
+                      handleDelete={handleDeletePet}
                     />
                   </div>
                 ) : (
@@ -503,7 +519,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 )}
 
-                {savedImage && (
+                {savedImage && !showCanvas && (
                   <div className="relative w-full aspect-video max-h-[500px] rounded overflow-hidden">
                     <Image
                       width={800}
@@ -514,7 +530,15 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     />
                   </div>
                 )}
-                <Button onClick={() => handleClickCanvas()}>Canvas</Button>
+
+                <div className="w-full p-5 flex justify-end">
+                  <Button
+                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 border"
+                    onClick={() => handleClickCanvas()}
+                  >
+                    Open Canvas
+                  </Button>
+                </div>
 
                 {showCanvas && (
                   <div className="w-full p-5">
@@ -524,29 +548,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 )}
 
-                <div className="flex justify-end gap-2 p-5">
-                  {editPet ? (
-                    <Button
-                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                      onClick={() => handleToggleUpdatePet()}
-                    >
-                      <X size={18} />
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() => handleToggleUpdatePet()}
-                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                    >
-                      <Edit size={18} />
-                    </Button>
-                  )}
-                  <Button
-                    onClick={() => handleDeletePet(selectedPet.$id)}
-                    className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                  >
-                    <Trash size={18} />
-                  </Button>
-                </div>
                 {openAppointment ? (
                   <div
                     className={`bg-white overflow-hidden mt-6 rounded ${

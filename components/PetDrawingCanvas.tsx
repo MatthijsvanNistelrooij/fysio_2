@@ -119,10 +119,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
 
   return (
     <div className="flex flex-col w-full mx-auto max-h-[600px] h-full gap-4">
-      <div
-        className="relative rounded overflow-hidden"
-        style={{ width: 800, height: 600, alignSelf: "center" }}
-      >
+      <div className="relative rounded overflow-hidden w-full max-w-[800px] aspect-[4/3] mx-auto">
         <Image
           src={horse}
           alt={`${petType} outline`}

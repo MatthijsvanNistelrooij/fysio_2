@@ -123,7 +123,7 @@ export default function AppointmentForm({
         />
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2">
         <Button
           type="submit"
           className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
