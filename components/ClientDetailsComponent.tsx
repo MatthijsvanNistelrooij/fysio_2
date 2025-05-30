@@ -371,75 +371,78 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   }
 
   return (
-          <div className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col gap-4 mb-3">
-      <div className="pb-5 rounded-2xl ">
-        <div className="mb-6">
-          {edit ? (
-            <div>
-              <ClientForm
-                initialData={client}
-                userId={user.$id}
-                onSubmit={handleUpdate}
-                setEdit={setEdit}
-                handleDelete={handleDeleteClient}
-              />
-            </div>
-          ) : (
-            <div className="flex flex-col lg:flex-row gap-2 w-full ">
-              <div
-                className="p-1 bg-gray-800 rounded-xl min-w-[140px] flex-1 text-white flex"
-                onClick={() => {
-                  navigator.clipboard.writeText(client.name)
-                  toast.success("Client name copied to clipboard!")
-                }}
-              >
-                <Contact size={18} className="text-xs text-gray-300 m-1" />
-                <div className="text-sm mt-1 ml-1">{client.name}</div>
+    <>
+      <div className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col gap-4">
+        <div className="rounded-2xl">
+          <div className="mb-1">
+            {edit ? (
+              <div>
+                <ClientForm
+                  initialData={client}
+                  userId={user.$id}
+                  onSubmit={handleUpdate}
+                  setEdit={setEdit}
+                  handleDelete={handleDeleteClient}
+                />
               </div>
+            ) : (
+              <div className="flex flex-col lg:flex-row gap-2 w-full ">
+                <div
+                  className="p-1 bg-gray-800 rounded-xl min-w-[140px] flex-1 text-white flex"
+                  onClick={() => {
+                    navigator.clipboard.writeText(client.name)
+                    toast.success("Client name copied to clipboard!")
+                  }}
+                >
+                  <Contact size={18} className="text-xs text-gray-300 m-1" />
+                  <div className="text-sm mt-1 ml-1">{client.name}</div>
+                </div>
 
-              <div
-                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(client.address)
-                  toast.success("Address copied to clipboard!")
-                }}
-              >
-                <HomeIcon size={18} className="text-xs text-gray-300 m-1" />
-                <div className="ml-1">{client.address}</div>
-              </div>
-              <div
-                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(client.phone)
-                  toast.success("Phone number copied to clipboard!")
-                }}
-              >
-                <Phone size={18} className="text-xs text-gray-300 m-1" />
+                <div
+                  className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
+                  onClick={() => {
+                    navigator.clipboard.writeText(client.address)
+                    toast.success("Address copied to clipboard!")
+                  }}
+                >
+                  <HomeIcon size={18} className="text-xs text-gray-300 m-1" />
+                  <div className="ml-1">{client.address}</div>
+                </div>
+                <div
+                  className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
+                  onClick={() => {
+                    navigator.clipboard.writeText(client.phone)
+                    toast.success("Phone number copied to clipboard!")
+                  }}
+                >
+                  <Phone size={18} className="text-xs text-gray-300 m-1" />
 
-                <div className="ml-1">{client.phone}</div>
-              </div>
+                  <div className="ml-1">{client.phone}</div>
+                </div>
 
-              <div
-                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(client.email)
-                  toast.success("Email copied to clipboard!")
-                }}
-              >
-                <Mail size={18} className="text-xs text-gray-300 m-1" />
-                <div className="ml-1">{client.email}</div>
+                <div
+                  className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
+                  onClick={() => {
+                    navigator.clipboard.writeText(client.email)
+                    toast.success("Email copied to clipboard!")
+                  }}
+                >
+                  <Mail size={18} className="text-xs text-gray-300 m-1" />
+                  <div className="ml-1">{client.email}</div>
+                </div>
+                <Button
+                  onClick={handleEditToggle}
+                  className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                >
+                  <Edit size={20} />
+                </Button>
               </div>
-              <Button
-                onClick={handleEditToggle}
-                className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-              >
-                <Edit size={20} />
-              </Button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-
-        <div className="mt-10 ">
+      </div>
+      <div>
+        <div className="mt-5">
           {addPet ? (
             <AddPetForm
               clientId={client.$id}
@@ -448,7 +451,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             />
           ) : selectedPet ? (
             <div className={`shadow-xl text-gray-800 rounded bg-white `}>
-              <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between mt-5">
+              <div className="bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium flex justify-between mt-5">
                 {selectedPet.name}
                 <div className="flex justify-end">
                   {(addPet || selectedPet) && (
@@ -640,7 +643,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
                         {showCanvas && (
                           <div className="w-full p-5">
-                            <div className="flex flex-col shadow-xl pr-5">
+                            <div className="flex flex-col pr-5">
                               <PetDrawingCanvas
                                 petType={"horse"}
                                 onSave={handleSave}
@@ -766,6 +769,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           )}
         </div>
       </div>
-    </div>
+    </>
   )
 }
