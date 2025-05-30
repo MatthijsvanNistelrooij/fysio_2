@@ -102,7 +102,7 @@ export default function PetDetailsComponent({
         <div className="max-w-7xl w-full rounded m-5 bg-white shadow-xl">
           <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between items-center">
             <span>{pet.name}</span>
-            <Link href={`/clients`}>
+            <Link href={`/clients/${pet.ownerId}`}>
               <X className="cursor-pointer text-gray-400 hover:text-gray-200" />
             </Link>
           </div>
