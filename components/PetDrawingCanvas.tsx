@@ -144,7 +144,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
       </div>
 
       <div className="flex justify-center">
-        <div className="flex gap-2 ml-20">
+        <div className="flex gap-2">
           <Button
             onClick={handleUndo}
             className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
@@ -178,7 +178,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           </Button>
           <Button
             onClick={handleExport}
-            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer ml-40"
+            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer ml-20"
           >
             <Check />
           </Button>
