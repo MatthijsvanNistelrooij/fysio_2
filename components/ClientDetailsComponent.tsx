@@ -456,6 +456,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       size={20}
                       onClick={() => {
                         setAddPet(false)
+                        setEditPet(false)
                         setSelectedPet(null)
                         setOpenAppointment(false)
                         setSelectedAppointment(null)

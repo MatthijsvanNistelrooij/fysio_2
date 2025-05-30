@@ -152,10 +152,10 @@ export default function PetDetailsComponent({
             )}
           </div>
 
-          <div className="border-t p-5">
+          <div className="border-t">
             {addAppointment && user ? (
               <div className="">
-                <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t mt-5 px-4">
+                <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t px-4">
                   Add New Appointment
                   <X
                     onClick={() => handleToggleAddAppointment()}

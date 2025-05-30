@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { deleteAppointment, updateAppointment } from "@/lib/appointment.actions"
 import AppointmentForm from "./AppointmentForm"
@@ -56,6 +56,22 @@ export default function AppointmentDetailsComponent({
     }
   }
 
+  const selectedAppointment = appointment
+
+  useEffect(() => {
+    if (!selectedAppointment) return
+
+    const key = `petDrawing-${selectedAppointment.$id}`
+    const saved = localStorage.getItem(key)
+    if (saved) {
+      const { imageDataUrl } = JSON.parse(saved)
+      setSavedImage(imageDataUrl)
+      // Optionally restore the drawingJson to canvas here
+    } else {
+      setSavedImage(null)
+    }
+  }, [selectedAppointment])
+
   const handleSave = ({
     imageDataUrl,
     drawingJson,
@@ -66,7 +82,7 @@ export default function AppointmentDetailsComponent({
   }) => {
     if (!appointment) return
 
-    const key = `petDrawing-${appointment.$id}`
+    const key = `petDrawing-${selectedAppointment.$id}`
 
     localStorage.setItem(
       key,
