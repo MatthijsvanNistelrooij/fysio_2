@@ -3,23 +3,13 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { getCurrentUser } from "@/lib/user.actions"
 import Link from "next/link"
-import {
-  Contact,
-  Edit2,
-  Fullscreen,
-  HomeIcon,
-  List,
-  Mail,
-  Phone,
-  X,
-} from "lucide-react"
+import { Contact, Edit2, HomeIcon, List, Mail, Phone, X } from "lucide-react"
 import { getClientsByUserId } from "@/lib/client.actions"
 import { Client, User } from "@/types"
 import { toast } from "sonner"
 import CreateForm from "@/components/CreateForm"
 import { Input } from "@/components/ui/input"
 import ClientDetailsComponent from "@/components/ClientDetailsComponent"
-import { Button } from "@/components/ui/button"
 
 const Clients = () => {
   const [clients, setClients] = useState<Client[]>([])
@@ -27,17 +17,11 @@ const Clients = () => {
   const [edit, setEdit] = useState(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [search, setSearch] = useState("")
+  const [showSelectedClient, setShowSelectedClient] = useState(false)
 
   const [show, setShow] = useState(false)
 
   const [selectedClient, setSelectedClient] = useState<Client | null>(null)
-
-  console.log(selectedClient)
-
-  const handleSelectClient = (client: Client) => {
-    console.log("Selected client:", client)
-    setSelectedClient(client)
-  }
 
   useEffect(() => {
     if (edit) {
@@ -57,6 +41,14 @@ const Clients = () => {
     }
     fetchUser()
   }, [])
+
+  useEffect(() => {
+    if (selectedClient) {
+      setTimeout(() => setShowSelectedClient(true), 100)
+    } else {
+      setShowSelectedClient(false)
+    }
+  }, [selectedClient])
 
   useEffect(() => {
     if (!user) return
@@ -136,22 +128,17 @@ const Clients = () => {
         ) : (
           <div className="">
             <div className="w-full flex justify-between mb-4">
-              {!selectedClient ? (
-                <Input
-                  className="bg-white mr-8"
-                  placeholder="Search by name, email, phone, or address..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+              <Input
+                className="bg-white mr-8"
+                placeholder="Search by name, email, phone, or address..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              {selectedClient && (
+                <X
+                  onClick={() => setSelectedClient(null)}
+                  className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
                 />
-              ) : (
-                <div className="flex w-full justify-end">
-                  <Button
-                    className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-                    onClick={() => setSelectedClient(null)}
-                  >
-                    <X />
-                  </Button>
-                </div>
               )}
 
               {!selectedClient && (
@@ -189,9 +176,25 @@ const Clients = () => {
                 }`}
               >
                 {selectedClient ? (
-                  <ClientDetailsComponent client={selectedClient} />
+                  <div
+                    className={`absolute inset-0 transition-all duration-500 ${
+                      selectedClient && showSelectedClient
+                        ? "opacity-100 translate-y-0 pointer-events-auto"
+                        : "opacity-0 -translate-y-2 pointer-events-none"
+                    }`}
+                  >
+                    {selectedClient && (
+                      <ClientDetailsComponent client={selectedClient} />
+                    )}
+                  </div>
                 ) : (
-                  <div>
+                  <div
+                    className={`transition-all duration-500 ${
+                      !selectedClient && !showSelectedClient
+                        ? "opacity-100 translate-y-0 pointer-events-auto"
+                        : "opacity-0 -translate-y-2 pointer-events-none"
+                    }`}
+                  >
                     {filteredClients.map((client) => (
                       <div
                         key={client.$id}
@@ -253,15 +256,8 @@ const Clients = () => {
                             </div>
                           </div>
 
-                          <div className="flex flex-row justify-between gap-2">
-                            <Button
-                              onClick={() => handleSelectClient(client)}
-                              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-                            >
-                              <Fullscreen />
-                            </Button>
-
-                            <div className="flex flex-row gap-2">
+                          <div className="flex flex-row justify-end gap-2">
+                            <div className="flex gap-2">
                               {client.pets.length ? (
                                 client.pets.map((pet) => (
                                   <Link
