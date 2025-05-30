@@ -46,9 +46,9 @@ export const Sidebar = ({ fullName, email }: Props) => {
                 }}
               >
                 {item.icon === "client" ? (
-                  <Contact />
+                  <Contact size={23} />
                 ) : item.icon === "calendar" ? (
-                  <CalendarRange />
+                  <CalendarRange size={23} />
                 ) : null}
               </Link>
             )

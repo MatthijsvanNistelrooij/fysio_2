@@ -61,7 +61,7 @@ export default function CreateAppointmentForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 shadow-xl">
+    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 shadow-xl rounded-xl">
       <div>
         <input
           id="date"

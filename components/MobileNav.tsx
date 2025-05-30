@@ -37,9 +37,9 @@ export const MobileNav = () => {
                   }}
                 >
                   {item.icon === "client" ? (
-                    <Contact />
+                    <Contact size={20} />
                   ) : item.icon === "calendar" ? (
-                    <CalendarRange />
+                    <CalendarRange size={20} />
                   ) : null}
                 </Link>
               )
@@ -51,7 +51,7 @@ export const MobileNav = () => {
               className="rounded-xl hover:text-gray-800 text-gray-400 hover:shadow font-bold transition"
               onClick={handleSignOut}
             >
-              <LogOutIcon className="transform rotate-180 mt-4" />
+              <LogOutIcon size={20} className="transform rotate-180 mt-4" />
             </Link>
           </div>
         </nav>
