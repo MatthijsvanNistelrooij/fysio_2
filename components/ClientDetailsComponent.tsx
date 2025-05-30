@@ -616,8 +616,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                               width: 460,
                               height: 400,
                               borderRadius: 8,
-                              overflow: "hidden",
-                              marginLeft: "70px",
+                                overflow: "hidden",
+                              margin: "20px"
                             }}
                           >
                             <Image
@@ -630,7 +630,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         )}
 
                         {showCanvas && (
-                          <div className="flex flex-col w-full px-18">
+                          <div className="flex flex-col w-full">
                             <PetDrawingCanvas
                               petType={"horse"}
                               onSave={handleSave}
