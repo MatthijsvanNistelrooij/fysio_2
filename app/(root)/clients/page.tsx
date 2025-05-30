@@ -160,7 +160,7 @@ const Clients = () => {
                     <div className="flex flex-col gap-2 w-full">
                       <div className="flex flex-col md:flex-row gap-2">
                         <div
-                          className="bg-gray-800 p-1 rounded-xl text-white flex items-center w-full cursor-pointer"
+                          className="p-1 rounded-xl text-gray-200 flex items-center bg-gray-800 min-w-[140px] flex-1 text-sm cursor-pointer"
                           onClick={() => handleTableRowClick(client.$id)}
                         >
                           <Contact size={18} className=" text-gray-300 m-1" />
@@ -168,7 +168,7 @@ const Clients = () => {
                         </div>
 
                         <div
-                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
                           onClick={() => {
                             navigator.clipboard.writeText(client.address)
                             toast.success("Address copied to clipboard!")
@@ -178,7 +178,7 @@ const Clients = () => {
                           {client.address}
                         </div>
                         <div
-                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
                           onClick={() => {
                             navigator.clipboard.writeText(client.phone)
                             toast.success("Phone number copied to clipboard!")
@@ -191,7 +191,7 @@ const Clients = () => {
                           {client.phone}
                         </div>
                         <div
-                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
                           onClick={() => {
                             navigator.clipboard.writeText(client.email)
                             toast.success("Email copied to clipboard!")

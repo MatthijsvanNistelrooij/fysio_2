@@ -540,7 +540,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               <div>
                 {openAppointment ? (
                   <div
-                    className={`bg-white overflow-hidden mt-5 rounded ${
+                    className={`bg-white overflow-hidden shadow-xl mt-5 rounded ${
                       openAppointment
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-85 py-0"
