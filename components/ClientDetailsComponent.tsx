@@ -201,6 +201,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
       toast.success("Pet added successfully!")
       setAddPet((prev) => !prev)
+      setSelectedPet({
+        ...data, // contains name, type, description, etc.
+        ...petResponse, // contains $id and any metadata
+      })
       router.refresh()
     } catch (error) {
       console.error("Error creating pet:", error)
@@ -298,7 +302,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     userId: string,
     data: Appointment
   ) => {
-    console.log(data)
     try {
       const appointment = await createAppointment(petId, {
         ...data,
@@ -307,24 +310,29 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
       await addAppointmentToPet(petId, appointment.$id)
 
-      toast.success("Appointment added successfully!")
-      setAddAppointment((prev) => !prev)
+      const cleanAppointment: Appointment = {
+        $id: appointment.$id,
+        date: new Date(appointment.date),
+        treatment: appointment.treatment,
+        description: appointment.description,
+        petId: appointment.petId,
+        userId: appointment.userId,
+      }
 
+      // Set selected appointment here
+      setSelectedAppointment(cleanAppointment)
+      setOpenAppointment(true)
+      // Update selected pet with new appointment
       setSelectedPet((prevPet) => {
         if (!prevPet) return null
-        const cleanAppointment: Appointment = {
-          $id: appointment.$id,
-          date: new Date(appointment.date),
-          treatment: appointment.treatment,
-          description: appointment.description,
-          petId: appointment.petId,
-          userId: appointment.userId,
-        }
         return {
           ...prevPet,
           appointments: [...prevPet.appointments, cleanAppointment],
         }
       })
+
+      toast.success("Appointment added successfully!")
+      setAddAppointment((prev) => !prev)
     } catch (error) {
       console.error("Error creating appointment:", error)
       toast.error("Failed to create appointment.")
@@ -616,8 +624,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                               width: 460,
                               height: 400,
                               borderRadius: 8,
-                                overflow: "hidden",
-                              margin: "20px"
+                              overflow: "hidden",
+                              margin: "20px",
                             }}
                           >
                             <Image
@@ -630,11 +638,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         )}
 
                         {showCanvas && (
-                          <div className="flex flex-col w-full">
-                            <PetDrawingCanvas
-                              petType={"horse"}
-                              onSave={handleSave}
-                            />
+                          <div className="w-full p-5">
+                            <div className="flex flex-col shadow-xl pr-5">
+                              <PetDrawingCanvas
+                                petType={"horse"}
+                                onSave={handleSave}
+                              />
+                            </div>
                           </div>
                         )}
                       </div>
