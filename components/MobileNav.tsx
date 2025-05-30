@@ -13,7 +13,7 @@ export const MobileNav = () => {
   }
 
   return (
-    <div className="flex flex-col justify-between w-full text-black p-4 shadow">
+    <div className="flex flex-col justify-between w-full text-black p-4 shadow-xl border-b">
       <div className="flex flex-row gap-2">
         <nav className="flex flex-row justify-between w-full">
           <div className="mt-2 flex flex-row">
