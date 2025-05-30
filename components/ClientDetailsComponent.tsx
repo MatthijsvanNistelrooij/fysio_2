@@ -526,6 +526,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       height={900}
                       src={savedImage}
                       alt="Saved drawing"
+                      onClick={() => setShowCanvas(true)}
                       className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none"
                     />
                   </div>
@@ -544,7 +545,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 border"
                     onClick={() => handleClickCanvas()}
                   >
-                    {showCanvas ? "Close Canvas" : "Open Canvas"}
+                    {showCanvas ? <X /> : "Open Canvas"}
                   </Button>
                 </div>
 
