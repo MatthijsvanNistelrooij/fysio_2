@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "./ui/select"
 import { Pet } from "@/types"
+import { Input } from "./ui/input"
 
 interface AddPetFormProps {
   initialData?: Pet
@@ -29,7 +30,7 @@ export default function AddPetForm({
     $id: "",
     description: "",
     appointments: [],
-    drawing: ""
+    drawing: "",
   },
   clientId,
   onSubmit,
@@ -43,7 +44,7 @@ export default function AddPetForm({
     $id: initialData.$id || "",
     description: initialData.description || "",
     appointments: initialData.appointments || [],
-    drawing: initialData.drawing || ""
+    drawing: initialData.drawing || "",
   })
 
   const handleChange = (
@@ -65,11 +66,12 @@ export default function AddPetForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 bg-white rounded shadow-xl mt-5"
+      className="space-y-5 bg-white rounded-xl shadow-xl mt-5"
     >
-      <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between">
+      <div className="bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium flex justify-between">
         Add New Pet
         <X
+          size={18}
           className="cursor-pointer text-gray-400 hover:text-gray-200"
           onClick={handleClose}
         />
@@ -80,7 +82,7 @@ export default function AddPetForm({
           <label htmlFor="name" className="text-sm font-medium mb-1">
             Name
           </label>
-          <input
+          <Input
             id="name"
             name="name"
             type="text"
@@ -118,7 +120,7 @@ export default function AddPetForm({
           <label htmlFor="age" className="text-sm font-medium mb-1">
             Age
           </label>
-          <input
+          <Input
             id="age"
             name="age"
             type="text"

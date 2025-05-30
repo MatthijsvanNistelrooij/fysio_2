@@ -114,7 +114,7 @@ const Clients = () => {
             </div>
           </div>
         ) : (
-          <div className="">
+          <div className="p-5">
             <div className="w-full flex justify-between ">
               <Input
                 className="bg-white mr-8 mb-5"
@@ -155,7 +155,7 @@ const Clients = () => {
                 {filteredClients.map((client) => (
                   <div
                     key={client.$id}
-                    className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4"
+                    className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4 mt-3 hover:bg-gray-100"
                   >
                     <div className="flex flex-col gap-2 w-full">
                       <div className="flex flex-col md:flex-row gap-2">

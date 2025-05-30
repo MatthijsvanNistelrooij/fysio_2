@@ -373,8 +373,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <div className="pb-1 rounded-2xl ">
-        <div className="mb-1 bg-white p-3 rounded-xl shadow-xl">
+      <div className="pb-1 rounded-2xl mt-10 ">
+        <div className=" bg-white p-3 rounded-xl shadow-xl mb-10">
           {edit ? (
             <div>
               <ClientForm
@@ -449,8 +449,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             />
           ) : selectedPet ? (
             <>
-              <div className={`shadow-xl text-gray-800 rounded bg-white `}>
-                <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between mt-5">
+              <div className={`shadow-xl text-gray-800 rounded-xl bg-white `}>
+                <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium flex justify-between mt-5 rounded-t-xl">
                   {selectedPet.name}
                   <div className="flex justify-end">
                     {(addPet || selectedPet) && (
@@ -541,13 +541,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               <div>
                 {openAppointment ? (
                   <div
-                    className={`bg-white overflow-hidden shadow-xl mt-5 rounded ${
+                    className={`bg-white overflow-hidden shadow-xl mt-5 rounded-xl ${
                       openAppointment
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-85 py-0"
                     }`}
                   >
-                    <div className="flex justify-between bg-gray-800 rounded-t">
+                    <div className="flex justify-between bg-gray-800 rounded-t-xl">
                       <div className="text-white p-2 px-4 text-sm flex gap-2">
                         <CalendarRange size={18} />
                         Date:&nbsp;
@@ -617,7 +617,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <div className="w-full">
                         <div className="w-full p-5 flex justify-end">
                           <Button
-                            className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 "
+                            className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600"
                             onClick={() => handleClickCanvas()}
                           >
                             {showCanvas ? <X /> : <Edit />}
@@ -645,7 +645,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         )}
 
                         {showCanvas && (
-                          <div className="w-full p-5">
+                          <div className="w-full p-5 ">
                             <div className="flex flex-col pr-5">
                               <PetDrawingCanvas
                                 petType={"horse"}
@@ -661,9 +661,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   <div className="mt-5">
                     {addAppointment ? (
                       <div>
-                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t px-4">
+                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t-xl px-4">
                           Add Appointment
                           <X
+                            size={18}
                             onClick={() => handleToggleAddAppointment()}
                             className="cursor-pointer text-gray-400 hover:text-gray-200"
                           />
@@ -684,10 +685,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                           <div
-                            className="cursor-pointer rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
+                            className="cursor-pointer rounded-xl shadow hover:shadow-md transition-shadow bg-white text-sm"
                             onClick={() => handleToggleAddAppointment()}
                           >
-                            <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                            <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium rounded-t-xl">
                               Add Appointment
                             </div>
                             <div className="p-4 flex justify-center">
@@ -703,9 +704,9 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                   onClick={() =>
                                     handleSelectAppointment(appointment)
                                   }
-                                  className="cursor-pointer rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
+                                  className="cursor-pointer rounded-xl shadow hover:shadow-md transition-shadow bg-white text-sm"
                                 >
-                                  <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                                  <div className="bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium">
                                     {new Date(
                                       appointment.date
                                     ).toLocaleDateString("en-US", {
@@ -737,9 +738,9 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
               <div
                 onClick={() => setAddPet(true)}
-                className={`cursor-pointer shadow text-gray-800 rounded hover:bg-gray-200 text-sm hover:bg-opacity-80`}
+                className={`cursor-pointer shadow text-gray-800 rounded-xl hover:bg-gray-200 text-sm hover:bg-opacity-80`}
               >
-                <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                <div className="bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium">
                   Add New Pet
                 </div>
                 <div className="p-4 flex justify-center">
@@ -751,11 +752,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 <div
                   key={pet.$id || index}
                   onClick={() => handleSelectPet(pet)}
-                  className={`cursor-pointer shadow text-gray-800 rounded hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
+                  className={`cursor-pointer shadow text-gray-800 rounded-xl hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
                     pet.type
                   )}`}
                 >
-                  <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                  <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium rounded-t-xl">
                     {pet.name}
                   </div>
                   <div className="p-4 space-y-1 relative">
