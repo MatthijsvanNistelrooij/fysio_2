@@ -256,24 +256,22 @@ const Clients = () => {
                             </div>
                           </div>
 
-                          <div className="flex flex-row justify-end gap-2">
-                            <div className="flex gap-2">
-                              {client.pets.length ? (
-                                client.pets.map((pet) => (
-                                  <Link
-                                    key={pet.$id}
-                                    href={`/pets/${pet.$id}`}
-                                    className={`shadow text-gray-800 rounded hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
-                                      pet.type
-                                    )}`}
-                                  >
-                                    {pet.name}
-                                  </Link>
-                                ))
-                              ) : (
-                                <div>-</div>
-                              )}
-                            </div>
+                          <div className="flex flex-col md:flex-row justify-end gap-2">
+                            {client.pets.length ? (
+                              client.pets.map((pet) => (
+                                <Link
+                                  key={pet.$id}
+                                  href={`/pets/${pet.$id}`}
+                                  className={`shadow text-gray-800 rounded hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
+                                    pet.type
+                                  )}`}
+                                >
+                                  {pet.name}
+                                </Link>
+                              ))
+                            ) : (
+                              <div>-</div>
+                            )}
                           </div>
                         </div>
                       </div>

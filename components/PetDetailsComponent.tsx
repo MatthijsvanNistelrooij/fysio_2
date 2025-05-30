@@ -98,12 +98,15 @@ export default function PetDetailsComponent({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="min-h-screen flex justify-center ">
+      <div className="flex justify-center">
         <div className="max-w-7xl w-full rounded m-5 bg-white shadow-xl">
           <div className="bg-gray-800 px-2 py-2 rounded-t text-sm text-white font-medium flex justify-between items-center">
-            <span>{pet.name}</span>
+            {pet.name}
             <Link href={`/clients/${pet.ownerId}`}>
-              <X size={20} className="cursor-pointer text-gray-400 hover:text-gray-200" />
+              <X
+                size={20}
+                className="cursor-pointer text-gray-400 hover:text-gray-200"
+              />
             </Link>
           </div>
           <div className="p-1">
@@ -151,73 +154,76 @@ export default function PetDetailsComponent({
               </div>
             )}
           </div>
+        </div>
+      </div>
 
-          <div className="border-t">
-            {addAppointment && user ? (
-              <div className="">
-                <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t px-4">
-                  Add New Appointment
-                  <X
-                    onClick={() => handleToggleAddAppointment()}
-                    className="cursor-pointer text-gray-400 hover:text-gray-200"
-                  />
-                </div>
-                <CreateAppointmentForm
-                  userId={user.$id}
-                  petId={pet.$id}
-                  onSubmit={(data) => handleCreate(pet.$id, pet.ownerId, data)}
+      <div className="flex justify-center p-5 pt-0">
+        <div className="w-full max-w-7xl rounded">
+          {addAppointment && user ? (
+            <div className="">
+              <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t px-4">
+                Add New Appointment
+                <X
+                  onClick={() => handleToggleAddAppointment()}
+                  className="cursor-pointer text-gray-400 hover:text-gray-200"
                 />
               </div>
-            ) : (
-              <div>
-                {Array.isArray(appointments) && appointments.length > 0 ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
-                    <div
-                      onClick={() => handleToggleAddAppointment()}
-                      className="cursor-pointer rounded shadow hover:shadow-md hover:bg-gray-100 transition-shadow bg-white text-sm"
-                    >
-                      <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
-                        Add New Appointment
-                      </div>
-                      <div className="flex justify-center p-5">
-                        <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />{" "}
-                      </div>
-                    </div>
-                    {appointments.map(
-                      (appointment: Appointment, index: number) => (
-                        <Link
-                          key={appointment.$id || index}
-                          href={`/appointments/${appointment.$id}`}
-                          className="block rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
-                        >
-                          <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
-                            {new Date(appointment.date).toLocaleDateString(
-                              "en-US",
-                              {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              }
-                            )}
-                          </div>
-                          <div className="p-4 space-y-1">
-                            <p className="text-gray-800 font-semibold">
-                              Description: {appointment.description}
-                            </p>
-                            <p className="text-gray-500 font-light">
-                              Treatment: {appointment.treatment}
-                            </p>
-                          </div>
-                        </Link>
-                      )
-                    )}
+              <CreateAppointmentForm
+                userId={user.$id}
+                petId={pet.$id}
+                onSubmit={(data) => handleCreate(pet.$id, pet.ownerId, data)}
+              />
+            </div>
+          ) : (
+            <div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div
+                  onClick={() => handleToggleAddAppointment()}
+                  className="cursor-pointer rounded shadow hover:shadow-md hover:bg-gray-100 transition-shadow bg-white text-sm"
+                >
+                  <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                    Add New Appointment
                   </div>
+                  <div className="flex justify-center p-5">
+                    <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />
+                  </div>
+                </div>
+
+                {Array.isArray(appointments) && appointments.length > 0 ? (
+                  appointments.map(
+                    (appointment: Appointment, index: number) => (
+                      <Link
+                        key={appointment.$id || index}
+                        href={`/appointments/${appointment.$id}`}
+                        className="block rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
+                      >
+                        <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                          {new Date(appointment.date).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
+                        </div>
+                        <div className="p-4 space-y-1">
+                          <p className="text-gray-800 font-semibold">
+                            Description: {appointment.description}
+                          </p>
+                          <p className="text-gray-500 font-light">
+                            Treatment: {appointment.treatment}
+                          </p>
+                        </div>
+                      </Link>
+                    )
+                  )
                 ) : (
-                  <p className="text-gray-500"></p>
+                  <p className="text-gray-500 col-span-full" />
                 )}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

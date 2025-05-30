@@ -372,77 +372,74 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <div className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col gap-4">
-        <div className="rounded-2xl">
-          <div className="mb-1">
-            {edit ? (
-              <div>
-                <ClientForm
-                  initialData={client}
-                  userId={user.$id}
-                  onSubmit={handleUpdate}
-                  setEdit={setEdit}
-                  handleDelete={handleDeleteClient}
-                />
+      <div className="pb-1 rounded-2xl ">
+        <div className="mb-1 bg-white p-5 rounded-xl shadow-xl">
+          {edit ? (
+            <div>
+              <ClientForm
+                initialData={client}
+                userId={user.$id}
+                onSubmit={handleUpdate}
+                setEdit={setEdit}
+                handleDelete={handleDeleteClient}
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col lg:flex-row gap-2 w-full ">
+              <div
+                className="p-1 bg-gray-800 rounded-xl min-w-[140px] flex-1 text-white flex"
+                onClick={() => {
+                  navigator.clipboard.writeText(client.name)
+                  toast.success("Client name copied to clipboard!")
+                }}
+              >
+                <Contact size={18} className="text-xs text-gray-300 m-1" />
+                <div className="text-sm mt-1 ml-1">{client.name}</div>
               </div>
-            ) : (
-              <div className="flex flex-col lg:flex-row gap-2 w-full ">
-                <div
-                  className="p-1 bg-gray-800 rounded-xl min-w-[140px] flex-1 text-white flex"
-                  onClick={() => {
-                    navigator.clipboard.writeText(client.name)
-                    toast.success("Client name copied to clipboard!")
-                  }}
-                >
-                  <Contact size={18} className="text-xs text-gray-300 m-1" />
-                  <div className="text-sm mt-1 ml-1">{client.name}</div>
-                </div>
 
-                <div
-                  className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                  onClick={() => {
-                    navigator.clipboard.writeText(client.address)
-                    toast.success("Address copied to clipboard!")
-                  }}
-                >
-                  <HomeIcon size={18} className="text-xs text-gray-300 m-1" />
-                  <div className="ml-1">{client.address}</div>
-                </div>
-                <div
-                  className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                  onClick={() => {
-                    navigator.clipboard.writeText(client.phone)
-                    toast.success("Phone number copied to clipboard!")
-                  }}
-                >
-                  <Phone size={18} className="text-xs text-gray-300 m-1" />
-
-                  <div className="ml-1">{client.phone}</div>
-                </div>
-
-                <div
-                  className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                  onClick={() => {
-                    navigator.clipboard.writeText(client.email)
-                    toast.success("Email copied to clipboard!")
-                  }}
-                >
-                  <Mail size={18} className="text-xs text-gray-300 m-1" />
-                  <div className="ml-1">{client.email}</div>
-                </div>
-                <Button
-                  onClick={handleEditToggle}
-                  className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                >
-                  <Edit size={20} />
-                </Button>
+              <div
+                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
+                onClick={() => {
+                  navigator.clipboard.writeText(client.address)
+                  toast.success("Address copied to clipboard!")
+                }}
+              >
+                <HomeIcon size={18} className="text-xs text-gray-300 m-1" />
+                <div className="ml-1">{client.address}</div>
               </div>
-            )}
-          </div>
+              <div
+                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
+                onClick={() => {
+                  navigator.clipboard.writeText(client.phone)
+                  toast.success("Phone number copied to clipboard!")
+                }}
+              >
+                <Phone size={18} className="text-xs text-gray-300 m-1" />
+
+                <div className="ml-1">{client.phone}</div>
+              </div>
+
+              <div
+                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
+                onClick={() => {
+                  navigator.clipboard.writeText(client.email)
+                  toast.success("Email copied to clipboard!")
+                }}
+              >
+                <Mail size={18} className="text-xs text-gray-300 m-1" />
+                <div className="ml-1">{client.email}</div>
+              </div>
+              <Button
+                onClick={handleEditToggle}
+                className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+              >
+                <Edit size={20} />
+              </Button>
+            </div>
+          )}
         </div>
-      </div>
-      <div>
-        <div className="mt-5">
+
+        <div className="mt-1">
           {addPet ? (
             <AddPetForm
               clientId={client.$id}
@@ -450,92 +447,97 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               handleClose={handleCloseAddPet}
             />
           ) : selectedPet ? (
-            <div className={`shadow-xl text-gray-800 rounded bg-white `}>
-              <div className="bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium flex justify-between mt-5">
-                {selectedPet.name}
-                <div className="flex justify-end">
-                  {(addPet || selectedPet) && (
-                    <X
-                      size={20}
-                      onClick={() => {
-                        setAddPet(false)
-                        setEditPet(false)
-                        setSelectedPet(null)
-                        setOpenAppointment(false)
-                        setSelectedAppointment(null)
-                      }}
-                      className="cursor-pointer text-gray-400 hover:text-gray-200"
-                    />
+            <>
+              <div className={`shadow-xl text-gray-800 rounded bg-white `}>
+                <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between mt-5">
+                  {selectedPet.name}
+                  <div className="flex justify-end">
+                    {(addPet || selectedPet) && (
+                      <X
+                        size={20}
+                        onClick={() => {
+                          setAddPet(false)
+                          setEditPet(false)
+                          setSelectedPet(null)
+                          setOpenAppointment(false)
+                          setSelectedAppointment(null)
+                        }}
+                        className="cursor-pointer text-gray-400 hover:text-gray-200"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-end gap-2 p-5">
+                    {editPet ? (
+                      <Button
+                        className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                        onClick={() => handleToggleUpdatePet()}
+                      >
+                        <X size={18} />
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => handleToggleUpdatePet()}
+                        className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                      >
+                        <Edit size={18} />
+                      </Button>
+                    )}
+                  </div>
+                  {editPet ? (
+                    <div className="">
+                      <PetForm
+                        initialData={selectedPet}
+                        onSubmit={handleUpdatePet}
+                        handleClose={handleToggleUpdatePet}
+                        handleDelete={handleDeletePet}
+                      />
+                    </div>
+                  ) : (
+                    <div className="">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="p-5 pt-2">
+                          <p className="text-sm font-medium mb-1">Name:</p>
+                          <p className="text-base mb-4">
+                            {selectedPet?.name || "N/A"}
+                          </p>
+
+                          <p className="text-sm font-medium mb-1">Type:</p>
+                          <p className="text-base mb-4">
+                            {selectedPet?.type || "N/A"}
+                          </p>
+
+                          <p className="text-sm font-medium mb-1">Breed:</p>
+                          <p className="text-base mb-4">
+                            {selectedPet?.breed || "N/A"}
+                          </p>
+                        </div>
+
+                        <div className="p-5 pt-2">
+                          <p className="text-sm font-medium mb-1">Age:</p>
+                          <p className="text-base mb-4">
+                            {selectedPet?.age || "N/A"}
+                          </p>
+                          <p className="text-sm font-medium mb-1">
+                            Description:
+                          </p>
+                          <p className="text-base mb-4">
+                            {selectedPet?.description || "N/A"}
+                          </p>
+
+                          <p className="text-sm font-medium mb-1">Notes:</p>
+                          <p className="text-base mb-4">
+                            {selectedPet?.notes || "N/A"}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
-
-              <div className="space-y-1">
-                <div className="flex justify-end gap-2 p-5">
-                  {editPet ? (
-                    <Button
-                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                      onClick={() => handleToggleUpdatePet()}
-                    >
-                      <X size={18} />
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() => handleToggleUpdatePet()}
-                      className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                    >
-                      <Edit size={18} />
-                    </Button>
-                  )}
-                </div>
-                {editPet ? (
-                  <div className="">
-                    <PetForm
-                      initialData={selectedPet}
-                      onSubmit={handleUpdatePet}
-                      handleClose={handleToggleUpdatePet}
-                      handleDelete={handleDeletePet}
-                    />
-                  </div>
-                ) : (
-                  <div className="">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-5 pt-2">
-                        <p className="text-sm font-medium mb-1">Name:</p>
-                        <p className="text-base mb-4">
-                          {selectedPet?.name || "N/A"}
-                        </p>
-
-                        <p className="text-sm font-medium mb-1">Type:</p>
-                        <p className="text-base mb-4">
-                          {selectedPet?.type || "N/A"}
-                        </p>
-
-                        <p className="text-sm font-medium mb-1">Breed:</p>
-                        <p className="text-base mb-4">
-                          {selectedPet?.breed || "N/A"}
-                        </p>
-                      </div>
-
-                      <div className="p-5 pt-2">
-                        <p className="text-sm font-medium mb-1">Age:</p>
-                        <p className="text-base mb-4">
-                          {selectedPet?.age || "N/A"}
-                        </p>
-                        <p className="text-sm font-medium mb-1">Description:</p>
-                        <p className="text-base mb-4">
-                          {selectedPet?.description || "N/A"}
-                        </p>
-
-                        <p className="text-sm font-medium mb-1">Notes:</p>
-                        <p className="text-base mb-4">
-                          {selectedPet?.notes || "N/A"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
+              <div>
                 {openAppointment ? (
                   <div
                     className={`bg-white overflow-hidden mt-6 rounded ${
@@ -655,7 +657,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                   </div>
                 ) : (
-                  <div className="border-t">
+                  <div className="mt-5">
                     {addAppointment ? (
                       <div>
                         <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t px-4">
@@ -679,7 +681,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       </div>
                     ) : (
                       <>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                           <div
                             className="cursor-pointer rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
                             onClick={() => handleToggleAddAppointment()}
@@ -729,7 +731,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 )}
               </div>
-            </div>
+            </>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
               <div

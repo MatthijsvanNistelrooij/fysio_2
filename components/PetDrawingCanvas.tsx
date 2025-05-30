@@ -133,7 +133,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           alt={`${petType} outline`}
           width={800}
           height={600}
-          className="absolute inset-0 object-contain opacity-50 pointer-events-none"
+          className="absolute inset-0 object-contain opacity-100 pointer-events-none"
         />
         <ReactSketchCanvas
           ref={canvasRef}
