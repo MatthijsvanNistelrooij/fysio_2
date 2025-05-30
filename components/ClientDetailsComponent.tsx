@@ -371,7 +371,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   }
 
   return (
-    <>
+          <div className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col gap-4 mb-3">
       <div className="pb-5 rounded-2xl ">
         <div className="mb-6">
           {edit ? (
@@ -766,6 +766,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }

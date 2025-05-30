@@ -102,7 +102,7 @@ export default function AppointmentDetailsComponent({
   }
 
   return (
-    <div className="flex justify-center bg-gray-50">
+    <div className="min-h-screen flex justify-center bg-gray-50">
       <div className="max-w-7xl w-full rounded m-5 bg-white shadow-xl">
         <div className="flex justify-between bg-gray-800">
           <div className="text-white p-2 px-4 text-sm flex gap-2">

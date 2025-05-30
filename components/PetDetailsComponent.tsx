@@ -97,13 +97,13 @@ export default function PetDetailsComponent({
   }
 
   return (
-    <>
-      <div className="flex justify-center bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen flex justify-center ">
         <div className="max-w-7xl w-full rounded m-5 bg-white shadow-xl">
-          <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium flex justify-between items-center">
+          <div className="bg-gray-800 px-2 py-2 rounded-t text-sm text-white font-medium flex justify-between items-center">
             <span>{pet.name}</span>
             <Link href={`/clients/${pet.ownerId}`}>
-              <X className="cursor-pointer text-gray-400 hover:text-gray-200" />
+              <X size={20} className="cursor-pointer text-gray-400 hover:text-gray-200" />
             </Link>
           </div>
           <div className="p-1">
@@ -171,7 +171,7 @@ export default function PetDetailsComponent({
             ) : (
               <div>
                 {Array.isArray(appointments) && appointments.length > 0 ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
                     <div
                       onClick={() => handleToggleAddAppointment()}
                       className="cursor-pointer rounded shadow hover:shadow-md hover:bg-gray-100 transition-shadow bg-white text-sm"
@@ -220,6 +220,6 @@ export default function PetDetailsComponent({
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
