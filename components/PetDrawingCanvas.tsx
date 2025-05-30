@@ -4,6 +4,7 @@ import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas"
 import horse from "../public/horse.jpg"
 import { Button } from "./ui/button"
 import { ArrowLeft, Check, Eraser, Pencil } from "lucide-react"
+import { toast } from "sonner"
 
 type PetType = "dog" | "horse" | "cat" | "other"
 
@@ -48,6 +49,9 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         imageDataUrl: snapshot,
         drawingJson: paths,
       })
+
+      console.log("SUCCESS")
+      toast.success("Canvas saved!")
     } catch (err) {
       console.error("Failed to export drawing:", err)
     }

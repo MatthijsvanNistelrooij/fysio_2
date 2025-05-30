@@ -66,7 +66,6 @@ export default function AppointmentDetailsComponent({
     if (saved) {
       const { imageDataUrl } = JSON.parse(saved)
       setSavedImage(imageDataUrl)
-      // Optionally restore the drawingJson to canvas here
     } else {
       setSavedImage(null)
     }
@@ -80,21 +79,27 @@ export default function AppointmentDetailsComponent({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drawingJson: any
   }) => {
-    if (!appointment) return
+    try {
+      console.log("Saving canvas...")
 
-    const key = `petDrawing-${selectedAppointment.$id}`
+      const key = `petDrawing-${selectedAppointment.$id}`
 
-    localStorage.setItem(
-      key,
-      JSON.stringify({
-        imageDataUrl,
-        drawingJson,
-        selectedAppointment: appointment.$id,
-      })
-    )
+      localStorage.setItem(
+        key,
+        JSON.stringify({
+          imageDataUrl,
+          drawingJson,
+          selectedAppointment: appointment.$id,
+        })
+      )
 
-    setSavedImage(imageDataUrl)
-    setShowCanvas(false)
+      setSavedImage(imageDataUrl)
+      setShowCanvas(false)
+
+    } catch (err) {
+      console.error("Error in handleSave:", err)
+      toast.error("Something went wrong saving the canvas.")
+    }
   }
 
   const handleClickCanvas = () => {

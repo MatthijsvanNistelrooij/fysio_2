@@ -80,6 +80,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     if (saved) {
       const { imageDataUrl } = JSON.parse(saved)
       setSavedImage(imageDataUrl)
+
       // Optionally restore the drawingJson to canvas here
     } else {
       setSavedImage(null)
