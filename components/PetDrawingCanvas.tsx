@@ -32,8 +32,8 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
       const paths = await canvasRef.current.exportPaths()
 
       // Use the natural size of your canvas/image here
-      const width = 800
-      const height = 600
+      const width = 450
+      const height = 350
 
       // Generate a snapshot image by combining background + strokes
       const snapshot = await generateSnapshot({
@@ -119,7 +119,15 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
 
   return (
     <div className="flex flex-col w-full mx-auto max-h-[600px] h-full gap-4">
-      <div className="relative rounded overflow-hidden w-full max-w-[800px] aspect-[4/3] mx-auto">
+      <div
+        style={{
+          position: "relative",
+          width: 460,
+          height: 350,
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
+      >
         <Image
           src={horse}
           alt={`${petType} outline`}
@@ -130,8 +138,6 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         <ReactSketchCanvas
           ref={canvasRef}
           strokeWidth={1.5}
-          width="100vw"
-          height="100vh"
           strokeColor={color}
           canvasColor="transparent"
           allowOnlyPointerType="all"

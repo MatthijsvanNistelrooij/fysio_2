@@ -14,7 +14,7 @@ import {
 } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
 import { toast } from "sonner"
-
+import horse from "../public/horse.jpg"
 import {
   addPetToClient,
   createPet,
@@ -73,9 +73,9 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   }, [])
 
   useEffect(() => {
-    if (!selectedPet) return
+    if (!selectedAppointment) return
 
-    const key = `petDrawing-${selectedPet.$id}`
+    const key = `petDrawing-${selectedAppointment.$id}`
     const saved = localStorage.getItem(key)
     if (saved) {
       const { imageDataUrl } = JSON.parse(saved)
@@ -84,7 +84,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     } else {
       setSavedImage(null)
     }
-  }, [selectedPet])
+  }, [selectedAppointment])
 
   if (!user) return
 
@@ -96,13 +96,17 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drawingJson: any
   }) => {
-    if (!selectedPet) return
+    if (!selectedAppointment) return
 
-    const key = `petDrawing-${selectedPet.$id}`
+    const key = `petDrawing-${selectedAppointment.$id}`
 
     localStorage.setItem(
       key,
-      JSON.stringify({ imageDataUrl, drawingJson, petId: selectedPet.$id })
+      JSON.stringify({
+        imageDataUrl,
+        drawingJson,
+        selectedAppointment: selectedAppointment.$id,
+      })
     )
 
     setSavedImage(imageDataUrl)
@@ -218,6 +222,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const handleCloseAppointment = () => {
     setOpenAppointment(false)
     setSelectedAppointment(null)
+    setShowCanvas(false)
   }
 
   const handleToggleAddAppointment = () => {
@@ -519,36 +524,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 )}
 
-                {savedImage && !showCanvas && (
-                  <div className="relative w-full aspect-video max-h-[500px] rounded overflow-hidden">
-                    <Image
-                      width={900}
-                      height={900}
-                      src={savedImage}
-                      alt="Saved drawing"
-                      onClick={() => setShowCanvas(true)}
-                      className="absolute inset-0 w-full h-full object-contain opacity-70 pointer-events-none"
-                    />
-                  </div>
-                )}
-
-                {showCanvas && (
-                  <div className="w-full p-5">
-                    <div className="flex flex-col w-full">
-                      <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
-                    </div>
-                  </div>
-                )}
-
-                <div className="w-full p-5 flex justify-end">
-                  <Button
-                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 border"
-                    onClick={() => handleClickCanvas()}
-                  >
-                    {showCanvas ? <X /> : "Open Canvas"}
-                  </Button>
-                </div>
-
                 {openAppointment ? (
                   <div
                     className={`bg-white overflow-hidden mt-6 rounded ${
@@ -623,13 +598,53 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                           )}
                         </div>
                       </div>
+
+                      <div className="w-full">
+                        <div className="w-full p-5 flex justify-end">
+                          <Button
+                            className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 "
+                            onClick={() => handleClickCanvas()}
+                          >
+                            {showCanvas ? <X /> : <Edit />}
+                          </Button>
+                        </div>
+
+                        {!showCanvas && (
+                          <div
+                            style={{
+                              position: "relative",
+                              width: 460,
+                              height: 400,
+                              borderRadius: 8,
+                              overflow: "hidden",
+                              marginLeft: "70px",
+                            }}
+                          >
+                            <Image
+                              width={450}
+                              height={300}
+                              src={savedImage ? savedImage : horse}
+                              alt="Saved drawing"
+                            />
+                          </div>
+                        )}
+
+                        {showCanvas && (
+                          <div className="flex flex-col w-full px-18">
+                            <PetDrawingCanvas
+                              petType={"horse"}
+                              onSave={handleSave}
+                            />
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ) : (
-                  <div className="border-t p-5">
+                  <div className="border-t">
                     {addAppointment ? (
                       <div>
-                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t mt-5 px-4">
+                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t px-4">
                           Add Appointment
                           <X
                             onClick={() => handleToggleAddAppointment()}
@@ -650,7 +665,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       </div>
                     ) : (
                       <>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
                           <div
                             className="cursor-pointer rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
                             onClick={() => handleToggleAddAppointment()}

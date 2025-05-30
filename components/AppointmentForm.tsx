@@ -69,9 +69,9 @@ export default function AppointmentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white rounded-xl w-full"
+      className="space-y-5 bg-white rounded-xl w-full"
     >
-      <div className="w-full flex justify-end">
+      <div className="w-full flex justify-end -mb-2">
         <Button
           onClick={onClick}
           className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
@@ -79,6 +79,7 @@ export default function AppointmentForm({
           <X size={20} />
         </Button>
       </div>
+
       <div>
         <label htmlFor="description" className="block font-semibold">
           Description
