@@ -17,7 +17,7 @@ interface PetFormProps {
   initialData?: Partial<Pet>
   onSubmit: (data: Pet) => Promise<void>
   handleClose: () => void
-  handleDelete: (id: string) => void
+  handleDelete: (id: string) => void 
 }
 
 export default function PetForm({

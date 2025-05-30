@@ -5,6 +5,10 @@
   display: none;
 }
 
+/* * {
+  border: 1px solid red;
+} */
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

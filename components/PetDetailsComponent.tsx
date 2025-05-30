@@ -100,7 +100,7 @@ export default function PetDetailsComponent({
     <div className="min-h-screen bg-gray-50">
       <div className="flex justify-center">
         <div className="max-w-7xl w-full rounded m-5 bg-white shadow-xl">
-          <div className="bg-gray-800 px-2 py-2 rounded-t text-sm text-white font-medium flex justify-between items-center">
+          <div className="bg-gray-800 p-2 rounded-t text-sm text-white font-medium flex justify-between items-center">
             {pet.name}
             <Link href={`/clients/${pet.ownerId}`}>
               <X
@@ -110,54 +110,59 @@ export default function PetDetailsComponent({
             </Link>
           </div>
           <div className="p-1">
-            <div className="flex justify-end p-5 gap-2">
-              <Button
-                onClick={handleEditToggle}
-                className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-              >
-                {edit ? <X /> : <Edit size={18} />}
-              </Button>
-            </div>
-            {edit ? (
-              <PetForm
-                initialData={pet}
-                onSubmit={handleUpdate}
-                handleClose={handleEditToggle}
-                handleDelete={handleDelete}
-              />
-            ) : (
-              <div className="">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-5 pt-2">
-                    <p className="text-sm font-medium mb-1">Name:</p>
-                    <p className="text-base mb-4">{pet?.name || "N/A"}</p>
+            <div className="flex justify-between p-5 gap-2">
+              <div className="w-full">
+                {edit ? (
+                  <PetForm
+                    initialData={pet}
+                    onSubmit={handleUpdate}
+                    handleClose={handleEditToggle}
+                    handleDelete={handleDelete}
+                  />
+                ) : (
+                  <div className="">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="p-5 pt-2">
+                        <p className="text-sm font-medium mb-1">Name:</p>
+                        <p className="text-base mb-4">{pet?.name || "N/A"}</p>
 
-                    <p className="text-sm font-medium mb-1">Type:</p>
-                    <p className="text-base mb-4">{pet?.type || "N/A"}</p>
+                        <p className="text-sm font-medium mb-1">Type:</p>
+                        <p className="text-base mb-4">{pet?.type || "N/A"}</p>
 
-                    <p className="text-sm font-medium mb-1">Breed:</p>
-                    <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
+                        <p className="text-sm font-medium mb-1">Breed:</p>
+                        <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
+                      </div>
+
+                      <div className="p-5 pt-2">
+                        <p className="text-sm font-medium mb-1">Age:</p>
+                        <p className="text-base mb-4">{pet?.age || "N/A"}</p>
+                        <p className="text-sm font-medium mb-1">Description:</p>
+                        <p className="text-base mb-4">
+                          {pet?.description || "N/A"}
+                        </p>
+
+                        <p className="text-sm font-medium mb-1">Notes:</p>
+                        <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="p-5 pt-2">
-                    <p className="text-sm font-medium mb-1">Age:</p>
-                    <p className="text-base mb-4">{pet?.age || "N/A"}</p>
-                    <p className="text-sm font-medium mb-1">Description:</p>
-                    <p className="text-base mb-4">
-                      {pet?.description || "N/A"}
-                    </p>
-
-                    <p className="text-sm font-medium mb-1">Notes:</p>
-                    <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
-                  </div>
-                </div>
+                )}
               </div>
-            )}
+
+              <div className="">
+                <Button
+                  onClick={handleEditToggle}
+                  className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+                >
+                  {edit ? <X /> : <Edit size={18} />}
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-center p-5 pt-0">
+      <div className="flex justify-center pt-0 p-5">
         <div className="w-full max-w-7xl rounded">
           {addAppointment && user ? (
             <div className="">

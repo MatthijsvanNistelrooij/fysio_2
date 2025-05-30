@@ -373,7 +373,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   return (
     <>
       <div className="pb-1 rounded-2xl ">
-        <div className="mb-1 bg-white p-5 rounded-xl shadow-xl">
+        <div className="mb-1 bg-white p-3 rounded-xl shadow-xl">
           {edit ? (
             <div>
               <ClientForm
@@ -387,14 +387,14 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           ) : (
             <div className="flex flex-col lg:flex-row gap-2 w-full ">
               <div
-                className="p-1 bg-gray-800 rounded-xl min-w-[140px] flex-1 text-white flex"
+                className="p-1 rounded-xl text-gray-100 flex items-center bg-gray-800 min-w-[140px] flex-1 text-sm"
                 onClick={() => {
                   navigator.clipboard.writeText(client.name)
                   toast.success("Client name copied to clipboard!")
                 }}
               >
                 <Contact size={18} className="text-xs text-gray-300 m-1" />
-                <div className="text-sm mt-1 ml-1">{client.name}</div>
+                <div className="text-sm ml-1">{client.name}</div>
               </div>
 
               <div
@@ -468,8 +468,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex justify-end gap-2 p-5">
+                <div className="">
+                  <div className="flex justify-end gap-2 p-5 pb-0">
                     {editPet ? (
                       <Button
                         className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
@@ -540,7 +540,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               <div>
                 {openAppointment ? (
                   <div
-                    className={`bg-white overflow-hidden mt-6 rounded ${
+                    className={`bg-white overflow-hidden mt-5 rounded ${
                       openAppointment
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-85 py-0"

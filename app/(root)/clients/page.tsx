@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { getCurrentUser } from "@/lib/user.actions"
 import Link from "next/link"
-import { Contact, Edit2, HomeIcon, List, Mail, Phone, X } from "lucide-react"
+import { Contact, Edit2, HomeIcon, List, Mail, Phone } from "lucide-react"
 import { getClientsByUserId } from "@/lib/client.actions"
 import { Client, User } from "@/types"
 import { toast } from "sonner"
 import CreateForm from "@/components/CreateForm"
 import { Input } from "@/components/ui/input"
-import ClientDetailsComponent from "@/components/ClientDetailsComponent"
 
 const Clients = () => {
   const [clients, setClients] = useState<Client[]>([])
@@ -17,11 +16,8 @@ const Clients = () => {
   const [edit, setEdit] = useState(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [search, setSearch] = useState("")
-  const [showSelectedClient, setShowSelectedClient] = useState(false)
 
   const [show, setShow] = useState(false)
-
-  const [selectedClient, setSelectedClient] = useState<Client | null>(null)
 
   useEffect(() => {
     if (edit) {
@@ -41,14 +37,6 @@ const Clients = () => {
     }
     fetchUser()
   }, [])
-
-  useEffect(() => {
-    if (selectedClient) {
-      setTimeout(() => setShowSelectedClient(true), 100)
-    } else {
-      setShowSelectedClient(false)
-    }
-  }, [selectedClient])
 
   useEffect(() => {
     if (!user) return
@@ -108,7 +96,7 @@ const Clients = () => {
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="p-5 pt-6 max-w-7xl w-full rounded-3xl">
+      <div className="p-5 max-w-7xl w-full rounded-3xl">
         {loading ? (
           <div className="flex items-center justify-center h-96 text-gray-400 text-xl">
             Loading clients...
@@ -127,34 +115,23 @@ const Clients = () => {
           </div>
         ) : (
           <div className="">
-            <div className="w-full flex justify-between mb-4">
+            <div className="w-full flex justify-between ">
               <Input
-                className="bg-white mr-8"
+                className="bg-white mr-8 mb-5"
                 placeholder="Search by name, email, phone, or address..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              {selectedClient && (
-                <X
-                  onClick={() => setSelectedClient(null)}
+              {!edit ? (
+                <List
+                  onClick={handleToggleEdit}
                   className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
                 />
-              )}
-
-              {!selectedClient && (
-                <div>
-                  {!edit ? (
-                    <List
-                      onClick={handleToggleEdit}
-                      className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
-                    />
-                  ) : (
-                    <Edit2
-                      onClick={handleToggleEdit}
-                      className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
-                    />
-                  )}
-                </div>
+              ) : (
+                <Edit2
+                  onClick={handleToggleEdit}
+                  className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
+                />
               )}
             </div>
             <div className="relative min-h-[400px]">
@@ -175,109 +152,79 @@ const Clients = () => {
                     : "opacity-0 -translate-y-2 pointer-events-none"
                 }`}
               >
-                {selectedClient ? (
+                {filteredClients.map((client) => (
                   <div
-                    className={`absolute inset-0 transition-all duration-500 ${
-                      selectedClient && showSelectedClient
-                        ? "opacity-100 translate-y-0 pointer-events-auto"
-                        : "opacity-0 -translate-y-2 pointer-events-none"
-                    }`}
+                    key={client.$id}
+                    className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4"
                   >
-                    {selectedClient && (
-                      <ClientDetailsComponent client={selectedClient} />
-                    )}
-                  </div>
-                ) : (
-                  <div
-                    className={`transition-all duration-500 ${
-                      !selectedClient && !showSelectedClient
-                        ? "opacity-100 translate-y-0 pointer-events-auto"
-                        : "opacity-0 -translate-y-2 pointer-events-none"
-                    }`}
-                  >
-                    {filteredClients.map((client) => (
-                      <div
-                        key={client.$id}
-                        className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4 mb-3"
-                      >
-                        <div className="flex flex-col gap-2 w-full">
-                          <div className="flex flex-col md:flex-row gap-2">
-                            <div
-                              className="bg-gray-800 p-1 rounded-xl text-white flex items-center w-full cursor-pointer"
-                              onClick={() => handleTableRowClick(client.$id)}
-                            >
-                              <Contact
-                                size={18}
-                                className=" text-gray-300 m-1"
-                              />
-                              <div>{client.name}</div>
-                            </div>
+                    <div className="flex flex-col gap-2 w-full">
+                      <div className="flex flex-col md:flex-row gap-2">
+                        <div
+                          className="bg-gray-800 p-1 rounded-xl text-white flex items-center w-full cursor-pointer"
+                          onClick={() => handleTableRowClick(client.$id)}
+                        >
+                          <Contact size={18} className=" text-gray-300 m-1" />
+                          <div>{client.name}</div>
+                        </div>
 
-                            <div
-                              className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
-                              onClick={() => {
-                                navigator.clipboard.writeText(client.address)
-                                toast.success("Address copied to clipboard!")
-                              }}
-                            >
-                              <HomeIcon
-                                size={18}
-                                className=" text-gray-300 m-1"
-                              />
-                              {client.address}
-                            </div>
-                            <div
-                              className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
-                              onClick={() => {
-                                navigator.clipboard.writeText(client.phone)
-                                toast.success(
-                                  "Phone number copied to clipboard!"
-                                )
-                              }}
-                            >
-                              <Phone
-                                size={18}
-                                className="text-xs text-gray-300 m-1"
-                              />
-                              {client.phone}
-                            </div>
-                            <div
-                              className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
-                              onClick={() => {
-                                navigator.clipboard.writeText(client.email)
-                                toast.success("Email copied to clipboard!")
-                              }}
-                            >
-                              <Mail
-                                size={18}
-                                className="text-xs text-gray-300 m-1"
-                              />
-                              {client.email}
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col md:flex-row justify-end gap-2">
-                            {client.pets.length ? (
-                              client.pets.map((pet) => (
-                                <Link
-                                  key={pet.$id}
-                                  href={`/pets/${pet.$id}`}
-                                  className={`shadow text-gray-800 rounded hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
-                                    pet.type
-                                  )}`}
-                                >
-                                  {pet.name}
-                                </Link>
-                              ))
-                            ) : (
-                              <div>-</div>
-                            )}
-                          </div>
+                        <div
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
+                          onClick={() => {
+                            navigator.clipboard.writeText(client.address)
+                            toast.success("Address copied to clipboard!")
+                          }}
+                        >
+                          <HomeIcon size={18} className=" text-gray-300 m-1" />
+                          {client.address}
+                        </div>
+                        <div
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
+                          onClick={() => {
+                            navigator.clipboard.writeText(client.phone)
+                            toast.success("Phone number copied to clipboard!")
+                          }}
+                        >
+                          <Phone
+                            size={18}
+                            className="text-xs text-gray-300 m-1"
+                          />
+                          {client.phone}
+                        </div>
+                        <div
+                          className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 w-full"
+                          onClick={() => {
+                            navigator.clipboard.writeText(client.email)
+                            toast.success("Email copied to clipboard!")
+                          }}
+                        >
+                          <Mail
+                            size={18}
+                            className="text-xs text-gray-300 m-1"
+                          />
+                          {client.email}
                         </div>
                       </div>
-                    ))}
+
+                      <div className="flex flex-row justify-end gap-2 mt-4">
+                        {client.pets.length ? (
+                          client.pets.map((pet) => (
+                            <Link
+                              key={pet.$id}
+                              href={`/pets/${pet.$id}`}
+                              className={`shadow text-gray-800 rounded hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
+                                pet.type
+                              )}`}
+                            >
+                              {pet.name}
+                            </Link>
+                          ))
+                        ) : (
+                          <div>-</div>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                )}
+                ))}
               </div>
             </div>
           </div>

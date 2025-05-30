@@ -102,8 +102,8 @@ export default function AppointmentDetailsComponent({
   }
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="max-w-7xl w-full rounded p-5 bg-white shadow-xl">
+    <div className="min-h-screen flex justify-center bg-gray-50 p-5">
+      <div className="max-w-7xl w-full rounded bg-white shadow-xl">
         <div className="flex justify-between bg-gray-800">
           <div className="text-white p-2 px-4 text-sm flex gap-2">
             <CalendarRange size={18} />
@@ -124,76 +124,78 @@ export default function AppointmentDetailsComponent({
             />
           </Link>
         </div>
-        <div className="flex flex-col md:flex-row bg-white p-5 gap-6">
-          {edit ? (
-            <div className="flex justify-between w-full">
-              <AppointmentForm
-                initialData={appointment}
-                onSubmit={handleUpdate}
-                onClick={handleEditToggle}
-                onDelete={handleDelete}
-              />
-            </div>
-          ) : (
-            <div className="flex w-full">
-              <div className="flex-1 text-gray-800 p-5">
-                <p className="text-sm font-medium mb-1">Description:</p>
-                <p className="text-base mb-4">{appointment?.description}</p>
-
-                <p className="text-sm font-medium mb-1">Treatment:</p>
-                <p className="text-base">{appointment?.treatment}</p>
+        <div className=" flex flex-col md:flex-row">
+          <div className="flex flex-col w-full md:flex-row bg-white p-5 gap-6">
+            {edit ? (
+              <div className="flex justify-between w-full">
+                <AppointmentForm
+                  initialData={appointment}
+                  onSubmit={handleUpdate}
+                  onClick={handleEditToggle}
+                  onDelete={handleDelete}
+                />
               </div>
+            ) : (
+              <div className="flex w-full">
+                <div className="flex-1 text-gray-800 p-5">
+                  <p className="text-sm font-medium mb-1">Description:</p>
+                  <p className="text-base mb-4">{appointment?.description}</p>
 
-              <div className="flex flex-col">
-                <div className="flex gap-2">
-                  <Button
-                    onClick={handleEditToggle}
-                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800 "
-                  >
-                    <Edit size={20} />
-                  </Button>
+                  <p className="text-sm font-medium mb-1">Treatment:</p>
+                  <p className="text-base">{appointment?.treatment}</p>
+                </div>
+
+                <div className="flex flex-col">
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={handleEditToggle}
+                      className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800 "
+                    >
+                      <Edit size={20} />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-        <div className="w-full">
-          <div className="w-full p-5 flex justify-end">
-            <Button
-              className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 "
-              onClick={() => handleClickCanvas()}
-            >
-              {showCanvas ? <X /> : <Edit />}
-            </Button>
+            )}
           </div>
-
-          {!showCanvas && (
-            <div
-              style={{
-                position: "relative",
-                width: 460,
-                height: 400,
-                borderRadius: 8,
-                overflow: "hidden",
-                margin: "20px",
-              }}
-            >
-              <Image
-                width={450}
-                height={300}
-                src={savedImage ? savedImage : horse}
-                alt="Saved drawing"
-              />
+          <div className="w-full">
+            <div className="w-full p-5 flex justify-end">
+              <Button
+                className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 "
+                onClick={() => handleClickCanvas()}
+              >
+                {showCanvas ? <X /> : <Edit />}
+              </Button>
             </div>
-          )}
 
-          {showCanvas && (
-            <div className="w-full p-5">
-              <div className="flex flex-col shadow-xl pr-5">
-                <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
+            {!showCanvas && (
+              <div
+                style={{
+                  position: "relative",
+                  width: 460,
+                  height: 400,
+                  borderRadius: 8,
+                  overflow: "hidden",
+                  margin: "20px",
+                }}
+              >
+                <Image
+                  width={450}
+                  height={300}
+                  src={savedImage ? savedImage : horse}
+                  alt="Saved drawing"
+                />
               </div>
-            </div>
-          )}
+            )}
+
+            {showCanvas && (
+              <div className="w-full p-5">
+                <div className="flex flex-col">
+                  <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
