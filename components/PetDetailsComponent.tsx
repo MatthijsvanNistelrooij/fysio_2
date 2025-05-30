@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Edit, Plus, Trash, X } from "lucide-react"
+import { Edit, Plus, X } from "lucide-react"
 import { deletePet, updatePet } from "@/lib/pet.actions"
 import {
   addAppointmentToPet,
@@ -96,21 +96,6 @@ export default function PetDetailsComponent({
     }
   }
 
-  if (edit) {
-    return (
-      <div className="min-h-screen flex justify-center bg-gray-50">
-        <div className="p-5 max-w-7xl w-full rounded-3xl">
-          <PetForm
-            initialData={pet}
-            onSubmit={handleUpdate}
-            handleClose={handleEditToggle}
-            handleDelete={handleDelete}
-          />
-        </div>
-      </div>
-    )
-  }
-
   return (
     <>
       <div className="flex justify-center bg-gray-50">
@@ -122,43 +107,51 @@ export default function PetDetailsComponent({
             </Link>
           </div>
           <div className="p-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pt-0">
-              {/* LEFT COLUMN */}
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm font-medium mb-1">Name:</p>
-                  <p className="text-base mb-4">{pet?.name || "N/A"}</p>
-                  <p className="text-sm font-medium mb-1">Type:</p>
-                  <p className="text-base mb-4">{pet?.type || "N/A"}</p>
-                  <p className="text-sm font-medium mb-1">Breed:</p>
-                  <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
-                </div>
-                <div>
-                  <p className="text-sm font-medium mb-1">Age:</p>
-                  <p className="text-base mb-4">{pet?.age || "N/A"}</p>
-                  <p className="text-sm font-medium mb-1">Description:</p>
-                  <p className="text-base mb-4">{pet?.description || "N/A"}</p>
-                  <p className="text-sm font-medium mb-1">Notes:</p>
-                  <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
+            <div className="flex justify-end p-5 gap-2">
+              <Button
+                onClick={handleEditToggle}
+                className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+              >
+                {edit ? <X /> : <Edit size={18} />}
+              </Button>
+            </div>
+            {edit ? (
+              <PetForm
+                initialData={pet}
+                onSubmit={handleUpdate}
+                handleClose={handleEditToggle}
+                handleDelete={handleDelete}
+              />
+            ) : (
+              <div className="">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-5 pt-2">
+                    <p className="text-sm font-medium mb-1">Name:</p>
+                    <p className="text-base mb-4">{pet?.name || "N/A"}</p>
+
+                    <p className="text-sm font-medium mb-1">Type:</p>
+                    <p className="text-base mb-4">{pet?.type || "N/A"}</p>
+
+                    <p className="text-sm font-medium mb-1">Breed:</p>
+                    <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
+                  </div>
+
+                  <div className="p-5 pt-2">
+                    <p className="text-sm font-medium mb-1">Age:</p>
+                    <p className="text-base mb-4">{pet?.age || "N/A"}</p>
+                    <p className="text-sm font-medium mb-1">Description:</p>
+                    <p className="text-base mb-4">
+                      {pet?.description || "N/A"}
+                    </p>
+
+                    <p className="text-sm font-medium mb-1">Notes:</p>
+                    <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
-          <div className="flex justify-end p-5 gap-2">
-            <Button
-              onClick={handleEditToggle}
-              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-            >
-              <Edit size={18} />
-            </Button>
 
-            <Button
-              onClick={() => handleDelete(pet.$id)}
-              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-            >
-              <Trash size={18} />
-            </Button>
-          </div>
           <div className="border-t p-5">
             {addAppointment && user ? (
               <div className="">
