@@ -431,7 +431,12 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 <div className="ml-1">{client.email}</div>
               </div>
               <Button
-                onClick={handleEditToggle}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  e.currentTarget.blur()
+                  handleEditToggle()
+                }}
                 className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
               >
                 <Edit size={20} />
