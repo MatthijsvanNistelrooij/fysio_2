@@ -124,11 +124,13 @@ const Clients = () => {
               />
               {!edit ? (
                 <List
+                  size={20}
                   onClick={handleToggleEdit}
                   className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
                 />
               ) : (
                 <Edit2
+                  size={18}
                   onClick={handleToggleEdit}
                   className="cursor-pointer text-gray-400 hover:text-gray-800 mt-2"
                 />
