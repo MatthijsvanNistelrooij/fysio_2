@@ -43,7 +43,7 @@ import Image from "next/image"
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ClientDetailsComponent({ client }: { client: any }) {
   const router = useRouter()
-  const [addPet, setAddPet] = useState(false)
+  const [addPet, setAddPet] = useState(true)
   const [edit, setEdit] = useState(false)
   const [editAppointment, setEditAppointment] = useState(false)
   const [user, setUser] = useState<User | null>(null)
@@ -61,8 +61,18 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const [openAppointment, setOpenAppointment] = useState(false)
 
   useEffect(() => {
+    if (localClient?.pets?.length) {
+      setAddPet(false)
+    } else {
+      setAddPet(true)
+    }
+  }, [localClient])
+
+  useEffect(() => {
     setLocalClient(client)
   }, [client])
+
+  console.log(localClient)
 
   useEffect(() => {
     async function fetchUser() {
@@ -456,7 +466,26 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             <>
               <div className={`shadow-xl text-gray-800 rounded-xl bg-white `}>
                 <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium flex justify-between mt-5 rounded-t-xl">
-                  {selectedPet.name}
+                  <div className="flex">
+                    {selectedPet.name}
+
+                    <div className="flex justify-end gap-2">
+                      {editPet ? (
+                        <X
+                          className="text-gray-400 hover:text-gray-200 cursor-pointer ml-5 mt-1"
+                          size={14}
+                          onClick={() => handleToggleUpdatePet()}
+                        />
+                      ) : (
+                        <Edit
+                          className="text-gray-400 hover:text-gray-200 cursor-pointer ml-5 mt-1"
+                          size={14}
+                          onClick={() => handleToggleUpdatePet()}
+                        />
+                      )}
+                    </div>
+                  </div>
+
                   <div className="flex justify-end">
                     {(addPet || selectedPet) && (
                       <X
@@ -475,25 +504,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 </div>
 
                 <div className="">
-                  <div className="flex justify-end gap-2 p-5 pb-0">
-                    {editPet ? (
-                      <Button
-                        className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                        onClick={() => handleToggleUpdatePet()}
-                      >
-                        <X size={18} />
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => handleToggleUpdatePet()}
-                        className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Edit size={18} />
-                      </Button>
-                    )}
-                  </div>
                   {editPet ? (
-                    <div className="">
+                    <div className="p-5">
                       <PetForm
                         initialData={selectedPet}
                         onSubmit={handleUpdatePet}
@@ -502,7 +514,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       />
                     </div>
                   ) : (
-                    <div className="">
+                    <div className="p-5">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="p-5 pt-2">
                           <p className="text-sm font-medium mb-1">Name:</p>
@@ -666,7 +678,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   <div className="mt-5">
                     {addAppointment ? (
                       <div>
-                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t-xl px-4">
+                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t-xl px-4 -mt-10">
                           Add Appointment
                           <X
                             size={18}
@@ -675,6 +687,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                           />
                         </div>
                         <CreateAppointmentForm
+
                           userId={user.$id}
                           petId={selectedPet.$id}
                           onSubmit={(data) =>

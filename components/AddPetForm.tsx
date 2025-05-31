@@ -77,7 +77,7 @@ export default function AddPetForm({
         />
       </div>
 
-      <div className="space-y-4 p-4 max-w-3xl">
+      <div className="space-y-4 p-5">
         <div className="">
           <label htmlFor="name" className="text-sm font-medium mb-1">
             Name

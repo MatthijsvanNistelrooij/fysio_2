@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 import { Appointment } from "@/types"
+import { PetDrawingCanvas } from "./PetDrawingCanvas"
 
 interface CreateAppointmentFormProps {
   petId: string
@@ -60,43 +61,57 @@ export default function CreateAppointmentForm({
     await onSubmit(payload)
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 shadow-xl rounded">
-      <div>
-        <input
-          id="date"
-          name="date"
-          type="date"
-          value={formatDateForInput(formData.date)}
-          onChange={handleChange}
-          className="border p-2 w-full rounded"
-          required
-        />
-      </div>
-      <div>
-        <textarea
-          id="description"
-          name="description"
-          placeholder="description"
-          value={formData.description}
-          onChange={handleChange}
-          className="border p-2 w-full rounded font-light"
-          required
-          rows={3}
-        />
-      </div>
+  const handleSave = () => {
+    console.log("TODO")
+  }
 
-      <div>
-        <input
-          id="treatment"
-          name="treatment"
-          type="text"
-          placeholder="treatment"
-          value={formData.treatment}
-          onChange={handleChange}
-          className="border p-2 w-full rounded font-light"
-          required
-        />
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className=" bg-white p-4 shadow-xl rounded-xl"
+    >
+      <div className="flex justify-between">
+        <div className="w-full">
+          <div>
+            <input
+              id="date"
+              name="date"
+              type="date"
+              value={formatDateForInput(formData.date)}
+              onChange={handleChange}
+              className="border p-2 w-full rounded"
+              required
+            />
+          </div>
+          <div>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="border p-2 w-full rounded font-light mt-2"
+              required
+              rows={3}
+            />
+          </div>
+
+          <div>
+            <input
+              id="treatment"
+              name="treatment"
+              type="text"
+              placeholder="treatment"
+              value={formData.treatment}
+              onChange={handleChange}
+              className="border p-2 w-full rounded font-light"
+              required
+            />
+          </div>
+        </div>
+        <div className="w-full">
+          <PetDrawingCanvas petType="horse" onSave={handleSave} />
+        </div>
       </div>
 
       <div className="flex justify-end">
