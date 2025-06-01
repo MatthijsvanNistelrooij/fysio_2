@@ -166,13 +166,13 @@ export default function PetForm({
               <div className="flex gap-2 justify-end">
                 <Button
                   type="submit"
-                  className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+                  className="bg-white hover:bg-green-50 text-green-800 cursor-pointer"
                 >
                   <Check />
                 </Button>
                 <Button
                   onClick={() => handleDelete(formData.$id)}
-                  className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                  className="text-orange-800 bg-white hover:bg-orange-100 cursor-pointer"
                 >
                   <Trash size={18} />
                 </Button>

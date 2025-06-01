@@ -123,7 +123,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
           <div className="flex justify-end w-full">
             <Button
               type="submit"
-              className="cursor-pointer bg-white hover:bg-gray-100 text-gray-800"
+              className="cursor-pointer bg-white hover:bg-green-100 text-green-800"
             >
               <Check />
             </Button>

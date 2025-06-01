@@ -581,7 +581,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <X
                         size={20}
                         onClick={handleCloseAppointment}
-                        className="text-gray-400 cursor-pointer hover:text-gray-200 m-2"
+                        className="text-gray-400 cursor-pointer hover:text-gray-200 m-2 mr-4"
                       />
                     </div>
                     <div className="flex flex-col md:flex-row bg-white pb-2 gap-6 p-5">

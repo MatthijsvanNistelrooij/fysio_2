@@ -134,7 +134,7 @@ export default function AddPetForm({
       <div className="flex justify-end p-4">
         <Button
           type="submit"
-          className="bg-white hover:bg-gray-100 text-gray-900 cursor-pointer"
+          className="bg-white hover:bg-green-50 text-green-900 cursor-pointer"
         >
           <Check />
         </Button>

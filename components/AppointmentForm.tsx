@@ -132,14 +132,14 @@ export default function AppointmentForm({
       <div className="flex justify-end gap-2">
         <Button
           type="submit"
-          className="bg-white hover:bg-blue-50 text-gray-800 cursor-pointer"
+          className="bg-white hover:bg-green-50 text-green-800 cursor-pointer"
         >
           <Check />
         </Button>
         <Button
           type="button"
           onClick={() => onDelete(initialData.$id)}
-          className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+          className="text-orange-800 bg-white hover:bg-orange-100 cursor-pointer"
         >
           <Trash size={20} />
         </Button>

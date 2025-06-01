@@ -38,7 +38,7 @@ const DetailsCard = ({
               <TrashIcon
                 size={18}
                 onClick={onDelete}
-                className="text-gray-400 hover:text-gray-100 cursor-pointer"
+                className="text-orange-400 hover:bg-orange-50 cursor-pointer"
               />
             </div>
           </div>
