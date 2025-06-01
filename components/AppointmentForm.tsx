@@ -73,7 +73,7 @@ export default function AppointmentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 bg-white rounded-xl w-full pl-5"
+      className="space-y-5 bg-white rounded-xl w-full"
     >
       <div className="w-full flex justify-end -mb-2">
         <Button

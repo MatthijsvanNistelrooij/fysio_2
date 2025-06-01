@@ -516,7 +516,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   ) : (
                     <div className="">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="pl-5 pt-2">
+                        <div className="pt-2">
                           <p className="text-sm font-medium mb-1">Name:</p>
                           <p className="text-base mb-4">
                             {selectedPet?.name || "N/A"}
@@ -597,7 +597,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                               />
                             </div>
                           ) : (
-                            <div className="flex w-full  pl-5">
+                            <div className="flex w-full">
                               <div className="w-full">
                                 {selectedAppointment && (
                                   <div className="flex w-full justify-end gap-3">
