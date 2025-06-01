@@ -94,7 +94,7 @@ export default function AppointmentForm({
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="border-none bg-gray-100 p-1 w-full  rounded"
+          className="border-none bg-blue-50 p-1 w-full  rounded"
           required
           rows={3}
         />
@@ -110,7 +110,7 @@ export default function AppointmentForm({
           type="text"
           value={formData.treatment}
           onChange={handleChange}
-          className="border-none bg-gray-100 p-1 w-full rounded"
+          className="border-none bg-blue-50 p-1 w-full rounded"
           required
         />
       </div>
@@ -125,14 +125,14 @@ export default function AppointmentForm({
           type="date"
           value={formData.date ? formatDateForInput(formData.date) : ""}
           onChange={handleChange}
-          className="border-none bg-gray-100 p-2 w-full rounded"
+          className="border-none bg-blue-50 p-2 w-full rounded"
         />
       </div>
 
       <div className="flex justify-end gap-2">
         <Button
           type="submit"
-          className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+          className="bg-white hover:bg-blue-50 text-gray-800 cursor-pointer"
         >
           <Check />
         </Button>

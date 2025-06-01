@@ -17,7 +17,7 @@ interface PetFormProps {
   initialData?: Partial<Pet>
   onSubmit: (data: Pet) => Promise<void>
   handleClose: () => void
-  handleDelete: (id: string) => void 
+  handleDelete: (id: string) => void
 }
 
 export default function PetForm({
@@ -57,7 +57,7 @@ export default function PetForm({
     <>
       <form onSubmit={handleSubmit} className="space-y-2 bg-white rounded">
         <div className="p-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pt-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pl-4 pt-0">
             {/* LEFT COLUMN */}
             <div className="space-y-4">
               <div>
@@ -71,7 +71,7 @@ export default function PetForm({
                   placeholder="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="border p-1 w-full rounded"
+                  className="border-none p-1 w-full rounded bg-blue-50"
                   required
                 />
               </div>
@@ -86,7 +86,7 @@ export default function PetForm({
                     setFormData((prev) => ({ ...prev, type: value }))
                   }
                 >
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full border-none bg-blue-50">
                     <SelectValue placeholder="Select pet type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -109,7 +109,7 @@ export default function PetForm({
                   placeholder="breed"
                   value={formData.breed}
                   onChange={handleChange}
-                  className="border p-1 w-full rounded"
+                  className="border-none bg-blue-50 p-1 w-full rounded"
                 />
               </div>
             </div>
@@ -127,7 +127,7 @@ export default function PetForm({
                   type="number"
                   value={formData.age}
                   onChange={handleChange}
-                  className="border p-1 w-full rounded"
+                  className="border-none bg-blue-50 p-1 w-full rounded"
                 />
               </div>
 
@@ -144,7 +144,7 @@ export default function PetForm({
                   placeholder="description"
                   value={formData.description}
                   onChange={handleChange}
-                  className="border p-1 w-full rounded"
+                  className="border-none bg-blue-50 p-1 w-full rounded"
                 />
               </div>
 
@@ -158,7 +158,7 @@ export default function PetForm({
                   placeholder="notes"
                   value={formData.notes}
                   onChange={handleChange}
-                  className="border p-1 w-full rounded resize-none"
+                  className="border-none bg-blue-50 p-1 w-full rounded resize-none"
                   rows={3}
                 />
               </div>

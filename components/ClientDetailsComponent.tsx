@@ -516,7 +516,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   ) : (
                     <div className="">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="p-5 pt-2">
+                        <div className="pl-5 pt-2">
                           <p className="text-sm font-medium mb-1">Name:</p>
                           <p className="text-base mb-4">
                             {selectedPet?.name || "N/A"}
@@ -527,7 +527,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             {selectedPet?.type || "N/A"}
                           </p>
 
-                          <p className="text-sm font-medium mb-1">Breed:</p>
+                          <p className="text-sm font-medium mb-1 mt-7">Breed:</p>
                           <p className="text-base mb-4">
                             {selectedPet?.breed || "N/A"}
                           </p>
@@ -545,7 +545,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             {selectedPet?.description || "N/A"}
                           </p>
 
-                          <p className="text-sm font-medium mb-1">Notes:</p>
+                          <p className="text-sm font-medium mb-1 mt-8">Notes:</p>
                           <p className="text-base mb-4">
                             {selectedPet?.notes || "N/A"}
                           </p>
@@ -672,8 +672,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             }}
                           >
                             <Image
-                              width={450}
-                              height={300}
+                              width={440}
+                              height={250}
                               src={savedImage ? savedImage : horse}
                               alt="Saved drawing"
                             />

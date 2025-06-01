@@ -57,7 +57,7 @@ export default function ClientForm({
             />
           </div>
 
-          <div className="w-full flex bg-gray-100 rounded-xl">
+          <div className="w-full flex bg-blue-50 rounded-xl">
             <HomeIcon size={20} className="text-gray-300 m-2" />
             <Input
               name="address"
@@ -66,7 +66,7 @@ export default function ClientForm({
               className="border-none shadow-none rounded-xl p-0 text-gray-800"
             />
           </div>
-          <div className="w-full flex bg-gray-100 rounded-xl">
+          <div className="w-full flex bg-blue-50 rounded-xl">
             <Phone size={20} className="text-gray-300 m-2" />
             <Input
               name="phone"
@@ -75,7 +75,7 @@ export default function ClientForm({
               className="border-none shadow-none rounded-xl p-0 text-gray-800"
             />
           </div>
-          <div className="w-full flex bg-gray-100 rounded-xl">
+          <div className="w-full flex bg-blue-50 rounded-xl">
             <Mail size={20} className="text-gray-300 m-2" />
             <Input
               name="email"
