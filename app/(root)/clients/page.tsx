@@ -157,7 +157,7 @@ const Clients = () => {
                 {filteredClients.map((client) => (
                   <div
                     key={client.$id}
-                    className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4 mt-3"
+                    className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4 mb-3"
                   >
                     <div className="flex flex-col gap-2 w-full">
                       <div className="flex flex-col md:flex-row gap-2">

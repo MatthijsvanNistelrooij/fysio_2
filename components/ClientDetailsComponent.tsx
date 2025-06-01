@@ -384,7 +384,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   return (
     <>
       <div className="pb-1 rounded-2xl mt-1">
-        <div className=" bg-white p-3 rounded-xl shadow-xl mb-10">
+        <div className=" bg-white p-3 rounded-xl shadow-xl mb-5">
           {edit ? (
             <div>
               <ClientForm
