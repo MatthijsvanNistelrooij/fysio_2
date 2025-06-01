@@ -665,7 +665,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             style={{
                               position: "relative",
                               width: 460,
-                              height: 400,
+                              height: 385,
                               borderRadius: 8,
                               overflow: "hidden",
                               margin: "20px",
