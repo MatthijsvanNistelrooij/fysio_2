@@ -4,6 +4,8 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check, Trash, X } from "lucide-react"
 import { Appointment } from "@/types"
+import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
 
 interface AppointmentFormProps {
   initialData?: Appointment
@@ -65,14 +67,17 @@ export default function AppointmentForm({
     }
 
     await onSubmit(payload)
+    onClick()
+    onClick()
   }
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 bg-white rounded-xl w-full"
+      className="space-y-5 bg-white rounded-xl w-full pl-5"
     >
       <div className="w-full flex justify-end -mb-2">
         <Button
+          type="button"
           onClick={onClick}
           className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
         >
@@ -81,15 +86,15 @@ export default function AppointmentForm({
       </div>
 
       <div>
-        <label htmlFor="description" className="block font-semibold">
+        <label htmlFor="description" className="block font-semibold mt-2">
           Description
         </label>
-        <textarea
+        <Textarea
           id="description"
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border-none bg-gray-100 p-1 w-full  rounded"
           required
           rows={3}
         />
@@ -99,13 +104,13 @@ export default function AppointmentForm({
         <label htmlFor="treatment" className="block font-semibold">
           Treatment
         </label>
-        <input
+        <Input
           id="treatment"
           name="treatment"
           type="text"
           value={formData.treatment}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border-none bg-gray-100 p-1 w-full rounded"
           required
         />
       </div>
@@ -114,13 +119,13 @@ export default function AppointmentForm({
         <label htmlFor="date" className="block font-semibold">
           Date
         </label>
-        <input
+        <Input
           id="date"
           name="date"
           type="date"
           value={formData.date ? formatDateForInput(formData.date) : ""}
           onChange={handleChange}
-          className="border p-2 w-full rounded"
+          className="border-none bg-gray-100 p-2 w-full rounded"
         />
       </div>
 
@@ -132,6 +137,7 @@ export default function AppointmentForm({
           <Check />
         </Button>
         <Button
+          type="button"
           onClick={() => onDelete(initialData.$id)}
           className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
         >

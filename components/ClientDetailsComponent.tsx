@@ -466,25 +466,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             <>
               <div className={`shadow-xl text-gray-800 rounded-xl bg-white `}>
                 <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium flex justify-between mt-5 rounded-t-xl">
-                  <div className="flex">
-                    {selectedPet.name}
-
-                    <div className="flex justify-end gap-2">
-                      {editPet ? (
-                        <X
-                          className="text-gray-400 hover:text-gray-200 cursor-pointer ml-5 mt-1"
-                          size={14}
-                          onClick={() => handleToggleUpdatePet()}
-                        />
-                      ) : (
-                        <Edit
-                          className="text-gray-400 hover:text-gray-200 cursor-pointer ml-5 mt-1"
-                          size={14}
-                          onClick={() => handleToggleUpdatePet()}
-                        />
-                      )}
-                    </div>
-                  </div>
+                  <div className="flex">{selectedPet.name}</div>
 
                   <div className="flex justify-end">
                     {(addPet || selectedPet) && (
@@ -503,9 +485,27 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 </div>
 
-                <div className="">
+                <div className="p-5">
+                  <div className="flex justify-end gap-2">
+                    {editPet ? (
+                      <Button
+                        type="button"
+                        className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800"
+                        onClick={() => handleToggleUpdatePet()}
+                      >
+                        <X size={18} />
+                      </Button>
+                    ) : (
+                      <Button
+                        className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800"
+                        onClick={() => handleToggleUpdatePet()}
+                      >
+                        <Edit size={18} />
+                      </Button>
+                    )}
+                  </div>
                   {editPet ? (
-                    <div className="p-5">
+                    <div className="">
                       <PetForm
                         initialData={selectedPet}
                         onSubmit={handleUpdatePet}
@@ -514,7 +514,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       />
                     </div>
                   ) : (
-                    <div className="p-5">
+                    <div className="">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="p-5 pt-2">
                           <p className="text-sm font-medium mb-1">Name:</p>
@@ -584,8 +584,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         className="text-gray-400 cursor-pointer hover:text-gray-200 m-2"
                       />
                     </div>
-                    <div className="flex flex-col md:flex-row bg-white pb-12 gap-6">
-                      <div className="flex p-5 flex-col w-full">
+                    <div className="flex flex-col md:flex-row bg-white pb-2 gap-6 p-5">
+                      <div className="flex flex-col w-full">
                         <div>
                           {editAppointment ? (
                             <div className="flex justify-between w-full">
@@ -597,12 +597,18 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                               />
                             </div>
                           ) : (
-                            <div className="flex w-full">
+                            <div className="flex w-full  pl-5">
                               <div className="w-full">
                                 {selectedAppointment && (
                                   <div className="flex w-full justify-end gap-3">
                                     <Button
-                                      onClick={handleEditToggleAppointment}
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                        e.currentTarget.blur()
+                                        handleEditToggleAppointment()
+                                      }}
                                       className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
                                     >
                                       <Edit size={20} />
@@ -612,17 +618,30 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
                                 <div className="">
                                   <p className="text-sm font-medium mb-1">
-                                    Description:
+                                    Description
                                   </p>
                                   <p className="text-base mb-4">
                                     {selectedAppointment?.description || "N/A"}
                                   </p>
 
-                                  <p className="text-sm font-medium mb-1">
-                                    Treatment:
+                                  <p className="text-sm font-medium mb-1 mt-14">
+                                    Treatment
                                   </p>
+
                                   <p className="text-base">
                                     {selectedAppointment?.treatment || "N/A"}
+                                  </p>
+
+                                  <p className="text-sm font-medium mb-1 mt-8">
+                                    Date
+                                  </p>
+
+                                  <p className="text-base">
+                                    {selectedAppointment?.date
+                                      ? new Date(
+                                          selectedAppointment.date
+                                        ).toLocaleDateString("nl-NL")
+                                      : "N/A"}{" "}
                                   </p>
                                 </div>
                               </div>
@@ -632,7 +651,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       </div>
 
                       <div className="w-full">
-                        <div className="w-full p-5 flex justify-end">
+                        <div className="w-full flex justify-end">
                           <Button
                             className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600"
                             onClick={() => handleClickCanvas()}
@@ -687,7 +706,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                           />
                         </div>
                         <CreateAppointmentForm
-
                           userId={user.$id}
                           petId={selectedPet.$id}
                           onSubmit={(data) =>
