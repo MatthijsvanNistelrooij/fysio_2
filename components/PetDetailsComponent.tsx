@@ -141,7 +141,7 @@ export default function PetDetailsComponent({
                         <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
                       </div>
 
-                      <div className="p-5 pt-2">
+                      <div className="pt-2">
                         <p className="text-sm font-medium mb-1">Age:</p>
                         <p className="text-base mb-4">{pet?.age || "N/A"}</p>
                         <p className="text-sm font-medium mb-1">Description:</p>
