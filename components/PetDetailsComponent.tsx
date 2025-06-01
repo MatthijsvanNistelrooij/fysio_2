@@ -110,6 +110,14 @@ export default function PetDetailsComponent({
             </Link>
           </div>
           <div className="p-1">
+            <div className="flex justify-end pr-5 pt-5">
+              <Button
+                onClick={handleEditToggle}
+                className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+              >
+                {edit ? <X /> : <Edit size={18} />}
+              </Button>
+            </div>
             <div className="flex justify-between p-5 gap-2">
               <div className="w-full">
                 {edit ? (
@@ -147,15 +155,6 @@ export default function PetDetailsComponent({
                     </div>
                   </div>
                 )}
-              </div>
-
-              <div className="">
-                <Button
-                  onClick={handleEditToggle}
-                  className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-                >
-                  {edit ? <X /> : <Edit size={18} />}
-                </Button>
               </div>
             </div>
           </div>

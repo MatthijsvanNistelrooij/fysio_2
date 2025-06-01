@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react"
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas"
 import horse from "../public/horse.jpg"
 import { Button } from "./ui/button"
-import { ArrowLeft, Check, Eraser, Pencil } from "lucide-react"
+import { ArrowLeft, Check, Eraser, Pencil, Undo } from "lucide-react"
 import { toast } from "sonner"
 
 type PetType = "dog" | "horse" | "cat" | "other"
@@ -159,7 +159,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
             onClick={handleUndo}
             className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
           >
-            <ArrowLeft />
+            <Undo />
           </Button>
           <Button
             onClick={handleClear}
