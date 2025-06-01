@@ -110,7 +110,7 @@ export default function PetDetailsComponent({
             </Link>
           </div>
           <div className="p-1">
-            <div className="flex justify-end pr-5 pt-5">
+            <div className="flex justify-end p-5 pb-0">
               <Button
                 onClick={handleEditToggle}
                 className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
@@ -130,7 +130,7 @@ export default function PetDetailsComponent({
                 ) : (
                   <div className="">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-5 pt-2">
+                      <div className="pt-2">
                         <p className="text-sm font-medium mb-1">Name:</p>
                         <p className="text-base mb-4">{pet?.name || "N/A"}</p>
 
