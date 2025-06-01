@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react"
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas"
 import horse from "../public/horse.jpg"
 import { Button } from "./ui/button"
-import { ArrowLeft, Check, Eraser, Pencil, Undo } from "lucide-react"
+import { Check, Eraser, Pencil, Undo } from "lucide-react"
 import { toast } from "sonner"
 
 type PetType = "dog" | "horse" | "cat" | "other"

@@ -96,7 +96,7 @@ const Clients = () => {
 
   return (
     <div className="min-h-screen flex justify-center bg-gray-50">
-      <div className="p-5 max-w-7xl w-full rounded-3xl">
+      <div className="p-1 max-w-7xl w-full rounded-3xl">
         {loading ? (
           <div className="flex items-center justify-center h-96 text-gray-400 text-xl">
             Loading clients...
