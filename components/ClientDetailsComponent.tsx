@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react"
 import { CalendarRange, Dog, Edit, Thermometer, X } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
 import { toast } from "sonner"
-import horse from "../public/horse.jpg"
+import horse from "../public/horse_1.png"
 import {
   addPetToClient,
   createPet,
