@@ -143,6 +143,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
       await deleteAppointment(id)
       toast.success("Appointment deleted successfully!")
       setOpenAppointment(false)
+      setEditAppointment(false)
 
       setSelectedPet((prevPet) => {
         if (!prevPet) return null
