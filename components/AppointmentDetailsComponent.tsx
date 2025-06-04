@@ -164,7 +164,7 @@ export default function AppointmentDetailsComponent({
               </div>
             )}
           </div>
-          <div className="w-full">
+          <div className="w-full  overflow-hidden">
             <div className="w-full p-5 flex justify-end">
               <Button
                 className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600 "
@@ -195,7 +195,7 @@ export default function AppointmentDetailsComponent({
                 </div>
               )}
               {showCanvas && (
-                <div className="w-full p-5">
+                <div className="flex w-full">
                   <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
                 </div>
               )}
