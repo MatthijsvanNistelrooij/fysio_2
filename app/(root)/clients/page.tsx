@@ -216,13 +216,13 @@ const Clients = () => {
 
                       <div className="flex flex-row justify-between gap-2 mt-4">
                         <div className="flex text-gray-800 relative"></div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col md:flex-row gap-2 line-clamp-1">
                           {client.pets.length ? (
                             client.pets.map((pet) => (
                               <Link
                                 key={pet.$id}
                                 href={`/pets/${pet.$id}`}
-                                className={`shadow text-gray-800 rounded flex hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
+                                className={`shadow text-gray-800  rounded  flex hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
                                   pet.type
                                 )}`}
                               >
