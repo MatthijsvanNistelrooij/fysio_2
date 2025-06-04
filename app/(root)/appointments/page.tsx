@@ -33,6 +33,7 @@ const Appointments = () => {
         date: doc.date,
         petId: doc.petId,
         userId: doc.userId,
+        type: doc.type,
       }))
 
       setAppointments(formattedAppointments)
