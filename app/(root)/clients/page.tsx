@@ -3,7 +3,15 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { getCurrentUser } from "@/lib/user.actions"
 import Link from "next/link"
-import { Contact, Edit2, HomeIcon, List, Mail, Phone } from "lucide-react"
+import {
+  CalendarRange,
+  Contact,
+  Edit2,
+  HomeIcon,
+  List,
+  Mail,
+  Phone,
+} from "lucide-react"
 import { getClientsByUserId } from "@/lib/client.actions"
 import { Client, User } from "@/types"
 import { toast } from "sonner"
@@ -16,7 +24,6 @@ const Clients = () => {
   const [edit, setEdit] = useState(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [search, setSearch] = useState("")
-
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -157,7 +164,7 @@ const Clients = () => {
                 {filteredClients.map((client) => (
                   <div
                     key={client.$id}
-                    className="p-3 rounded-2xl bg-white text-white shadow-xl flex flex-col sm:flex-row gap-4 mb-3"
+                    className="p-3 rounded-2xl text-white bg-gradient-to-r from-gray-100 to-gray-400 shadow-xl flex flex-col sm:flex-row gap-4 mb-3"
                   >
                     <div className="flex flex-col gap-2 w-full">
                       <div className="flex flex-col md:flex-row gap-2">
@@ -207,22 +214,31 @@ const Clients = () => {
                         </div>
                       </div>
 
-                      <div className="flex flex-row justify-end gap-2 mt-4">
-                        {client.pets.length ? (
-                          client.pets.map((pet) => (
-                            <Link
-                              key={pet.$id}
-                              href={`/pets/${pet.$id}`}
-                              className={`shadow text-gray-800 rounded hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
-                                pet.type
-                              )}`}
-                            >
-                              {pet.name}
-                            </Link>
-                          ))
-                        ) : (
-                          <div>-</div>
-                        )}
+                      <div className="flex flex-row justify-between gap-2 mt-4">
+                        <div className="flex text-gray-800 relative"></div>
+                        <div className="flex gap-2">
+                          {client.pets.length ? (
+                            client.pets.map((pet) => (
+                              <Link
+                                key={pet.$id}
+                                href={`/pets/${pet.$id}`}
+                                className={`shadow text-gray-800 rounded flex hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
+                                  pet.type
+                                )}`}
+                              >
+                                <span>{pet.name}</span>
+
+                                <div className="flex gap-1 m-1 ml-3">
+                                  {pet.appointments?.map((_, i) => (
+                                    <CalendarRange key={i} size={14} />
+                                  ))}
+                                </div>
+                              </Link>
+                            ))
+                          ) : (
+                            <div>-</div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>

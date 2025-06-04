@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
 import "./globals.css"
+import { UserProvider } from "@/context/UserContextProvider"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +28,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </head>
       <body className={`${poppins.variable} font-poppins antialiased`}>
-        <div className="h-screen">{children}</div>
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   )

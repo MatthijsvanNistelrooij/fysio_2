@@ -1,7 +1,7 @@
 import Image from "next/image"
 import React, { useRef, useState } from "react"
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas"
-import horse from "../public/horse.jpg"
+import horse from "../public/horse_1.png"
 import { Button } from "./ui/button"
 import { Check, Eraser, Pencil, Undo } from "lucide-react"
 import { toast } from "sonner"
@@ -141,7 +141,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         />
         <ReactSketchCanvas
           ref={canvasRef}
-          strokeWidth={1.5}
+          strokeWidth={4}
           strokeColor={color}
           canvasColor="transparent"
           allowOnlyPointerType="all"

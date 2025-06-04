@@ -2,16 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
-import {
-  CalendarRange,
-  Contact,
-  Edit,
-  HomeIcon,
-  Mail,
-  Phone,
-  Plus,
-  X,
-} from "lucide-react"
+import { CalendarRange, Edit, Plus, X } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
 import { toast } from "sonner"
 import horse from "../public/horse.jpg"
@@ -39,6 +30,7 @@ import PetForm from "./PetForm"
 import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import Image from "next/image"
+import OwnerInfo from "./OwnerInfo"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ClientDetailsComponent({ client }: { client: any }) {
@@ -384,84 +376,33 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   return (
     <>
       <div className="pb-1 rounded-2xl mt-1">
-        <div className=" bg-white p-3 rounded-xl shadow-xl mb-5">
+        <div className="bg-gradient-to-r from-gray-100 to-gray-400 p-3 rounded-xl shadow-xl mb-5">
           {edit ? (
-            <div>
-              <ClientForm
-                initialData={client}
-                userId={user.$id}
-                onSubmit={handleUpdate}
-                setEdit={setEdit}
-                handleDelete={handleDeleteClient}
-              />
-            </div>
+            <ClientForm
+              initialData={client}
+              userId={user.$id}
+              onSubmit={handleUpdate}
+              setEdit={setEdit}
+              handleDelete={handleDeleteClient}
+            />
           ) : (
-            <div className="flex flex-col lg:flex-row gap-2 w-full ">
-              <div
-                className="p-1 rounded-xl text-gray-100 flex items-center bg-gray-800 min-w-[140px] flex-1 text-sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(client.name)
-                  toast.success("Client name copied to clipboard!")
-                }}
-              >
-                <Contact size={18} className="text-xs text-gray-300 m-1" />
-                <div className="text-sm ml-1">{client.name}</div>
-              </div>
-
-              <div
-                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(client.address)
-                  toast.success("Address copied to clipboard!")
-                }}
-              >
-                <HomeIcon size={18} className="text-xs text-gray-300 m-1" />
-                <div className="ml-1">{client.address}</div>
-              </div>
-              <div
-                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(client.phone)
-                  toast.success("Phone number copied to clipboard!")
-                }}
-              >
-                <Phone size={18} className="text-xs text-gray-300 m-1" />
-
-                <div className="ml-1">{client.phone}</div>
-              </div>
-
-              <div
-                className="p-1 rounded-xl text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(client.email)
-                  toast.success("Email copied to clipboard!")
-                }}
-              >
-                <Mail size={18} className="text-xs text-gray-300 m-1" />
-                <div className="ml-1">{client.email}</div>
-              </div>
-              <Button
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  e.currentTarget.blur()
-                  handleEditToggle()
-                }}
-                className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-              >
-                <Edit size={20} />
-              </Button>
-            </div>
+            <OwnerInfo client={client} handleEditToggle={handleEditToggle} />
           )}
         </div>
 
         <div className="mt-1">
           {addPet ? (
-            <AddPetForm
-              clientId={client.$id}
-              onSubmit={handleCreate}
-              handleClose={handleCloseAddPet}
-            />
+            <div
+              className={`transition-opacity duration-1000 ${
+                addPet ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <AddPetForm
+                clientId={client.$id}
+                onSubmit={handleCreate}
+                handleClose={handleCloseAddPet}
+              />
+            </div>
           ) : selectedPet ? (
             <>
               <div className={`shadow-xl text-gray-800 rounded-xl bg-white `}>
@@ -514,38 +455,38 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       />
                     </div>
                   ) : (
-                    <div className="">
+                    <div className="p-1">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="pt-2">
-                          <p className="text-sm font-medium mb-1">Name:</p>
+                          <p className="text-sm font-medium mb-1">Name</p>
                           <p className="text-base mb-4">
                             {selectedPet?.name || "N/A"}
                           </p>
 
-                          <p className="text-sm font-medium mb-1">Type:</p>
+                          <p className="text-sm font-medium mb-1">Type</p>
                           <p className="text-base mb-4">
                             {selectedPet?.type || "N/A"}
                           </p>
 
-                          <p className="text-sm font-medium mb-1 mt-7">Breed:</p>
+                          <p className="text-sm font-medium mb-1 mt-7">Breed</p>
                           <p className="text-base mb-4">
                             {selectedPet?.breed || "N/A"}
                           </p>
                         </div>
 
-                        <div className="pt-2">
-                          <p className="text-sm font-medium mb-1">Age:</p>
+                        <div className="">
+                          <p className="text-sm font-medium mb-1">Age</p>
                           <p className="text-base mb-4">
                             {selectedPet?.age || "N/A"}
                           </p>
                           <p className="text-sm font-medium mb-1">
-                            Description:
+                            Description
                           </p>
                           <p className="text-base mb-4">
                             {selectedPet?.description || "N/A"}
                           </p>
 
-                          <p className="text-sm font-medium mb-1 mt-8">Notes:</p>
+                          <p className="text-sm font-medium mb-1 mt-8">Notes</p>
                           <p className="text-base mb-4">
                             {selectedPet?.notes || "N/A"}
                           </p>
@@ -697,7 +638,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   <div className="mt-5">
                     {addAppointment ? (
                       <div>
-                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t-xl px-4 -mt-10">
+                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t-xl px-4">
                           Add Appointment
                           <X
                             size={18}

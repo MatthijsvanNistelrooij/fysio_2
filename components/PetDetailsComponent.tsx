@@ -131,25 +131,25 @@ export default function PetDetailsComponent({
                   <div className="">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="pt-2">
-                        <p className="text-sm font-medium mb-1">Name:</p>
+                        <p className="text-sm font-medium mb-1">Name</p>
                         <p className="text-base mb-4">{pet?.name || "N/A"}</p>
 
-                        <p className="text-sm font-medium mb-1">Type:</p>
+                        <p className="text-sm font-medium mb-1">Type</p>
                         <p className="text-base mb-4">{pet?.type || "N/A"}</p>
 
-                        <p className="text-sm font-medium mb-1">Breed:</p>
+                        <p className="text-sm font-medium mb-1">Breed</p>
                         <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
                       </div>
 
                       <div className="">
-                        <p className="text-sm font-medium mb-1">Age:</p>
+                        <p className="text-sm font-medium mb-1">Age</p>
                         <p className="text-base mb-4">{pet?.age || "N/A"}</p>
                         <p className="text-sm font-medium mb-1">Description:</p>
                         <p className="text-base mb-4">
                           {pet?.description || "N/A"}
                         </p>
 
-                        <p className="text-sm font-medium mb-1">Notes:</p>
+                        <p className="text-sm font-medium mb-1">Notes</p>
                         <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
                       </div>
                     </div>

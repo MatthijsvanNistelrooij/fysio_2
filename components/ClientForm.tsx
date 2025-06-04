@@ -44,70 +44,70 @@ export default function ClientForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4  flex flex-row gap-2">
-      <div className="w-full">
-        <div className="flex flex-col lg:flex-row gap-2 justify-between w-full">
-          <div className="w-full flex bg-gray-800 rounded-xl ">
-            <Contact size={20} className="text-gray-300 m-2" />
-            <Input
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="border-none shadow-none rounded-xl text-white p-0"
-            />
-          </div>
+      <form onSubmit={handleSubmit} className="space-y-4  flex flex-row gap-2">
+        <div className="w-full">
+          <div className="flex flex-col lg:flex-row gap-2 justify-between w-full">
+            <div className="w-full flex bg-gray-800 rounded-xl ">
+              <Contact size={20} className="text-gray-300 m-2" />
+              <Input
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="border-none shadow-none rounded-xl text-white p-0 mt-1"
+              />
+            </div>
 
-          <div className="w-full flex bg-blue-50 rounded-xl">
-            <HomeIcon size={20} className="text-gray-300 m-2" />
-            <Input
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="border-none shadow-none rounded-xl p-0 text-gray-800"
-            />
-          </div>
-          <div className="w-full flex bg-blue-50 rounded-xl">
-            <Phone size={20} className="text-gray-300 m-2" />
-            <Input
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="border-none shadow-none rounded-xl p-0 text-gray-800"
-            />
-          </div>
-          <div className="w-full flex bg-blue-50 rounded-xl">
-            <Mail size={20} className="text-gray-300 m-2" />
-            <Input
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="border-none shadow-none rounded-xl p-0 text-gray-800"
-            />
-          </div>
+            <div className="w-full flex bg-blue-50 rounded-xl">
+              <HomeIcon size={20} className="text-gray-300 m-2" />
+              <Input
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="border-none shadow-none rounded-xl p-0 text-gray-800 mt-1"
+              />
+            </div>
+            <div className="w-full flex bg-blue-50 rounded-xl">
+              <Phone size={20} className="text-gray-300 m-2" />
+              <Input
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="border-none shadow-none rounded-xl p-0 text-gray-800 mt-1"
+              />
+            </div>
+            <div className="w-full flex bg-blue-50 rounded-xl">
+              <Mail size={20} className="text-gray-300 m-2" />
+              <Input
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="border-none shadow-none rounded-xl p-0 text-gray-800 mt-1"
+              />
+            </div>
 
-          <Button
-            type="button" // 👈 Prevents accidental form submission
-            className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-            onClick={() => setEdit?.(false)}
-          >
-            <X size={18} />
-          </Button>
+            <Button
+              type="button" // 👈 Prevents accidental form submission
+              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+              onClick={() => setEdit?.(false)}
+            >
+              <X size={18} />
+            </Button>
+          </div>
+          <div className="flex justify-end gap-2 mt-2">
+            <Button
+              type="submit"
+              className="bg-white hover:bg-green-50 text-green-800 cursor-pointer"
+            >
+              <Check />
+            </Button>
+            <Button
+              className="bg-white hover:bg-orange-100 text-orange-800 cursor-pointer"
+              onClick={() => handleDelete(formData.$id)}
+            >
+              <Trash size={18} />
+            </Button>
+          </div>
         </div>
-        <div className="flex justify-end gap-2 mt-2">
-          <Button
-            type="submit"
-            className="bg-white hover:bg-green-50 text-green-800 cursor-pointer"
-          >
-            <Check />
-          </Button>
-          <Button
-            className="bg-white hover:bg-orange-100 text-orange-800 cursor-pointer"
-            onClick={() => handleDelete(formData.$id)}
-          >
-            <Trash size={18} />
-          </Button>
-        </div>
-      </div>
-    </form>
+      </form>
   )
 }

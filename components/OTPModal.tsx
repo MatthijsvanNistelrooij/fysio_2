@@ -13,10 +13,9 @@ import {
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp"
 import React, { useState } from "react"
-import Image from "next/image"
 import { Button } from "./ui/button"
 import { useRouter } from "next/navigation"
-import { ExternalLinkIcon } from "lucide-react"
+import { ExternalLinkIcon, Loader } from "lucide-react"
 import { sendEmailOTP, verifySecret } from "@/lib/user.actions"
 
 const OtpModal = ({
@@ -88,15 +87,7 @@ const OtpModal = ({
               type="button"
             >
               Submit
-              {isLoading && (
-                <Image
-                  src="/assets/icons/loader.svg"
-                  alt="loader"
-                  width={24}
-                  height={24}
-                  className="ml-2 animate-spin"
-                />
-              )}
+              {isLoading && <Loader />}
             </AlertDialogAction>
 
             <div className="subtitle-2 mt-2 text-center text-gray-600">

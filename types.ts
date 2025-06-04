@@ -20,11 +20,12 @@ export interface Client {
   address: string
   pets: Pet[]
 }
-
 export interface User {
   $id: string
-  email?: string
-  name?: string
+  email: string
+  name: string
+  fullName: string
+  avatar: string
 }
 
 export interface Appointment {

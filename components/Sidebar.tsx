@@ -16,14 +16,12 @@ interface Props {
 export const Sidebar = ({ fullName, email }: Props) => {
   const pathname = usePathname()
 
-  console.log(pathname)
-
   const handleSignOut = () => {
     signOutUser()
   }
 
   return (
-    <div className="h-screen max-h-screen border-r w-64">
+    <div className="h-screen max-h-screen border-r w-72">
       <div className=" flex flex-col justify-between h-full">
         <div className="flex flex-col h-full gap-2 p-4">
           {navItems.map((item) => {
