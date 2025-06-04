@@ -36,6 +36,7 @@ const PetDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
     date: doc.date,
     petId: doc.petId,
     userId: doc.userId,
+    type: doc.type
   }))
 
   return <PetDetailsComponent pet={pet} appointments={appointments} />
