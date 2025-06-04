@@ -12,7 +12,8 @@ function mapDocumentToAppointment(doc: any): Appointment {
     treatment: doc.treatment,
     date: new Date(doc.date),
     petId: doc.petId,
-    userId: doc.userId
+    userId: doc.userId,
+    type: doc.type
   }
 }
 
