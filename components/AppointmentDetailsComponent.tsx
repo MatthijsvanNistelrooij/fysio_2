@@ -12,7 +12,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
-import horse from "../public/horse.jpg"
+import horse from "../public/horse_1.png"
 
 export default function AppointmentDetailsComponent({
   appointment,
@@ -95,7 +95,6 @@ export default function AppointmentDetailsComponent({
 
       setSavedImage(imageDataUrl)
       setShowCanvas(false)
-
     } catch (err) {
       console.error("Error in handleSave:", err)
       toast.error("Something went wrong saving the canvas.")
