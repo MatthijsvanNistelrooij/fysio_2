@@ -106,8 +106,8 @@ export default function AppointmentDetailsComponent({
   }
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-50 p-5">
-      <div className="max-w-7xl w-full rounded bg-white shadow-xl">
+    <div className="min-h-screen flex  justify-center bg-gray-50 p-5">
+      <div className="max-w-7xl w-full  rounded bg-white shadow-xl">
         <div className="flex justify-between bg-gray-800">
           <div className="text-white p-2 px-4 text-sm flex gap-2">
             <CalendarRange size={18} />
@@ -128,7 +128,7 @@ export default function AppointmentDetailsComponent({
             />
           </Link>
         </div>
-        <div className=" flex flex-col md:flex-row">
+        <div className="flex flex-col lg:flex-row">
           <div className="flex flex-col w-full md:flex-row bg-white p-5 gap-6">
             {edit ? (
               <div className="flex justify-between w-full">
@@ -141,11 +141,13 @@ export default function AppointmentDetailsComponent({
               </div>
             ) : (
               <div className="flex w-full">
-                <div className="flex-1 text-gray-800 p-5">
-                  <p className="text-sm font-medium mb-1">Description:</p>
-                  <p className="text-base mb-4">{appointment?.description}</p>
+                <div className="flex-1 text-gray-800 space-y-4">
+                  <p className="text-sm font-medium">Type:</p>
+                  <p className="text-base">{appointment?.type}</p>
+                  <p className="text-sm font-medium">Description:</p>
+                  <p className="text-base">{appointment?.description}</p>
 
-                  <p className="text-sm font-medium mb-1">Treatment:</p>
+                  <p className="text-sm font-medium">Treatment:</p>
                   <p className="text-base">{appointment?.treatment}</p>
                 </div>
 
@@ -172,33 +174,32 @@ export default function AppointmentDetailsComponent({
               </Button>
             </div>
 
-            {!showCanvas && (
-              <div
-                style={{
-                  position: "relative",
-                  width: 460,
-                  height: 400,
-                  borderRadius: 8,
-                  overflow: "hidden",
-                  margin: "20px",
-                }}
-              >
-                <Image
-                  width={450}
-                  height={300}
-                  src={savedImage ? savedImage : horse}
-                  alt="Saved drawing"
-                />
-              </div>
-            )}
-
-            {showCanvas && (
-              <div className="w-full p-5">
-                <div className="flex flex-col">
+            <div className="w-full">
+              {!showCanvas && (
+                <div
+                  style={{
+                    position: "relative",
+                    width: 460,
+                    height: 400,
+                    borderRadius: 8,
+                    overflow: "hidden",
+                    margin: "20px",
+                  }}
+                >
+                  <Image
+                    width={450}
+                    height={300}
+                    src={savedImage ? savedImage : horse}
+                    alt="Saved drawing"
+                  />
+                </div>
+              )}
+              {showCanvas && (
+                <div className="w-full p-5">
                   <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
