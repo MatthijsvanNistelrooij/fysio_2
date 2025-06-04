@@ -4,7 +4,16 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 import { Appointment } from "@/types"
-import { PetDrawingCanvas } from "./PetDrawingCanvas"
+import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select"
+import { appointmentTypes } from "@/constants"
 
 interface CreateAppointmentFormProps {
   petId: string
@@ -24,6 +33,7 @@ export default function CreateAppointmentForm({
     date: new Date(),
     petId: petId,
     userId: userId,
+    type: "",
   })
 
   const formatDateForInput = (date: Date | string) => {
@@ -61,9 +71,6 @@ export default function CreateAppointmentForm({
     await onSubmit(payload)
   }
 
-  const handleSave = () => {
-    console.log("TODO")
-  }
 
   return (
     <form
@@ -72,8 +79,30 @@ export default function CreateAppointmentForm({
     >
       <div className="flex justify-between">
         <div className="w-full">
+          <div className="mb-2">
+            <label htmlFor="type" className="text-sm font-medium mb-1">
+              Type
+            </label>
+            <Select
+              value={formData.type}
+              onValueChange={(value: string) =>
+                setFormData({ ...formData, type: value })
+              }
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select appointment type" />
+              </SelectTrigger>
+              <SelectContent>
+                {appointmentTypes.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
           <div>
-            <input
+            <Input
               id="date"
               name="date"
               type="date"
@@ -84,7 +113,7 @@ export default function CreateAppointmentForm({
             />
           </div>
           <div>
-            <textarea
+            <Textarea
               id="description"
               name="description"
               placeholder="description"
@@ -97,24 +126,21 @@ export default function CreateAppointmentForm({
           </div>
 
           <div>
-            <input
+            <Input
               id="treatment"
               name="treatment"
               type="text"
               placeholder="treatment"
               value={formData.treatment}
               onChange={handleChange}
-              className="border p-2 w-full rounded font-light"
+              className="border p-2 w-full rounded font-light mt-2"
               required
             />
           </div>
         </div>
-        <div className="w-full">
-          <PetDrawingCanvas petType="horse" onSave={handleSave} />
-        </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-2">
         <Button
           type="submit"
           className="bg-white text-green-800 hover:bg-green-50 cursor-pointer"

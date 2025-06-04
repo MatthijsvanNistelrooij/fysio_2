@@ -81,6 +81,7 @@ export const createAppointment = async (
     treatment: string
     date: string
     userId: string
+    type: string
   }
 ) => {
   try {
@@ -94,6 +95,7 @@ export const createAppointment = async (
         treatment: appointmentData.treatment,
         date: appointmentData.date, // string ISO date
         petId: petId,
+        type: appointmentData.type
       }
     )
     return appointment

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
-import { CalendarRange, Edit, Plus, X } from "lucide-react"
+import { CalendarRange, Dog, Edit, Thermometer, X } from "lucide-react"
 import { deleteClient, updateClient } from "@/lib/client.actions"
 import { toast } from "sonner"
 import horse from "../public/horse.jpg"
@@ -14,7 +14,7 @@ import {
 } from "@/lib/pet.actions"
 import AddPetForm from "./AddPetForm"
 import { Appointment, Client, Pet, User } from "@/types"
-
+import { ShowerHead, Stethoscope, Lightbulb, Zap } from "lucide-react"
 import { getCurrentUser } from "@/lib/user.actions"
 import ClientForm from "./ClientForm"
 
@@ -183,11 +183,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const getPetColorClass = (type: string) => {
     switch (type.toLowerCase()) {
       case "dog":
-        return "bg-yellow-100"
+        return "bg-yellow-200"
       case "cat":
-        return "bg-purple-100"
+        return "bg-purple-200"
       case "horse":
-        return "bg-green-100"
+        return "bg-green-200"
       default:
         return "bg-gray-100"
     }
@@ -320,6 +320,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
         description: appointment.description,
         petId: appointment.petId,
         userId: appointment.userId,
+        type: appointment.type,
       }
 
       // Set selected appointment here
@@ -373,9 +374,28 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
     setShowCanvas((prev) => !prev)
   }
 
+  function getAppointmentTypeIcon(type: string) {
+    switch (type.toLowerCase()) {
+      case "massage":
+        return <Thermometer className="w-5 h-5 text-green-400" />
+      case "hydrotherapy":
+        return <ShowerHead className="w-5 h-5 text-blue-400" />
+      case "chiropractic care":
+        return <Stethoscope className="w-5 h-5 text-purple-400" />
+      case "laser therapy":
+        return <Lightbulb className="w-5 h-5 text-yellow-400" />
+      case "shockwave therapy":
+        return <Zap className="w-5 h-5 text-red-400" />
+      default:
+        return null
+    }
+  }
+
   return (
     <>
       <div className="pb-1 rounded-2xl mt-1">
+        {/* TOGGLE CLIENT  CREATE CLIENT */}
+
         <div className="bg-gradient-to-r from-gray-100 to-gray-400 p-3 rounded-xl shadow-xl mb-5">
           {edit ? (
             <ClientForm
@@ -392,11 +412,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
         <div className="mt-1">
           {addPet ? (
-            <div
-              className={`transition-opacity duration-1000 ${
-                addPet ? "opacity-100" : "opacity-0"
-              }`}
-            >
+            <div>
               <AddPetForm
                 clientId={client.$id}
                 onSubmit={handleCreate}
@@ -529,7 +545,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <div className="flex flex-col w-full">
                         <div>
                           {editAppointment ? (
-                            <div className="flex justify-between w-full">
+                            <div className="flex justify-between w-full ">
                               <AppointmentForm
                                 initialData={selectedAppointment ?? undefined}
                                 onSubmit={handleUpdateAppointment}
@@ -557,23 +573,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                   </div>
                                 )}
 
-                                <div className="">
+                                <div className="space-y-4">
                                   <p className="text-sm font-medium mb-1">
-                                    Description
-                                  </p>
-                                  <p className="text-base mb-4">
-                                    {selectedAppointment?.description || "N/A"}
-                                  </p>
-
-                                  <p className="text-sm font-medium mb-1 mt-14">
-                                    Treatment
-                                  </p>
-
-                                  <p className="text-base">
-                                    {selectedAppointment?.treatment || "N/A"}
-                                  </p>
-
-                                  <p className="text-sm font-medium mb-1 mt-8">
                                     Date
                                   </p>
 
@@ -583,6 +584,26 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                           selectedAppointment.date
                                         ).toLocaleDateString("nl-NL")
                                       : "N/A"}{" "}
+                                  </p>
+                                  <p className="text-sm font-medium">Type</p>
+
+                                  <p className="text-base">
+                                    {selectedAppointment?.type || "N/A"}
+                                  </p>
+
+                                  <p className="text-sm font-medium">
+                                    Description
+                                  </p>
+                                  <p className="text-base mb-4">
+                                    {selectedAppointment?.description || "N/A"}
+                                  </p>
+
+                                  <p className="text-sm font-medium">
+                                    Treatment
+                                  </p>
+
+                                  <p className="text-base">
+                                    {selectedAppointment?.treatment || "N/A"}
                                   </p>
                                 </div>
                               </div>
@@ -602,18 +623,9 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         </div>
 
                         {!showCanvas && (
-                          <div
-                            style={{
-                              position: "relative",
-                              width: 460,
-                              height: 385,
-                              borderRadius: 8,
-                              overflow: "hidden",
-                              margin: "20px",
-                            }}
-                          >
+                          <div className="border flex justify-center my-10 mr-10 rounded-xl">
                             <Image
-                              width={440}
+                              width={450}
                               height={250}
                               src={savedImage ? savedImage : horse}
                               alt="Saved drawing"
@@ -622,13 +634,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         )}
 
                         {showCanvas && (
-                          <div className="w-full p-5 ">
-                            <div className="flex flex-col pr-5">
-                              <PetDrawingCanvas
-                                petType={"horse"}
-                                onSave={handleSave}
-                              />
-                            </div>
+                          <div className="p-10">
+                            <PetDrawingCanvas
+                              petType={"horse"}
+                              onSave={handleSave}
+                            />
                           </div>
                         )}
                       </div>
@@ -669,7 +679,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                               Add Appointment
                             </div>
                             <div className="p-4 flex justify-center">
-                              <Plus className="cursor-pointer text-gray-400 hover:text-gray-800" />
+                              <CalendarRange className="cursor-pointer text-gray-400 hover:text-gray-800" />
                             </div>
                           </div>
 
@@ -683,7 +693,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                   }
                                   className="cursor-pointer rounded-xl shadow hover:shadow-md transition-shadow bg-white text-sm"
                                 >
-                                  <div className="bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium">
+                                  <div className="flex justify-between bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium">
                                     {new Date(
                                       appointment.date
                                     ).toLocaleDateString("en-US", {
@@ -691,13 +701,17 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                       month: "long",
                                       day: "numeric",
                                     })}
+
+                                    <div>
+                                      {getAppointmentTypeIcon(appointment.type)}
+                                    </div>
                                   </div>
                                   <div className="p-4 space-y-1">
                                     <p className="text-gray-800 font-semibold">
                                       Description: {appointment.description}
                                     </p>
                                     <p className="text-gray-500 font-light">
-                                      Treatment: {appointment.treatment}
+                                      Type: {appointment.type}
                                     </p>
                                   </div>
                                 </div>
@@ -721,7 +735,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   Add New Pet
                 </div>
                 <div className="p-4 flex justify-center">
-                  <Plus className="text-gray-400 hover:text-gray-800" />
+                  <Dog className="text-gray-400 hover:text-gray-800" />
                 </div>
               </div>
 

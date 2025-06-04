@@ -35,4 +35,5 @@ export interface Appointment {
   date: Date
   petId: string
   userId: string
+  type: string
 }

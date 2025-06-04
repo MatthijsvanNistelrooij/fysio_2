@@ -4,7 +4,7 @@ import { Button } from "./ui/button"
 import { signOutUser } from "@/lib/user.actions"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { CalendarRange, Contact } from "lucide-react"
+import { CalendarRange, Contact, LogOutIcon } from "lucide-react"
 import { navItems } from "../constants"
 
 interface Props {
@@ -63,6 +63,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
               onClick={handleSignOut}
             >
               Sign Out
+              <LogOutIcon size={20} className="transform rotate-180" />
             </Button>
           </div>
         </div>

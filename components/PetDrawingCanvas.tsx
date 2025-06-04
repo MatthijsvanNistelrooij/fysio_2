@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react"
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas"
 import horse from "../public/horse_1.png"
 import { Button } from "./ui/button"
-import { Check, Eraser, Pencil, Undo } from "lucide-react"
+import { ArrowLeft, Check, Eraser, Pencil } from "lucide-react"
 import { toast } from "sonner"
 
 type PetType = "dog" | "horse" | "cat" | "other"
@@ -141,7 +141,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         />
         <ReactSketchCanvas
           ref={canvasRef}
-          strokeWidth={4}
+          strokeWidth={1.5}
           strokeColor={color}
           canvasColor="transparent"
           allowOnlyPointerType="all"
@@ -154,12 +154,12 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
       </div>
 
       <div className="flex justify-center">
-        <div className="flex gap-2 p-1">
+        <div className="flex gap-2 p-5">
           <Button
             onClick={handleUndo}
             className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
           >
-            <Undo />
+            <ArrowLeft />
           </Button>
           <Button
             onClick={handleClear}
@@ -188,7 +188,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           </Button>
           <Button
             onClick={handleExport}
-            className="text-green-800 bg-white hover:bg-green-50 border cursor-pointer ml-10"
+            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer ml-10"
           >
             <Check />
           </Button>

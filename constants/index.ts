@@ -12,3 +12,11 @@ export const navItems = [
 ]
 
 export const petTypes = ["Dog", "Cat", "Horse"]
+
+export const appointmentTypes = [
+  "massage",
+  "hydrotherapy",
+  "chiropractic care",
+  "laser therapy",
+  "shockwave therapy",
+]

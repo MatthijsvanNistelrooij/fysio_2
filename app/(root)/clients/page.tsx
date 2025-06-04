@@ -77,11 +77,11 @@ const Clients = () => {
   const getPetColorClass = (type: string) => {
     switch (type.toLowerCase()) {
       case "dog":
-        return "bg-yellow-100"
+        return "bg-yellow-200"
       case "cat":
-        return "bg-purple-100"
+        return "bg-purple-200"
       case "horse":
-        return "bg-green-100"
+        return "bg-green-200"
       default:
         return "bg-gray-100"
     }
