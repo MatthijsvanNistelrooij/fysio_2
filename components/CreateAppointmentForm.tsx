@@ -80,9 +80,6 @@ export default function CreateAppointmentForm({
       <div className="flex justify-between">
         <div className="w-full">
           <div className="mb-2">
-            <label htmlFor="type" className="text-sm font-medium mb-1">
-              Type
-            </label>
             <Select
               value={formData.type}
               onValueChange={(value: string) =>
