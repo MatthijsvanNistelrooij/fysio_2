@@ -86,8 +86,8 @@ export default function ClientForm({
             </div>
 
             <Button
-              type="button" // 👈 Prevents accidental form submission
-              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+              type="button" 
+              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer mt-1"
               onClick={() => setEdit?.(false)}
             >
               <X size={18} />

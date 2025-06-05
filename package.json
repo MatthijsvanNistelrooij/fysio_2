@@ -27,6 +27,8 @@
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-big-calendar": "^1.18.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.4",
     "react-sketch-canvas": "^6.2.0",

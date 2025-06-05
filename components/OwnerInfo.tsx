@@ -62,7 +62,7 @@ const OwnerInfo = ({ client, handleEditToggle }: OwnerInfoProps) => {
           e.currentTarget.blur()
           handleEditToggle()
         }}
-        className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+        className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer mt-1"
       >
         <Edit size={20} />
       </Button>

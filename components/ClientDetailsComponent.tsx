@@ -31,6 +31,7 @@ import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import Image from "next/image"
 import OwnerInfo from "./OwnerInfo"
+import BentoGrid from "./BentoGrid"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ClientDetailsComponent({ client }: { client: any }) {
@@ -394,6 +395,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
+      <BentoGrid />
       <div className="pb-1 rounded-2xl mt-1">
         {/* TOGGLE CLIENT  CREATE CLIENT */}
 
@@ -473,38 +475,36 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                   ) : (
                     <div className="p-1">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="pt-2">
-                          <p className="text-sm font-medium mb-1">Name</p>
-                          <p className="text-base mb-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 ">
+                        <div className="space-y-2">
+                          <p className="text-sm font-medium">Name</p>
+                          <p className="text-base">
                             {selectedPet?.name || "N/A"}
                           </p>
 
-                          <p className="text-sm font-medium mb-1">Type</p>
-                          <p className="text-base mb-4">
+                          <p className="text-sm font-medium">Type</p>
+                          <p className="text-base">
                             {selectedPet?.type || "N/A"}
                           </p>
 
-                          <p className="text-sm font-medium mb-1 mt-7">Breed</p>
-                          <p className="text-base mb-4">
+                          <p className="text-sm font-medium">Breed</p>
+                          <p className="text-base">
                             {selectedPet?.breed || "N/A"}
                           </p>
                         </div>
 
-                        <div className="">
-                          <p className="text-sm font-medium mb-1">Age</p>
-                          <p className="text-base mb-4">
+                        <div className="space-y-2">
+                          <p className="text-sm font-medium">Age</p>
+                          <p className="text-base">
                             {selectedPet?.age || "N/A"}
                           </p>
-                          <p className="text-sm font-medium mb-1">
-                            Description
-                          </p>
-                          <p className="text-base mb-4">
+                          <p className="text-sm font-medium">Description</p>
+                          <p className="text-base">
                             {selectedPet?.description || "N/A"}
                           </p>
 
-                          <p className="text-sm font-medium mb-1 mt-8">Notes</p>
-                          <p className="text-base mb-4">
+                          <p className="text-sm font-medium">Notes</p>
+                          <p className="text-base">
                             {selectedPet?.notes || "N/A"}
                           </p>
                         </div>
