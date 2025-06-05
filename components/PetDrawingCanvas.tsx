@@ -122,13 +122,12 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
   }
 
   return (
-    <div className="flex flex-col w-full mx-auto max-h-[600px] h-full gap-4">
+    <div className="flex flex-col  w-full mx-auto max-h-[600px] h-full gap-4">
       <div
         style={{
           position: "relative",
           width: 460,
           height: 350,
-          borderRadius: 8,
           overflow: "hidden",
         }}
       >
@@ -153,45 +152,50 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         />
       </div>
 
-      <div className="flex justify-center">
-        <div className="flex gap-2 p-5">
-          <Button
-            onClick={handleUndo}
-            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
-          >
-            <ArrowLeft />
-          </Button>
-          <Button
-            onClick={handleClear}
-            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
-          >
-            <Eraser />
-          </Button>
+      <div className="flex">
+        <div className="flex w-full gap-2 justify-between">
+          <div />
+          <div className="flex gap-2">
+            <Button
+              onClick={handleUndo}
+              className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+            >
+              <ArrowLeft />
+            </Button>
+            <Button
+              onClick={handleClear}
+              className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+            >
+              <Eraser />
+            </Button>
 
-          <Button
-            onClick={() => handleSelectColor("orange")}
-            className="text-orange-800 bg-white hover:bg-gray-100 border cursor-pointer"
-          >
-            <Pencil />
-          </Button>
-          <Button
-            onClick={() => handleSelectColor("limegreen")}
-            className="text-green-800 bg-white hover:bg-gray-100 border cursor-pointer"
-          >
-            <Pencil />
-          </Button>
-          <Button
-            onClick={() => handleSelectColor("blue")}
-            className="text-blue-800 bg-white hover:bg-gray-100 border cursor-pointer"
-          >
-            <Pencil />
-          </Button>
-          <Button
-            onClick={handleExport}
-            className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer ml-10"
-          >
-            <Check />
-          </Button>
+            <Button
+              onClick={() => handleSelectColor("orange")}
+              className="text-orange-800 bg-white hover:bg-gray-100 border cursor-pointer"
+            >
+              <Pencil />
+            </Button>
+            <Button
+              onClick={() => handleSelectColor("limegreen")}
+              className="text-green-800 bg-white hover:bg-gray-100 border cursor-pointer"
+            >
+              <Pencil />
+            </Button>
+            <Button
+              onClick={() => handleSelectColor("blue")}
+              className="text-blue-800 bg-white hover:bg-gray-100 border cursor-pointer"
+            >
+              <Pencil />
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={handleExport}
+              className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer ml-10"
+            >
+              <Check />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

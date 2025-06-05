@@ -31,7 +31,6 @@ import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import Image from "next/image"
 import OwnerInfo from "./OwnerInfo"
-import BentoGrid from "./BentoGrid"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ClientDetailsComponent({ client }: { client: any }) {
@@ -395,11 +394,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <BentoGrid />
       <div className="pb-1 rounded-2xl mt-1">
         {/* TOGGLE CLIENT  CREATE CLIENT */}
 
-        <div className="bg-gradient-to-r from-gray-100 to-gray-400 p-3 rounded-xl shadow-xl mb-5">
+        <div className="p-3">
           {edit ? (
             <ClientForm
               initialData={client}
@@ -413,7 +411,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           )}
         </div>
 
-        <div className="mt-1">
+        <div className="p-1">
           {addPet ? (
             <div>
               <AddPetForm
@@ -424,14 +422,14 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             </div>
           ) : selectedPet ? (
             <>
-              <div className={`shadow-xl text-gray-800 rounded-xl bg-white `}>
-                <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium flex justify-between mt-5 rounded-t-xl">
+              <div className={` text-gray-800 bg-white border border-gray-100`}>
+                <div className="p-2 text-sm font-medium flex justify-between border-b border-gray-100">
                   <div className="flex">{selectedPet.name}</div>
 
                   <div className="flex justify-end">
                     {(addPet || selectedPet) && (
                       <X
-                        size={20}
+                        size={14}
                         onClick={() => {
                           setAddPet(false)
                           setEditPet(false)
@@ -439,13 +437,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                           setOpenAppointment(false)
                           setSelectedAppointment(null)
                         }}
-                        className="cursor-pointer text-gray-400 hover:text-gray-200"
+                        className="cursor-pointer text-gray-400 hover:text-gray-800"
                       />
                     )}
                   </div>
                 </div>
 
-                <div className="p-5">
+                <div className="p-1">
                   <div className="flex justify-end gap-2">
                     {editPet ? (
                       <Button
@@ -515,15 +513,9 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
               <div>
                 {openAppointment ? (
-                  <div
-                    className={`bg-white overflow-hidden shadow-xl mt-5 rounded-xl ${
-                      openAppointment
-                        ? "opacity-100 scale-100"
-                        : "opacity-0 scale-85 py-0"
-                    }`}
-                  >
-                    <div className="flex justify-between bg-gray-800 rounded-t-xl">
-                      <div className="text-white p-2 px-4 text-sm flex gap-2">
+                  <div className={`bg-white overflow-hidden mt-5`}>
+                    <div className="flex justify-between text-gray-800 border">
+                      <div className=" p-2 px-4 text-sm flex gap-2">
                         <CalendarRange size={18} />
                         Date:&nbsp;
                         {selectedAppointment?.date
@@ -542,7 +534,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         className="text-gray-400 cursor-pointer hover:text-gray-200 m-2 mr-4"
                       />
                     </div>
-                    <div className="flex flex-col md:flex-row bg-white pb-2 gap-6 p-5">
+                    <div className="flex flex-col lg:flex-row bg-white pb-2 gap-6 p-1">
                       <div className="flex flex-col w-full">
                         <div>
                           {editAppointment ? (
@@ -624,7 +616,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         </div>
 
                         {!showCanvas && (
-                          <div className="border flex justify-center my-10 mr-10 rounded-xl">
+                          <div className="flex justify-center my-10 mr-20 w-full ">
                             <Image
                               width={450}
                               height={250}
@@ -635,7 +627,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         )}
 
                         {showCanvas && (
-                          <div className="p-10">
+                          <div className="p-1 mt-10">
                             <PetDrawingCanvas
                               petType={"horse"}
                               onSave={handleSave}
@@ -649,7 +641,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   <div className="mt-5">
                     {addAppointment ? (
                       <div>
-                        <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t-xl px-4">
+                        <div className="text-sm font-medium mb-1 p-2 flex justify-between px-4">
                           Add Appointment
                           <X
                             size={18}
@@ -673,10 +665,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                           <div
-                            className="cursor-pointer rounded-xl shadow hover:shadow-md transition-shadow bg-white text-sm"
+                            className="cursor-pointer shadow hover:shadow-md transition-shadow bg-white text-sm"
                             onClick={() => handleToggleAddAppointment()}
                           >
-                            <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium rounded-t-xl">
+                            <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium">
                               Add Appointment
                             </div>
                             <div className="p-4 flex justify-center">
@@ -692,9 +684,9 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                   onClick={() =>
                                     handleSelectAppointment(appointment)
                                   }
-                                  className="cursor-pointer rounded-xl shadow hover:shadow-md transition-shadow bg-white text-sm"
+                                  className="cursor-pointer shadow hover:shadow-md transition-shadow bg-white text-sm"
                                 >
-                                  <div className="flex justify-between bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium">
+                                  <div className="flex justify-between bg-gray-800 px-4 py-2 text-sm text-white font-medium">
                                     {new Date(
                                       appointment.date
                                     ).toLocaleDateString("en-US", {
@@ -727,41 +719,35 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
             </>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
-              <div
+            <>
+              <Dog
                 onClick={() => setAddPet(true)}
-                className={`cursor-pointer shadow text-gray-800 rounded-xl hover:bg-gray-200 text-sm hover:bg-opacity-80`}
-              >
-                <div className="bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium">
-                  Add New Pet
-                </div>
-                <div className="p-4 flex justify-center">
-                  <Dog className="text-gray-400 hover:text-gray-800" />
-                </div>
+                className="text-gray-400 hover:text-gray-800 cursor-pointer"
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+                {localClient.pets.map((pet: Pet, index: number) => (
+                  <div
+                    key={pet.$id || index}
+                    onClick={() => handleSelectPet(pet)}
+                    className={`cursor-pointer shadow text-gray-800 hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
+                      pet.type
+                    )}`}
+                  >
+                    <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium">
+                      {pet.name}
+                    </div>
+                    <div className="p-4 space-y-1 relative">
+                      <p className="text-gray-800 font-semibold">
+                        Age: {pet.age}
+                      </p>
+                      <p className="text-gray-800 font-semibold">
+                        Appointments: {pet.appointments.length}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-
-              {localClient.pets.map((pet: Pet, index: number) => (
-                <div
-                  key={pet.$id || index}
-                  onClick={() => handleSelectPet(pet)}
-                  className={`cursor-pointer shadow text-gray-800 rounded-xl hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
-                    pet.type
-                  )}`}
-                >
-                  <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium rounded-t-xl">
-                    {pet.name}
-                  </div>
-                  <div className="p-4 space-y-1 relative">
-                    <p className="text-gray-800 font-semibold">
-                      Age: {pet.age}
-                    </p>
-                    <p className="text-gray-800 font-semibold">
-                      Appointments: {pet.appointments.length}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            </>
           )}
         </div>
       </div>

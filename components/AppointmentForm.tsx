@@ -95,42 +95,41 @@ export default function AppointmentForm({
         </Button>
       </div>
 
-
-        <div className="w-full">
-          <label htmlFor="date" className="block font-semibold">
-            Date
-          </label>
-          <Input
-            id="date"
-            name="date"
-            type="date"
-            value={formData.date ? formatDateForInput(formData.date) : ""}
-            onChange={handleChange}
-            className="border-none bg-blue-50 p-2 w-full rounded"
-          />
-        </div>
-        <div className="w-full">
-          <label htmlFor="type" className="text-sm font-medium mb-1">
-            Type
-          </label>
-          <Select
-            value={formData.type}
-            onValueChange={(value: string) =>
-              setFormData({ ...formData, type: value })
-            }
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select pet type" />
-            </SelectTrigger>
-            <SelectContent>
-              {appointmentTypes.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+      <div className="w-full">
+        <label htmlFor="date" className="block font-semibold">
+          Date
+        </label>
+        <Input
+          id="date"
+          name="date"
+          type="date"
+          value={formData.date ? formatDateForInput(formData.date) : ""}
+          onChange={handleChange}
+          className="border-none bg-blue-50 p-2 w-full rounded"
+        />
+      </div>
+      <div className="w-full">
+        <label htmlFor="type" className="text-sm font-medium mb-1">
+          Type
+        </label>
+        <Select
+          value={formData.type}
+          onValueChange={(value: string) =>
+            setFormData({ ...formData, type: value })
+          }
+        >
+          <SelectTrigger className="w-full bg-blue-50 border-none">
+            <SelectValue placeholder="Select pet type" />
+          </SelectTrigger>
+          <SelectContent >
+            {appointmentTypes.map((type) => (
+              <SelectItem key={type} value={type}>
+                {type}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
 
       <div>
         <label htmlFor="description" className="block font-semibold mt-2">

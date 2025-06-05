@@ -15,8 +15,8 @@ const ClientDetails = async ({ params }: Props) => {
   if (!client) return notFound()
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-50 p-5">
-      <div className="max-w-7xl w-full">
+    <div className="min-h-screen flex justify-center p-1">
+      <div className="w-full">
         <ClientDetailsComponent client={client} />
       </div>
     </div>

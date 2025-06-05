@@ -72,50 +72,50 @@ export const CreateForm = ({ $id, edit }: Props) => {
 
   return (
     <div className="">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="flex flex-col justify-between gap-4 bg-gradient-to-r from-gray-100 to-gray-400 shadow-xl rounded-xl p-3">
+      <form onSubmit={handleSubmit} className="space-y-2">
+        <div className="flex flex-col justify-between gap-4 border p-3">
           <div className="flex flex-col md:flex-row gap-2 justify-between">
-            <div className="w-full flex bg-gray-800 rounded-xl">
+            <div className="w-full flex border">
               <Contact size={18} className="text-gray-400 m-2" />
               <Input
                 name="name"
                 placeholder={errors.name ? errors.name : "Name"}
                 value={formData.name}
                 onChange={handleChange}
-                className="border-none shadow-none rounded-xl text-white"
+                className="border-none shadow-none rounded-none"
               />
             </div>
 
-            <div className="w-full flex bg-gray-100 rounded-xl">
+            <div className="w-full flex border">
               <HomeIcon size={18} className="text-gray-400 m-2" />
               <Input
                 name="address"
                 placeholder={errors.address ? errors.address : "Address"}
                 value={formData.address}
                 onChange={handleChange}
-                className="border-none shadow-none rounded-xl"
+                className="border-none shadow-none rounded-none"
               />
             </div>
 
-            <div className="w-full flex bg-gray-100 rounded-xl">
+            <div className="w-full flex border">
               <Mail size={18} className="text-gray-400 m-2" />
               <Input
                 name="email"
                 placeholder={errors.email ? errors.email : "Email"}
                 value={formData.email}
                 onChange={handleChange}
-                className="border-none shadow-none rounded-xl"
+                className="border-none shadow-none rounded-none"
               />
             </div>
 
-            <div className="w-full flex bg-gray-100 rounded-xl">
+            <div className="w-full flex border">
               <Phone size={18} className="text-gray-400 m-2" />
               <Input
                 name="phone"
                 placeholder={errors.phone ? errors.phone : "Phone"}
                 value={formData.phone}
                 onChange={handleChange}
-                className="border-none shadow-none rounded-xl"
+                className="border-none shadow-none rounded-none"
               />
             </div>
           </div>
@@ -123,7 +123,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
           <div className="flex justify-end w-full">
             <Button
               type="submit"
-              className="cursor-pointer bg-white hover:bg-green-100 text-green-800"
+              className="cursor-pointer bg-white hover:bg-green-100 text-green-800 rounded-none border border-gray-100 p-5"
             >
               <Check />
             </Button>

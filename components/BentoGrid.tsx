@@ -1,6 +1,13 @@
 import React, { useState } from "react"
 import { useDrag, useDrop, DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
+import horse1 from "/public/horse_1.png"
+import horse2 from "/public/horse_2.png"
+import horse3 from "/public/horse_3.png"
+import horse4 from "/public/horse_4.png"
+import horse5 from "/public/horse_5.png"
+import horse6 from "/public/horse_6.png"
+import Image, { StaticImageData } from "next/image"
 
 const ItemTypes = {
   BOX: "box",
@@ -9,6 +16,8 @@ const ItemTypes = {
 interface BoxData {
   id: number
   color: string
+  type: string
+  img: StaticImageData
 }
 
 interface DraggableBoxProps {
@@ -21,7 +30,6 @@ interface DraggableBoxProps {
 const DraggableBox: React.FC<DraggableBoxProps> = ({
   box,
   index,
-
   isInDropZone,
 }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -53,7 +61,7 @@ const DraggableBox: React.FC<DraggableBoxProps> = ({
         border: isInDropZone ? "3px solid black" : undefined,
       }}
     >
-      {box.id}
+      <Image src={box.img || ""} alt="horse" width={40} height={40} />
     </div>
   )
 }
@@ -78,11 +86,12 @@ const DropZone: React.FC<{
 
   return (
     <div
+
       ref={ref}
       style={{
-        width: 100,
-        height: 100,
-        border: "3px dashed gray",
+        // width: 100,
+        // height: 100,
+        border: isActive ? "3px dashed gray" : "1px dashed lightgray",
         backgroundColor: isActive ? "lightgreen" : "white",
         display: "flex",
         alignItems: "center",
@@ -96,23 +105,23 @@ const DropZone: React.FC<{
       {boxInZone && (
         <div
           style={{
-            width: 80,
-            height: 80,
+            // width: 420,
+            // height: 420,
             backgroundColor: boxInZone.color,
             color: "white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            // position: "absolute",
+            // top: "50%",
+            // left: "50%",
+            // transform: "translate(-50%, -50%)",
             pointerEvents: "none",
             userSelect: "none",
             border: "3px solid black",
           }}
         >
-          {boxInZone.id}
+          <Image src={boxInZone.img || ""} alt="horse" width={200} height={200} />
         </div>
       )}
     </div>
@@ -120,24 +129,21 @@ const DropZone: React.FC<{
 }
 
 export default function BentoGrid() {
-  // Initial boxes
   const [boxes, setBoxes] = useState<BoxData[]>([
-    { id: 1, color: "purple" },
-    { id: 2, color: "orange" },
-    { id: 3, color: "teal" },
-    { id: 4, color: "crimson" },
+    { id: 1, color: "purple", type: "massage", img: horse1 },
+    { id: 2, color: "orange", type: "hydrotherapy", img: horse2 },
+    { id: 3, color: "teal", type: "chiropractic care", img: horse3 },
+    { id: 4, color: "crimson", type: "laser therapy", img: horse4 },
+    { id: 5, color: "black", type: "shockwave therapy", img: horse5 },
+    { id: 6, color: "black", type: "shockwave therapy", img: horse6 },
   ])
 
-  // Box currently in the drop zone (null means empty)
   const [dropZoneBoxIndex, setDropZoneBoxIndex] = useState<number | null>(null)
 
-  // Handle drop on drop zone: swap boxes
   const handleDrop = (draggedBoxIndex: number) => {
     if (dropZoneBoxIndex === null) {
-      // Drop zone empty: move dragged box to drop zone, remove from row
       setDropZoneBoxIndex(draggedBoxIndex)
     } else if (draggedBoxIndex !== dropZoneBoxIndex) {
-      // Swap positions between dragged box and box in drop zone
       setBoxes((prevBoxes) => {
         const newBoxes = [...prevBoxes]
         ;[newBoxes[draggedBoxIndex], newBoxes[dropZoneBoxIndex]] = [
@@ -146,7 +152,6 @@ export default function BentoGrid() {
         ]
         return newBoxes
       })
-      // Drop zone box index now becomes draggedBoxIndex (box swapped)
       setDropZoneBoxIndex(draggedBoxIndex)
     }
   }
@@ -156,12 +161,12 @@ export default function BentoGrid() {
       <div
         style={{
           display: "flex",
+
           justifyContent: "center",
           marginTop: 40,
           userSelect: "none",
         }}
       >
-        {/* Render boxes, excluding the one currently in drop zone */}
         {boxes.map((box, i) =>
           i === dropZoneBoxIndex ? null : (
             <DraggableBox
