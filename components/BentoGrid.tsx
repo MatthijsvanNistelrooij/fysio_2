@@ -1,25 +1,29 @@
-"use client"
-
 import React, { useState } from "react"
-import { DndProvider, useDrag, useDrop } from "react-dnd"
+import { useDrag, useDrop, DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
-
-type ItemType = {
-  id: number
-  text: string
-}
 
 const ItemTypes = {
   BOX: "box",
 }
 
-interface DraggableBoxProps {
-  item: ItemType
-  index: number
-  onDrop: (from: number, to: number) => void
+interface BoxData {
+  id: number
+  color: string
 }
 
-const DraggableBox: React.FC<DraggableBoxProps> = ({ item, index, onDrop }) => {
+interface DraggableBoxProps {
+  box: BoxData
+  index: number
+  onDropToDropZone: (boxIndex: number) => void
+  isInDropZone: boolean
+}
+
+const DraggableBox: React.FC<DraggableBoxProps> = ({
+  box,
+  index,
+
+  isInDropZone,
+}) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.BOX,
     item: { index },
@@ -28,80 +32,153 @@ const DraggableBox: React.FC<DraggableBoxProps> = ({ item, index, onDrop }) => {
     }),
   }))
 
-  const [, drop] = useDrop({
-    accept: ItemTypes.BOX,
-    drop(draggedItem: { index: number }) {
-      if (draggedItem.index !== index) {
-        onDrop(draggedItem.index, index)
-      }
-    },
-  })
-
   const ref = React.useRef<HTMLDivElement>(null)
-  drag(drop(ref))
+  drag(drag(ref))
 
   return (
     <div
       ref={ref}
       style={{
+        width: 40,
+        height: 40,
+        backgroundColor: box.color,
         opacity: isDragging ? 0.5 : 1,
         cursor: "move",
-        padding: 20,
-        backgroundColor: "#e0aaff",
-        margin: 8,
-        borderRadius: 8,
-        textAlign: "center",
+        color: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         userSelect: "none",
-        transition: "transform 0.3s ease",
+        margin: "0 10px",
+        border: isInDropZone ? "3px solid black" : undefined,
       }}
     >
-      {item.text}
+      {box.id}
     </div>
   )
 }
 
+const DropZone: React.FC<{
+  onDrop: (boxIndex: number) => void
+  boxInZone: BoxData | null
+}> = ({ onDrop, boxInZone }) => {
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
+    accept: ItemTypes.BOX,
+    drop: (item: { index: number }) => onDrop(item.index),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  }))
 
-const BentoGrid: React.FC = () => {
-  const [items, setItems] = useState<ItemType[]>([
-    { id: 1, text: "🍱 Bento 1" },
-    { id: 2, text: "🍙 Bento 2" },
-    { id: 3, text: "🍣 Bento 3" },
-    { id: 4, text: "🍛 Bento 4" },
-    { id: 5, text: "🍜 Bento 5" },
-    { id: 6, text: "🍤 Bento 6" },
+  const isActive = isOver && canDrop
+
+  const ref = React.useRef<HTMLDivElement>(null)
+  drop(drop(ref))
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        width: 100,
+        height: 100,
+        border: "3px dashed gray",
+        backgroundColor: isActive ? "lightgreen" : "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 30,
+        position: "relative",
+      }}
+    >
+      {isActive ? "Release to drop" : "Drop zone"}
+
+      {boxInZone && (
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            backgroundColor: boxInZone.color,
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            pointerEvents: "none",
+            userSelect: "none",
+            border: "3px solid black",
+          }}
+        >
+          {boxInZone.id}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default function BentoGrid() {
+  // Initial boxes
+  const [boxes, setBoxes] = useState<BoxData[]>([
+    { id: 1, color: "purple" },
+    { id: 2, color: "orange" },
+    { id: 3, color: "teal" },
+    { id: 4, color: "crimson" },
   ])
 
-  const handleDrop = (from: number, to: number) => {
-    setItems((prev) => {
-      const updated = [...prev]
-      const [moved] = updated.splice(from, 1)
-      updated.splice(to, 0, moved)
-      return updated
-    })
+  // Box currently in the drop zone (null means empty)
+  const [dropZoneBoxIndex, setDropZoneBoxIndex] = useState<number | null>(null)
+
+  // Handle drop on drop zone: swap boxes
+  const handleDrop = (draggedBoxIndex: number) => {
+    if (dropZoneBoxIndex === null) {
+      // Drop zone empty: move dragged box to drop zone, remove from row
+      setDropZoneBoxIndex(draggedBoxIndex)
+    } else if (draggedBoxIndex !== dropZoneBoxIndex) {
+      // Swap positions between dragged box and box in drop zone
+      setBoxes((prevBoxes) => {
+        const newBoxes = [...prevBoxes]
+        ;[newBoxes[draggedBoxIndex], newBoxes[dropZoneBoxIndex]] = [
+          newBoxes[dropZoneBoxIndex],
+          newBoxes[draggedBoxIndex],
+        ]
+        return newBoxes
+      })
+      // Drop zone box index now becomes draggedBoxIndex (box swapped)
+      setDropZoneBoxIndex(draggedBoxIndex)
+    }
   }
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 12,
-          width: 360,
-          margin: "20px auto",
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 40,
+          userSelect: "none",
         }}
       >
-        {items.map((item, index) => (
-          <DraggableBox
-            key={item.id}
-            item={item}
-            index={index}
-            onDrop={handleDrop}
-          />
-        ))}
+        {/* Render boxes, excluding the one currently in drop zone */}
+        {boxes.map((box, i) =>
+          i === dropZoneBoxIndex ? null : (
+            <DraggableBox
+              key={box.id}
+              box={box}
+              index={i}
+              onDropToDropZone={handleDrop}
+              isInDropZone={false}
+            />
+          )
+        )}
       </div>
+
+      <DropZone
+        boxInZone={dropZoneBoxIndex !== null ? boxes[dropZoneBoxIndex] : null}
+        onDrop={handleDrop}
+      />
     </DndProvider>
   )
 }
-
-export default BentoGrid
