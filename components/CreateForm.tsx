@@ -71,11 +71,11 @@ export const CreateForm = ({ $id, edit }: Props) => {
   }
 
   return (
-    <div className="">
-      <form onSubmit={handleSubmit} className="space-y-2">
-        <div className="flex flex-col justify-between gap-4 border border-gray-900 p-3">
+    <div className="bg-white mb-4 px-4 py-3 border  transition">
+      <form onSubmit={handleSubmit} className="space-y-2 ">
+        <div className="">
           <div className="flex flex-col md:flex-row gap-2 justify-between">
-            <div className="w-full flex border border-gray-900">
+            <div className="w-full flex border ">
               <Contact size={18} className="text-gray-400 m-2" />
               <Input
                 name="name"
@@ -86,7 +86,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
               />
             </div>
 
-            <div className="w-full flex border border-gray-900">
+            <div className="w-full flex border">
               <HomeIcon size={18} className="text-gray-400 m-2" />
               <Input
                 name="address"
@@ -97,7 +97,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
               />
             </div>
 
-            <div className="w-full flex border border-gray-900">
+            <div className="w-full flex border">
               <Mail size={18} className="text-gray-400 m-2" />
               <Input
                 name="email"
@@ -108,7 +108,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
               />
             </div>
 
-            <div className="w-full flex border border-gray-900">
+            <div className="w-full flex border">
               <Phone size={18} className="text-gray-400 m-2" />
               <Input
                 name="phone"
@@ -120,10 +120,10 @@ export const CreateForm = ({ $id, edit }: Props) => {
             </div>
           </div>
 
-          <div className="flex justify-end w-full">
+          <div className="flex justify-end w-full mt-3">
             <Button
               type="submit"
-              className="cursor-pointer bg-white hover:bg-green-100 text-green-800 rounded-none border border-gray-100 p-5"
+              className="cursor-pointer bg-white hover:bg-green-100 text-gray-800"
             >
               <Check />
             </Button>

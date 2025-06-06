@@ -34,8 +34,8 @@ export const Sidebar = ({ fullName, email }: Props) => {
               <Link
                 key={item.name}
                 href={item.url}
-                className={`p-2 hover:text-gray-800 font-bold transition border hover:border-gray-800 ${
-                  isActive ? "border-gray-800" : "text-gray-400"
+                className={`p-2 hover:text-gray-800 font-bold transition ${
+                  isActive ? "" : "text-gray-400"
                 }`}
               >
                 {item.icon === "client" ? (

@@ -32,14 +32,10 @@ export const MobileNav = () => {
                 <Link
                   key={item.name}
                   href={item.url}
-                  className={`p-2 rounded-xl hover:text-gray-800 hover:shadow font-bold transition w-14 ml-2 ${
+                  className={`p-2 rounded-xl hover:text-gray-800  font-bold transition w-14 ml-2 ${
                     isActive ? "" : "text-gray-400"
                   }`}
-                  style={{
-                    boxShadow: isActive
-                      ? "0 4px 10px rgba(2, 25, 156, 0.25)"
-                      : undefined,
-                  }}
+
                 >
                   {item.icon === "client" ? (
                     <Contact size={20} />

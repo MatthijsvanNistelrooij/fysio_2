@@ -102,7 +102,7 @@ const Clients = () => {
   })
 
   return (
-    <div className="min-h-screen flex justify-center">
+    <div className="min-h-screen bg-gray-50 flex justify-center py-2 px-2 sm:px-2">
       <div className="w-full">
         {loading ? (
           <div className="flex items-center justify-center h-96 text-gray-400 text-xl">
@@ -110,39 +110,33 @@ const Clients = () => {
           </div>
         ) : clients.length === 0 ? (
           <div className="flex text-center items-center justify-center h-96 w-full">
-            <div className="flex flex-col  p-10 gap-3">
-              No clients listed.
+            <div className="flex flex-col items-center p-10 gap-4 text-gray-500">
+              <p>No clients listed.</p>
               <Link
-                className="border bg-gray-800 hover:bg-gray-700 p-2 text-white"
+                className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 text-sm rounded-md transition"
                 href="/create"
               >
-                Create new Client
+                Create New Client
               </Link>
             </div>
           </div>
         ) : (
           <div className="p-5">
-            <div className="w-full flex justify-between">
+            <div className="flex justify-between items-center mb-4">
               <Input
-                className="bg-white mr-4 mb-3 border border-gray-900 rounded-none p-5"
+                className="bg-white border border-gray-300 focus:border-gray-600 rounded-md px-4 py-2 w-full text-sm"
                 placeholder="Search by name, email, phone, or address..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              {!edit ? (
-                <Edit2
-                  size={18}
-                  onClick={handleToggleEdit}
-                  className="cursor-pointer text-gray-800 hover:text-gray-400 mt-4"
-                />
-              ) : (
-                <List
-                  size={20}
-                  onClick={handleToggleEdit}
-                  className="cursor-pointer text-gray-800 hover:text-gray-400 mt-4"
-                />
-              )}
+              <button
+                onClick={handleToggleEdit}
+                className="ml-4 text-gray-600 hover:text-gray-800 transition"
+              >
+                {edit ? <List size={20} /> : <Edit2 size={18} />}
+              </button>
             </div>
+
             <div className="relative min-h-[400px]">
               <div
                 className={`absolute inset-0 transition-all duration-500 ${
@@ -164,82 +158,72 @@ const Clients = () => {
                 {filteredClients.map((client) => (
                   <div
                     key={client.$id}
-                    className="bg-white flex flex-col sm:flex-row gap-4 mb-3 p-3 border border-gray-900"
+                    className="bg-white rounded-md shadow-sm mb-2 px-4 py-3 border border-gray-200 hover:shadow-md transition"
                   >
-                    <div className="flex flex-col gap-2 w-full">
-                      <div className="flex flex-col md:flex-row gap-2">
-                        <div
-                          className="p-1 flex items-center bg-gray-300 hover:bg-gray-400 text-gray-800 hover:text-white min-w-[140px] flex-1 text-sm cursor-pointer"
-                          onClick={() => handleTableRowClick(client.$id)}
-                        >
-                          <Contact size={18} className=" text-gray-500 m-1" />
-                          <div>{client.name}</div>
-                        </div>
-
-                        <div
-                          className="p-1 text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                          onClick={() => {
-                            navigator.clipboard.writeText(client.address)
-                            toast.success("Address copied to clipboard!")
-                          }}
-                        >
-                          <HomeIcon size={18} className=" text-gray-300 m-1" />
-                          {client.address}
-                        </div>
-                        <div
-                          className="p-1 text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                          onClick={() => {
-                            navigator.clipboard.writeText(client.phone)
-                            toast.success("Phone number copied to clipboard!")
-                          }}
-                        >
-                          <Phone
-                            size={18}
-                            className="text-xs text-gray-300 m-1"
-                          />
-                          {client.phone}
-                        </div>
-                        <div
-                          className="p-1 text-gray-600 flex items-center bg-gray-100 min-w-[140px] flex-1 text-sm"
-                          onClick={() => {
-                            navigator.clipboard.writeText(client.email)
-                            toast.success("Email copied to clipboard!")
-                          }}
-                        >
-                          <Mail
-                            size={18}
-                            className="text-xs text-gray-300 m-1"
-                          />
-                          {client.email}
-                        </div>
+                    <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-4 text-sm text-gray-700">
+                      <div
+                        onClick={() => handleTableRowClick(client.$id)}
+                        className="flex items-center gap-2 hover:bg-gray-100 rounded-md px-2 py-1 cursor-pointer transition w-full"
+                      >
+                        <Contact size={16} className="text-gray-400" />
+                        <span>{client.name}</span>
                       </div>
 
-                      <div className="flex flex-row justify-between gap-2 mt-1">
-                        <div className="flex text-gray-800 relative"></div>
-                        <div className="flex flex-col md:flex-row gap-2 line-clamp-1">
-                          {client.pets.length ? (
-                            client.pets.map((pet) => (
-                              <Link
-                                key={pet.$id}
-                                href={`/pets/${pet.$id}`}
-                                className={`shadow text-gray-800 flex hover:bg-gray-200 px-4 py-1 text-sm hover:bg-opacity-80 transition ${getPetColorClass(
-                                  pet.type
-                                )}`}
-                              >
-                                <span>{pet.name}</span>
-
-                                <div className="flex gap-1 m-1 ml-3">
-                                  {pet.appointments?.map((_, i) => (
-                                    <CalendarRange key={i} size={14} />
-                                  ))}
-                                </div>
-                              </Link>
-                            ))
-                          ) : (
-                            <div>-</div>
-                          )}
-                        </div>
+                      <div
+                        onClick={() => {
+                          navigator.clipboard.writeText(client.address)
+                          toast.success("Address copied to clipboard!")
+                        }}
+                        className="flex items-center gap-2 hover:bg-gray-100 rounded-md px-2 py-1 cursor-pointer transition w-full"
+                      >
+                        <HomeIcon size={16} className="text-gray-300" />
+                        <span>{client.address}</span>
                       </div>
+
+                      <div
+                        onClick={() => {
+                          navigator.clipboard.writeText(client.phone)
+                          toast.success("Phone number copied to clipboard!")
+                        }}
+                        className="flex items-center gap-2 hover:bg-gray-100 rounded-md px-2 py-1 cursor-pointer transition w-full"
+                      >
+                        <Phone size={16} className="text-gray-300" />
+                        <span>{client.phone}</span>
+                      </div>
+
+                      <div
+                        onClick={() => {
+                          navigator.clipboard.writeText(client.email)
+                          toast.success("Email copied to clipboard!")
+                        }}
+                        className="flex items-center gap-2 hover:bg-gray-100 rounded-md px-2 py-1 cursor-pointer transition w-full"
+                      >
+                        <Mail size={16} className="text-gray-300" />
+                        <span>{client.email}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap justify-end gap-2 mt-2">
+                      {client.pets.length ? (
+                        client.pets.map((pet) => (
+                          <Link
+                            key={pet.$id}
+                            href={`/pets/${pet.$id}`}
+                            className={`flex items-center gap-2 px-3 py-1 text-sm text-gray-700 hover:bg-accent transition ${getPetColorClass(
+                              pet.type
+                            )}`}
+                          >
+                            <span>{pet.name}</span>
+                            <div className="flex gap-1">
+                              {pet.appointments?.map((_, i) => (
+                                <CalendarRange key={i} size={14} />
+                              ))}
+                            </div>
+                          </Link>
+                        ))
+                      ) : (
+                        <div className="text-gray-400 text-sm">No pets</div>
+                      )}
                     </div>
                   </div>
                 ))}
