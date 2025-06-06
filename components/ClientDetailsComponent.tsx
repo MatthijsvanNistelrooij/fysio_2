@@ -184,13 +184,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const getPetColorClass = (type: string) => {
     switch (type.toLowerCase()) {
       case "dog":
-        return "bg-yellow-200"
+        return "bg-white    "
       case "cat":
-        return "bg-purple-200"
+        return "bg-white"
       case "horse":
-        return "bg-green-200"
+        return "bg-white"
       default:
-        return "bg-gray-100"
+        return "bg-white    "
     }
   }
 
@@ -423,7 +423,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           ) : selectedPet ? (
             <>
               <div className={` text-gray-800 bg-white`}>
-                <div className="p-3 text-sm font-medium flex justify-between border border-gray-800">
+                <div className="p-2 text-sm font-medium flex justify-between border border-gray-800">
                   <div className="flex">{selectedPet.name}</div>
 
                   <div className="flex justify-end">
@@ -513,8 +513,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
               <div>
                 {openAppointment ? (
-                  <div className={`bg-white overflow-hidden mt-5`}>
-                    <div className="flex justify-between text-gray-800 bg-gray-100">
+                  <div className="bg-white overflow-hidden border-l border-r border-b border-gray-900">
+                    <div className="flex justify-between border-b border-gray-800">
                       <div className=" p-2 px-4 text-sm flex gap-2">
                         <CalendarRange size={18} />
                         Date:&nbsp;
@@ -531,7 +531,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <X
                         size={14}
                         onClick={handleCloseAppointment}
-                        className="text-gray-400 cursor-pointer hover:text-gray-200 m-2 mr-4"
+                        className="text-gray-800 cursor-pointer hover:text-gray-600 m-2 mr-4"
                       />
                     </div>
                     <div className="flex flex-col lg:flex-row bg-white pb-2 gap-6 p-1">
@@ -665,10 +665,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                           <div
-                            className="cursor-pointer shadow hover:shadow-md transition-shadow bg-white text-sm"
+                            className="cursor-pointer transition-bg-white text-sm border border-gray-800 hover:bg-gray-100"
                             onClick={() => handleToggleAddAppointment()}
                           >
-                            <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium">
+                            <div className="border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
                               Add Appointment
                             </div>
                             <div className="p-4 flex justify-center">
@@ -684,9 +684,9 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                                   onClick={() =>
                                     handleSelectAppointment(appointment)
                                   }
-                                  className="cursor-pointer shadow hover:shadow-md transition-shadow bg-white text-sm"
+                                  className="cursor-pointer border border-gray-800 hover:bg-gray-100 transition-shadow bg-white text-sm"
                                 >
-                                  <div className="flex justify-between bg-gray-800 px-4 py-2 text-sm text-white font-medium">
+                                  <div className="flex justify-between border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
                                     {new Date(
                                       appointment.date
                                     ).toLocaleDateString("en-US", {
@@ -719,7 +719,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
             </>
           ) : (
-            <div >
+            <div>
               <Dog
                 onClick={() => setAddPet(true)}
                 className="text-gray-400 hover:text-gray-800 cursor-pointer"
@@ -729,11 +729,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   <div
                     key={pet.$id || index}
                     onClick={() => handleSelectPet(pet)}
-                    className={`cursor-pointer shadow text-gray-800 hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
+                    className={`cursor-pointer border border-gray-800 text-gray-800 hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
                       pet.type
                     )}`}
                   >
-                    <div className="bg-gray-800 px-4 py-2 text-sm text-white font-medium">
+                    <div className="border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
                       {pet.name}
                     </div>
                     <div className="p-4 space-y-1 relative">

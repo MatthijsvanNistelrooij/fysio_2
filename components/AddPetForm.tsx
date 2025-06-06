@@ -66,13 +66,13 @@ export default function AddPetForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 bg-white rounded-xl shadow-xl mt-5"
+      className="space-y-5 bg-white border border-gray-800 mt-5"
     >
-      <div className="bg-gray-800 px-4 py-2 rounded-t-xl text-sm text-white font-medium flex justify-between">
+      <div className="border-b border-gray-800 px-4 py-2 text-sm text-gray-800e font-medium flex justify-between">
         Add New Pet
         <X
-          size={18}
-          className="cursor-pointer text-gray-400 hover:text-gray-200"
+          size={14}
+          className="cursor-pointer text-gray-800 hover:text-gray-600"
           onClick={handleClose}
         />
       </div>
