@@ -507,6 +507,54 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                           </p>
                         </div>
                       </div>
+                      <div className="flex p-2 gap-4">
+                        <div
+                          className="cursor-pointer transition-bg-white text-sm border border-gray-800 hover:bg-gray-100"
+                          onClick={() => handleToggleAddAppointment()}
+                        >
+                          <div className="border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
+                            Add Appointment
+                          </div>
+                          <div className="p-4 flex justify-center">
+                            <CalendarRange className="cursor-pointer text-gray-400 hover:text-gray-800" />
+                          </div>
+                        </div>
+                        {selectedPet.appointments.map(
+                          (appointment: Appointment, index) => (
+                            <React.Fragment key={appointment.$id || index}>
+                              <div
+                                key={appointment.$id || index}
+                                onClick={() =>
+                                  handleSelectAppointment(appointment)
+                                }
+                                className="cursor-pointer border border-gray-800 hover:bg-gray-100 transition-shadow bg-white text-sm"
+                              >
+                                <div className="flex justify-between border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
+                                  {new Date(
+                                    appointment.date
+                                  ).toLocaleDateString("en-US", {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  })}
+
+                                  <div>
+                                    {getAppointmentTypeIcon(appointment.type)}
+                                  </div>
+                                </div>
+                                <div className="p-4 space-y-1">
+                                  <p className="text-gray-800 font-semibold">
+                                    Description: {appointment.description}
+                                  </p>
+                                  <p className="text-gray-500 font-light">
+                                    Type: {appointment.type}
+                                  </p>
+                                </div>
+                              </div>
+                            </React.Fragment>
+                          )
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -663,55 +711,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       </div>
                     ) : (
                       <>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                          <div
-                            className="cursor-pointer transition-bg-white text-sm border border-gray-800 hover:bg-gray-100"
-                            onClick={() => handleToggleAddAppointment()}
-                          >
-                            <div className="border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
-                              Add Appointment
-                            </div>
-                            <div className="p-4 flex justify-center">
-                              <CalendarRange className="cursor-pointer text-gray-400 hover:text-gray-800" />
-                            </div>
-                          </div>
-
-                          {selectedPet.appointments.map(
-                            (appointment: Appointment, index) => (
-                              <React.Fragment key={appointment.$id || index}>
-                                <div
-                                  key={appointment.$id || index}
-                                  onClick={() =>
-                                    handleSelectAppointment(appointment)
-                                  }
-                                  className="cursor-pointer border border-gray-800 hover:bg-gray-100 transition-shadow bg-white text-sm"
-                                >
-                                  <div className="flex justify-between border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
-                                    {new Date(
-                                      appointment.date
-                                    ).toLocaleDateString("en-US", {
-                                      year: "numeric",
-                                      month: "long",
-                                      day: "numeric",
-                                    })}
-
-                                    <div>
-                                      {getAppointmentTypeIcon(appointment.type)}
-                                    </div>
-                                  </div>
-                                  <div className="p-4 space-y-1">
-                                    <p className="text-gray-800 font-semibold">
-                                      Description: {appointment.description}
-                                    </p>
-                                    <p className="text-gray-500 font-light">
-                                      Type: {appointment.type}
-                                    </p>
-                                  </div>
-                                </div>
-                              </React.Fragment>
-                            )
-                          )}
-                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
                       </>
                     )}
                   </div>
