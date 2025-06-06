@@ -13,7 +13,7 @@ const OwnerInfo = ({ client, handleEditToggle }: OwnerInfoProps) => {
   return (
     <div className="flex flex-col lg:flex-row gap-2 w-full">
       <div
-        className="p-1 border flex items-center min-w-[140px] flex-1 text-sm"
+        className="flex items-center min-w-[140px] flex-1 text-sm border border-gray-900 p-1"
         onClick={() => {
           navigator.clipboard.writeText(client.name)
           toast.success("Client name copied to clipboard!")
@@ -23,7 +23,7 @@ const OwnerInfo = ({ client, handleEditToggle }: OwnerInfoProps) => {
         <div className="text-sm ml-1">{client.name}</div>
       </div>
       <div
-        className="p-1 text-gray-600 border flex items-center min-w-[140px] flex-1 text-sm"
+        className=" text-gray-600  flex items-center min-w-[140px] flex-1 text-sm border border-gray-900 p-1"
         onClick={() => {
           navigator.clipboard.writeText(client.address)
           toast.success("Address copied to clipboard!")
@@ -33,7 +33,7 @@ const OwnerInfo = ({ client, handleEditToggle }: OwnerInfoProps) => {
         <div className="ml-1">{client.address}</div>
       </div>
       <div
-        className="p-1 text-gray-600 border flex items-center min-w-[140px] flex-1 text-sm"
+        className="text-gray-600  flex items-center min-w-[140px] flex-1 text-sm border border-gray-900 p-1"
         onClick={() => {
           navigator.clipboard.writeText(client.phone)
           toast.success("Phone number copied to clipboard!")
@@ -45,7 +45,7 @@ const OwnerInfo = ({ client, handleEditToggle }: OwnerInfoProps) => {
       </div>
 
       <div
-        className="p-1  text-gray-600 border flex items-center min-w-[140px] flex-1 text-sm"
+        className=" text-gray-600  flex items-center min-w-[140px] flex-1 text-sm border border-gray-900 p-1"
         onClick={() => {
           navigator.clipboard.writeText(client.email)
           toast.success("Email copied to clipboard!")

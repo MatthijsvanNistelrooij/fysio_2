@@ -73,9 +73,9 @@ export const CreateForm = ({ $id, edit }: Props) => {
   return (
     <div className="">
       <form onSubmit={handleSubmit} className="space-y-2">
-        <div className="flex flex-col justify-between gap-4 border p-3">
+        <div className="flex flex-col justify-between gap-4 border border-gray-900 p-3">
           <div className="flex flex-col md:flex-row gap-2 justify-between">
-            <div className="w-full flex border">
+            <div className="w-full flex border border-gray-900">
               <Contact size={18} className="text-gray-400 m-2" />
               <Input
                 name="name"
@@ -86,7 +86,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
               />
             </div>
 
-            <div className="w-full flex border">
+            <div className="w-full flex border border-gray-900">
               <HomeIcon size={18} className="text-gray-400 m-2" />
               <Input
                 name="address"
@@ -97,7 +97,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
               />
             </div>
 
-            <div className="w-full flex border">
+            <div className="w-full flex border border-gray-900">
               <Mail size={18} className="text-gray-400 m-2" />
               <Input
                 name="email"
@@ -108,7 +108,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
               />
             </div>
 
-            <div className="w-full flex border">
+            <div className="w-full flex border border-gray-900">
               <Phone size={18} className="text-gray-400 m-2" />
               <Input
                 name="phone"

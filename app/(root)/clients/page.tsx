@@ -124,7 +124,7 @@ const Clients = () => {
           <div className="p-5">
             <div className="w-full flex justify-between">
               <Input
-                className="bg-white mr-4 mb-3 rounded-none p-6"
+                className="bg-white mr-4 mb-3 border border-gray-900 rounded-none p-5"
                 placeholder="Search by name, email, phone, or address..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -133,13 +133,13 @@ const Clients = () => {
                 <Edit2
                   size={18}
                   onClick={handleToggleEdit}
-                  className="cursor-pointer text-gray-400 hover:text-gray-700 mt-4"
+                  className="cursor-pointer text-gray-800 hover:text-gray-400 mt-4"
                 />
               ) : (
                 <List
                   size={20}
                   onClick={handleToggleEdit}
-                  className="cursor-pointer text-gray-400 hover:text-gray-700 mt-4"
+                  className="cursor-pointer text-gray-800 hover:text-gray-400 mt-4"
                 />
               )}
             </div>
@@ -164,12 +164,12 @@ const Clients = () => {
                 {filteredClients.map((client) => (
                   <div
                     key={client.$id}
-                    className="bg-white flex flex-col sm:flex-row gap-4 mb-3 p-3 border"
+                    className="bg-white flex flex-col sm:flex-row gap-4 mb-3 p-3 border border-gray-900"
                   >
                     <div className="flex flex-col gap-2 w-full">
                       <div className="flex flex-col md:flex-row gap-2">
                         <div
-                          className="p-1 flex items-center bg-gray-300 text-gray-800 min-w-[140px] flex-1 text-sm cursor-pointer"
+                          className="p-1 flex items-center bg-gray-300 hover:bg-gray-400 text-gray-800 hover:text-white min-w-[140px] flex-1 text-sm cursor-pointer"
                           onClick={() => handleTableRowClick(client.$id)}
                         >
                           <Contact size={18} className=" text-gray-500 m-1" />

@@ -394,10 +394,10 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <div className="pb-1 rounded-2xl mt-1">
+      <div className="p-5">
         {/* TOGGLE CLIENT  CREATE CLIENT */}
 
-        <div className="p-3">
+        <div className="">
           {edit ? (
             <ClientForm
               initialData={client}
@@ -411,7 +411,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           )}
         </div>
 
-        <div className="p-1">
+        <div className="mt-3">
           {addPet ? (
             <div>
               <AddPetForm
@@ -422,8 +422,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             </div>
           ) : selectedPet ? (
             <>
-              <div className={` text-gray-800 bg-white border border-gray-100`}>
-                <div className="p-2 text-sm font-medium flex justify-between border-b border-gray-100">
+              <div className={` text-gray-800 bg-white`}>
+                <div className="p-3 text-sm font-medium flex justify-between border border-gray-800">
                   <div className="flex">{selectedPet.name}</div>
 
                   <div className="flex justify-end">
@@ -437,13 +437,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                           setOpenAppointment(false)
                           setSelectedAppointment(null)
                         }}
-                        className="cursor-pointer text-gray-400 hover:text-gray-800"
+                        className="cursor-pointer text-gray-800 hover:text-gray-600"
                       />
                     )}
                   </div>
                 </div>
 
-                <div className="p-1">
+                <div className="border-l border-b border-r border-gray-800 p-1">
                   <div className="flex justify-end gap-2">
                     {editPet ? (
                       <Button
@@ -514,7 +514,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               <div>
                 {openAppointment ? (
                   <div className={`bg-white overflow-hidden mt-5`}>
-                    <div className="flex justify-between text-gray-800 border">
+                    <div className="flex justify-between text-gray-800 bg-gray-100">
                       <div className=" p-2 px-4 text-sm flex gap-2">
                         <CalendarRange size={18} />
                         Date:&nbsp;
@@ -529,7 +529,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                           : "N/A"}
                       </div>
                       <X
-                        size={20}
+                        size={14}
                         onClick={handleCloseAppointment}
                         className="text-gray-400 cursor-pointer hover:text-gray-200 m-2 mr-4"
                       />
@@ -719,7 +719,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
             </>
           ) : (
-            <>
+            <div >
               <Dog
                 onClick={() => setAddPet(true)}
                 className="text-gray-400 hover:text-gray-800 cursor-pointer"
@@ -747,7 +747,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

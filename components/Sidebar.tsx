@@ -23,7 +23,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
   return (
     <div className="h-screen max-h-screen border-r w-72">
       <div className=" flex flex-col justify-between h-full">
-        <div className="flex flex-col h-full gap-2 p-4">
+        <div className="flex flex-col h-full gap-2 p-5">
           {navItems.map((item) => {
             const isActive =
               (item.url === "/clients" &&
@@ -34,14 +34,14 @@ export const Sidebar = ({ fullName, email }: Props) => {
               <Link
                 key={item.name}
                 href={item.url}
-                className={`p-2 hover:text-gray-800 font-bold transition mt-1 border hover:border-gray-800 ${
+                className={`p-2 hover:text-gray-800 font-bold transition border hover:border-gray-800 ${
                   isActive ? "border-gray-800" : "text-gray-400"
                 }`}
               >
                 {item.icon === "client" ? (
-                  <Contact size={23} />
+                  <Contact size={20} />
                 ) : item.icon === "calendar" ? (
-                  <CalendarRange size={23} />
+                  <CalendarRange size={20} />
                 ) : null}
               </Link>
             )
