@@ -515,7 +515,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                   )}
                 </div>
-                <div className="flex p-2 gap-4 border-r border-l border-b border-gray-800">
+                <div className="flex flex-col md:flex-row p-2 gap-4 border-r border-l border-b border-gray-800">
                   <div
                     className="cursor-pointer transition-bg-white text-sm border border-gray-800 hover:bg-gray-100"
                     onClick={() => handleToggleAddAppointment()}
@@ -534,9 +534,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                           className="cursor-pointer border border-gray-800 hover:bg-gray-100 transition-shadow bg-white text-sm"
                         >
                           <div className="flex justify-between border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
-                            <div>
-                              {getAppointmentTypeIcon(appointment.type)}
-                            </div>
                             {new Date(appointment.date).toLocaleDateString(
                               "en-US",
                               {
@@ -547,11 +544,14 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             )}
 
                             <p className="text-gray-800 font-semibold">
-                             - {appointment.description} -
+                              - {appointment.description} -
                             </p>
                             <p className="text-gray-500 font-light">
                               {appointment.type}
                             </p>
+                            <div>
+                              {getAppointmentTypeIcon(appointment.type)}
+                            </div>
                           </div>
                         </div>
                       </React.Fragment>
