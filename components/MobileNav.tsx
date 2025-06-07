@@ -15,7 +15,7 @@ export const MobileNav = () => {
   return (
     <div
       style={{
-        boxShadow: "0 4px 10px rgba(2, 25, 156, 0.25)",
+        // boxShadow: "0 4px 10px rgba(2, 25, 156, 0.25)",
       }}
       className="flex flex-col justify-between w-full text-black p-4 border-b"
     >
