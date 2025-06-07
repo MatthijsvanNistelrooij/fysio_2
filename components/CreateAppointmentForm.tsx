@@ -74,10 +74,7 @@ export default function CreateAppointmentForm({
 
   return (
     <div className="bg-white">
-      <form
-        onSubmit={handleSubmit}
-        className=" bg-white p-4 shadow-xl rounded-xl"
-      >
+      <form onSubmit={handleSubmit} className=" bg-white">
         <div className="flex justify-between">
           <div className="w-full">
             <div className="mb-2">
@@ -135,9 +132,10 @@ export default function CreateAppointmentForm({
                 required
               />
             </div>
+            <BentoGrid />
           </div>
         </div>
-        <BentoGrid />
+
         <div className="flex justify-end mt-2">
           <Button
             type="submit"

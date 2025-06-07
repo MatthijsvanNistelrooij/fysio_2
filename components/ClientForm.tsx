@@ -47,7 +47,7 @@ export default function ClientForm({
     <form onSubmit={handleSubmit} className="space-y-4 flex flex-row gap-2">
       <div className="w-full">
         <div className="flex flex-col lg:flex-row gap-2 justify-between w-full">
-          <div className="w-full flex border border-gray-900">
+          <div className="w-full flex border rounded">
             <Contact size={20} className="text-gray-600 m-2" />
             <Input
               name="name"
@@ -56,7 +56,7 @@ export default function ClientForm({
               className="border-none shadow-none rounded-none text-gray-800  p-0 mt-1"
             />
           </div>
-          <div className="w-full flex border border-gray-900">
+          <div className="w-full flex border rounded">
             <HomeIcon size={20} className="text-gray-600 m-2" />
             <Input
               name="address"
@@ -65,7 +65,7 @@ export default function ClientForm({
               className="border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
-          <div className="w-full flex border border-gray-900">
+          <div className="w-full flex border rounded">
             <Phone size={20} className="text-gray-600 m-2" />
             <Input
               name="phone"
@@ -74,7 +74,7 @@ export default function ClientForm({
               className="border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
-          <div className="w-full flex border border-gray-900">
+          <div className="w-full flex border rounded">
             <Mail size={20} className="text-gray-600 m-2" />
             <Input
               name="email"

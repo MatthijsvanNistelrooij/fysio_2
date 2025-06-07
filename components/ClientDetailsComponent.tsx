@@ -399,7 +399,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <div className="p-5">
+      <div className="p-2">
         {/* TOGGLE CLIENT  CREATE CLIENT */}
 
         <div className="">
@@ -428,7 +428,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
           ) : selectedPet ? (
             <>
               <div className={` text-gray-800 bg-white`}>
-                <div className="p-2 text-sm font-medium flex justify-between border border-gray-800">
+                <div className="text-sm font-medium flex justify-between bg-gray-100 p-2">
                   <div className="flex">{selectedPet.name}</div>
 
                   <div className="flex justify-end">
@@ -447,28 +447,18 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     )}
                   </div>
                 </div>
-
-                <div className="border-l border-b border-r border-gray-800 p-1">
-                  <div className="flex justify-end gap-2">
-                    {editPet ? (
-                      <Button
-                        type="button"
-                        className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800"
-                        onClick={() => handleToggleUpdatePet()}
-                      >
-                        <X size={18} />
-                      </Button>
-                    ) : (
-                      <Button
-                        className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800"
-                        onClick={() => handleToggleUpdatePet()}
-                      >
-                        <Edit size={18} />
-                      </Button>
-                    )}
-                  </div>
+                <div className="flex justify-end gap-2">
+                  <Button
+                    type="button"
+                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800"
+                    onClick={() => handleToggleUpdatePet()}
+                  >
+                    {editPet ? <X size={18} /> : <Edit size={18} />}
+                  </Button>
+                </div>
+                <div className="flex justify-between">
                   {editPet ? (
-                    <div className="">
+                    <div className="w-full">
                       <PetForm
                         initialData={selectedPet}
                         onSubmit={handleUpdatePet}
@@ -477,50 +467,46 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       />
                     </div>
                   ) : (
-                    <div className="p-1">
-                      <div className="grid grid-cols-1 md:grid-cols-2 ">
-                        <div className="space-y-2">
-                          <p className="text-sm font-medium">Name</p>
-                          <p className="text-base">
-                            {selectedPet?.name || "N/A"}
-                          </p>
+                    <div className="flex justify-between w-full">
+                      <div className="space-y-2 w-full">
+                        <p className="text-sm font-medium">Name</p>
+                        <p className="text-base">
+                          {selectedPet?.name || "N/A"}
+                        </p>
 
-                          <p className="text-sm font-medium">Type</p>
-                          <p className="text-base">
-                            {selectedPet?.type || "N/A"}
-                          </p>
+                        <p className="text-sm font-medium">Type</p>
+                        <p className="text-base">
+                          {selectedPet?.type || "N/A"}
+                        </p>
 
-                          <p className="text-sm font-medium">Breed</p>
-                          <p className="text-base">
-                            {selectedPet?.breed || "N/A"}
-                          </p>
-                        </div>
+                        <p className="text-sm font-medium">Breed</p>
+                        <p className="text-base">
+                          {selectedPet?.breed || "N/A"}
+                        </p>
+                      </div>
 
-                        <div className="space-y-2">
-                          <p className="text-sm font-medium">Age</p>
-                          <p className="text-base">
-                            {selectedPet?.age || "N/A"}
-                          </p>
-                          <p className="text-sm font-medium">Description</p>
-                          <p className="text-base">
-                            {selectedPet?.description || "N/A"}
-                          </p>
+                      <div className="space-y-2 w-full">
+                        <p className="text-sm font-medium">Age</p>
+                        <p className="text-base">{selectedPet?.age || "N/A"}</p>
+                        <p className="text-sm font-medium">Description</p>
+                        <p className="text-base">
+                          {selectedPet?.description || "N/A"}
+                        </p>
 
-                          <p className="text-sm font-medium">Notes</p>
-                          <p className="text-base">
-                            {selectedPet?.notes || "N/A"}
-                          </p>
-                        </div>
+                        <p className="text-sm font-medium">Notes</p>
+                        <p className="text-base">
+                          {selectedPet?.notes || "N/A"}
+                        </p>
                       </div>
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col md:flex-row p-2 gap-4 border-r border-l border-b border-gray-800">
+                <div className="flex flex-col md:flex-row gap-4 border mt-2 p-1">
                   <div
-                    className="cursor-pointer transition-bg-white text-sm border border-gray-800 hover:bg-gray-100"
+                    className="w-full cursor-pointer transition-bg-white text-sm border hover:bg-gray-100"
                     onClick={() => handleToggleAddAppointment()}
                   >
-                    <div className="flex border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
+                    <div className="w-full flex px-4 py-2 text-sm text-gray-800 font-medium">
                       <CalendarRange size={14} className="mr-2" />
                       Add Appointment
                     </div>
@@ -531,9 +517,9 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         <div
                           key={appointment.$id || index}
                           onClick={() => handleSelectAppointment(appointment)}
-                          className="cursor-pointer border border-gray-800 hover:bg-gray-100 transition-shadow bg-white text-sm"
+                          className="cursor-pointer w-full border hover:bg-gray-100 transition-shadow bg-white text-sm"
                         >
-                          <div className="flex justify-between border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
+                          <div className="flex justify-between px-4 py-2 text-sm text-gray-800 font-medium">
                             {new Date(appointment.date).toLocaleDateString(
                               "en-US",
                               {
@@ -543,12 +529,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                               }
                             )}
 
-                            <p className="text-gray-800 font-semibold">
-                              - {appointment.description} -
-                            </p>
-                            <p className="text-gray-500 font-light">
-                              {appointment.type}
-                            </p>
                             <div>
                               {getAppointmentTypeIcon(appointment.type)}
                             </div>
@@ -561,8 +541,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
               <div>
                 {openAppointment ? (
-                  <div className="bg-white overflow-hidden border-l border-r border-b border-gray-900">
-                    <div className="flex justify-between border-b border-gray-800">
+                  <div className="bg-white overflow-hidden">
+                    <div className="flex justify-between">
                       <div className=" p-2 px-4 text-sm flex gap-2">
                         <CalendarRange size={18} />
                         Date:&nbsp;
@@ -686,11 +666,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                   </div>
                 ) : (
-                  <div className="border-l border-b border-r border-gray-600">
+                  <div className="">
                     {addAppointment ? (
                       <div>
                         <div className="text-sm font-medium mb-1 p-2 flex justify-between px-4">
-                          Add Appointment
+                          <div />
                           <X
                             size={14}
                             onClick={() => handleCloseAddAppointment()}
@@ -729,11 +709,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   <div
                     key={pet.$id || index}
                     onClick={() => handleSelectPet(pet)}
-                    className={`cursor-pointer border border-gray-800 text-gray-800 hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
+                    className={`cursor-pointer border text-gray-800 hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
                       pet.type
                     )}`}
                   >
-                    <div className="border-b border-gray-800 px-4 py-2 text-sm text-gray-800 font-medium">
+                    <div className="px-4 py-2 text-sm text-gray-800 font-medium">
                       {pet.name}
                     </div>
                     <div className="p-4 space-y-1 relative">

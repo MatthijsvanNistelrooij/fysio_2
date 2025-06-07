@@ -131,7 +131,7 @@ const Clients = () => {
               />
               <button
                 onClick={handleToggleEdit}
-                className="ml-4 text-gray-600 hover:text-gray-800 transition"
+                className="ml-4 text-gray-600 hover:text-gray-800 transition cursor-pointer"
               >
                 {edit ? <List size={20} /> : <Edit2 size={18} />}
               </button>
