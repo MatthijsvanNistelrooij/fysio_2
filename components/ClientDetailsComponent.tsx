@@ -427,8 +427,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             </div>
           ) : selectedPet ? (
             <>
-              <div className={` text-gray-800 bg-white`}>
-                <div className="text-sm font-medium flex justify-between bg-gray-100 p-2">
+              <div className="text-gray-800 bg-white border">
+                <div className="text-sm font-medium flex justify-between border-b bg-gray-100 p-2">
                   <div className="flex">{selectedPet.name}</div>
 
                   <div className="flex justify-end">
@@ -450,13 +450,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 <div className="flex justify-end gap-2">
                   <Button
                     type="button"
-                    className="bg-white hover:bg-gray-100 mt-1 cursor-pointer text-gray-800"
+                    className="bg-white hover:bg-gray-100 m-1 cursor-pointer text-gray-800"
                     onClick={() => handleToggleUpdatePet()}
                   >
                     {editPet ? <X size={18} /> : <Edit size={18} />}
                   </Button>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between p-1">
                   {editPet ? (
                     <div className="w-full">
                       <PetForm
@@ -501,48 +501,47 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col md:flex-row gap-4 border mt-2 p-1">
-                  <div
-                    className="w-full cursor-pointer transition-bg-white text-sm border hover:bg-gray-100"
-                    onClick={() => handleToggleAddAppointment()}
-                  >
-                    <div className="w-full flex px-4 py-2 text-sm text-gray-800 font-medium">
-                      <CalendarRange size={14} className="mr-2" />
-                      Add Appointment
-                    </div>
-                  </div>
-                  {selectedPet.appointments.map(
-                    (appointment: Appointment, index) => (
-                      <React.Fragment key={appointment.$id || index}>
-                        <div
-                          key={appointment.$id || index}
-                          onClick={() => handleSelectAppointment(appointment)}
-                          className="cursor-pointer w-full border hover:bg-gray-100 transition-shadow bg-white text-sm"
-                        >
-                          <div className="flex justify-between px-4 py-2 text-sm text-gray-800 font-medium">
-                            {new Date(appointment.date).toLocaleDateString(
-                              "en-US",
-                              {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              }
-                            )}
-
-                            <div>
-                              {getAppointmentTypeIcon(appointment.type)}
-                            </div>
-                          </div>
-                        </div>
-                      </React.Fragment>
-                    )
-                  )}
-                </div>
               </div>
+              <div className="flex flex-col md:flex-row gap-4 mt-1">
+                <div
+                  className="w-full cursor-pointer transition-bg-white text-sm border hover:bg-gray-100"
+                  onClick={() => handleToggleAddAppointment()}
+                >
+                  <div className="w-full flex px-4 py-2 text-sm text-gray-800 font-medium">
+                    <CalendarRange size={14} className="mr-2" />
+                    Add Appointment
+                  </div>
+                </div>
+                {selectedPet.appointments.map(
+                  (appointment: Appointment, index) => (
+                    <React.Fragment key={appointment.$id || index}>
+                      <div
+                        key={appointment.$id || index}
+                        onClick={() => handleSelectAppointment(appointment)}
+                        className="cursor-pointer w-full border hover:bg-gray-100 transition-shadow bg-white text-sm"
+                      >
+                        <div className="flex justify-between px-4 py-2 text-sm text-gray-800 font-medium">
+                          {new Date(appointment.date).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
+
+                          <div>{getAppointmentTypeIcon(appointment.type)}</div>
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  )
+                )}
+              </div>
+
               <div>
                 {openAppointment ? (
-                  <div className="bg-white overflow-hidden mt-2">
-                    <div className="flex justify-between bg-gray-100">
+                  <div className="bg-white overflow-hidden mt-1 border">
+                    <div className="flex justify-between bg-gray-100 border-b">
                       <div className=" p-2 px-4 text-sm flex gap-2">
                         <CalendarRange size={18} />
                         Date:&nbsp;
@@ -668,7 +667,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 ) : (
                   <div className="">
                     {addAppointment ? (
-                      <div className="max-w-3xl border p-10 mt-1">
+                      <div className="max-w-3xl border p-1 mt-1">
                         <div className="text-sm font-medium mb-1 p-2 flex justify-between px-4">
                           <div />
                           <X

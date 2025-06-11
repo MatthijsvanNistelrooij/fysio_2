@@ -23,7 +23,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
   return (
     <div className="h-screen max-h-screen border-r w-72">
       <div className=" flex flex-col justify-between h-full">
-        <div className="flex flex-col h-full gap-2 p-5">
+        <div className="flex flex-col h-full gap-2 p-1">
           {navItems.map((item) => {
             const isActive =
               (item.url === "/clients" &&
