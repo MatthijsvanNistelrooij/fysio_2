@@ -502,7 +502,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                   )}
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row gap-4 mt-1">
+              <div className="flex flex-col md:flex-row gap-1 mt-1">
                 <div
                   className="w-full cursor-pointer transition-bg-white text-sm border hover:bg-gray-100"
                   onClick={() => handleToggleAddAppointment()}
@@ -518,7 +518,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <div
                         key={appointment.$id || index}
                         onClick={() => handleSelectAppointment(appointment)}
-                        className="cursor-pointer w-full border hover:bg-gray-100 transition-shadow bg-white text-sm"
+                        className={`cursor-pointer w-full border hover:bg-gray-100 transition-shadow text-sm ${
+                          appointment.$id === selectedAppointment?.$id
+                            ? "bg-gray-100"
+                            : "bg-white"
+                        }`}
                       >
                         <div className="flex justify-between px-4 py-2 text-sm text-gray-800 font-medium">
                           {new Date(appointment.date).toLocaleDateString(
