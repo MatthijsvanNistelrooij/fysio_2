@@ -47,40 +47,40 @@ export default function ClientForm({
     <form onSubmit={handleSubmit} className="space-y-4 flex flex-row gap-2">
       <div className="w-full">
         <div className="flex flex-col lg:flex-row gap-2 justify-between w-full">
-          <div className="w-full flex border rounded">
+          <div className="w-full flex rounded">
             <Contact size={20} className="text-gray-600 m-2" />
             <Input
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="border-none shadow-none rounded-none text-gray-800  p-0 mt-1"
+              className="bg-blue-50 border-none shadow-none rounded-none text-gray-800  p-0 mt-1"
             />
           </div>
-          <div className="w-full flex border rounded">
+          <div className="w-full flex rounded">
             <HomeIcon size={20} className="text-gray-600 m-2" />
             <Input
               name="address"
               value={formData.address}
               onChange={handleChange}
-              className="border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
+              className="bg-blue-50 border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
-          <div className="w-full flex border rounded">
+          <div className="w-full flex">
             <Phone size={20} className="text-gray-600 m-2" />
             <Input
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
+              className="bg-blue-50 border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
-          <div className="w-full flex border rounded">
+          <div className="w-full flex">
             <Mail size={20} className="text-gray-600 m-2" />
             <Input
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
+              className="bg-blue-50 border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
 

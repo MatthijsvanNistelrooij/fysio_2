@@ -34,7 +34,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
 
       // Use the natural size of your canvas/image here
       const width = 450
-      const height = 350
+      const height = 400
 
       // Generate a snapshot image by combining background + strokes
       const snapshot = await generateSnapshot({
@@ -127,7 +127,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         style={{
           position: "relative",
           width: 460,
-          height: 350,
+          height: 400,
           overflow: "hidden",
         }}
       >

@@ -206,10 +206,10 @@ const Clients = () => {
                     <div className="flex flex-wrap justify-end gap-2 mt-2">
                       {client.pets.length ? (
                         client.pets.map((pet) => (
-                          <Link
+                          <div
                             key={pet.$id}
-                            href={`/pets/${pet.$id}`}
-                            className={`flex items-center gap-2 px-3 py-1 text-sm text-gray-700 hover:bg-accent transition ${getPetColorClass(
+                            onClick={() => handleTableRowClick(client.$id)}
+                            className={`flex items-center gap-2 px-3 py-1 text-sm cursor-pointer text-gray-700 hover:bg-accent transition ${getPetColorClass(
                               pet.type
                             )}`}
                           >
@@ -219,7 +219,7 @@ const Clients = () => {
                                 <CalendarRange key={i} size={14} />
                               ))}
                             </div>
-                          </Link>
+                          </div>
                         ))
                       ) : (
                         <div className="text-gray-400 text-sm">No pets</div>

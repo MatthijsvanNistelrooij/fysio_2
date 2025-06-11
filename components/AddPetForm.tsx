@@ -68,7 +68,7 @@ export default function AddPetForm({
       onSubmit={handleSubmit}
       className="space-y-5 bg-white border mt-5"
     >
-      <div className="border-b px-4 py-2 text-sm text-gray-800e font-medium flex justify-between">
+      <div className="border-b px-4 py-2 text-sm text-gray-800e font-medium flex justify-between bg-gray-100">
         Add New Pet
         <X
           size={14}

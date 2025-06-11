@@ -450,7 +450,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 <div className="flex justify-end gap-2">
                   <Button
                     type="button"
-                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800"
+                    className="bg-white hover:bg-gray-100 mt-1 cursor-pointer text-gray-800"
                     onClick={() => handleToggleUpdatePet()}
                   >
                     {editPet ? <X size={18} /> : <Edit size={18} />}
@@ -541,8 +541,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
               <div>
                 {openAppointment ? (
-                  <div className="bg-white overflow-hidden">
-                    <div className="flex justify-between">
+                  <div className="bg-white overflow-hidden mt-2">
+                    <div className="flex justify-between bg-gray-100">
                       <div className=" p-2 px-4 text-sm flex gap-2">
                         <CalendarRange size={18} />
                         Date:&nbsp;
@@ -668,7 +668,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                 ) : (
                   <div className="">
                     {addAppointment ? (
-                      <div>
+                      <div className="max-w-3xl border p-10 mt-1">
                         <div className="text-sm font-medium mb-1 p-2 flex justify-between px-4">
                           <div />
                           <X
@@ -700,20 +700,22 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             </>
           ) : (
             <div>
-              <Plus
-                onClick={() => setAddPet(true)}
-                className="text-gray-400 hover:text-gray-800 cursor-pointer"
-              />
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+                <div
+                  className="hover:bg-gray-100 p-10 text-center border flex justify-center cursor-pointer"
+                  onClick={() => setAddPet(true)}
+                >
+                  <Plus className="text-gray-400 hover:text-gray-800 cursor-pointer" />
+                </div>
                 {localClient.pets.map((pet: Pet, index: number) => (
                   <div
                     key={pet.$id || index}
                     onClick={() => handleSelectPet(pet)}
-                    className={`cursor-pointer border text-gray-800 hover:bg-gray-200 text-sm hover:bg-opacity-80 ${getPetColorClass(
+                    className={`cursor-pointer border text-gray-800 hover:bg-gray-50 text-sm hover:bg-opacity-80 ${getPetColorClass(
                       pet.type
                     )}`}
                   >
-                    <div className="px-4 py-2 text-sm text-gray-800 font-medium">
+                    <div className="px-4 py-2 text-sm text-gray-800 bg-gray-100 font-medium border-b">
                       {pet.name}
                     </div>
                     <div className="p-4 space-y-1 relative">

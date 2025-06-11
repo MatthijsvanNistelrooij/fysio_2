@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "./ui/select"
 import { appointmentTypes } from "@/constants"
-import BentoGrid from "./BentoGrid"
+// import BentoGrid from "./BentoGrid"
 
 interface CreateAppointmentFormProps {
   petId: string
@@ -132,7 +132,7 @@ export default function CreateAppointmentForm({
                 required
               />
             </div>
-            <BentoGrid />
+            {/* <BentoGrid /> */}
           </div>
         </div>
 
