@@ -402,7 +402,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
       <div className="p-2">
         {/* TOGGLE CLIENT  CREATE CLIENT */}
 
-        <div className="">
+        <div className="border p-1">
           {edit ? (
             <ClientForm
               initialData={client}
@@ -456,7 +456,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     {editPet ? <X size={18} /> : <Edit size={18} />}
                   </Button>
                 </div>
-                <div className="flex justify-between p-1">
+                <div className="flex justify-between p-1 pb-10">
                   {editPet ? (
                     <div className="w-full">
                       <PetForm
