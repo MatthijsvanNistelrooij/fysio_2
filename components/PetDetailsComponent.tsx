@@ -97,15 +97,15 @@ export default function PetDetailsComponent({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <div className="flex justify-center">
-        <div className="max-w-7xl w-full rounded m-5 bg-white shadow-xl">
-          <div className="bg-gray-800 px-4 p-2 rounded-t text-sm text-white font-medium flex justify-between items-center">
+        <div className="w-full rounded m-5 bg-white shadow-xl">
+          <div className="bg-gray-100 px-4 p-2 rounded-t text-sm font-medium flex justify-between items-center">
             {pet.name}
             <Link href={`/clients/${pet.ownerId}`}>
               <X
                 size={18}
-                className="cursor-pointer text-gray-400 hover:text-gray-200"
+                className="cursor-pointer text-gray-400 hover:text-gray-800"
               />
             </Link>
           </div>
@@ -162,11 +162,11 @@ export default function PetDetailsComponent({
       </div>
 
       <div className="flex justify-center pt-0 p-5">
-        <div className="w-full max-w-7xl rounded">
+        <div className="w-full rounded">
           {addAppointment && user ? (
             <div className="rounded">
-              <div className="bg-gray-800 text-sm font-medium mb-1 text-white p-2 flex justify-between rounded-t px-4">
-                Add New Appointment
+              <div className="bg-gray-100 text-sm font-medium mb-1 p-2 flex justify-between rounded-t px-4">
+                Add New Appointment 
                 <X
                   size={18}
                   onClick={() => handleToggleAddAppointment()}
@@ -184,9 +184,9 @@ export default function PetDetailsComponent({
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div
                   onClick={() => handleToggleAddAppointment()}
-                  className="cursor-pointer rounded shadow hover:shadow-md hover:bg-gray-100 transition-shadow bg-white text-sm"
+                  className="cursor-pointer rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
                 >
-                  <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                  <div className="bg-gray-100 px-4 py-2 rounded-t text-sm font-medium">
                     Add New Appointment
                   </div>
                   <div className="flex justify-center p-5">
@@ -202,7 +202,7 @@ export default function PetDetailsComponent({
                         href={`/appointments/${appointment.$id}`}
                         className="block rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
                       >
-                        <div className="bg-gray-800 px-4 py-2 rounded-t text-sm text-white font-medium">
+                        <div className="bg-gray-100 px-4 py-2 rounded-t text-sm font-medium">
                           {new Date(appointment.date).toLocaleDateString(
                             "en-US",
                             {

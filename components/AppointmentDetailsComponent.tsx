@@ -106,10 +106,10 @@ export default function AppointmentDetailsComponent({
   }
 
   return (
-    <div className="min-h-screen flex  justify-center bg-gray-50 p-5">
-      <div className="max-w-7xl w-full  rounded bg-white shadow-xl">
-        <div className="flex justify-between bg-gray-800">
-          <div className="text-white p-2 px-4 text-sm flex gap-2">
+    <div className="min-h-screen flex justify-center p-5">
+      <div className="w-full rounded bg-white shadow-xl">
+        <div className="flex justify-between bg-gray-100">
+          <div className=" p-2 px-4 text-sm flex gap-2">
             <CalendarRange size={18} />
             Date:&nbsp;
             {appointment?.date
@@ -124,7 +124,7 @@ export default function AppointmentDetailsComponent({
           <Link href={`/pets/${appointment.petId}`}>
             <X
               size={20}
-              className="cursor-pointer text-gray-400 hover:text-gray-200 m-2"
+              className="cursor-pointer text-gray-400 hover:text-gray-800 m-2"
             />
           </Link>
         </div>

@@ -13,10 +13,11 @@ import {
   Phone,
 } from "lucide-react"
 import { getClientsByUserId } from "@/lib/client.actions"
-import { Client, User } from "@/types"
+import { Client, Pet, User } from "@/types"
 import { toast } from "sonner"
 import CreateForm from "@/components/CreateForm"
 import { Input } from "@/components/ui/input"
+import { usePetStore } from "@/store"
 
 const Clients = () => {
   const [clients, setClients] = useState<Client[]>([])
@@ -71,6 +72,12 @@ const Clients = () => {
   }, [user])
 
   const handleTableRowClick = (id: string) => {
+    router.push(`/clients/${id}`)
+  }
+
+  const handleClickPet = (id: string, pet: Pet) => {
+    const setSelectedPet = usePetStore.getState().setSelectedPet
+    setSelectedPet(pet)
     router.push(`/clients/${id}`)
   }
 
@@ -208,7 +215,7 @@ const Clients = () => {
                         client.pets.map((pet) => (
                           <div
                             key={pet.$id}
-                            onClick={() => handleTableRowClick(client.$id)}
+                            onClick={() => handleClickPet(client.$id, pet)}
                             className={`flex items-center gap-2 px-3 py-1 text-sm cursor-pointer text-gray-700 hover:bg-accent transition ${getPetColorClass(
                               pet.type
                             )}`}

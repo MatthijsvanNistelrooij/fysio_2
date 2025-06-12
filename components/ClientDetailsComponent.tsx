@@ -31,6 +31,7 @@ import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import Image from "next/image"
 import OwnerInfo from "./OwnerInfo"
+// import { usePetStore } from "@/store"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function ClientDetailsComponent({ client }: { client: any }) {
@@ -44,11 +45,20 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   const [editPet, setEditPet] = useState(false)
 
   const [showCanvas, setShowCanvas] = useState(false)
-  const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
+
   const [savedImage, setSavedImage] = useState<string | null>(null)
 
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null)
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
+
+  // const petFromStore = usePetStore((state) => state.selectedPet)
+
+  // useEffect(() => {
+  //   if (petFromStore && !selectedPet) {
+  //     setSelectedPet(petFromStore)
+  //   }
+  // }, [petFromStore, selectedPet])
 
   const [openAppointment, setOpenAppointment] = useState(false)
 
@@ -402,7 +412,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
       <div className="p-2">
         {/* TOGGLE CLIENT  CREATE CLIENT */}
 
-        <div className="border p-1">
+        <div className="">
           {edit ? (
             <ClientForm
               initialData={client}
