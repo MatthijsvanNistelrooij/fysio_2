@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { getCurrentUser } from "@/lib/user.actions"
+import { getCurrentUser } from "@/lib/actions/user.actions"
 import Link from "next/link"
 import {
   CalendarRange,
@@ -12,12 +12,13 @@ import {
   Mail,
   Phone,
 } from "lucide-react"
-import { getClientsByUserId } from "@/lib/client.actions"
-import { Client, Pet, User } from "@/types"
+import { getClientsByUserId } from "@/lib/actions/client.actions"
+import { Client, Pet, User } from "@/lib/types"
 import { toast } from "sonner"
 import CreateForm from "@/components/CreateForm"
 import { Input } from "@/components/ui/input"
-import { usePetStore } from "@/store"
+import { usePetStore } from "@/lib/store"
+import { Card } from "@/components/ui/card"
 
 const Clients = () => {
   const [clients, setClients] = useState<Client[]>([])
@@ -109,7 +110,7 @@ const Clients = () => {
   })
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center py-2 px-2 sm:px-2">
+    <div className="min-h-screen flex justify-center py-2 px-2 sm:px-2">
       <div className="w-full">
         {loading ? (
           <div className="flex items-center justify-center h-96 text-gray-400 text-xl">
@@ -163,7 +164,7 @@ const Clients = () => {
                 }`}
               >
                 {filteredClients.map((client) => (
-                  <div
+                  <Card
                     key={client.$id}
                     className="bg-white rounded-md shadow-sm mb-2 px-4 py-3 border border-gray-200 hover:shadow-md transition"
                   >
@@ -232,7 +233,7 @@ const Clients = () => {
                         <div className="text-gray-400 text-sm">No pets</div>
                       )}
                     </div>
-                  </div>
+                  </Card>
                 ))}
               </div>
             </div>

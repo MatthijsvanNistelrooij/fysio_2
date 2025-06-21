@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/client.actions"
+import { createClient } from "@/lib/actions/client.actions"
 import { toast } from "sonner"
 import { Check, Contact, HomeIcon, Mail, Phone } from "lucide-react"
 

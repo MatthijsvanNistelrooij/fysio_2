@@ -1,9 +1,9 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { CalendarRange, Edit, Plus, Thermometer, X } from "lucide-react"
-import { deleteClient, updateClient } from "@/lib/client.actions"
+import { deleteClient, updateClient } from "@/lib/actions/client.actions"
 import { toast } from "sonner"
 import horse from "../public/horse_1.png"
 import {
@@ -11,11 +11,11 @@ import {
   createPet,
   deletePet,
   updatePet,
-} from "@/lib/pet.actions"
+} from "@/lib/actions/pet.actions"
 import AddPetForm from "./AddPetForm"
-import { Appointment, Client, Pet, User } from "@/types"
+import { Appointment, Client, Pet } from "@/lib/types"
 import { ShowerHead, Stethoscope, Lightbulb, Zap } from "lucide-react"
-import { getCurrentUser } from "@/lib/user.actions"
+import { getCurrentUser } from "@/lib/actions/user.actions"
 import ClientForm from "./ClientForm"
 
 import CreateAppointmentForm from "./CreateAppointmentForm"
@@ -24,34 +24,45 @@ import {
   createAppointment,
   deleteAppointment,
   updateAppointment,
-} from "@/lib/appointment.actions"
+} from "@/lib/actions/appointment.actions"
 import AppointmentForm from "./AppointmentForm"
 import PetForm from "./PetForm"
 import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import Image from "next/image"
-import OwnerInfo from "./OwnerInfo"
-// import { usePetStore } from "@/store"
+import { useAtom } from "jotai"
+import {
+  savedImageAtom,
+  selectedPetAtom,
+  localClientAtom,
+  editAppointmentAtom,
+  openAppointmentAtom,
+  addAppointmentAtom,
+  selectedAppointmentAtom,
+  userAtom,
+  showCanvasAtom,
+  editPetAtom,
+  addPetAtom,
+  editAtom,
+} from "../lib/store"
+import { Card } from "./ui/card"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function ClientDetailsComponent({ client }: { client: any }) {
+export default function ClientDetailsComponent({ client }: { client: Client }) {
+  const [savedImage, setSavedImage] = useAtom(savedImageAtom)
+  const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
+  const [localClient, setLocalClient] = useAtom(localClientAtom)
+  const [editAppointment, setEditAppointment] = useAtom(editAppointmentAtom)
+  const [openAppointment, setOpenAppointment] = useAtom(openAppointmentAtom)
+  const [addAppointment, setAddAppointment] = useAtom(addAppointmentAtom)
+  const [selectedAppointment, setSelectedAppointment] = useAtom(
+    selectedAppointmentAtom
+  )
+  const [user, setUser] = useAtom(userAtom)
+  const [showCanvas, setShowCanvas] = useAtom(showCanvasAtom)
+  const [editPet, setEditPet] = useAtom(editPetAtom)
+  const [addPet, setAddPet] = useAtom(addPetAtom)
+  const [edit, setEdit] = useAtom(editAtom)
   const router = useRouter()
-  const [addPet, setAddPet] = useState(true)
-  const [edit, setEdit] = useState(false)
-  const [editAppointment, setEditAppointment] = useState(false)
-  const [user, setUser] = useState<User | null>(null)
-  const [localClient, setLocalClient] = useState<Client>(client)
-  const [addAppointment, setAddAppointment] = useState(false)
-  const [editPet, setEditPet] = useState(false)
-
-  const [showCanvas, setShowCanvas] = useState(false)
-
-  const [savedImage, setSavedImage] = useState<string | null>(null)
-
-  const [selectedAppointment, setSelectedAppointment] =
-    useState<Appointment | null>(null)
-  const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
-
   // const petFromStore = usePetStore((state) => state.selectedPet)
 
   // useEffect(() => {
@@ -59,8 +70,6 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
   //     setSelectedPet(petFromStore)
   //   }
   // }, [petFromStore, selectedPet])
-
-  const [openAppointment, setOpenAppointment] = useState(false)
 
   useEffect(() => {
     if (localClient?.pets?.length) {
@@ -261,11 +270,16 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
       await updatePet(data.$id, data)
 
       toast.success("Pet info updated successfully!")
-      setLocalClient((prevClient) => ({
-        ...prevClient,
-        pets: prevClient.pets.map((pet) => (pet.$id === data.$id ? data : pet)),
-      }))
+      setLocalClient((prevClient) => {
+        if (!prevClient) return prevClient
 
+        return {
+          ...prevClient,
+          pets: prevClient.pets.map((pet) =>
+            pet.$id === data.$id ? data : pet
+          ),
+        }
+      })
       setSelectedPet((prevPet) => {
         if (!prevPet) return null
 
@@ -369,10 +383,14 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
       await deletePet(id)
       toast.success("Pet deleted successfully!")
       setSelectedPet(null)
-      setLocalClient((prevClient) => ({
-        ...prevClient,
-        pets: prevClient.pets.filter((pet) => pet.$id !== id),
-      }))
+      setLocalClient((prevClient) => {
+        if (!prevClient) return prevClient
+
+        return {
+          ...prevClient,
+          pets: prevClient.pets.filter((pet) => pet.$id !== id),
+        }
+      })
     } catch (error) {
       console.error("Error deleting pet:", error)
       toast.error("Failed to delete pet.")
@@ -409,22 +427,50 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
 
   return (
     <>
-      <div className="p-2">
+      <div className="p-5">
         {/* TOGGLE CLIENT  CREATE CLIENT */}
-
-        <div className="">
-          {edit ? (
-            <ClientForm
-              initialData={client}
-              userId={user.$id}
-              onSubmit={handleUpdate}
-              setEdit={setEdit}
-              handleDelete={handleDeleteClient}
-            />
-          ) : (
-            <OwnerInfo client={client} handleEditToggle={handleEditToggle} />
-          )}
-        </div>
+        <Card className="p-5">
+          <div className="flex -mb-5 justify-between text-center items-center pl-1">
+            <h1 className="text-xl font-bold text-gray-800">
+              {client.name}, {client.phone}
+            </h1>
+            {edit ? (
+              <Button
+                type="button"
+                className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+                onClick={() => setEdit?.(false)}
+              >
+                <X size={18} />
+              </Button>
+            ) : (
+              <Button
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  e.currentTarget.blur()
+                  handleEditToggle()
+                }}
+                className="text-gray-800 bg-white rounded-none hover:bg-gray-100 cursor-pointer"
+              >
+                <Edit size={20} />
+              </Button>
+            )}
+          </div>
+          <div className="w-full">
+            {edit ? (
+              <ClientForm
+                initialData={client}
+                userId={user.$id}
+                onSubmit={handleUpdate}
+                setEdit={setEdit}
+                handleDelete={handleDeleteClient}
+              />
+            ) : (
+              // <OwnerInfo client={client} />
+              <div />
+            )}
+          </div>
+        </Card>
 
         <div className="mt-3">
           {addPet ? (
@@ -437,8 +483,8 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
             </div>
           ) : selectedPet ? (
             <>
-              <div className="text-gray-800 bg-white border">
-                <div className="text-sm font-medium flex justify-between border-b bg-gray-100 p-2">
+              <Card className="text-gray-800 bg-white border p-5">
+                <div className="text-sm font-medium flex justify-between border-b bg-gray-100 p-1">
                   <div className="flex">{selectedPet.name}</div>
 
                   <div className="flex justify-end">
@@ -511,13 +557,13 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </div>
                   )}
                 </div>
-              </div>
-              <div className="flex flex-col md:flex-row gap-1 mt-1">
+              </Card>
+              <Card className="flex flex-col md:flex-row gap-1 mt-1 p-5">
                 <div
                   className="w-full cursor-pointer transition-bg-white text-sm border hover:bg-gray-100"
                   onClick={() => handleToggleAddAppointment()}
                 >
-                  <div className="w-full flex px-4 py-2 text-sm text-gray-800 font-medium">
+                  <div className="w-full flex px-2 py-1 text-sm text-gray-800 font-medium">
                     <CalendarRange size={14} className="mr-2" />
                     Add Appointment
                   </div>
@@ -534,7 +580,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             : "bg-white"
                         }`}
                       >
-                        <div className="flex justify-between px-4 py-2 text-sm text-gray-800 font-medium">
+                        <div className="flex justify-between px-4 py-1 text-sm text-gray-800 font-medium">
                           {new Date(appointment.date).toLocaleDateString(
                             "en-US",
                             {
@@ -550,14 +596,14 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                     </React.Fragment>
                   )
                 )}
-              </div>
+              </Card>
 
               <div>
                 {openAppointment ? (
-                  <div className="bg-white overflow-hidden mt-1 border">
+                  <Card className="bg-white overflow-hidden mt-1 border p-5">
                     <div className="flex justify-between bg-gray-100 border-b">
-                      <div className=" p-2 px-4 text-sm flex gap-2">
-                        <CalendarRange size={18} />
+                      <div className="p-1 px-2 text-sm flex gap-2">
+                        <CalendarRange size={14} className="" />
                         Date:&nbsp;
                         {selectedAppointment?.date
                           ? new Date(
@@ -572,7 +618,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       <X
                         size={14}
                         onClick={handleCloseAppointment}
-                        className="text-gray-800 cursor-pointer hover:text-gray-600 m-2 mr-4"
+                        className="text-gray-800 cursor-pointer hover:text-gray-600 m-1 mr-4"
                       />
                     </div>
                     <div className="flex flex-col lg:flex-row bg-white pb-2 gap-6 p-1">
@@ -677,11 +723,11 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </Card>
                 ) : (
                   <div className="">
                     {addAppointment ? (
-                      <div className="max-w-3xl border p-1 mt-1">
+                      <Card className="p-1 mt-1">
                         <div className="text-sm font-medium mb-1 p-2 flex justify-between px-4">
                           <div />
                           <X
@@ -701,7 +747,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                             )
                           }
                         />
-                      </div>
+                      </Card>
                     ) : (
                       <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
@@ -712,15 +758,15 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
               </div>
             </>
           ) : (
-            <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+            <div className="">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
                 <div
-                  className="hover:bg-gray-100 p-10 text-center border flex justify-center cursor-pointer"
+                  className="hover:bg-gray-100 p-10 text-center flex justify-center cursor-pointer"
                   onClick={() => setAddPet(true)}
                 >
                   <Plus className="text-gray-400 hover:text-gray-800 cursor-pointer" />
                 </div>
-                {localClient.pets.map((pet: Pet, index: number) => (
+                {localClient?.pets.map((pet: Pet, index: number) => (
                   <div
                     key={pet.$id || index}
                     onClick={() => handleSelectPet(pet)}
@@ -728,7 +774,7 @@ export default function ClientDetailsComponent({ client }: { client: any }) {
                       pet.type
                     )}`}
                   >
-                    <div className="px-4 py-2 text-sm text-gray-800 bg-gray-100 font-medium border-b">
+                    <div className="px-4 py-1 text-sm text-gray-800 bg-gray-100 font-medium border-b">
                       {pet.name}
                     </div>
                     <div className="p-4 space-y-1 relative">

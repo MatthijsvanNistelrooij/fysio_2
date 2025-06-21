@@ -3,7 +3,7 @@ import React from "react"
 import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { signOutUser } from "@/lib/user.actions"
+import { signOutUser } from "@/lib/actions/user.actions"
 import { CalendarRange, Contact, LogOutIcon } from "lucide-react"
 
 export const MobileNav = () => {
@@ -14,10 +14,12 @@ export const MobileNav = () => {
 
   return (
     <div
-      style={{
-        // boxShadow: "0 4px 10px rgba(2, 25, 156, 0.25)",
-      }}
-      className="flex flex-col justify-between w-full text-black p-4 border-b"
+      style={
+        {
+          // boxShadow: "0 4px 10px rgba(2, 25, 156, 0.25)",
+        }
+      }
+      className="flex flex-col justify-between bg-white w-full text-black p-1 border-b"
     >
       <div className="flex flex-row gap-2">
         <nav className="flex flex-row justify-between w-full">
@@ -32,10 +34,9 @@ export const MobileNav = () => {
                 <Link
                   key={item.name}
                   href={item.url}
-                  className={`p-2 rounded-xl hover:text-gray-800  font-bold transition w-14 ml-2 ${
+                  className={`p-2 rounded-xl hover:text-gray-800 font-bold transition w-10 ml-2 ${
                     isActive ? "" : "text-gray-400"
                   }`}
-
                 >
                   {item.icon === "client" ? (
                     <Contact size={20} />
@@ -52,7 +53,7 @@ export const MobileNav = () => {
               className="rounded-xl hover:text-gray-800 text-gray-400 hover:shadow font-bold transition"
               onClick={handleSignOut}
             >
-              <LogOutIcon size={20} className="transform rotate-180 mt-4" />
+              <LogOutIcon size={20} className="transform rotate-180 m-4" />
             </Link>
           </div>
         </nav>

@@ -1,6 +1,6 @@
 import React from "react"
 import { redirect } from "next/navigation"
-import { getCurrentUser } from "@/lib/user.actions"
+import { getCurrentUser } from "@/lib/actions/user.actions"
 import Sidebar from "@/components/Sidebar"
 import { Toaster } from "sonner"
 import { MobileNav } from "@/components/MobileNav"
@@ -11,7 +11,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   if (!currentUser) return redirect("/sign-in")
 
   return (
-    <main className="flex h-screen">
+    <main className="flex h-screen bg-[#e9edf3]">
       <div className="hidden md:flex h-screen">
         <Sidebar {...currentUser} />
       </div>

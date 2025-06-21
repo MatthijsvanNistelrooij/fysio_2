@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react"
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import { Event, MyCalendar } from "@/components/MyCalendar"
-import { Appointment, User } from "@/types"
-import { getCurrentUser } from "@/lib/user.actions"
-import { getAppointmentsByUserId } from "@/lib/appointment.actions"
+import { Appointment, User } from "@/lib/types"
+import { getCurrentUser } from "@/lib/actions/user.actions"
+import { getAppointmentsByUserId } from "@/lib/actions/appointment.actions"
 
 const Appointments = () => {
   const [events, setEvents] = useState<Event[]>([])

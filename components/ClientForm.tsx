@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Check, Contact, HomeIcon, Mail, Phone, Trash, X } from "lucide-react"
-import { Client } from "@/types"
+import { Check, Contact, HomeIcon, Mail, Phone, Trash } from "lucide-react"
 import { Input } from "./ui/input"
+import { Client } from "@/lib/types"
 
 interface ClientFormProps {
   initialData?: Partial<Client>
@@ -18,7 +18,6 @@ export default function ClientForm({
   initialData = {},
   onSubmit,
   userId,
-  setEdit,
   handleDelete,
 }: ClientFormProps) {
   const [formData, setFormData] = useState({
@@ -83,14 +82,6 @@ export default function ClientForm({
               className="bg-blue-50 border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
-
-          <Button
-            type="button"
-            className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer p-5"
-            onClick={() => setEdit?.(false)}
-          >
-            <X size={18} />
-          </Button>
         </div>
         <div className="flex justify-end gap-2 mt-2">
           <Button

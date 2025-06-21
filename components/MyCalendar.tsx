@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { updateAppointment } from "@/lib/appointment.actions"
+import { updateAppointment } from "@/lib/actions/appointment.actions"
 import Link from "next/link"
 
 const locales = {

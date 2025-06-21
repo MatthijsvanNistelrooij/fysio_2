@@ -1,7 +1,7 @@
 "use client"
 import React from "react"
 import { Button } from "./ui/button"
-import { signOutUser } from "@/lib/user.actions"
+import { signOutUser } from "@/lib/actions/user.actions"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { CalendarRange, Contact, LogOutIcon } from "lucide-react"
@@ -21,21 +21,22 @@ export const Sidebar = ({ fullName, email }: Props) => {
   }
 
   return (
-    <div className="h-screen max-h-screen border-r w-72">
+    <div className="h-screen max-h-screen border-r w-72 bg-white">
       <div className=" flex flex-col justify-between h-full">
-        <div className="flex flex-col h-full gap-2 p-1">
+        <div className="flex flex-col h-full gap-2 p-3">
           {navItems.map((item) => {
             const isActive =
               (item.url === "/clients" &&
                 (pathname.includes("/clients") ||
                   pathname.includes("/pets"))) ||
               (pathname.startsWith(item.url) && item.url !== "/clients")
+
             return (
               <Link
                 key={item.name}
                 href={item.url}
-                className={`p-2 hover:text-gray-800 font-bold transition ${
-                  isActive ? "" : "text-gray-400"
+                className={`flex items-center gap-2 p-2 hover:text-gray-800 font-semibold transition ${
+                  isActive ? "text-gray-800" : "text-gray-400"
                 }`}
               >
                 {item.icon === "client" ? (
@@ -43,6 +44,8 @@ export const Sidebar = ({ fullName, email }: Props) => {
                 ) : item.icon === "calendar" ? (
                   <CalendarRange size={20} />
                 ) : null}
+
+                <span className="text-sm font-sans">{item.name}</span>
               </Link>
             )
           })}

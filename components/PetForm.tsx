@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check, Trash } from "lucide-react"
-import { Pet } from "@/types"
+import { Pet } from "@/lib/types"
 import { Input } from "./ui/input"
 import {
   Select,

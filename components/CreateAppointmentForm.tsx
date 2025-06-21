@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
-import { Appointment } from "@/types"
+import { Appointment } from "@/lib/types"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import {
@@ -14,7 +14,6 @@ import {
   SelectValue,
 } from "./ui/select"
 import { appointmentTypes } from "@/constants"
-// import BentoGrid from "./BentoGrid"
 
 interface CreateAppointmentFormProps {
   petId: string
@@ -73,7 +72,7 @@ export default function CreateAppointmentForm({
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white p-5">
       <form onSubmit={handleSubmit} className=" bg-white">
         <div className="flex justify-between">
           <div className="w-full">

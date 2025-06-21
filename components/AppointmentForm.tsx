@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check, Trash, X } from "lucide-react"
-import { Appointment } from "@/types"
+import { Appointment } from "@/lib/types"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import {
@@ -121,7 +121,7 @@ export default function AppointmentForm({
           <SelectTrigger className="w-full bg-blue-50 border-none">
             <SelectValue placeholder="Select pet type" />
           </SelectTrigger>
-          <SelectContent >
+          <SelectContent>
             {appointmentTypes.map((type) => (
               <SelectItem key={type} value={type}>
                 {type}

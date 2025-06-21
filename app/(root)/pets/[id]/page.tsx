@@ -1,7 +1,7 @@
 import PetDetailsComponent from "@/components/PetDetailsComponent"
-import { getAppointmentsByPetId } from "@/lib/appointment.actions"
-import { getPetById } from "@/lib/pet.actions"
-import { Appointment, Pet } from "@/types"
+import { getAppointmentsByPetId } from "@/lib/actions/appointment.actions"
+import { getPetById } from "@/lib/actions/pet.actions"
+import { Appointment, Pet } from "@/lib/types"
 import { notFound } from "next/navigation"
 
 const PetDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -22,7 +22,7 @@ const PetDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
     notes: rawPet?.notes,
     description: rawPet?.description,
     appointments: rawPet?.appointments ?? [],
-    drawing: rawPet?.drawing
+    drawing: rawPet?.drawing,
   }
 
   if (!pet) return notFound()
@@ -36,7 +36,7 @@ const PetDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
     date: doc.date,
     petId: doc.petId,
     userId: doc.userId,
-    type: doc.type
+    type: doc.type,
   }))
 
   return <PetDetailsComponent pet={pet} appointments={appointments} />

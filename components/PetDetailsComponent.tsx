@@ -4,17 +4,17 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Edit, Plus, X } from "lucide-react"
-import { deletePet, updatePet } from "@/lib/pet.actions"
+import { deletePet, updatePet } from "@/lib/actions/pet.actions"
 import {
   addAppointmentToPet,
   createAppointment,
-} from "@/lib/appointment.actions"
+} from "@/lib/actions/appointment.actions"
 
 import PetForm from "./PetForm"
 import CreateAppointmentForm from "./CreateAppointmentForm"
 import { toast } from "sonner"
-import { Appointment, Pet, User } from "@/types"
-import { getCurrentUser } from "@/lib/user.actions"
+import { Appointment, Pet, User } from "@/lib/types"
+import { getCurrentUser } from "@/lib/actions/user.actions"
 import { Button } from "./ui/button"
 
 export default function PetDetailsComponent({
@@ -166,7 +166,7 @@ export default function PetDetailsComponent({
           {addAppointment && user ? (
             <div className="rounded">
               <div className="bg-gray-100 text-sm font-medium mb-1 p-2 flex justify-between rounded-t px-4">
-                Add New Appointment 
+                Add New Appointment
                 <X
                   size={18}
                   onClick={() => handleToggleAddAppointment()}

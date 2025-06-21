@@ -1,5 +1,5 @@
 import CreateForm from "@/components/CreateForm"
-import { getCurrentUser } from "@/lib/user.actions"
+import { getCurrentUser } from "@/lib/actions/user.actions"
 import { redirect } from "next/navigation"
 import React from "react"
 

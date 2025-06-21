@@ -19,7 +19,7 @@ import { Input } from "./ui/input"
 
 import logo_banner from "/public/logo.png"
 
-import { createAccount, signInUser } from "@/lib/user.actions"
+import { createAccount, signInUser } from "@/lib/actions/user.actions"
 import OtpModal from "./OTPModal"
 
 type FormType = "sign-in" | "sign-up"

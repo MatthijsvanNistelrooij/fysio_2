@@ -1,6 +1,6 @@
 import { Client, Databases, ID, Query } from "node-appwrite"
-import { appwriteConfig } from "../appwrite/config"
-import { Appointment } from "@/types"
+import { appwriteConfig } from "../../appwrite/config"
+import { Appointment } from "@/lib/types"
 
 const client = new Client()
   .setEndpoint(appwriteConfig.endpointUrl)
@@ -95,7 +95,7 @@ export const createAppointment = async (
         treatment: appointmentData.treatment,
         date: appointmentData.date, // string ISO date
         petId: petId,
-        type: appointmentData.type
+        type: appointmentData.type,
       }
     )
     return appointment

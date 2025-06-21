@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation"
 
-import { getAppointmentById } from "@/lib/appointment.actions"
+import { getAppointmentById } from "@/lib/actions/appointment.actions"
 import AppointmentDetailsComponent from "@/components/AppointmentDetailsComponent"
-import { Appointment } from "@/types"
+import { Appointment } from "@/lib/types"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapDocumentToAppointment(doc: any): Appointment {
@@ -13,7 +13,7 @@ function mapDocumentToAppointment(doc: any): Appointment {
     date: new Date(doc.date),
     petId: doc.petId,
     userId: doc.userId,
-    type: doc.type
+    type: doc.type,
   }
 }
 

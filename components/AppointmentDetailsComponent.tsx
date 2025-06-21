@@ -3,11 +3,14 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-import { deleteAppointment, updateAppointment } from "@/lib/appointment.actions"
+import {
+  deleteAppointment,
+  updateAppointment,
+} from "@/lib/actions/appointment.actions"
 import AppointmentForm from "./AppointmentForm"
 import { toast } from "sonner"
 import { CalendarRange, Edit, X } from "lucide-react"
-import { Appointment } from "@/types"
+import { Appointment } from "@/lib/types"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "./ui/button"
