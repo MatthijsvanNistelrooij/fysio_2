@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 
 import { useRouter } from "next/navigation"
@@ -43,10 +44,12 @@ import {
   showCanvasAtom,
   editPetAtom,
   addPetAtom,
-  editAtom,
+  toggleEditAtom,
 } from "../lib/store"
 import { Card } from "./ui/card"
 import OwnerInfo from "./OwnerInfo"
+import InfoCard from "./InfoCard"
+import BentoGrid from "./BentoGrid"
 
 export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [savedImage, setSavedImage] = useAtom(savedImageAtom)
@@ -62,15 +65,8 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [showCanvas, setShowCanvas] = useAtom(showCanvasAtom)
   const [editPet, setEditPet] = useAtom(editPetAtom)
   const [addPet, setAddPet] = useAtom(addPetAtom)
-  const [edit, setEdit] = useAtom(editAtom)
+  const [edit, setEdit] = useAtom(toggleEditAtom)
   const router = useRouter()
-  // const petFromStore = usePetStore((state) => state.selectedPet)
-
-  // useEffect(() => {
-  //   if (petFromStore && !selectedPet) {
-  //     setSelectedPet(petFromStore)
-  //   }
-  // }, [petFromStore, selectedPet])
 
   useEffect(() => {
     if (localClient?.pets?.length) {
@@ -428,13 +424,20 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
 
   return (
     <>
-      <div className="p-10">
-        <div className="flex flex-col md:flex-row gap-5">
+      <div className="py-10 flex justify-between gap-5">
+        <InfoCard />
+        <InfoCard />
+      </div>
+      <div>
+        <BentoGrid />
+      </div>
+
+      <div className="mt-40">
+        <Card className="p-5 max-w-1/2">
           <div className="w-full">
-            <Card className="p-5">
-              <div className="flex -mb-5 justify-between text-center items-center">
-                <div />
-                {edit ? (
+            {edit ? (
+              <>
+                <div className="w-full flex justify-end">
                   <Button
                     type="button"
                     className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
@@ -442,7 +445,19 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
                   >
                     <X size={18} />
                   </Button>
-                ) : (
+                </div>
+
+                <ClientForm
+                  initialData={client}
+                  userId={user.$id}
+                  onSubmit={handleUpdate}
+                  setEdit={setEdit}
+                  handleDelete={handleDeleteClient}
+                />
+              </>
+            ) : (
+              <>
+                <div className="w-full flex justify-end">
                   <Button
                     onClick={(e) => {
                       e.preventDefault()
@@ -450,42 +465,20 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
                       e.currentTarget.blur()
                       handleEditToggle()
                     }}
-                    className="text-gray-800 bg-white rounded-none hover:bg-gray-100 cursor-pointer"
+                    className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
                   >
                     <Edit size={20} />
                   </Button>
-                )}
-              </div>
-              <div className="w-full">
-                {edit ? (
-                  <ClientForm
-                    initialData={client}
-                    userId={user.$id}
-                    onSubmit={handleUpdate}
-                    setEdit={setEdit}
-                    handleDelete={handleDeleteClient}
-                  />
-                ) : (
-                  <OwnerInfo
-                    client={client}
-                    handleEditToggle={handleEditToggle}
-                  />
-                )}
-              </div>
-            </Card>
-          </div>
+                </div>
 
-          <div className="w-1/3">
-            <Card>
-              <div
-                className="text-center flex justify-center cursor-pointer"
-                onClick={() => setAddPet(true)}
-              >
-                <Plus className="text-gray-400 hover:text-gray-800 cursor-pointer" />
-              </div>
-            </Card>
+                <OwnerInfo
+                  client={client}
+                  handleEditToggle={handleEditToggle}
+                />
+              </>
+            )}
           </div>
-        </div>
+        </Card>
 
         <div className="mt-3">
           {addPet ? (
@@ -775,6 +768,16 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
           ) : (
             <div className="">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
+                <div className="w-full">
+                  <Card>
+                    <div
+                      className="text-center flex justify-center cursor-pointer"
+                      onClick={() => setAddPet(true)}
+                    >
+                      <Plus className="text-gray-400 hover:text-gray-800 cursor-pointer" />
+                    </div>
+                  </Card>
+                </div>
                 {localClient?.pets.map((pet: Pet, index: number) => (
                   <div
                     key={pet.$id || index}

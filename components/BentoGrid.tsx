@@ -86,19 +86,18 @@ const DropZone: React.FC<{
 
   return (
     <div
-
       ref={ref}
-      style={{
-        // width: 100,
-        // height: 100,
-        border: isActive ? "3px dashed gray" : "1px dashed lightgray",
-        backgroundColor: isActive ? "lightgreen" : "white",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 30,
-        position: "relative",
-      }}
+      className="bg-white p-20 m-5"
+      // style={{
+
+      //   border: isActive ? "3px dashed gray" : "1px dashed lightgray",
+      //   backgroundColor: isActive ? "lightgreen" : "white",
+      //   display: "flex",
+      //   alignItems: "center",
+      //   justifyContent: "center",
+      //   marginTop: 30,
+      //   position: "relative",
+      // }}
     >
       {isActive ? "Release to drop" : "Drop zone"}
 
@@ -121,7 +120,12 @@ const DropZone: React.FC<{
             border: "3px solid black",
           }}
         >
-          <Image src={boxInZone.img || ""} alt="horse" width={200} height={200} />
+          <Image
+            src={boxInZone.img || ""}
+            alt="horse"
+            width={200}
+            height={200}
+          />
         </div>
       )}
     </div>
@@ -179,11 +183,22 @@ export default function BentoGrid() {
           )
         )}
       </div>
+      <div className="flex w-full">
+        <DropZone
+          boxInZone={dropZoneBoxIndex !== null ? boxes[dropZoneBoxIndex] : null}
+          onDrop={handleDrop}
+        />
 
-      <DropZone
-        boxInZone={dropZoneBoxIndex !== null ? boxes[dropZoneBoxIndex] : null}
-        onDrop={handleDrop}
-      />
+        <DropZone
+          boxInZone={dropZoneBoxIndex !== null ? boxes[dropZoneBoxIndex] : null}
+          onDrop={handleDrop}
+        />
+
+        <DropZone
+          boxInZone={dropZoneBoxIndex !== null ? boxes[dropZoneBoxIndex] : null}
+          onDrop={handleDrop}
+        />
+      </div>
     </DndProvider>
   )
 }

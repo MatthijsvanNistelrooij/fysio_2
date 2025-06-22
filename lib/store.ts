@@ -13,7 +13,12 @@ export const userAtom = atom<User | null>(null)
 export const showCanvasAtom = atom(false)
 export const editPetAtom = atom(false)
 export const addPetAtom = atom(true)
-export const editAtom = atom(false)
+export const toggleEditAtom = atom(false)
+export const loadingAtom = atom(false)
+export const searchAtom = atom("")
+export const showAtom = atom(false)
+
+export const clientsAtom = atom<Client[] | null>([])
 
 type PetStore = {
   selectedPet: Pet | null

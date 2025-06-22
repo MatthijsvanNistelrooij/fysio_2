@@ -1,6 +1,6 @@
 export const navItems = [
   {
-    name: "Clients",
+    name: "Contacts",
     icon: "client",
     url: "/clients",
   },

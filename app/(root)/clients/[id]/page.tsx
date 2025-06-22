@@ -1,4 +1,5 @@
 import ClientDetailsComponent from "@/components/ClientDetailsComponent"
+import CustomContainer from "@/components/CutomContainer"
 import { getClientById } from "@/lib/actions/client.actions"
 import { Client } from "@/lib/types"
 import { notFound } from "next/navigation"
@@ -16,11 +17,9 @@ const ClientDetails = async ({ params }: Props) => {
   if (!client) return notFound()
 
   return (
-    <div className="min-h-screen flex justify-center">
-      <div className="w-full">
-        <ClientDetailsComponent client={client} />
-      </div>
-    </div>
+    <CustomContainer>
+      <ClientDetailsComponent client={client} />
+    </CustomContainer>
   )
 }
 
