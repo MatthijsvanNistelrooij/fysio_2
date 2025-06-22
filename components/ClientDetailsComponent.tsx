@@ -46,6 +46,7 @@ import {
   editAtom,
 } from "../lib/store"
 import { Card } from "./ui/card"
+import OwnerInfo from "./OwnerInfo"
 
 export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [savedImage, setSavedImage] = useAtom(savedImageAtom)
@@ -427,50 +428,64 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
 
   return (
     <>
-      <div className="p-5">
-        {/* TOGGLE CLIENT  CREATE CLIENT */}
-        <Card className="p-5">
-          <div className="flex -mb-5 justify-between text-center items-center pl-1">
-            <h1 className="text-xl font-bold text-gray-800">
-              {client.name}, {client.phone}
-            </h1>
-            {edit ? (
-              <Button
-                type="button"
-                className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-                onClick={() => setEdit?.(false)}
-              >
-                <X size={18} />
-              </Button>
-            ) : (
-              <Button
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  e.currentTarget.blur()
-                  handleEditToggle()
-                }}
-                className="text-gray-800 bg-white rounded-none hover:bg-gray-100 cursor-pointer"
-              >
-                <Edit size={20} />
-              </Button>
-            )}
-          </div>
+      <div className="p-10">
+        <div className="flex flex-col md:flex-row gap-5">
           <div className="w-full">
-            {edit ? (
-              <ClientForm
-                initialData={client}
-                userId={user.$id}
-                onSubmit={handleUpdate}
-                setEdit={setEdit}
-                handleDelete={handleDeleteClient}
-              />
-            ) : (
-              // <OwnerInfo client={client} />
-              <div />
-            )}
+            <Card className="p-5">
+              <div className="flex -mb-5 justify-between text-center items-center">
+                <div />
+                {edit ? (
+                  <Button
+                    type="button"
+                    className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+                    onClick={() => setEdit?.(false)}
+                  >
+                    <X size={18} />
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      e.currentTarget.blur()
+                      handleEditToggle()
+                    }}
+                    className="text-gray-800 bg-white rounded-none hover:bg-gray-100 cursor-pointer"
+                  >
+                    <Edit size={20} />
+                  </Button>
+                )}
+              </div>
+              <div className="w-full">
+                {edit ? (
+                  <ClientForm
+                    initialData={client}
+                    userId={user.$id}
+                    onSubmit={handleUpdate}
+                    setEdit={setEdit}
+                    handleDelete={handleDeleteClient}
+                  />
+                ) : (
+                  <OwnerInfo
+                    client={client}
+                    handleEditToggle={handleEditToggle}
+                  />
+                )}
+              </div>
+            </Card>
           </div>
-        </Card>
+
+          <div className="w-1/3">
+            <Card>
+              <div
+                className="text-center flex justify-center cursor-pointer"
+                onClick={() => setAddPet(true)}
+              >
+                <Plus className="text-gray-400 hover:text-gray-800 cursor-pointer" />
+              </div>
+            </Card>
+          </div>
+        </div>
 
         <div className="mt-3">
           {addPet ? (
@@ -483,8 +498,8 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
             </div>
           ) : selectedPet ? (
             <>
-              <Card className="text-gray-800 bg-white border p-5">
-                <div className="text-sm font-medium flex justify-between border-b bg-gray-100 p-1">
+              <Card className="text-gray-800 bg-white border p-5 mb-5">
+                <div className="text-sm font-medium flex justify-between border-b bg-[#e9edf3] p-1">
                   <div className="flex">{selectedPet.name}</div>
 
                   <div className="flex justify-end">
@@ -760,17 +775,11 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
           ) : (
             <div className="">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
-                <div
-                  className="hover:bg-gray-100 p-10 text-center flex justify-center cursor-pointer"
-                  onClick={() => setAddPet(true)}
-                >
-                  <Plus className="text-gray-400 hover:text-gray-800 cursor-pointer" />
-                </div>
                 {localClient?.pets.map((pet: Pet, index: number) => (
                   <div
                     key={pet.$id || index}
                     onClick={() => handleSelectPet(pet)}
-                    className={`cursor-pointer border text-gray-800 hover:bg-gray-50 text-sm hover:bg-opacity-80 ${getPetColorClass(
+                    className={`cursor-pointer border text-gray-800 hover:bg-[#e9edf3] text-sm hover:bg-opacity-80 ${getPetColorClass(
                       pet.type
                     )}`}
                   >

@@ -52,7 +52,7 @@ export default function ClientForm({
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="bg-blue-50 border-none shadow-none rounded-none text-gray-800  p-0 mt-1"
+              className="bg-[#e9edf3] border-none shadow-none rounded-none text-gray-800  p-0 mt-1"
             />
           </div>
           <div className="w-full flex rounded">
@@ -61,7 +61,7 @@ export default function ClientForm({
               name="address"
               value={formData.address}
               onChange={handleChange}
-              className="bg-blue-50 border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
+              className="bg-[#e9edf3] border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
           <div className="w-full flex">
@@ -70,7 +70,7 @@ export default function ClientForm({
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="bg-blue-50 border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
+              className="bg-[#e9edf3] border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
           <div className="w-full flex">
@@ -79,7 +79,7 @@ export default function ClientForm({
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="bg-blue-50 border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
+              className="bg-[#e9edf3] border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
             />
           </div>
         </div>

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/actions/client.actions"
 import { toast } from "sonner"
 import { Check, Contact, HomeIcon, Mail, Phone } from "lucide-react"
+import { Card } from "./ui/card"
 
 interface Props {
   fullName?: string
@@ -14,10 +15,8 @@ interface Props {
   edit?: boolean
 }
 
-export const CreateForm = ({ $id, edit }: Props) => {
+export const CreateClientForm = ({ $id }: Props) => {
   const router = useRouter()
-
-  console.log("onEdit", edit)
 
   const [errors, setErrors] = useState({
     name: "",
@@ -71,7 +70,7 @@ export const CreateForm = ({ $id, edit }: Props) => {
   }
 
   return (
-    <div className="bg-white mb-4 px-4 py-3 border  transition">
+    <Card className="bg-white mb-4 px-4 py-3 border  transition">
       <form onSubmit={handleSubmit} className="space-y-2 ">
         <div className="">
           <div className="flex flex-col md:flex-row gap-2 justify-between">
@@ -118,20 +117,19 @@ export const CreateForm = ({ $id, edit }: Props) => {
                 className="border-none shadow-none rounded-none"
               />
             </div>
-          </div>
-
-          <div className="flex justify-end w-full mt-3">
-            <Button
-              type="submit"
-              className="cursor-pointer bg-white hover:bg-green-100 text-gray-800"
-            >
-              <Check />
-            </Button>
+            <div className="flex justify-end">
+              <Button
+                type="submit"
+                className="cursor-pointer bg-white hover:bg-green-100 text-gray-800"
+              >
+                <Check />
+              </Button>
+            </div>
           </div>
         </div>
       </form>
-    </div>
+    </Card>
   )
 }
 
-export default CreateForm
+export default CreateClientForm
