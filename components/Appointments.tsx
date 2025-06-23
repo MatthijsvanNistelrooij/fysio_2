@@ -35,6 +35,7 @@ const Appointments = () => {
       setEditAppointment(false)
       return isSame ? null : appointment
     })
+    setAddAppointment(false)
   }
 
   function getAppointmentTypeIcon(type: string) {
@@ -56,10 +57,12 @@ const Appointments = () => {
 
   const handleToggleAddAppointment = () => {
     setAddAppointment((prev) => {
-      if (prev === true) {
+      const next = !prev
+      if (next) {
+        // We're opening AddAppointment, so clear any selected appointment
         setSelectedAppointment(null)
       }
-      return !prev
+      return next
     })
   }
 
@@ -68,7 +71,7 @@ const Appointments = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
         <Button
           onClick={() => handleToggleAddAppointment()}
-          className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl cursor-pointer w-full ${
+          className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl rounded-full cursor-pointer w-full ${
             addAppointment ? "bg-[#e9edf3]" : ""
           }`}
         >
@@ -79,11 +82,8 @@ const Appointments = () => {
         {selectedPet?.appointments.map((appointment: Appointment, index) => (
           <Button
             key={appointment.$id || index}
-            onClick={() => {
-              handleSelectAppointment(appointment)
-              setAddAppointment(false)
-            }}
-            className={`bg-white text-center items-center px-4 py-4 shadow-xl border border-gray-200 text-gray-800 cursor-pointer hover:bg-[#e9edf3] flex justify-between ${
+            onClick={() => handleSelectAppointment(appointment)}
+            className={`bg-white text-center items-center px-4 py-4 shadow-xl border border-gray-200 text-gray-800 rounded-full cursor-pointer hover:bg-[#e9edf3] flex justify-between ${
               !addAppointment && selectedAppointment?.$id === appointment.$id
                 ? "bg-[#e9edf3]"
                 : ""

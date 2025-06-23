@@ -89,35 +89,31 @@ const AddAppointment = () => {
   }
 
   return (
-    <>
-      <div>
-        <div className="flex justify-between gap-2">
-          <InfoCard
-            title="Add Appointment"
-            action={
-              <Button
-                onClick={() => setAddAppointment(false)}
-                className="bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800"
-              >
-                <X />
-              </Button>
-            }
+    <div className="flex flex-col md:flex-row gap-2">
+      <InfoCard
+        title="Add Appointment"
+        action={
+          <Button
+            onClick={() => setAddAppointment(false)}
+            className="bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800"
           >
-            <CreateAppointmentForm
-              userId={user?.$id || ""}
-              petId={selectedPet?.$id || ""}
-              onSubmit={(data) =>
-                handleCreateAppointment(
-                  selectedPet?.$id || "",
-                  selectedPet?.ownerId || "",
-                  data
-                )
-              }
-            />
-          </InfoCard>
-        </div>
-      </div>
-    </>
+            <X />
+          </Button>
+        }
+      >
+        <CreateAppointmentForm
+          userId={user?.$id || ""}
+          petId={selectedPet?.$id || ""}
+          onSubmit={(data) =>
+            handleCreateAppointment(
+              selectedPet?.$id || "",
+              selectedPet?.ownerId || "",
+              data
+            )
+          }
+        />
+      </InfoCard>
+    </div>
   )
 }
 
