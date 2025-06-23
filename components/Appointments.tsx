@@ -71,7 +71,7 @@ const Appointments = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
         <Button
           onClick={() => handleToggleAddAppointment()}
-          className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl rounded-full cursor-pointer w-full ${
+          className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl rounded-xl cursor-pointer w-full ${
             addAppointment ? "bg-[#e9edf3]" : ""
           }`}
         >
@@ -83,7 +83,7 @@ const Appointments = () => {
           <Button
             key={appointment.$id || index}
             onClick={() => handleSelectAppointment(appointment)}
-            className={`bg-white text-center items-center px-4 py-4 shadow-xl border border-gray-200 text-gray-800 rounded-full cursor-pointer hover:bg-[#e9edf3] flex justify-between ${
+            className={`bg-white text-center items-center px-4 py-4 shadow-xl border border-gray-200 text-gray-800 rounded-xl cursor-pointer hover:bg-[#e9edf3] flex justify-between ${
               !addAppointment && selectedAppointment?.$id === appointment.$id
                 ? "bg-[#e9edf3]"
                 : ""
