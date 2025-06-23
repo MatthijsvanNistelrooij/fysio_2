@@ -93,7 +93,7 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
         </div>
 
         <div className="md:col-span-4">
-          <div className="flex flex-col justify-start gap-1">
+          <div className="flex flex-col justify-start gap-2">
             {selectedPet && (
               <>
                 <PetInfo />
