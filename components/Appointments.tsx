@@ -7,7 +7,6 @@ import {
 import { Appointment } from "@/lib/types"
 import { useAtom } from "jotai"
 import {
-  CalendarRange,
   Lightbulb,
   ShowerHead,
   Stethoscope,
@@ -51,7 +50,7 @@ const Appointments = () => {
   }
 
   return (
-    <div className="flex flex-row gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
       {selectedPet?.appointments.map((appointment: Appointment, index) => (
         <React.Fragment key={appointment.$id || index}>
           <InfoCard
@@ -75,21 +74,10 @@ const Appointments = () => {
                 }`}
                 onClick={() => handleSelectAppointment(appointment)}
               >
-                <CalendarRange size={14} />
+                {getAppointmentTypeIcon(appointment.type)}
               </Button>
             }
-          >
-            <div
-              className={`flex items-start gap-2 p-2 ${
-                appointment.$id === selectedAppointment?.$id
-                  ? "bg-[#e9edf3]"
-                  : "bg-white"
-              }`}
-            >
-              {getAppointmentTypeIcon(appointment.type)}
-              {appointment.description}
-            </div>
-          </InfoCard>
+          ></InfoCard>
         </React.Fragment>
       ))}
     </div>

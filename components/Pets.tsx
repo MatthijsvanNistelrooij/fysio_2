@@ -9,7 +9,7 @@ import { useAtom } from "jotai"
 import React, { useEffect } from "react"
 import InfoCard from "./InfoCard"
 import { Button } from "./ui/button"
-import { CalendarRange, Expand, MoreVertical } from "lucide-react"
+import { Expand, MoreVertical } from "lucide-react"
 
 const Pets = ({ client }: { client: Client }) => {
   const [localClient, setLocalClient] = useAtom(localClientAtom)
@@ -54,10 +54,7 @@ const Pets = ({ client }: { client: Client }) => {
             <p className="text-gray-800 font-semibold">Age: {pet.age}</p>
             <div className="text-gray-800 font-semibold">
               <div className="flex items-center gap-1 text-gray-800 font-semibold">
-                Appointments:
-                {pet.appointments.map((_, i) => (
-                  <CalendarRange key={i} className="w-4 h-4 text-gray-600" />
-                ))}
+                Appointments: {pet?.appointments?.length}
               </div>
             </div>
           </div>

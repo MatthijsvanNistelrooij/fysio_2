@@ -4,7 +4,7 @@ import { Card } from "./ui/card"
 interface InfoCardProps {
   title?: React.ReactNode
   action?: React.ReactNode
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 const InfoCard = ({ title, action, children }: InfoCardProps) => {
