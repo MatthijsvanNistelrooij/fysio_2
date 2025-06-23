@@ -1,6 +1,6 @@
 import {
+  addAppointmentAtom,
   editAppointmentAtom,
-  localClientAtom,
   openAppointmentAtom,
   selectedAppointmentAtom,
   selectedPetAtom,
@@ -10,6 +10,7 @@ import { useAtom } from "jotai"
 import {
   CalendarRange,
   Lightbulb,
+  Plus,
   ShowerHead,
   Stethoscope,
   Thermometer,
@@ -25,7 +26,7 @@ const Appointments = () => {
   const [, setOpenAppointment] = useAtom(openAppointmentAtom)
   const [, setEditAppointment] = useAtom(editAppointmentAtom)
   const [selectedPet] = useAtom(selectedPetAtom)
-  const [,] = useAtom(localClientAtom)
+  const [addAppointment, setAddAppointment] = useAtom(addAppointmentAtom)
 
   const handleSelectAppointment = (appointment: Appointment) => {
     setSelectedAppointment((prev) => {
@@ -53,16 +54,38 @@ const Appointments = () => {
     }
   }
 
+  const handleToggleAddAppointment = () => {
+    setAddAppointment((prev) => {
+      if (prev === true) {
+        setSelectedAppointment(null)
+      }
+      return !prev
+    })
+  }
+
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+        <Button
+          onClick={() => handleToggleAddAppointment()}
+          className={`bg-white hover:bg-[#e9edf3] text-gray-800 cursor-pointer w-full ${
+            addAppointment ? "bg-[#e9edf3]" : ""
+          }`}
+        >
+          Add Appointment
+          <Plus />
+          <CalendarRange size={14} className="mr-2" />
+        </Button>
         {selectedPet?.appointments.map((appointment: Appointment, index) => (
           <Button
             key={appointment.$id || index}
-            onClick={() => handleSelectAppointment(appointment)}
+            onClick={() => {
+              handleSelectAppointment(appointment)
+              setAddAppointment(false)
+            }}
             className={`bg-white text-center items-center px-4 py-4 shadow-xl border border-gray-200 text-gray-800 cursor-pointer hover:bg-[#e9edf3] flex justify-between ${
-              selectedAppointment?.$id === appointment.$id
-                ? "border-blue-300"
+              !addAppointment && selectedAppointment?.$id === appointment.$id
+                ? "bg-[#e9edf3]"
                 : ""
             }`}
           >

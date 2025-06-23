@@ -12,7 +12,7 @@ const InfoCard = ({ title, action, children, active }: InfoCardProps) => {
   return (
     <Card
       className={`w-full p-5 rounded-xl shadow-2xl ${
-        active ? "border-blue-300" : ""
+        active ? "bg-[#e9edf3]" : ""
       }`}
     >
       {(title || action) && (

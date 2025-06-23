@@ -21,11 +21,11 @@ export const showAtom = atom(false)
 export const clientsAtom = atom<Client[] | null>([])
 
 type PetStore = {
-  selectedPet: Pet | null
-  setSelectedPet: (pet: Pet | null) => void
+  selectedGlobalPet: Pet | null
+  setSelectedGlobalPet: (pet: Pet | null) => void
 }
 
 export const usePetStore = create<PetStore>((set) => ({
-  selectedPet: null,
-  setSelectedPet: (pet) => set({ selectedPet: pet }),
+  selectedGlobalPet: null,
+  setSelectedGlobalPet: (pet) => set({ selectedGlobalPet: pet }),
 }))

@@ -2,11 +2,14 @@ import Image from "next/image"
 import React, { useRef, useState } from "react"
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas"
 import horse from "../public/horse_1.png"
+import cat from "../public/cat.jpg"
+import dog from "../public/dog.jpg"
+
 import { Button } from "./ui/button"
 import { ArrowLeft, Check, Eraser, Pencil } from "lucide-react"
 import { toast } from "sonner"
 
-type PetType = "dog" | "horse" | "cat" | "other"
+type PetType = "Dog" | "Horse" | "Cat" | "Other"
 
 type StrokePoint = { x: number; y: number }
 type StrokeGroup = {
@@ -26,6 +29,21 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
 }) => {
   const canvasRef = useRef<ReactSketchCanvasRef>(null)
 
+  const getPetImage = (type: PetType) => {
+    switch (type) {
+      case "Dog":
+        return dog
+      case "Horse":
+        return horse
+      case "Cat":
+        return cat
+      default:
+        return horse // fallback or a default silhouette
+    }
+  }
+
+  const petImage = getPetImage(petType)
+
   const handleExport = async () => {
     if (!canvasRef.current) return
 
@@ -33,12 +51,12 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
       const paths = await canvasRef.current.exportPaths()
 
       // Use the natural size of your canvas/image here
-      const width = 450
-      const height = 400
-
+      const width = 550
+      const height = 350
+      const petImage = getPetImage(petType)
       // Generate a snapshot image by combining background + strokes
       const snapshot = await generateSnapshot({
-        backgroundSrc: horse.src, // Access src of imported Next.js image
+        backgroundSrc: petImage.src, // Access src of imported Next.js image
         paths,
         width,
         height,
@@ -131,7 +149,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         }}
       >
         <Image
-          src={horse}
+          src={petImage}
           alt={`${petType} outline`}
           width={800}
           height={600}

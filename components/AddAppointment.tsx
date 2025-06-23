@@ -4,12 +4,14 @@ import {
   addAppointmentAtom,
   localClientAtom,
   openAppointmentAtom,
+  savedImageAtom,
   selectedAppointmentAtom,
   selectedPetAtom,
+  showCanvasAtom,
   userAtom,
 } from "@/lib/store"
 import { Button } from "./ui/button"
-import { CalendarRange, Plus, X } from "lucide-react"
+import { X } from "lucide-react"
 import { Appointment } from "@/lib/types"
 import CreateAppointmentForm from "./CreateAppointmentForm"
 import {
@@ -18,19 +20,21 @@ import {
 } from "@/lib/actions/appointment.actions"
 import { toast } from "sonner"
 import InfoCard from "./InfoCard"
+import { PetDrawingCanvas } from "./PetDrawingCanvas"
+type PetType = "Dog" | "Horse" | "Cat" | "Other"
 
 const AddAppointment = () => {
-  const [addAppointment, setAddAppointment] = useAtom(addAppointmentAtom)
-  const [, setSelectedAppointment] = useAtom(selectedAppointmentAtom)
+  const [, setAddAppointment] = useAtom(addAppointmentAtom)
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [, setLocalClient] = useAtom(localClientAtom)
-  const [, setOpenAppointment] = useAtom(openAppointmentAtom)
   const [user] = useAtom(userAtom)
 
-  const handleToggleAddAppointment = () => {
-    setAddAppointment(true)
-
-  }
+  const [selectedAppointment, setSelectedAppointment] = useAtom(
+    selectedAppointmentAtom
+  )
+  const [, setSavedImage] = useAtom(savedImageAtom)
+  const [, setOpenAppointment] = useAtom(openAppointmentAtom)
+  const [, setShowCanvas] = useAtom(showCanvasAtom)
 
   const handleCreateAppointment = async (
     petId: string,
@@ -91,47 +95,69 @@ const AddAppointment = () => {
     }
   }
 
+  const handleSave = ({
+    imageDataUrl,
+    drawingJson,
+  }: {
+    imageDataUrl: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    drawingJson: any
+  }) => {
+    if (!selectedAppointment) return
+
+    const key = `petDrawing-${selectedAppointment.$id}`
+
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        imageDataUrl,
+        drawingJson,
+        selectedAppointment: selectedAppointment.$id,
+      })
+    )
+
+    setSavedImage(imageDataUrl)
+    setShowCanvas(false)
+  }
+
   return (
     <>
       <div>
-        {!addAppointment ? (
-          <InfoCard>
-            <div className="w-full flex justify-center">
-              <Button
-                onClick={() => handleToggleAddAppointment()}
-                className="bg-white hover:bg-[#e9edf3] text-gray-800 cursor-pointer w-full"
-              >
-                Add Appointment
-                <Plus />
-                <CalendarRange size={14} className="mr-2" />
-              </Button>
-            </div>
-          </InfoCard>
-        ) : (
-          <InfoCard
-            title="Add Appointment"
-            action={
-              <Button
-                onClick={() => setAddAppointment(false)}
-                className="bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800"
-              >
-                <X />
-              </Button>
-            }
-          >
-            <CreateAppointmentForm
-              userId={user?.$id || ""}
-              petId={selectedPet?.$id || ""}
-              onSubmit={(data) =>
-                handleCreateAppointment(
-                  selectedPet?.$id || "",
-                  selectedPet?.ownerId || "",
-                  data
-                )
+        <div className="flex justify-between gap-2">
+          <div className="w-2/3">
+            <InfoCard
+              title="Add Appointment"
+              action={
+                <Button
+                  onClick={() => setAddAppointment(false)}
+                  className="bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800"
+                >
+                  <X />
+                </Button>
               }
-            />
-          </InfoCard>
-        )}
+            >
+              <CreateAppointmentForm
+                userId={user?.$id || ""}
+                petId={selectedPet?.$id || ""}
+                onSubmit={(data) =>
+                  handleCreateAppointment(
+                    selectedPet?.$id || "",
+                    selectedPet?.ownerId || "",
+                    data
+                  )
+                }
+              />
+            </InfoCard>
+          </div>
+          <div className="w-full">
+            <InfoCard>
+              <PetDrawingCanvas
+                petType={selectedPet?.type as PetType}
+                onSave={handleSave}
+              />
+            </InfoCard>
+          </div>
+        </div>
       </div>
     </>
   )

@@ -19,15 +19,19 @@ import InfoCard from "./InfoCard"
 const ClientList = () => {
   const [clients] = useAtom(clientsAtom)
   const [search] = useAtom(searchAtom)
+  const setSelectedGlobalPet = usePetStore(
+    (state) => state.setSelectedGlobalPet
+  )
 
   const router = useRouter()
 
   const handleTableRowClick = (id: string) => {
+    setSelectedGlobalPet(null)
     router.push(`/clients/${id}`)
   }
 
   const handleClickPet = (id: string, pet: Pet) => {
-    const setSelectedPet = usePetStore.getState().setSelectedPet
+    const setSelectedPet = usePetStore.getState().setSelectedGlobalPet
     setSelectedPet(pet)
     router.push(`/clients/${id}`)
   }

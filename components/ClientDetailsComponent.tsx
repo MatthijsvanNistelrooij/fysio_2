@@ -14,26 +14,37 @@ import {
   selectedAppointmentAtom,
   userAtom,
   addPetAtom,
+  addAppointmentAtom,
+  usePetStore,
 } from "../lib/store"
 
 import CustomContainer from "./CustomContainer"
 import PetInfo from "./PetInfo"
 import Info from "./Info"
 import AddPet from "./AddPet"
-import AddAppointment from "./AddAppointment"
 import Pets from "./Pets"
 import Appointments from "./Appointments"
 import SelectedAppointment from "./SelectedAppointment"
+import AddAppointment from "./AddAppointment"
 
 export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [, setSavedImage] = useAtom(savedImageAtom)
   const [localClient, setLocalClient] = useAtom(localClientAtom)
-
   const [selectedAppointment] = useAtom(selectedAppointmentAtom)
+  const [addAppointMent] = useAtom(addAppointmentAtom)
+  const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [user, setUser] = useAtom(userAtom)
   const [, setAddPet] = useAtom(addPetAtom)
 
-  const [selectedPet] = useAtom(selectedPetAtom)
+  const selectedGlobalPet = usePetStore((state) => state.selectedGlobalPet)
+
+  useEffect(() => {
+    if (selectedGlobalPet) {
+      setSelectedPet(selectedGlobalPet)
+    } else {
+      setSelectedPet(null)
+    }
+  }, [selectedGlobalPet, setSelectedPet])
 
   useEffect(() => {
     if (localClient?.pets?.length) {
@@ -46,8 +57,6 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
   useEffect(() => {
     setLocalClient(client)
   }, [client])
-
-  console.log(localClient)
 
   useEffect(() => {
     async function fetchUser() {
@@ -78,8 +87,6 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
         <div className="md:col-span-1 flex flex-col justify-start gap-2">
           <Info client={client} />
           <AddPet client={client} />
-          {selectedPet && <AddAppointment />}
-
           <Pets client={client} />
         </div>
 
@@ -89,7 +96,7 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
               <>
                 <PetInfo />
                 <Appointments />
-                <SelectedAppointment />
+                {addAppointMent ? <AddAppointment /> : <SelectedAppointment />}
               </>
             )}
           </div>

@@ -199,7 +199,7 @@ export default function AppointmentDetailsComponent({
               )}
               {showCanvas && (
                 <div className="flex w-full">
-                  <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
+                  <PetDrawingCanvas petType={"Horse"} onSave={handleSave} />
                 </div>
               )}
             </div>

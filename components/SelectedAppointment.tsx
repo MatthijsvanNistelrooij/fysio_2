@@ -20,8 +20,13 @@ import AppointmentForm from "./AppointmentForm"
 import { Button } from "./ui/button"
 import Image from "next/image"
 import horse from "../public/horse_1.png"
+import dog from "../public/dog.jpg"
+import cat from "../public/cat.jpg"
+
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import InfoCard from "./InfoCard"
+
+type PetType = "Dog" | "Horse" | "Cat" | "Other"
 
 const SelectedAppointment = () => {
   const [selectedAppointment, setSelectedAppointment] = useAtom(
@@ -31,7 +36,7 @@ const SelectedAppointment = () => {
   const [editAppointment, setEditAppointment] = useAtom(editAppointmentAtom)
   const [openAppointment, setOpenAppointment] = useAtom(openAppointmentAtom)
   const [showCanvas, setShowCanvas] = useAtom(showCanvasAtom)
-  const [, setSelectedPet] = useAtom(selectedPetAtom)
+  const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [, setLocalClient] = useAtom(localClientAtom)
 
   const handleDeleteAppointment = async (id: string) => {
@@ -146,6 +151,19 @@ const SelectedAppointment = () => {
     setShowCanvas(false)
   }
 
+  const getPetImage = (type: PetType | undefined) => {
+    switch (type) {
+      case "Dog":
+        return dog
+      case "Cat":
+        return cat
+      case "Horse":
+        return horse
+      default:
+        return horse // fallback
+    }
+  }
+
   return (
     <div className="flex flex-col md:flex-row gap-2">
       {selectedAppointment && openAppointment && (
@@ -235,7 +253,10 @@ const SelectedAppointment = () => {
                     <Image
                       width={450}
                       height={250}
-                      src={savedImage ? savedImage : horse}
+                      src={
+                        savedImage ||
+                        getPetImage(selectedPet?.type as PetType).src
+                      }
                       alt="Saved drawing"
                     />
                   </div>
@@ -243,7 +264,10 @@ const SelectedAppointment = () => {
 
                 {showCanvas && (
                   <div className="p-1 mt-10">
-                    <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
+                    <PetDrawingCanvas
+                      petType={selectedPet?.type as PetType}
+                      onSave={handleSave}
+                    />
                   </div>
                 )}
               </div>
