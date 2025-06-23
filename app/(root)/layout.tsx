@@ -12,14 +12,17 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <main className="flex h-screen bg-[#e9edf3]">
-      <div className="hidden md:flex h-screen">
+      {/* Sidebar - static, full height */}
+      <div className="hidden md:flex w-72 h-full">
         <Sidebar {...currentUser} />
       </div>
 
-      <section className="flex w-full flex-col overflow-hidden">
+      {/* Main content - scrollable */}
+      <section className="flex-1 flex flex-col overflow-hidden">
         <div className="md:hidden">
           <MobileNav {...currentUser} />
         </div>
+
         <div className="flex-1 overflow-y-auto">
           {children}
           <Toaster richColors position="bottom-right" />

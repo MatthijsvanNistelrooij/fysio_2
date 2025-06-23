@@ -43,60 +43,58 @@ export default function ClientForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 flex flex-row gap-2">
-      <div className="w-full">
-        <div className="flex flex-col lg:flex-row gap-2 justify-between w-full">
-          <div className="w-full flex rounded">
-            <Contact size={20} className="text-gray-600 m-2" />
-            <Input
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="bg-[#e9edf3] border-none shadow-none rounded-none text-gray-800  p-0 mt-1"
-            />
-          </div>
-          <div className="w-full flex rounded">
-            <HomeIcon size={20} className="text-gray-600 m-2" />
-            <Input
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="bg-[#e9edf3] border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
-            />
-          </div>
-          <div className="w-full flex">
-            <Phone size={20} className="text-gray-600 m-2" />
-            <Input
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="bg-[#e9edf3] border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
-            />
-          </div>
-          <div className="w-full flex">
-            <Mail size={20} className="text-gray-600 m-2" />
-            <Input
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="bg-[#e9edf3] border-none shadow-none p-0 rounded-none text-gray-800 mt-1"
-            />
-          </div>
+    <form onSubmit={handleSubmit}>
+      <div className="flex flex-col gap-1 space-y-3 justify-between w-full">
+        <div className="w-full flex rounded">
+          <Contact size={20} className="text-gray-600 m-2" />
+          <Input
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="bg-[#e9edf3] border-none shadow-none rounded text-gray-800  p-0 mt-1"
+          />
         </div>
-        <div className="flex justify-end gap-2 mt-2">
-          <Button
-            type="submit"
-            className="bg-white hover:bg-green-50 text-green-800 cursor-pointer p-5"
-          >
-            <Check />
-          </Button>
-          <Button
-            className="bg-white hover:bg-orange-100 text-orange-800 cursor-pointer p-5"
-            onClick={() => handleDelete(formData.$id)}
-          >
-            <Trash size={18} />
-          </Button>
+        <div className="w-full flex rounded">
+          <HomeIcon size={20} className="text-gray-600 m-2" />
+          <Input
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            className="bg-[#e9edf3] border-none shadow-none p-0 rounded text-gray-800 mt-1"
+          />
         </div>
+        <div className="w-full flex">
+          <Phone size={20} className="text-gray-600 m-2" />
+          <Input
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="bg-[#e9edf3] border-none shadow-none p-0 rounded text-gray-800 mt-1"
+          />
+        </div>
+        <div className="w-full flex">
+          <Mail size={20} className="text-gray-600 m-2" />
+          <Input
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="bg-[#e9edf3] border-none shadow-none p-0 rounded text-gray-800 mt-1"
+          />
+        </div>
+      </div>
+      <div className="flex justify-end gap-2 mt-2">
+        <Button
+          type="submit"
+          className="bg-white hover:bg-green-50 text-green-800 cursor-pointer p-5"
+        >
+          <Check />
+        </Button>
+        <Button
+          className="bg-white hover:bg-orange-100 text-orange-800 cursor-pointer p-5"
+          onClick={() => handleDelete(formData.$id)}
+        >
+          <Trash size={18} />
+        </Button>
       </div>
     </form>
   )

@@ -105,7 +105,7 @@ export default function AppointmentForm({
           type="date"
           value={formData.date ? formatDateForInput(formData.date) : ""}
           onChange={handleChange}
-          className="border-none bg-blue-50 p-2 w-full rounded"
+          className="border-none bg-[#e9edf3] p-2 w-full rounded"
         />
       </div>
       <div className="w-full">
@@ -118,7 +118,7 @@ export default function AppointmentForm({
             setFormData({ ...formData, type: value })
           }
         >
-          <SelectTrigger className="w-full bg-blue-50 border-none">
+          <SelectTrigger className="w-full bg-[#e9edf3] border-none">
             <SelectValue placeholder="Select pet type" />
           </SelectTrigger>
           <SelectContent>
@@ -140,7 +140,7 @@ export default function AppointmentForm({
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="border-none bg-blue-50 p-1 w-full  rounded"
+          className="border-none bg-[#e9edf3] w-full  rounded"
           required
           rows={3}
         />
@@ -155,7 +155,7 @@ export default function AppointmentForm({
           type="text"
           value={formData.treatment}
           onChange={handleChange}
-          className="border-none bg-blue-50 p-1 w-full rounded"
+          className="border-none bg-[#e9edf3] w-full rounded"
           required
         />
       </div>

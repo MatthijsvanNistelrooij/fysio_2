@@ -21,7 +21,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
   }
 
   return (
-    <div className="h-screen max-h-screen border-r w-72 bg-white">
+    <div className="h-screen w-72 bg-white">
       <div className=" flex flex-col justify-between h-full">
         <div className="flex flex-col h-full gap-2 p-3">
           {navItems.map((item) => {

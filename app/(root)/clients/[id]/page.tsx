@@ -1,5 +1,4 @@
 import ClientDetailsComponent from "@/components/ClientDetailsComponent"
-import CustomContainer from "@/components/CutomContainer"
 import { getClientById } from "@/lib/actions/client.actions"
 import { Client } from "@/lib/types"
 import { notFound } from "next/navigation"
@@ -16,11 +15,7 @@ const ClientDetails = async ({ params }: Props) => {
   const client = (await getClientById(clientId)) as unknown as Client
   if (!client) return notFound()
 
-  return (
-    <CustomContainer>
-      <ClientDetailsComponent client={client} />
-    </CustomContainer>
-  )
+  return <ClientDetailsComponent client={client} />
 }
 
 export default ClientDetails

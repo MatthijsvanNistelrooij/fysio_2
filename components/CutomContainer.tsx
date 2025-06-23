@@ -6,8 +6,8 @@ interface Props {
 
 const CustomContainer = ({ children }: Props) => {
   return (
-    <div className="min-h-screen w-full flex justify-center">
-      <div className="w-full p-5">{children}</div>
+    <div className="min-h-screen flex justify-center">
+      <div className="w-full p-5 md:p-10">{children}</div>
     </div>
   )
 }

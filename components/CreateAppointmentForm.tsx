@@ -72,78 +72,75 @@ export default function CreateAppointmentForm({
   }
 
   return (
-    <div className="bg-white p-5">
-      <form onSubmit={handleSubmit} className=" bg-white">
-        <div className="flex justify-between">
-          <div className="w-full">
-            <div className="mb-2">
-              <Select
-                value={formData.type}
-                onValueChange={(value: string) =>
-                  setFormData({ ...formData, type: value })
-                }
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select appointment type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {appointmentTypes.map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {type}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Input
-                id="date"
-                name="date"
-                type="date"
-                value={formatDateForInput(formData.date)}
-                onChange={handleChange}
-                className="border p-2 w-full rounded"
-                required
-              />
-            </div>
-            <div>
-              <Textarea
-                id="description"
-                name="description"
-                placeholder="description"
-                value={formData.description}
-                onChange={handleChange}
-                className="border p-2 w-full rounded font-light mt-2"
-                required
-                rows={3}
-              />
-            </div>
+    <form onSubmit={handleSubmit} className="bg-white">
+      <div className="flex justify-between">
+        <div className="w-full">
+          <div className="mb-2">
+            <Select
+              value={formData.type}
+              onValueChange={(value: string) =>
+                setFormData({ ...formData, type: value })
+              }
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select appointment type" />
+              </SelectTrigger>
+              <SelectContent>
+                {appointmentTypes.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Input
+              id="date"
+              name="date"
+              type="date"
+              value={formatDateForInput(formData.date)}
+              onChange={handleChange}
+              className="border p-2 w-full rounded"
+              required
+            />
+          </div>
+          <div>
+            <Textarea
+              id="description"
+              name="description"
+              placeholder="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="border p-2 w-full rounded font-light mt-2"
+              required
+              rows={3}
+            />
+          </div>
 
-            <div>
-              <Input
-                id="treatment"
-                name="treatment"
-                type="text"
-                placeholder="treatment"
-                value={formData.treatment}
-                onChange={handleChange}
-                className="border p-2 w-full rounded font-light mt-2"
-                required
-              />
-            </div>
-            {/* <BentoGrid /> */}
+          <div>
+            <Input
+              id="treatment"
+              name="treatment"
+              type="text"
+              placeholder="treatment"
+              value={formData.treatment}
+              onChange={handleChange}
+              className="border p-2 w-full rounded font-light mt-2"
+              required
+            />
           </div>
         </div>
+      </div>
 
-        <div className="flex justify-end mt-2">
-          <Button
-            type="submit"
-            className="bg-white text-green-800 hover:bg-green-50 cursor-pointer"
-          >
-            <Check />
-          </Button>
-        </div>
-      </form>
-    </div>
+      <div className="flex justify-end mt-2">
+        <Button
+          type="submit"
+          className="bg-white text-green-800 hover:bg-green-50 cursor-pointer"
+        >
+          <Check />
+        </Button>
+      </div>
+    </form>
   )
 }

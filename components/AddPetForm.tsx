@@ -13,13 +13,14 @@ import {
 } from "./ui/select"
 import { Pet } from "@/lib/types"
 import { Input } from "./ui/input"
-import { Card } from "./ui/card"
+import InfoCard from "./InfoCard"
+import { useAtom } from "jotai"
+import { addPetAtom } from "@/lib/store"
 
 interface AddPetFormProps {
   initialData?: Pet
   clientId: string
   onSubmit: (data: Pet) => Promise<void>
-  handleClose: () => void
 }
 
 export default function AddPetForm({
@@ -35,7 +36,6 @@ export default function AddPetForm({
   },
   clientId,
   onSubmit,
-  handleClose,
 }: AddPetFormProps) {
   const [formData, setFormData] = useState<Pet>({
     ownerId: clientId || "",
@@ -64,73 +64,80 @@ export default function AddPetForm({
     await onSubmit(formData)
   }
 
+  const [, setAddPet] = useAtom(addPetAtom)
+
   return (
-    <Card className="p-5">
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div className="border-b px-4 py-1 text-sm text-gray-800e font-medium flex justify-between bg-gray-100">
-          Add New Pet
-          <X
-            size={14}
-            className="cursor-pointer text-gray-800 hover:text-gray-600"
-            onClick={handleClose}
+    <InfoCard
+      title="Add Pet"
+      action={
+        <Button
+          className="bg-white cursor-pointer hover:bg-gray-100 text-gray-800"
+          onClick={() => setAddPet(false)}
+        >
+          <X />
+        </Button>
+      }
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Name */}
+        <div className="space-y-1">
+          <label htmlFor="name" className="text-sm font-medium">
+            Name
+          </label>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="border p-1 w-full rounded"
+            required
           />
         </div>
 
-        <div className="space-y-4">
-          <div className="">
-            <label htmlFor="name" className="text-sm font-medium mb-1">
-              Name
-            </label>
-            <Input
-              id="name"
-              name="name"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-              className="border p-1 w-full rounded"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="type" className="text-sm font-medium mb-1">
-              Type
-            </label>
-            <Select
-              value={formData.type}
-              onValueChange={(value: string) =>
-                setFormData({ ...formData, type: value })
-              }
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select pet type" />
-              </SelectTrigger>
-              <SelectContent>
-                {petTypes.map((type) => (
-                  <SelectItem key={type} value={type}>
-                    {type}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
-            <label htmlFor="age" className="text-sm font-medium mb-1">
-              Age
-            </label>
-            <Input
-              id="age"
-              name="age"
-              type="text"
-              value={formData.age}
-              onChange={handleChange}
-              className="border p-1 w-full rounded"
-            />
-          </div>
+        {/* Type */}
+        <div className="space-y-1">
+          <label htmlFor="type" className="text-sm font-medium">
+            Type
+          </label>
+          <Select
+            value={formData.type}
+            onValueChange={(value: string) =>
+              setFormData({ ...formData, type: value })
+            }
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select pet type" />
+            </SelectTrigger>
+            <SelectContent>
+              {petTypes.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
-        <div className="flex justify-end">
+        {/* Age */}
+        <div className="space-y-1">
+          <label htmlFor="age" className="text-sm font-medium">
+            Age
+          </label>
+          <Input
+            id="age"
+            name="age"
+            type="text"
+            placeholder="age"
+            value={formData.age}
+            onChange={handleChange}
+            className="border p-1 w-full rounded"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div className="flex justify-end pt-2">
           <Button
             type="submit"
             className="bg-white hover:bg-green-50 text-green-900 cursor-pointer"
@@ -139,6 +146,6 @@ export default function AddPetForm({
           </Button>
         </div>
       </form>
-    </Card>
+    </InfoCard>
   )
 }
