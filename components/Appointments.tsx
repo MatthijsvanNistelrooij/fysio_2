@@ -16,7 +16,6 @@ import {
   Zap,
 } from "lucide-react"
 import React from "react"
-import InfoCard from "./InfoCard"
 import { Button } from "./ui/button"
 
 const Appointments = () => {
@@ -53,34 +52,27 @@ const Appointments = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
+      <div className="grid-cols-4 flex flex-col gap-2">
         {selectedPet?.appointments.map((appointment: Appointment, index) => (
-          <React.Fragment key={appointment.$id || index}>
-            <InfoCard active={appointment.$id === selectedAppointment?.$id}>
-              <div
-                className="flex flex-row justify-between items-center cursor-pointer"
-                onClick={() => handleSelectAppointment(appointment)}
-              >
-                <span className={`text-sm flex font-semibold gap-1 `}>
-                  <CalendarRange size={14} />
-                  {new Date(appointment.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </span>
-                <Button
-                  className={`bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800 ${
-                    appointment.$id === selectedAppointment?.$id
-                      ? "bg-[#e9edf3] "
-                      : "bg-white"
-                  }`}
-                >
-                  {getAppointmentTypeIcon(appointment.type)}
-                </Button>
-              </div>
-            </InfoCard>
-          </React.Fragment>
+          <Button
+            key={appointment.$id || index}
+            onClick={() => handleSelectAppointment(appointment)}
+            className={`bg-white text-center items-center px-4 py-4 text-gray-800 cursor-pointer hover:bg-white border hover:border-blue-300 flex justify-between ${
+              selectedAppointment?.$id === appointment.$id
+                ? "border-blue-300"
+                : ""
+            }`}
+          >
+            <span className={`text-sm flex font-semibold gap-1`}>
+              <CalendarRange size={14} />
+              {new Date(appointment.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
+            {getAppointmentTypeIcon(appointment.type)}
+          </Button>
         ))}
       </div>
     </>

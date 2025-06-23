@@ -86,8 +86,15 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
           <div className="flex flex-col justify-start gap-2">
             {selectedPet && (
               <>
-                <PetInfo />
-                <Appointments />
+                <div className="grid grid-cols-4 gap-2">
+                  <div className="col-span-4 lg:col-span-3">
+                    <PetInfo />
+                  </div>
+                  <div className="col-span-4 lg:col-span-1">
+                    <Appointments />
+                  </div>
+                </div>
+
                 <SelectedAppointment />
               </>
             )}
