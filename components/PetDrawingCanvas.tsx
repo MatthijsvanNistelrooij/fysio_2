@@ -126,7 +126,6 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
       <div
         style={{
           position: "relative",
-          width: 460,
           height: 400,
           overflow: "hidden",
         }}
