@@ -65,7 +65,6 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
     if (saved) {
       const { imageDataUrl } = JSON.parse(saved)
       setSavedImage(imageDataUrl)
-
     } else {
       setSavedImage(null)
     }

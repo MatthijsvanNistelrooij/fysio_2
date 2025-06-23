@@ -1,5 +1,6 @@
 import {
   editAppointmentAtom,
+  localClientAtom,
   openAppointmentAtom,
   selectedAppointmentAtom,
   selectedPetAtom,
@@ -19,14 +20,14 @@ import InfoCard from "./InfoCard"
 import { Button } from "./ui/button"
 
 const Appointments = () => {
-  const [, setEditAppointment] = useAtom(editAppointmentAtom)
-  const [, setOpenAppointment] = useAtom(openAppointmentAtom)
-
   const [selectedAppointment, setSelectedAppointment] = useAtom(
     selectedAppointmentAtom
   )
-
+  const [, setOpenAppointment] = useAtom(openAppointmentAtom)
+  const [, setEditAppointment] = useAtom(editAppointmentAtom)
   const [selectedPet] = useAtom(selectedPetAtom)
+  const [,] = useAtom(localClientAtom)
+
   const handleSelectAppointment = (appointment: Appointment) => {
     setSelectedAppointment(appointment)
     setOpenAppointment(true)
@@ -51,36 +52,44 @@ const Appointments = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
-      {selectedPet?.appointments.map((appointment: Appointment, index) => (
-        <React.Fragment key={appointment.$id || index}>
-          <InfoCard>
-            <div
-              className="flex flex-row justify-between items-center gap-2 cursor-pointer"
-              onClick={() => handleSelectAppointment(appointment)}
-            >
-              <span className={`text-sm flex font-semibold gap-3 `}>
-                <CalendarRange size={14} />
-                {new Date(appointment.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
-              <Button
-                className={`bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800 ${
-                  appointment.$id === selectedAppointment?.$id
-                    ? "bg-[#e9edf3]"
-                    : "bg-white"
-                }`}
+    <>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
+        {selectedPet?.appointments.map((appointment: Appointment, index) => (
+          <React.Fragment key={appointment.$id || index}>
+            <InfoCard>
+              <div
+                className="flex flex-row justify-between items-center cursor-pointer"
+                onClick={() => handleSelectAppointment(appointment)}
               >
-                {getAppointmentTypeIcon(appointment.type)}
-              </Button>
-            </div>
-          </InfoCard>
-        </React.Fragment>
-      ))}
-    </div>
+                <span
+                  className={`text-sm flex font-semibold gap-1  ${
+                    appointment.$id === selectedAppointment?.$id
+                      ? "bg-[#e9edf3]"
+                      : "bg-white"
+                  }`}
+                >
+                  <CalendarRange size={14} />
+                  {new Date(appointment.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+                <Button
+                  className={`bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800 ${
+                    appointment.$id === selectedAppointment?.$id
+                      ? "bg-[#e9edf3]"
+                      : "bg-white"
+                  }`}
+                >
+                  {getAppointmentTypeIcon(appointment.type)}
+                </Button>
+              </div>
+            </InfoCard>
+          </React.Fragment>
+        ))}
+      </div>
+    </>
   )
 }
 

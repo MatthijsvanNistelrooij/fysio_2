@@ -181,7 +181,7 @@ const SelectedAppointment = () => {
                         />
                       </div>
                     ) : (
-                      <div className="flex w-full">
+                      <div className="flex w-full pb-10">
                         <div className="w-full">
                           <div className="space-y-4">
                             <p className="text-sm font-medium mb-1">Date</p>
