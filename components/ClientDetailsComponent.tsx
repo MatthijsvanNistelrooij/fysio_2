@@ -33,15 +33,7 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [user, setUser] = useAtom(userAtom)
   const [, setAddPet] = useAtom(addPetAtom)
 
-  const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
-
-  useEffect(() => {
-    if (client?.pets?.length > 0) {
-      setSelectedPet(client.pets[0])
-    } else {
-      setSelectedPet(null)
-    }
-  }, [client, setSelectedPet])
+  const [selectedPet] = useAtom(selectedPetAtom)
 
   useEffect(() => {
     if (localClient?.pets?.length) {
@@ -74,7 +66,6 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
       const { imageDataUrl } = JSON.parse(saved)
       setSavedImage(imageDataUrl)
 
-      // Optionally restore the drawingJson to canvas here
     } else {
       setSavedImage(null)
     }
@@ -84,8 +75,8 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
 
   return (
     <CustomContainer>
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-        <div className="md:col-span-2 flex flex-col justify-start gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
+        <div className="md:col-span-2 flex flex-col justify-start gap-2">
           <Info client={client} />
           <AddPet client={client} />
           {selectedPet && <AddAppointment />}

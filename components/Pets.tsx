@@ -19,7 +19,7 @@ const Pets = ({ client }: { client: Client }) => {
 
   const handleSelectPet = (pet: Pet) => {
     setAddPet(false)
-    setSelectedPet(pet)
+    setSelectedPet((prev) => (prev?.$id === pet.$id ? null : pet))
   }
 
   useEffect(() => {

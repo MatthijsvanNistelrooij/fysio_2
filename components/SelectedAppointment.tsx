@@ -147,7 +147,7 @@ const SelectedAppointment = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row gap-3">
+    <div className="flex flex-col md:flex-row gap-2">
       {selectedAppointment && openAppointment && (
         <>
           <div className="w-full lg:w-2/3">
