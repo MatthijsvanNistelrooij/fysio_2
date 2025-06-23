@@ -68,7 +68,7 @@ const Appointments = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
         <Button
           onClick={() => handleToggleAddAppointment()}
-          className={`bg-white hover:bg-[#e9edf3] text-gray-800 cursor-pointer w-full ${
+          className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl cursor-pointer w-full ${
             addAppointment ? "bg-[#e9edf3]" : ""
           }`}
         >
