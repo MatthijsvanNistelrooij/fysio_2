@@ -64,14 +64,13 @@ const Appointments = () => {
                     day: "numeric",
                   })}
                 </span>
-                {getAppointmentTypeIcon(appointment.type)}
               </div>
             }
             action={
               <Button
-                className={`bg-white hover:bg-gray-100 cursor-pointer text-gray-800 ${
+                className={`bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800 ${
                   appointment.$id === selectedAppointment?.$id
-                    ? "bg-gray-300"
+                    ? "bg-[#e9edf3]"
                     : "bg-white"
                 }`}
                 onClick={() => handleSelectAppointment(appointment)}
@@ -80,15 +79,15 @@ const Appointments = () => {
               </Button>
             }
           >
-            <div className="flex items-center gap-2">
-              <span>
-                {new Date(appointment.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
+            <div
+              className={`flex items-start gap-2 p-2 ${
+                appointment.$id === selectedAppointment?.$id
+                  ? "bg-[#e9edf3]"
+                  : "bg-white"
+              }`}
+            >
               {getAppointmentTypeIcon(appointment.type)}
+              {appointment.description}
             </div>
           </InfoCard>
         </React.Fragment>

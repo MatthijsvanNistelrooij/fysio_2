@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { useAtom } from "jotai"
 import {
@@ -29,7 +31,6 @@ const AddAppointment = () => {
 
   const handleToggleAddAppointment = () => {
     setAddAppointment(true)
-    setOpenAppointment(false)
   }
 
   const handleCreateAppointment = async (
@@ -37,11 +38,19 @@ const AddAppointment = () => {
     userId: string,
     data: Appointment
   ) => {
+    if (!petId) {
+      toast.error("No pet selected. Please select a pet first.")
+      return
+    }
+
     try {
+      console.log("Creating appointment for petId:", petId)
       const appointment = await createAppointment(petId, {
         ...data,
         date: data.date.toISOString(),
       })
+
+      console.log("Appointment created with ID:", appointment.$id)
 
       await addAppointmentToPet(petId, appointment.$id)
 
@@ -55,10 +64,10 @@ const AddAppointment = () => {
         type: appointment.type,
       }
 
-      // Set selected appointment here
+      // Update selected appointment and pet
       setSelectedAppointment(cleanAppointment)
       setOpenAppointment(true)
-      // Update selected pet with new appointment
+
       setSelectedPet((prevPet) => {
         if (!prevPet) return null
         return {
@@ -84,7 +93,7 @@ const AddAppointment = () => {
       })
 
       toast.success("Appointment added successfully!")
-      setAddAppointment((prev) => !prev)
+      setAddAppointment(false)
     } catch (error) {
       console.error("Error creating appointment:", error)
       toast.error("Failed to create appointment.")
@@ -98,7 +107,7 @@ const AddAppointment = () => {
           <InfoCard>
             <div className="w-full flex justify-center">
               <Button
-                onClick={() => handleToggleAddAppointment()}
+                onClick={handleToggleAddAppointment}
                 className="bg-white hover:bg-[#e9edf3] text-gray-800 cursor-pointer w-full"
               >
                 Add Appointment

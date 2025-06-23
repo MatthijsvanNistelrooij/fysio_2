@@ -84,12 +84,6 @@ const SelectedAppointment = () => {
     setEditAppointment((prev) => !prev)
   }
 
-  const handleCloseAppointment = () => {
-    setOpenAppointment(false)
-    setSelectedAppointment(null)
-    setShowCanvas(false)
-  }
-
   const handleUpdateAppointment = async (appointment: Appointment) => {
     try {
       await updateAppointment(appointment.$id, appointment)
@@ -153,142 +147,109 @@ const SelectedAppointment = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col md:flex-row gap-2">
       {selectedAppointment && openAppointment && (
-        <InfoCard
-          title={
-            selectedAppointment?.date
-              ? new Date(selectedAppointment.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              : "N/A"
-          }
-          action={
-            <Button
-              onClick={handleCloseAppointment}
-              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+        <>
+          <div className="w-full lg:w-2/3">
+            <InfoCard
+              title={"Selected Appointment"}
+              action={
+                <Button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    e.currentTarget.blur()
+                    handleEditToggleAppointment()
+                  }}
+                  className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                >
+                  {editAppointment ? <X /> : <Edit size={20} />}
+                </Button>
+              }
             >
-              <X />
-            </Button>
-          }
-        >
-          {/* <div className="flex justify-between bg-gray-100 border-b"> */}
-          {/* <div className="p-1 px-2 text-sm flex gap-2">
-              <CalendarRange size={14} />
-              Date:&nbsp;
-              {selectedAppointment?.date
-                ? new Date(selectedAppointment.date).toLocaleDateString(
-                    "en-US",
-                    {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }
-                  )
-                : "N/A"}
-            </div> */}
-          {/* <X
-              size={14}
-              onClick={handleCloseAppointment}
-              className="text-gray-800 cursor-pointer hover:text-gray-600 m-1 mr-4"
-            /> */}
-          {/* </div> */}
-          <div className="flex flex-col lg:flex-row bg-white pb-2 gap-6 p-1">
-            <div className="flex flex-col w-full">
-              <div>
-                {editAppointment ? (
-                  <div className="flex justify-between w-full ">
-                    <AppointmentForm
-                      initialData={selectedAppointment ?? undefined}
-                      onSubmit={handleUpdateAppointment}
-                      onClick={handleEditToggleAppointment}
-                      onDelete={handleDeleteAppointment}
+              <div className="flex flex-col lg:flex-row bg-white pb-2 gap-6 p-1">
+                <div className="flex flex-col w-full">
+                  <div>
+                    {editAppointment ? (
+                      <div className="flex justify-between w-full ">
+                        <AppointmentForm
+                          initialData={selectedAppointment ?? undefined}
+                          onSubmit={handleUpdateAppointment}
+                          onClick={handleEditToggleAppointment}
+                          onDelete={handleDeleteAppointment}
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex w-full">
+                        <div className="w-full">
+                          <div className="space-y-4">
+                            <p className="text-sm font-medium mb-1">Date</p>
+
+                            <p className="text-base">
+                              {selectedAppointment?.date
+                                ? new Date(
+                                    selectedAppointment.date
+                                  ).toLocaleDateString("nl-NL")
+                                : "N/A"}{" "}
+                            </p>
+                            <p className="text-sm font-medium">Type</p>
+
+                            <p className="text-base">
+                              {selectedAppointment?.type || "N/A"}
+                            </p>
+
+                            <p className="text-sm font-medium">Description</p>
+                            <p className="text-base mb-4">
+                              {selectedAppointment?.description || "N/A"}
+                            </p>
+
+                            <p className="text-sm font-medium">Treatment</p>
+
+                            <p className="text-base">
+                              {selectedAppointment?.treatment || "N/A"}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </InfoCard>
+          </div>
+          <div className="w-full">
+            <InfoCard>
+              <div className="w-full">
+                <div className="w-full flex justify-end">
+                  <Button
+                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600"
+                    onClick={() => handleClickCanvas()}
+                  >
+                    {showCanvas ? <X /> : <Edit />}
+                  </Button>
+                </div>
+
+                {!showCanvas && (
+                  <div className="flex justify-center my-10 mr-20 w-full ">
+                    <Image
+                      width={450}
+                      height={250}
+                      src={savedImage ? savedImage : horse}
+                      alt="Saved drawing"
                     />
                   </div>
-                ) : (
-                  <div className="flex w-full">
-                    <div className="w-full">
-                      {selectedAppointment && (
-                        <div className="flex w-full justify-end gap-3">
-                          <Button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              e.stopPropagation()
-                              e.currentTarget.blur()
-                              handleEditToggleAppointment()
-                            }}
-                            className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-                          >
-                            <Edit size={20} />
-                          </Button>
-                        </div>
-                      )}
+                )}
 
-                      <div className="space-y-4">
-                        <p className="text-sm font-medium mb-1">Date</p>
-
-                        <p className="text-base">
-                          {selectedAppointment?.date
-                            ? new Date(
-                                selectedAppointment.date
-                              ).toLocaleDateString("nl-NL")
-                            : "N/A"}{" "}
-                        </p>
-                        <p className="text-sm font-medium">Type</p>
-
-                        <p className="text-base">
-                          {selectedAppointment?.type || "N/A"}
-                        </p>
-
-                        <p className="text-sm font-medium">Description</p>
-                        <p className="text-base mb-4">
-                          {selectedAppointment?.description || "N/A"}
-                        </p>
-
-                        <p className="text-sm font-medium">Treatment</p>
-
-                        <p className="text-base">
-                          {selectedAppointment?.treatment || "N/A"}
-                        </p>
-                      </div>
-                    </div>
+                {showCanvas && (
+                  <div className="p-1 mt-10">
+                    <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
                   </div>
                 )}
               </div>
-            </div>
-
-            <div className="w-full">
-              <div className="w-full flex justify-end">
-                <Button
-                  className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600"
-                  onClick={() => handleClickCanvas()}
-                >
-                  {showCanvas ? <X /> : <Edit />}
-                </Button>
-              </div>
-
-              {!showCanvas && (
-                <div className="flex justify-center my-10 mr-20 w-full ">
-                  <Image
-                    width={450}
-                    height={250}
-                    src={savedImage ? savedImage : horse}
-                    alt="Saved drawing"
-                  />
-                </div>
-              )}
-
-              {showCanvas && (
-                <div className="p-1 mt-10">
-                  <PetDrawingCanvas petType={"horse"} onSave={handleSave} />
-                </div>
-              )}
-            </div>
+            </InfoCard>
           </div>
-        </InfoCard>
+        </>
       )}
     </div>
   )

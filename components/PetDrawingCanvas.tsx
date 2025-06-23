@@ -122,7 +122,7 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
   }
 
   return (
-    <div className="flex flex-col  w-full mx-auto max-h-[600px] h-full gap-4">
+    <div className="flex flex-col">
       <div
         style={{
           position: "relative",
@@ -138,18 +138,20 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           height={600}
           className="absolute inset-0 object-contain opacity-100 pointer-events-none"
         />
-        <ReactSketchCanvas
-          ref={canvasRef}
-          strokeWidth={1.5}
-          strokeColor={color}
-          canvasColor="transparent"
-          allowOnlyPointerType="all"
-          style={{
-            position: "absolute",
-            inset: 1,
-            cursor: "crosshair",
-          }}
-        />
+        <div className="flex">
+          <ReactSketchCanvas
+            ref={canvasRef}
+            strokeWidth={1.5}
+            strokeColor={color}
+            canvasColor="transparent"
+            allowOnlyPointerType="all"
+            style={{
+              position: "absolute",
+              inset: 1,
+              cursor: "crosshair",
+            }}
+          />
+        </div>
       </div>
 
       <div className="flex">

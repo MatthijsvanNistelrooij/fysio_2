@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Check, Trash, X } from "lucide-react"
+import { Check, Trash } from "lucide-react"
 import { Appointment } from "@/lib/types"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
@@ -85,16 +85,6 @@ export default function AppointmentForm({
       onSubmit={handleSubmit}
       className="space-y-5 bg-white rounded-xl w-full"
     >
-      <div className="w-full flex justify-end -mb-2">
-        <Button
-          type="button"
-          onClick={onClick}
-          className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
-        >
-          <X size={20} />
-        </Button>
-      </div>
-
       <div className="w-full">
         <label htmlFor="date" className="block font-semibold">
           Date
