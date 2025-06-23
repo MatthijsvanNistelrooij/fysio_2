@@ -29,9 +29,10 @@ const Pets = ({ client }: { client: Client }) => {
   }, [client, setLocalClient])
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 gap-3">
       {localClient?.pets.map((pet: Pet, index: number) => (
         <InfoCard
+          active={selectedPet?.$id === pet.$id}
           title={pet.name}
           key={pet.$id || index}
           action={
@@ -47,13 +48,15 @@ const Pets = ({ client }: { client: Client }) => {
           }
         >
           <div
-            className={`space-y-1 relative ${
-              selectedPet?.$id === pet.$id ? "bg-[#e9edf3]" : "bg-white"
+            className={`space-y-1 rounded-md border relative ${
+              selectedPet?.$id === pet.$id
+                ? "bg-gray-100 border-blue-300"
+                : "bg-white  border-gray-100 text-gray-800"
             } p-2`}
           >
-            <p className="text-gray-800 font-semibold">Age: {pet.age}</p>
-            <div className="text-gray-800 font-semibold">
-              <div className="flex items-center gap-1 text-gray-800 font-semibold">
+            <p className=" font-semibold">Age: {pet.age}</p>
+            <div className="font-semibold">
+              <div className="flex items-center gap-1 font-semibold">
                 Appointments: {pet?.appointments?.length}
               </div>
             </div>

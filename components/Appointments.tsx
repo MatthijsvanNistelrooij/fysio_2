@@ -56,18 +56,12 @@ const Appointments = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
         {selectedPet?.appointments.map((appointment: Appointment, index) => (
           <React.Fragment key={appointment.$id || index}>
-            <InfoCard>
+            <InfoCard active={appointment.$id === selectedAppointment?.$id}>
               <div
                 className="flex flex-row justify-between items-center cursor-pointer"
                 onClick={() => handleSelectAppointment(appointment)}
               >
-                <span
-                  className={`text-sm flex font-semibold gap-1  ${
-                    appointment.$id === selectedAppointment?.$id
-                      ? "bg-[#e9edf3]"
-                      : "bg-white"
-                  }`}
-                >
+                <span className={`text-sm flex font-semibold gap-1 `}>
                   <CalendarRange size={14} />
                   {new Date(appointment.date).toLocaleDateString("en-US", {
                     year: "numeric",
@@ -78,7 +72,7 @@ const Appointments = () => {
                 <Button
                   className={`bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800 ${
                     appointment.$id === selectedAppointment?.$id
-                      ? "bg-[#e9edf3]"
+                      ? "bg-[#e9edf3] "
                       : "bg-white"
                   }`}
                 >

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/actions/client.actions"
 import { toast } from "sonner"
 import { Check, Contact, HomeIcon, Mail, Phone } from "lucide-react"
-import { Card } from "./ui/card"
+import InfoCard from "./InfoCard"
 
 interface Props {
   fullName?: string
@@ -70,7 +70,7 @@ export const CreateClientForm = ({ $id }: Props) => {
   }
 
   return (
-    <Card className="bg-white mb-4 px-4 py-3 border  transition">
+    <InfoCard>
       <form onSubmit={handleSubmit} className="space-y-2 ">
         <div className="">
           <div className="flex flex-col md:flex-row gap-2 justify-between">
@@ -128,7 +128,7 @@ export const CreateClientForm = ({ $id }: Props) => {
           </div>
         </div>
       </form>
-    </Card>
+    </InfoCard>
   )
 }
 

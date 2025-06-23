@@ -1,11 +1,5 @@
 "use client"
-import {
-  clientsAtom,
-  searchAtom,
-  showAtom,
-  toggleEditAtom,
-  usePetStore,
-} from "@/lib/store"
+import { clientsAtom, searchAtom, usePetStore } from "@/lib/store"
 import { Pet } from "@/lib/types"
 import {
   CalendarRange,
@@ -18,15 +12,13 @@ import {
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import React from "react"
-import { Card } from "./ui/card"
 import { toast } from "sonner"
 import { useAtom } from "jotai"
+import InfoCard from "./InfoCard"
 
 const ClientList = () => {
   const [clients] = useAtom(clientsAtom)
-  const [edit] = useAtom(toggleEditAtom)
   const [search] = useAtom(searchAtom)
-  const [show] = useAtom(showAtom)
 
   const router = useRouter()
 
@@ -64,18 +56,9 @@ const ClientList = () => {
   })
 
   return (
-    <div
-      className={`transition-all duration-500 ${
-        !edit && !show
-          ? "opacity-100 translate-y-0 pointer-events-auto"
-          : "opacity-0 -translate-y-2 pointer-events-none"
-      }`}
-    >
+    <div className="flex flex-col gap-3">
       {filteredClients?.map((client) => (
-        <Card
-          key={client.$id}
-          className="bg-white rounded-md shadow-sm mb-2 px-4 py-5 lg:py-2 border border-gray-200 hover:shadow-md transition select-none"
-        >
+        <InfoCard key={client.$id}>
           <div className="flex flex-col lg:flex-row justify-between gap-4 text-sm text-gray-700">
             <div
               onClick={() => {
@@ -156,7 +139,7 @@ const ClientList = () => {
               />
             </div>
           </div>
-        </Card>
+        </InfoCard>
       ))}
     </div>
   )

@@ -10,7 +10,7 @@ const NoClients = () => {
           className="bg-gray-900 hover:bg-gray-700 text-white px-4 py-2 text-sm rounded-md transition"
           href="/create"
         >
-          Create New Client
+          Create New Contact
         </Link>
       </div>
     </div>

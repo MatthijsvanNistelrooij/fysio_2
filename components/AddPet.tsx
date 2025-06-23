@@ -43,7 +43,7 @@ const AddPet = ({ client }: { client: Client }) => {
         <InfoCard>
           <Button
             onClick={() => setAddPet(true)}
-            className="bg-white hover:bg-[#e9edf3] text-gray-800 cursor-pointer"
+            className="bg-white w-full hover:bg-[#e9edf3] text-gray-800 cursor-pointer"
           >
             Add Pet
             <Plus />

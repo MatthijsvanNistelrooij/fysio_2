@@ -11,7 +11,7 @@ export default function Home() {
               className="border bg-gray-800 hover:bg-gray-700 rounded-md p-2 text-white"
               href="/create"
             >
-              Create new Client
+              Create new Contact
             </Link>
           </div>
         </div>

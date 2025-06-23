@@ -74,15 +74,15 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
 
   return (
     <CustomContainer>
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
-        <div className="md:col-span-2 flex flex-col justify-start gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
+        <div className="md:col-span-1 flex flex-col justify-start gap-2">
           <Info client={client} />
           <AddPet client={client} />
           {selectedPet && <AddAppointment />}
           <Pets client={client} />
         </div>
 
-        <div className="md:col-span-4">
+        <div className="lg:col-span-4">
           <div className="flex flex-col justify-start gap-2">
             {selectedPet && (
               <>
