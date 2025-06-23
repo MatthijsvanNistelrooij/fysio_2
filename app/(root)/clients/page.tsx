@@ -9,7 +9,7 @@ import ClientList from "@/components/ClientList"
 import NoClients from "@/components/NoClients"
 import Searchbar from "@/components/Searchbar"
 import Loading from "@/components/Loading"
-import CustomContainer from "@/components/CutomContainer"
+import CustomContainer from "@/components/CustomContainer"
 
 const Clients = () => {
   useClients()

@@ -7,7 +7,7 @@ interface Props {
 const CustomContainer = ({ children }: Props) => {
   return (
     <div className="min-h-screen flex justify-center [bg-[#e9edf3]">
-      <div className="w-full p-5 md:p-10">{children}</div>
+      <div className="w-full p-5 md:p-5">{children}</div>
     </div>
   )
 }

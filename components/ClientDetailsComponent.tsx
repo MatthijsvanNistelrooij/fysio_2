@@ -16,7 +16,7 @@ import {
   addPetAtom,
 } from "../lib/store"
 
-import CustomContainer from "./CutomContainer"
+import CustomContainer from "./CustomContainer"
 import PetInfo from "./PetInfo"
 import Info from "./Info"
 import AddPet from "./AddPet"
@@ -79,6 +79,7 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
           <Info client={client} />
           <AddPet client={client} />
           {selectedPet && <AddAppointment />}
+
           <Pets client={client} />
         </div>
 
@@ -86,15 +87,8 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
           <div className="flex flex-col justify-start gap-2">
             {selectedPet && (
               <>
-                <div className="grid grid-cols-4 gap-2">
-                  <div className="col-span-4 lg:col-span-3">
-                    <PetInfo />
-                  </div>
-                  <div className="col-span-4 lg:col-span-1">
-                    <Appointments />
-                  </div>
-                </div>
-
+                <PetInfo />
+                <Appointments />
                 <SelectedAppointment />
               </>
             )}

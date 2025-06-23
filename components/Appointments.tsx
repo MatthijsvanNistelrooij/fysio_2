@@ -28,9 +28,12 @@ const Appointments = () => {
   const [,] = useAtom(localClientAtom)
 
   const handleSelectAppointment = (appointment: Appointment) => {
-    setSelectedAppointment(appointment)
-    setOpenAppointment(true)
-    setEditAppointment(false)
+    setSelectedAppointment((prev) => {
+      const isSame = prev?.$id === appointment.$id
+      setOpenAppointment(!isSame)
+      setEditAppointment(false)
+      return isSame ? null : appointment
+    })
   }
 
   function getAppointmentTypeIcon(type: string) {
@@ -52,19 +55,19 @@ const Appointments = () => {
 
   return (
     <>
-      <div className="grid-cols-4 flex flex-col gap-2">
+      <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
         {selectedPet?.appointments.map((appointment: Appointment, index) => (
           <Button
             key={appointment.$id || index}
             onClick={() => handleSelectAppointment(appointment)}
-            className={`bg-white text-center items-center px-4 py-4 text-gray-800 cursor-pointer hover:bg-white border hover:border-blue-300 flex justify-between ${
+            className={`bg-white text-center items-center px-4 py-4 shadow-xl border border-gray-200 text-gray-800 cursor-pointer hover:bg-[#e9edf3] flex justify-between ${
               selectedAppointment?.$id === appointment.$id
                 ? "border-blue-300"
                 : ""
             }`}
           >
             <span className={`text-sm flex font-semibold gap-1`}>
-              <CalendarRange size={14} />
+              <CalendarRange size={14} className="m-0.5" />
               {new Date(appointment.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",

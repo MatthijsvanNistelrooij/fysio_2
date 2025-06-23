@@ -9,7 +9,7 @@ import { useAtom } from "jotai"
 import React, { useEffect } from "react"
 import InfoCard from "./InfoCard"
 import { Button } from "./ui/button"
-import { Expand, MoreVertical } from "lucide-react"
+import { MoreVertical, Shrink } from "lucide-react"
 
 const Pets = ({ client }: { client: Client }) => {
   const [localClient, setLocalClient] = useAtom(localClientAtom)
@@ -28,6 +28,19 @@ const Pets = ({ client }: { client: Client }) => {
     }
   }, [client, setLocalClient])
 
+  const getPetColorClass = (type: string) => {
+    switch (type.toLowerCase()) {
+      case "dog":
+        return "bg-yellow-200"
+      case "cat":
+        return "bg-purple-200"
+      case "horse":
+        return "bg-green-200"
+      default:
+        return "bg-gray-100"
+    }
+  }
+
   return (
     <div className="grid grid-cols-1 gap-3">
       {localClient?.pets.map((pet: Pet, index: number) => (
@@ -43,16 +56,14 @@ const Pets = ({ client }: { client: Client }) => {
                 setOpenAppointment(false)
               }}
             >
-              {selectedPet?.$id === pet.$id ? <Expand /> : <MoreVertical />}
+              {selectedPet?.$id === pet.$id ? <Shrink /> : <MoreVertical />}
             </Button>
           }
         >
           <div
-            className={`space-y-1 rounded-md border relative ${
-              selectedPet?.$id === pet.$id
-                ? "bg-gray-100 border-blue-300"
-                : "bg-white  border-gray-100 text-gray-800"
-            } p-2`}
+            className={`space-y-1 rounded-md relative  p-2  ${getPetColorClass(
+              pet.type
+            )}`}
           >
             <p className=" font-semibold">Age: {pet.age}</p>
             <div className="font-semibold">
