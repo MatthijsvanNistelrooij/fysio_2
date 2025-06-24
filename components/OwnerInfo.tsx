@@ -10,7 +10,7 @@ type OwnerInfoProps = {
 
 const OwnerInfo = ({ client }: OwnerInfoProps) => {
   return (
-    <div className="flex flex-col gap-2 space-y-1 w-full pb-10">
+    <div className="flex flex-col w-full pb-10">
       <div
         className="flex items-center min-w-[140px] flex-1 text-sm p-1 hover:bg-[#e9edf3] cursor-pointer rounded-md"
         onClick={() => {

@@ -44,7 +44,7 @@ export default function ClientForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-1 space-y-3 justify-between w-full">
+      <div className="flex flex-col justify-between w-full">
         <div className="w-full flex rounded">
           <Contact size={20} className="text-gray-600 m-2" />
           <Input

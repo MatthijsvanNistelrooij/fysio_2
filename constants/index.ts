@@ -9,6 +9,11 @@ export const navItems = [
     icon: "calendar",
     url: "/appointments",
   },
+  {
+    name: "Dashboard",
+    icon: "dashboard",
+    url: "/dashboard",
+  },
 ]
 
 export const petTypes = ["Dog", "Cat", "Horse"]

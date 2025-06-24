@@ -4,7 +4,12 @@ import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { signOutUser } from "@/lib/actions/user.actions"
-import { CalendarRange, Contact, LogOutIcon } from "lucide-react"
+import {
+  CalendarRange,
+  Contact,
+  LayoutDashboard,
+  LogOutIcon,
+} from "lucide-react"
 
 export const MobileNav = () => {
   const pathname = usePathname()
@@ -42,6 +47,8 @@ export const MobileNav = () => {
                     <Contact size={20} />
                   ) : item.icon === "calendar" ? (
                     <CalendarRange size={20} />
+                  ) : item.icon === "dashboard" ? (
+                    <LayoutDashboard size={20} />
                   ) : null}
                 </Link>
               )

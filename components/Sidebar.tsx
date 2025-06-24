@@ -4,7 +4,7 @@ import { Button } from "./ui/button"
 import { signOutUser } from "@/lib/actions/user.actions"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { CalendarRange, Contact, LogOutIcon } from "lucide-react"
+import { CalendarRange, Contact, LayoutDashboard, LogOutIcon } from "lucide-react"
 import { navItems } from "../constants"
 
 interface Props {
@@ -36,13 +36,15 @@ export const Sidebar = ({ fullName, email }: Props) => {
                 key={item.name}
                 href={item.url}
                 className={`flex items-center gap-2 p-2 hover:text-gray-800 font-semibold transition ${
-                  isActive ? "text-gray-800" : "text-gray-400"
+                  isActive ? "text-gray-800" : "text-gray-300"
                 }`}
               >
                 {item.icon === "client" ? (
                   <Contact size={20} />
                 ) : item.icon === "calendar" ? (
                   <CalendarRange size={20} />
+                ) : item.icon === "dashboard" ? (
+                  <LayoutDashboard size={20} />
                 ) : null}
 
                 <span className="text-sm font-sans">{item.name}</span>

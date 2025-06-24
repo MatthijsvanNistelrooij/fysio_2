@@ -1,5 +1,10 @@
 "use client"
-import { clientsAtom, searchAtom, usePetStore } from "@/lib/store"
+import {
+  clientsAtom,
+  openAppointmentAtom,
+  searchAtom,
+  usePetStore,
+} from "@/lib/store"
 import { Pet } from "@/lib/types"
 import {
   CalendarRange,
@@ -19,6 +24,7 @@ import InfoCard from "./InfoCard"
 const ClientList = () => {
   const [clients] = useAtom(clientsAtom)
   const [search] = useAtom(searchAtom)
+  const [, setOpenAppointment] = useAtom(openAppointmentAtom)
   const setSelectedGlobalPet = usePetStore(
     (state) => state.setSelectedGlobalPet
   )
@@ -33,6 +39,7 @@ const ClientList = () => {
   const handleClickPet = (id: string, pet: Pet) => {
     const setSelectedPet = usePetStore.getState().setSelectedGlobalPet
     setSelectedPet(pet)
+    setOpenAppointment(false)
     router.push(`/clients/${id}`)
   }
 
@@ -63,7 +70,7 @@ const ClientList = () => {
     <div className="flex flex-col gap-3">
       {filteredClients?.map((client) => (
         <InfoCard key={client.$id}>
-          <div className="flex flex-col lg:flex-row justify-between gap-4 text-sm text-gray-700">
+          <div className="flex flex-col w-full lg:flex-row justify-between gap-4 text-sm text-gray-700">
             <div
               onClick={() => {
                 navigator.clipboard.writeText(client.name)
@@ -107,6 +114,7 @@ const ClientList = () => {
               <Mail size={16} className="text-gray-300" />
               <span>{client.email}</span>
             </div>
+
             <div className="flex flex-wrap justify-end gap-2 w-full">
               {client.pets.length ? (
                 client.pets.map((pet) => (

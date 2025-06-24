@@ -19,7 +19,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
       {/* Main content */}
       <section className="flex-1 flex flex-col">
-        <div className="md:hidden">
+        <div className="md:hidden sticky top-0 z-50">
           <MobileNav {...currentUser} />
         </div>
 

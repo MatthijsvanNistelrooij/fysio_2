@@ -10,6 +10,11 @@ import React, { useEffect } from "react"
 import InfoCard from "./InfoCard"
 import { Button } from "./ui/button"
 import { MoreVertical, Shrink } from "lucide-react"
+import Image from "next/image"
+import dog from "../public/dog_avatar.jpg"
+import cat from "../public/cat_avatar.jpg"
+import horse from "../public/horse_avatar.jpg"
+type PetType = "Dog" | "Horse" | "Cat" | "Other"
 
 const Pets = ({ client }: { client: Client }) => {
   const [localClient, setLocalClient] = useAtom(localClientAtom)
@@ -20,6 +25,19 @@ const Pets = ({ client }: { client: Client }) => {
   const handleSelectPet = (pet: Pet) => {
     setAddPet(false)
     setSelectedPet((prev) => (prev?.$id === pet.$id ? null : pet))
+  }
+
+  const getPetImage = (type: PetType) => {
+    switch (type) {
+      case "Dog":
+        return dog
+      case "Horse":
+        return horse
+      case "Cat":
+        return cat
+      default:
+        return horse // fallback or a default silhouette
+    }
   }
 
   useEffect(() => {
@@ -44,32 +62,43 @@ const Pets = ({ client }: { client: Client }) => {
   return (
     <div className="grid grid-cols-1 gap-3">
       {localClient?.pets.map((pet: Pet, index: number) => (
-        <InfoCard
-          active={selectedPet?.$id === pet.$id}
-          title={pet.name}
-          key={pet.$id || index}
-          action={
-            <Button
-              className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
-              onClick={() => {
-                handleSelectPet(pet)
-                setOpenAppointment(false)
-              }}
+          <InfoCard
+            //   active={selectedPet?.$id === pet.$id}
+              key={pet.$id || index}>
+          <div className="flex justify-center gap-2">
+            <div
+              className={`flex w-full justify-between space-y-1 rounded-md relative p-2 ${getPetColorClass(
+                pet.type
+              )}`}
             >
-              {selectedPet?.$id === pet.$id ? <Shrink /> : <MoreVertical />}
-            </Button>
-          }
-        >
-          <div
-            className={`space-y-1 rounded-md relative  p-2  ${getPetColorClass(
-              pet.type
-            )}`}
-          >
-            <p className=" font-semibold">Age: {pet.age}</p>
-            <div className="font-semibold">
-              <div className="flex items-center gap-1 font-semibold">
-                Appointments: {pet?.appointments?.length}
+              <div className="flex flex-col">
+                <p className=" font-semibold">{pet.name}</p>
+                <div className="font-semibold">
+                  <div className="flex items-center gap-1 font-semibold">
+                    Appointments: {pet?.appointments?.length}
+                  </div>
+                </div>
               </div>
+
+              <div className="relative h-14 w-14 rounded-full overflow-hidden bg-gray-100 shrink-0">
+                <Image
+                  alt="Avatar"
+                  src={getPetImage(pet?.type as PetType)}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div className="flex text-center">
+              <Button
+                className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+                onClick={() => {
+                  handleSelectPet(pet)
+                  setOpenAppointment(false)
+                }}
+              >
+                {selectedPet?.$id === pet.$id ? <Shrink /> : <MoreVertical />}
+              </Button>
             </div>
           </div>
         </InfoCard>

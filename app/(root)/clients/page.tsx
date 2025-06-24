@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
 import { useClients } from "@/hooks/useClients"
 import { useAtom } from "jotai"
 import { clientsAtom, toggleEditAtom, loadingAtom, userAtom } from "@/lib/store"
@@ -17,9 +17,13 @@ const Clients = () => {
   const [clients] = useAtom(clientsAtom)
   const [loading] = useAtom(loadingAtom)
   const [user] = useAtom(userAtom)
-  const [edit] = useAtom(toggleEditAtom)
+  const [edit, setEdit] = useAtom(toggleEditAtom)
 
-  if (loading) return <Loading />
+  useEffect(() => {
+    setEdit(false)
+  }, [])
+
+  if (loading && clients?.length === 0) return <Loading />
   if (clients?.length === 0) return <NoClients />
 
   return (
