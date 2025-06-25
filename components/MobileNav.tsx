@@ -4,16 +4,16 @@ import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { signOutUser } from "@/lib/actions/user.actions"
-import {
-  CalendarRange,
-  Contact,
-  Edit,
-  LogOutIcon,
-} from "lucide-react"
+import { CalendarRange, Contact, Edit, LogOutIcon } from "lucide-react"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
 
 export const MobileNav = () => {
+  const [fontSize, setFontSize] = React.useState("12px")
+  React.useEffect(() => {
+    document.documentElement.style.setProperty("--global-font-size", fontSize)
+  }, [fontSize])
+
   const pathname = usePathname()
   const handleSignOut = () => {
     signOutUser()
@@ -79,6 +79,29 @@ export const MobileNav = () => {
                   }`}
                 />
               </button>
+              <div className="flex gap-5 ml-5">
+                <button
+                  onClick={() => setFontSize("10px")}
+                  style={{ fontSize: "10px", fontWeight: "lighter" }}
+                  className="cursor-pointer mt-2"
+                >
+                  A
+                </button>
+                <button
+                  onClick={() => setFontSize("12px")}
+                  style={{ fontSize: "12px" }}
+                  className="cursor-pointer mt-1"
+                >
+                  A
+                </button>
+                <button
+                  onClick={() => setFontSize("14px")}
+                  style={{ fontSize: "14px", fontWeight: "bold" }}
+                  className="cursor-pointer mt-1"
+                >
+                  A
+                </button>
+              </div>
             </div>
             <Link
               href={"/"}
