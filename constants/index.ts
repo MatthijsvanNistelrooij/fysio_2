@@ -10,6 +10,11 @@ export const navItems = [
     url: "/dashboard",
   },
   {
+    name: "Create",
+    icon: "create",
+    url: "/create",
+  },
+  {
     name: "Calendar",
     icon: "calendar",
     url: "/appointments",

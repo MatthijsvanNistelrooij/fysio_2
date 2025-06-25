@@ -7,6 +7,7 @@ import { signOutUser } from "@/lib/actions/user.actions"
 import {
   CalendarRange,
   Contact,
+  Edit,
   LayoutDashboard,
   LogOutIcon,
 } from "lucide-react"
@@ -40,14 +41,16 @@ export const MobileNav = () => {
                 <Link
                   key={item.name}
                   href={item.url}
-                  className={`flex items-center gap-2 p-2 w-10 ml-2 font-semibold transition
+                  className={`flex items-center gap-2 p-2 font-semibold transition
                   ${
-                    !darkmode
-                      ? "text-gray-200 hover:text-gray-200"
-                      : "text-gray-400 hover:text-gray-900"
+                    darkmode
+                      ? isActive
+                        ? "text-gray-800"
+                        : "text-gray-400 hover:text-gray-800"
+                      : isActive
+                      ? "text-gray-200"
+                      : "text-gray-600 hover:text-gray-200"
                   }
-                  ${isActive && !darkmode ? "text-white" : ""}
-                  ${isActive && darkmode ? "text-gray-800" : "text-gray-600"}
                 `}
                 >
                   {item.icon === "client" ? (
@@ -55,7 +58,9 @@ export const MobileNav = () => {
                   ) : item.icon === "calendar" ? (
                     <CalendarRange size={20} />
                   ) : item.icon === "dashboard" ? (
-                    <LayoutDashboard size={20} />
+                    <CalendarRange size={20} />
+                  ) : item.icon === "create" ? (
+                    <Edit size={20} />
                   ) : null}
                 </Link>
               )

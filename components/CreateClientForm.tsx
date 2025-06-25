@@ -79,8 +79,8 @@ export const CreateClientForm = ({ $id }: Props) => {
         darkmode ? "bg-[#e9edf3]" : "bg-gray-800"
       }  `}
     >
-      <div className="main-container w-full rounded-3xl m-5">
-        <InfoCard>
+      <div className="main-container w-full rounded-3xl p-5">
+        <InfoCard title="Create New Contact">
           <form onSubmit={handleSubmit} className="space-y-2 ">
             <div className="">
               <div className="flex flex-col md:flex-row gap-2 justify-between">
@@ -135,14 +135,14 @@ export const CreateClientForm = ({ $id }: Props) => {
                     } border-none shadow-none rounded p-0 mt-1 `}
                   />
                 </div>
-                <div className="flex justify-end">
-                  <Button
-                    type="submit"
-                    className="cursor-pointer bg-white hover:bg-green-100 text-gray-800"
-                  >
-                    <Check />
-                  </Button>
-                </div>
+              </div>
+              <div className="flex justify-end mt-5">
+                <Button
+                  type="submit"
+                  className="cursor-pointer bg-white hover:bg-green-100 text-gray-800"
+                >
+                  <Check />
+                </Button>
               </div>
             </div>
           </form>
