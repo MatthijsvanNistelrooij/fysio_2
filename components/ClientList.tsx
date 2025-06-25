@@ -77,7 +77,7 @@ const ClientList = () => {
       {filteredClients?.map((client) => (
         <InfoCard key={client.$id}>
           <div className="flex flex-row md:flex-col w-full lg:flex-row justify-between gap-4 text-sm">
-            <div className="flex flex-col md:flex-row w-full justify-between gap-5">
+            <div className="flex flex-col md:flex-row w-full justify-start md:justify-between gap-2">
               <div
                 onClick={() => {
                   navigator.clipboard.writeText(client.name)
