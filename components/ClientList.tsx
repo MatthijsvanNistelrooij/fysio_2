@@ -131,19 +131,19 @@ const ClientList = () => {
               </div>
             </div>
 
-            <div className="w-full flex flex-col lg:flex-row justify-between">
-              <div className="flex flex-wrap justify-end gap-2 w-full">
+            <div className="flex flex-row w-full">
+              <div className="flex justify-end gap-2 w-full">
                 {client.pets.length ? (
                   client.pets.map((pet) => (
                     <div
                       key={pet.$id}
                       onClick={() => handleClickPet(client.$id, pet)}
-                      className={`flex flex-col sm:flex-row text-end justify-end gap-2 px-3 py- text-sm cursor-pointer text-gray-700 hover:bg-[#e9edf3] transition ${getPetColorClass(
+                      className={`flex gap-2 h-auto py-1 px-3 text-sm cursor-pointer text-gray-700 hover:bg-[#e9edf3] transition ${getPetColorClass(
                         pet.type
                       )}`}
                     >
                       <span>{pet.name}</span>
-                      <div className="flex text-end justify-end gap-1">
+                      <div className="flex gap-1">
                         {pet.appointments?.map((_, i) => (
                           <CalendarRange key={i} size={14} />
                         ))}
@@ -160,7 +160,7 @@ const ClientList = () => {
                   </div>
                 )}
               </div>
-              <div className="flex w-full lg:w-auto justify-end">
+              <div className="flex justify-end">
                 <MoreVertical
                   onClick={() => handleTableRowClick(client.$id)}
                   size={18}
