@@ -30,7 +30,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
 
   return (
     <div
-      className={`h-screen w-72 border-r  ${
+      className={`h-screen w-72 border-r border-gray-500 ${
         darkmode ? "bg-white text-gray-800" : "bg-gray-800 text-white"
       } `}
     >
@@ -113,7 +113,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
             </button>
           </div>
         </div>
-        <div className="p-5 border-t">
+        <div className="p-5 border-t border-gray-500">
           <div className="flex flex-col justify-center">
             <p className="font-semibold flex justify-start">{fullName}</p>
             <p className="flex justify-start text-center text-xs mb-2 text-gray-400">
