@@ -66,20 +66,8 @@ export const MobileNav = () => {
             })}
           </div>
           <div className="flex">
-            <div className="flex items-center space-x-2 mr-10">
-              <button
-                onClick={() => setDarkmode(!darkmode)}
-                className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-300 cursor-pointer ${
-                  !darkmode ? "bg-gray-700" : "bg-gray-300"
-                }`}
-              >
-                <div
-                  className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
-                    !darkmode ? "translate-x-6" : "translate-x-0"
-                  }`}
-                />
-              </button>
-              <div className="flex gap-5 ml-5">
+            <div className="flex items-center space-x-2 mr-5">
+              <div className="flex gap-5 mr-10">
                 <button
                   onClick={() => setFontSize("10px")}
                   style={{ fontSize: "10px", fontWeight: "lighter" }}
@@ -102,6 +90,18 @@ export const MobileNav = () => {
                   A
                 </button>
               </div>
+              <button
+                onClick={() => setDarkmode(!darkmode)}
+                className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-300 cursor-pointer ${
+                  !darkmode ? "bg-gray-700" : "bg-gray-300"
+                }`}
+              >
+                <div
+                  className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
+                    !darkmode ? "translate-x-6" : "translate-x-0"
+                  }`}
+                />
+              </button>
             </div>
             <Link
               href={"/"}
