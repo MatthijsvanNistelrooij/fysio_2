@@ -182,13 +182,21 @@ export default function PetForm({
         <div className="flex gap-2 justify-end">
           <Button
             type="submit"
-            className="bg-white hover:bg-green-50 text-green-800 cursor-pointer"
+            className={` ${
+              darkmode
+                ? "bg-white hover:bg-gray-100 text-green-800"
+                : "bg-gray-600 text-green-200 hover:bg-gray-700"
+            }  cursor-pointer `}
           >
             <Check />
           </Button>
           <Button
             onClick={() => handleDelete(formData.$id)}
-            className="text-orange-800 bg-white hover:bg-orange-100 cursor-pointer"
+            className={` ${
+              darkmode
+                ? "bg-white hover:bg-gray-100 text-orange-800"
+                : "bg-gray-600 text-orange-200 hover:bg-gray-700"
+            }  cursor-pointer `}
           >
             <Trash size={18} />
           </Button>

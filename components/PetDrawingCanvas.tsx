@@ -8,6 +8,8 @@ import dog from "../public/dog.jpg"
 import { Button } from "./ui/button"
 import { ArrowLeft, Check, Eraser, Pencil } from "lucide-react"
 import { toast } from "sonner"
+import { darkmodeAtom } from "@/lib/store"
+import { useAtom } from "jotai"
 
 type PetType = "Dog" | "Horse" | "Cat" | "Other"
 
@@ -80,6 +82,8 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
   const handleSelectColor = (color: string) => {
     setColor(color)
   }
+
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleClear = () => canvasRef.current?.clearCanvas()
 
@@ -177,32 +181,52 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           <div className="flex gap-2">
             <Button
               onClick={handleUndo}
-              className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+              className={` ${
+                darkmode
+                  ? "bg-white hover:bg-gray-100 text-gray-800 border-gray-200"
+                  : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+              }  cursor-pointer border`}
             >
               <ArrowLeft />
             </Button>
             <Button
               onClick={handleClear}
-              className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer"
+              className={` ${
+                darkmode
+                  ? "bg-white hover:bg-gray-100 text-gray-800 border-gray-200"
+                  : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+              }  cursor-pointer border`}
             >
               <Eraser />
             </Button>
 
             <Button
               onClick={() => handleSelectColor("orange")}
-              className="text-orange-800 bg-white hover:bg-gray-100 border cursor-pointer"
+              className={` ${
+                darkmode
+                  ? "bg-white hover:bg-gray-100 text-orange-800 border-gray-200"
+                  : "bg-gray-600 text-orange-200 hover:bg-gray-700"
+              }  cursor-pointer border`}
             >
               <Pencil />
             </Button>
             <Button
               onClick={() => handleSelectColor("limegreen")}
-              className="text-green-800 bg-white hover:bg-gray-100 border cursor-pointer"
+              className={` ${
+                darkmode
+                  ? "bg-white hover:bg-gray-100 text-green-800 border-gray-200"
+                  : "bg-gray-600 text-green-200 hover:bg-gray-700"
+              }  cursor-pointer border`}
             >
               <Pencil />
             </Button>
             <Button
               onClick={() => handleSelectColor("blue")}
-              className="text-blue-800 bg-white hover:bg-gray-100 border cursor-pointer"
+              className={` ${
+                darkmode
+                  ? "bg-white hover:bg-gray-100 text-blue-800 border-gray-200"
+                  : "bg-gray-600 text-blue-200 hover:bg-gray-700"
+              }  cursor-pointer border`}
             >
               <Pencil />
             </Button>
@@ -210,7 +234,11 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
           <div>
             <Button
               onClick={handleExport}
-              className="text-gray-800 bg-white hover:bg-gray-100 border cursor-pointer ml-10"
+              className={` ${
+                darkmode
+                  ? "bg-white hover:bg-green-50 text-green-800"
+                  : "bg-gray-600 hover:bg-gray-700 text-green-200"
+              }  cursor-pointer p-5 `}
             >
               <Check />
             </Button>

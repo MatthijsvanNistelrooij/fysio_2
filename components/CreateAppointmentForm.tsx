@@ -152,7 +152,11 @@ export default function CreateAppointmentForm({
       <div className="flex justify-end mt-2">
         <Button
           type="submit"
-          className="bg-white text-green-800 hover:bg-green-50 cursor-pointer"
+          className={` ${
+            darkmode
+              ? "bg-white hover:bg-gray-100 text-green-800"
+              : "bg-gray-600 text-green-200 hover:bg-gray-700"
+          }  cursor-pointer `}
         >
           <Check />
         </Button>

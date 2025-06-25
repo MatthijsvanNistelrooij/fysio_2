@@ -16,6 +16,8 @@ import { toast } from "sonner"
 import { Appointment, Pet, User } from "@/lib/types"
 import { getCurrentUser } from "@/lib/actions/user.actions"
 import { Button } from "./ui/button"
+import { darkmodeAtom } from "@/lib/store"
+import { useAtom } from "jotai"
 
 export default function PetDetailsComponent({
   pet,
@@ -28,6 +30,7 @@ export default function PetDetailsComponent({
   const [edit, setEdit] = useState(false)
   const [addAppointment, setAddAppointment] = useState(false)
   const [user, setUser] = useState<User | null>(null)
+  const [darkmode] = useAtom(darkmodeAtom)
 
   useEffect(() => {
     async function fetchUser() {
@@ -113,9 +116,13 @@ export default function PetDetailsComponent({
             <div className="flex justify-end p-5 pb-0">
               <Button
                 onClick={handleEditToggle}
-                className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+                className={` ${
+                  darkmode
+                    ? "bg-white hover:bg-gray-100 text-gray-800"
+                    : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+                }  cursor-pointer `}
               >
-                {edit ? <X /> : <Edit size={18} />}
+                {edit ? <X /> : <Edit size={18} />} dd
               </Button>
             </div>
             <div className="flex justify-between p-5 gap-2">

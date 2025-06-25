@@ -1,6 +1,7 @@
 import React from "react"
 import { Edit, X } from "lucide-react"
 import {
+  darkmodeAtom,
   editAppointmentAtom,
   localClientAtom,
   openAppointmentAtom,
@@ -38,6 +39,7 @@ const SelectedAppointment = () => {
   const [showCanvas, setShowCanvas] = useAtom(showCanvasAtom)
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [, setLocalClient] = useAtom(localClientAtom)
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleDeleteAppointment = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -180,7 +182,11 @@ const SelectedAppointment = () => {
                     e.currentTarget.blur()
                     handleEditToggleAppointment()
                   }}
-                  className="text-gray-800 bg-white hover:bg-gray-100 cursor-pointer"
+                  className={` ${
+                    darkmode
+                      ? "bg-white hover:bg-gray-100 text-gray-800"
+                      : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+                  }  cursor-pointer `}
                 >
                   {editAppointment ? <X /> : <Edit size={20} />}
                 </Button>
@@ -241,7 +247,11 @@ const SelectedAppointment = () => {
               <div className="w-full">
                 <div className="w-full flex justify-end">
                   <Button
-                    className="bg-white hover:bg-gray-100 cursor-pointer text-gray-600"
+                    className={` ${
+                      darkmode
+                        ? "bg-white hover:bg-gray-100 text-gray-800"
+                        : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+                    }  cursor-pointer `}
                     onClick={() => handleClickCanvas()}
                   >
                     {showCanvas ? <X /> : <Edit />}

@@ -107,7 +107,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
                 }}
                 className={`cursor-pointer px-2 py-1 rounded transition ${
                   fontSize === size
-                    ? "bg-gray-800 text-white"
+                    ? "bg-gray-800 text-white border-b"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
                 aria-label={`Set font size to ${size}`}

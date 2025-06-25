@@ -72,7 +72,11 @@ export default function AddPetForm({
       title="Add Pet"
       action={
         <Button
-          className="bg-white cursor-pointer hover:bg-gray-100 text-gray-800"
+          className={` ${
+            darkmode
+              ? "bg-white hover:bg-gray-100 text-gray-800"
+              : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+          }  cursor-pointer `}
           onClick={() => setAddPet(false)}
         >
           <X />
@@ -149,7 +153,11 @@ export default function AddPetForm({
         <div className="flex justify-end pt-2">
           <Button
             type="submit"
-            className="bg-white hover:bg-green-50 text-green-900 cursor-pointer"
+            className={` ${
+              darkmode
+                ? "bg-white hover:bg-gray-100 text-green-800"
+                : "bg-gray-600 text-green-200 hover:bg-gray-700"
+            }  cursor-pointer `}
           >
             <Check />
           </Button>

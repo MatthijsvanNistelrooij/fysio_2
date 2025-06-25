@@ -1,4 +1,9 @@
-import { editPetAtom, localClientAtom, selectedPetAtom } from "@/lib/store"
+import {
+  darkmodeAtom,
+  editPetAtom,
+  localClientAtom,
+  selectedPetAtom,
+} from "@/lib/store"
 import { useAtom } from "jotai"
 import React from "react"
 import InfoCard from "./InfoCard"
@@ -20,6 +25,7 @@ const PetInfo = () => {
   const [editPet, setEditPet] = useAtom(editPetAtom)
 
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleToggleUpdatePet = () => {
     setEditPet((prev) => !prev)
@@ -101,7 +107,11 @@ const PetInfo = () => {
         action={
           <Button
             type="button"
-            className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800"
+            className={` ${
+              darkmode
+                ? "bg-white hover:bg-gray-100 text-gray-800"
+                : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+            }  cursor-pointer `}
             onClick={() => handleToggleUpdatePet()}
           >
             {editPet ? <X size={18} /> : <Edit size={18} />}

@@ -2,6 +2,7 @@ import React from "react"
 import { useAtom } from "jotai"
 import {
   addAppointmentAtom,
+  darkmodeAtom,
   localClientAtom,
   openAppointmentAtom,
   selectedAppointmentAtom,
@@ -28,6 +29,7 @@ const AddAppointment = () => {
   const [, setSelectedAppointment] = useAtom(selectedAppointmentAtom)
 
   const [, setOpenAppointment] = useAtom(openAppointmentAtom)
+  const [ darkmode] = useAtom(darkmodeAtom)
 
   const handleCreateAppointment = async (
     petId: string,
@@ -95,7 +97,11 @@ const AddAppointment = () => {
         action={
           <Button
             onClick={() => setAddAppointment(false)}
-            className="bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800"
+            className={` ${
+              darkmode
+                ? "bg-white hover:bg-gray-100 text-gray-800"
+                : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+            }  cursor-pointer `}
           >
             <X />
           </Button>

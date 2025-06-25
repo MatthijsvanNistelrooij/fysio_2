@@ -1,6 +1,6 @@
 "use client"
 import { useClients } from "@/hooks/useClients"
-import { clientsAtom } from "@/lib/store"
+import { clientsAtom, darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
 import React, { useEffect, useState } from "react"
 import InfoCard from "@/components/InfoCard"
@@ -16,6 +16,7 @@ const Dashboard = () => {
   useClients()
   const [clients] = useAtom(clientsAtom)
   const [chartKey, setChartKey] = useState(0)
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const [pieData, setPieData] = useState([
     { name: "Clients", value: 0 },
@@ -60,7 +61,11 @@ const Dashboard = () => {
             action={
               <Button
                 onClick={recalculateData}
-                className="bg-white hover:bg-gray-100 cursor-pointer text-gray-800 border"
+                className={` ${
+                  darkmode
+                    ? "bg-white hover:bg-gray-100 text-gray-800"
+                    : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+                }  cursor-pointer `}
               >
                 <RefreshCcw className="w-4 h-4" />
               </Button>

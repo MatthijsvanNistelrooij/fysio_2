@@ -88,7 +88,9 @@ export default function AppointmentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={`space-y-5 ${darkmode ? "bg-white" : "bg-gray-800" } rounded-xl w-full `}  
+      className={`space-y-5 ${
+        darkmode ? "bg-white" : "bg-gray-800"
+      } rounded-xl w-full `}
     >
       <div className="w-full">
         <label htmlFor="date" className="block font-semibold">
@@ -168,14 +170,22 @@ export default function AppointmentForm({
       <div className="flex justify-end gap-2">
         <Button
           type="submit"
-          className="bg-white hover:bg-green-50 text-green-800 cursor-pointer"
+          className={` ${
+            darkmode
+              ? "bg-white hover:bg-green-50 text-green-800"
+              : "bg-gray-600 hover:bg-gray-700 text-green-200"
+          }  cursor-pointer p-5 `}
         >
           <Check />
         </Button>
         <Button
           type="button"
           onClick={() => onDelete(initialData.$id)}
-          className="text-orange-800 bg-white hover:bg-orange-100 cursor-pointer"
+          className={` ${
+            darkmode
+              ? "bg-white hover:bg-orange-50 text-orange-800"
+              : "bg-gray-600 hover:bg-gray-700 text-orange-200"
+          }  cursor-pointer p-5`}
         >
           <Trash size={20} />
         </Button>

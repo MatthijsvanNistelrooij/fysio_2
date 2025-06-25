@@ -1,5 +1,6 @@
 import {
   addPetAtom,
+  darkmodeAtom,
   localClientAtom,
   openAppointmentAtom,
   selectedPetAtom,
@@ -21,6 +22,7 @@ const Pets = ({ client }: { client: Client }) => {
   const [, setAddPet] = useAtom(addPetAtom)
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [, setOpenAppointment] = useAtom(openAppointmentAtom)
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleSelectPet = (pet: Pet) => {
     setAddPet(false)
@@ -91,7 +93,11 @@ const Pets = ({ client }: { client: Client }) => {
             </div>
             <div className="flex text-center">
               <Button
-                className="bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
+                className={` ${
+                  darkmode
+                    ? "bg-white hover:bg-gray-100 text-gray-800"
+                    : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+                }  cursor-pointer `}
                 onClick={() => {
                   handleSelectPet(pet)
                   setOpenAppointment(false)

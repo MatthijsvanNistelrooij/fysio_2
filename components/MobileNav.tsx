@@ -88,7 +88,7 @@ export const MobileNav = () => {
 
             {showSettings && (
               <div
-                className={`absolute top-10 right-20 ${
+                className={`absolute top-10 right-22 ${
                   darkmode ? "bg-white" : "bg-gray-800"
                 } p-5 rounded-xl border`}
               >

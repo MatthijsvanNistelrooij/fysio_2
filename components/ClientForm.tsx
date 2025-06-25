@@ -97,12 +97,20 @@ export default function ClientForm({
       <div className="flex justify-end gap-2 mt-2">
         <Button
           type="submit"
-          className="bg-white hover:bg-green-50 text-green-800 cursor-pointer p-5"
+          className={` ${
+            darkmode
+              ? "bg-white hover:bg-green-50 text-green-800"
+              : "bg-gray-600 hover:bg-gray-700 text-green-200"
+          }  cursor-pointer p-5 `}
         >
           <Check />
         </Button>
         <Button
-          className="bg-white hover:bg-orange-100 text-orange-800 cursor-pointer p-5"
+          className={` ${
+            darkmode
+              ? "bg-white hover:bg-orange-50 text-orange-800"
+              : "bg-gray-600 hover:bg-gray-700 text-orange-200"
+          }  cursor-pointer p-5`}
           onClick={() => handleDelete(formData.$id)}
         >
           <Trash size={18} />

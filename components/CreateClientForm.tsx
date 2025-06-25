@@ -139,7 +139,11 @@ export const CreateClientForm = ({ $id }: Props) => {
               <div className="flex justify-end mt-5">
                 <Button
                   type="submit"
-                  className="cursor-pointer bg-white hover:bg-green-100 text-gray-800"
+                  className={` ${
+                    darkmode
+                      ? "bg-white hover:bg-green-50 text-green-800"
+                      : "bg-gray-600 hover:bg-gray-700 text-green-200"
+                  }  cursor-pointer p-5 `}
                 >
                   <Check />
                 </Button>
