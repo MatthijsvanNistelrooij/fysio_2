@@ -80,7 +80,7 @@ export const MobileNav = () => {
               )
             })}
           </div>
-          <div className="flex flex-row mt-2 gap-5 mr-5">
+          <div className="flex flex-row mt-2 mr-5">
             <Link
               href={""}
               onClick={() => setShowSettings(!showSettings)}
@@ -88,7 +88,7 @@ export const MobileNav = () => {
                   ${
                     darkmode
                       ? "text-gray-400 hover:text-gray-800"
-                      : "text-gray-200"
+                      : "text-gray-500 hover:text-gray-200"
                   }
                 `}
             >
@@ -101,7 +101,7 @@ export const MobileNav = () => {
                   ${
                     darkmode
                       ? "text-gray-400 hover:text-gray-800"
-                      : "text-gray-200"
+                      : "text-gray-500 hover:text-gray-200"
                   }
                 `}
             >
@@ -111,8 +111,8 @@ export const MobileNav = () => {
           {showSettings && (
             <div
               className={`absolute top-18 right-32 ${
-                darkmode ? "bg-white" : "bg-gray-800"
-              } p-5 border`}
+                darkmode ? "bg-white border-gray-200" : "bg-gray-800 border-gray-600"
+              } p-5 border `}
             >
               <div className="flex items-center space-x-2">
                 <div className="flex gap-3 items-end mb-2 mr-10">
@@ -153,8 +153,8 @@ export const MobileNav = () => {
           {signout && (
             <div
               className={`absolute top-18 right-5 ${
-                darkmode ? "bg-white text-gray-800" : "bg-gray-800"
-              } p-5 border`}
+                darkmode ? "bg-white text-gray-800 border-gray-200" : "bg-gray-800 border-gray-600"
+              } p-5 border `}
             >
               Signout?
               <Link
