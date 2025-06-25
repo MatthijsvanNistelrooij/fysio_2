@@ -77,10 +77,10 @@ export default function CreateAppointmentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={`  ${darkmode ? "bg-white" : "bg-gray-800"}`}
+      className={`  ${darkmode ? "bg-white" : "bg-gray-800 text-gray-200"}`}
     >
       <div className="flex justify-between">
-        <div className="w-full">
+        <div className="w-full space-y-5">
           <div className="mb-2">
             <Select
               value={formData.type}
@@ -90,7 +90,7 @@ export default function CreateAppointmentForm({
             >
               <SelectTrigger
                 className={`${
-                  darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                  darkmode ? "bg-[#e9edf3]" : "bg-gray-700 text-gray-200"
                 } border-none shadow-none rounded p-0 mt-1 `}
               >
                 <SelectValue placeholder="Select appointment type" />
@@ -112,7 +112,7 @@ export default function CreateAppointmentForm({
               value={formatDateForInput(formData.date)}
               onChange={handleChange}
               className={`${
-                darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                darkmode ? "bg-[#e9edf3]" : "bg-gray-700 text-gray-200"
               } border-none shadow-none rounded p-0 mt-1 `}
               required
             />
@@ -125,7 +125,7 @@ export default function CreateAppointmentForm({
               value={formData.description}
               onChange={handleChange}
               className={`${
-                darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                darkmode ? "bg-[#e9edf3]" : "bg-gray-700 text-gray-200"
               } border-none shadow-none rounded p-0 mt-1 `}
               required
               rows={3}
