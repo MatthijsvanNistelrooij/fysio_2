@@ -8,12 +8,12 @@ import { Edit, X } from "lucide-react"
 import { deletePet, updatePet } from "@/lib/actions/pet.actions"
 import { Pet } from "@/lib/types"
 import { toast } from "sonner"
-import dog from "../public/dog_avatar.jpg"
-import cat from "../public/cat_avatar.jpg"
-import horse from "../public/horse_avatar.jpg"
-import Image from "next/image"
+// import dog from "../public/dog_avatar.jpg"
+// import cat from "../public/cat_avatar.jpg"
+// import horse from "../public/horse_avatar.jpg"
+// import Image from "next/image"
 
-type PetType = "Dog" | "Horse" | "Cat" | "Other"
+// type PetType = "Dog" | "Horse" | "Cat" | "Other"
 
 const PetInfo = () => {
   const [, setLocalClient] = useAtom(localClientAtom)
@@ -25,18 +25,18 @@ const PetInfo = () => {
     setEditPet((prev) => !prev)
   }
 
-  const getPetImage = (type: PetType) => {
-    switch (type) {
-      case "Dog":
-        return dog
-      case "Horse":
-        return horse
-      case "Cat":
-        return cat
-      default:
-        return horse // fallback or a default silhouette
-    }
-  }
+  // const getPetImage = (type: PetType) => {
+  //   switch (type) {
+  //     case "Dog":
+  //       return dog
+  //     case "Horse":
+  //       return horse
+  //     case "Cat":
+  //       return cat
+  //     default:
+  //       return horse
+  //   }
+  // }
 
   const handleUpdatePet = async (data: Pet) => {
     try {
@@ -144,25 +144,25 @@ const PetInfo = () => {
       <div className="flex flex-row md:flex-col row-span-1 h-full gap-2">
         <InfoCard>
           <div className="">
-            <div className="relative h-40 w-40 rounded-full  overflow-hidden bg-gray-100 shrink-0">
-              <Image
+            <div className=" h-40 w-40 rounded-full  overflow-hidden bg-gray-100 shrink-0">
+              {/* <Image
                 alt="Avatar"
                 src={getPetImage(selectedPet?.type as PetType)}
                 fill
                 className="object-cover"
-              />
+              /> */}
             </div>
           </div>
         </InfoCard>
         <InfoCard>
           <div className="">
-            <div className="relative h-40 w-40 rounded-full  overflow-hidden bg-gray-100 shrink-0">
-              <Image
+            <div className=" h-40 w-40 rounded-full  overflow-hidden bg-gray-100 shrink-0">
+              {/* <Image
                 alt="Avatar"
                 src={getPetImage(selectedPet?.type as PetType)}
                 fill
                 className="object-cover"
-              />
+              /> */}
             </div>
           </div>
         </InfoCard>

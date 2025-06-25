@@ -23,7 +23,7 @@ export const MobileNav = () => {
 
   return (
     <div
-      className={`flex flex-col justify-between ${
+      className={`flex flex-col sticky top-0 z-[999] justify-between ${
         darkmode ? "bg-white" : "bg-gray-800"
       }  w-full text-gray-200 p-1 border-b border-gray-500`}
     >
