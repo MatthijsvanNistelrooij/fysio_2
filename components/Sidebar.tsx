@@ -80,7 +80,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
             )
           })}
         </div>
-        <div className="flex text-end gap-2 m-10 rounded-xl justify-evenly">
+        <div className="flex text-end gap-2 m-1 rounded-xl justify-evenly">
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setDarkmode(!darkmode)}

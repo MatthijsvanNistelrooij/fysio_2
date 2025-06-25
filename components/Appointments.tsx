@@ -1,5 +1,6 @@
 import {
   addAppointmentAtom,
+  darkmodeAtom,
   editAppointmentAtom,
   openAppointmentAtom,
   selectedAppointmentAtom,
@@ -66,40 +67,80 @@ const Appointments = () => {
     })
   }
 
+  const [darkmode] = useAtom(darkmodeAtom)
+
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-        <Button
-          onClick={() => handleToggleAddAppointment()}
-          className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl rounded-xl cursor-pointer w-full ${
-            addAppointment ? "bg-[#e9edf3]" : ""
-          }`}
-        >
-          Add Appointment
-          <Plus />
-          <CalendarRange size={14} className="mr-2" />
-        </Button>
-        {selectedPet?.appointments.map((appointment: Appointment, index) => (
+        {darkmode ? (
           <Button
-            key={appointment.$id || index}
-            onClick={() => handleSelectAppointment(appointment)}
-            className={`bg-white text-center items-center px-4 py-4 shadow-xl border border-gray-200 text-gray-800 rounded-xl cursor-pointer hover:bg-[#e9edf3] flex justify-between ${
-              !addAppointment && selectedAppointment?.$id === appointment.$id
-                ? "bg-[#e9edf3]"
-                : ""
+            onClick={() => handleToggleAddAppointment()}
+            className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl rounded-xl cursor-pointer w-full ${
+              addAppointment ? "bg-[#e9edf3]" : ""
             }`}
           >
-            <span className={`text-sm flex font-semibold gap-1`}>
-              <CalendarRange size={14} className="m-0.5" />
-              {new Date(appointment.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
-            {getAppointmentTypeIcon(appointment.type)}
+            Add Appointment
+            <Plus />
+            <CalendarRange size={14} className="mr-2" />
           </Button>
-        ))}
+        ) : (
+          <Button
+            onClick={() => handleToggleAddAppointment()}
+            className={`bg-gray-600 hover:bg-gray-800 text-gray-200 shadow-xl rounded-xl cursor-pointer w-full ${
+              addAppointment ? "bg-gray-800 text-gray-200" : ""
+            }`}
+          >
+            Add Appointment
+            <Plus />
+            <CalendarRange size={14} className="mr-2" />
+          </Button>
+        )}
+
+        {selectedPet?.appointments.map((appointment: Appointment, index) =>
+          !darkmode ? (
+            <Button
+              key={appointment.$id || index}
+              onClick={() => handleSelectAppointment(appointment)}
+              className={`bg-gray-600 hover:bg-gray-800 text-gray-200 shadow-xl border border-gray-700 rounded-xl cursor-pointer px-4 py-4 flex justify-between w-full
+        ${
+          !addAppointment && selectedAppointment?.$id === appointment.$id
+            ? "bg-gray-800"
+            : ""
+        }`}
+            >
+              <span className="text-sm flex font-semibold gap-1">
+                <CalendarRange size={14} className="m-0.5" />
+                {new Date(appointment.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+              {getAppointmentTypeIcon(appointment.type)}
+            </Button>
+          ) : (
+            <Button
+              key={appointment.$id || index}
+              onClick={() => handleSelectAppointment(appointment)}
+              className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl border border-gray-200 rounded-xl cursor-pointer px-4 py-4 flex justify-between w-full
+        ${
+          !addAppointment && selectedAppointment?.$id === appointment.$id
+            ? "bg-[#e9edf3]"
+            : ""
+        }`}
+            >
+              <span className="text-sm flex font-semibold gap-1">
+                <CalendarRange size={14} className="m-0.5" />
+                {new Date(appointment.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+              {getAppointmentTypeIcon(appointment.type)}
+            </Button>
+          )
+        )}
       </div>
     </>
   )
