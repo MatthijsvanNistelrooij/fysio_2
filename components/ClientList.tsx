@@ -138,12 +138,12 @@ const ClientList = () => {
                     <div
                       key={pet.$id}
                       onClick={() => handleClickPet(client.$id, pet)}
-                      className={`flex items-center gap-2 px-3 py-1 text-sm cursor-pointer text-gray-700 hover:bg-[#e9edf3] transition ${getPetColorClass(
+                      className={`flex flex-col sm:flex-row text-end justify-end gap-2 px-3 py- text-sm cursor-pointer text-gray-700 hover:bg-[#e9edf3] transition ${getPetColorClass(
                         pet.type
                       )}`}
                     >
                       <span>{pet.name}</span>
-                      <div className="flex gap-1">
+                      <div className="flex text-end justify-end gap-1">
                         {pet.appointments?.map((_, i) => (
                           <CalendarRange key={i} size={14} />
                         ))}
