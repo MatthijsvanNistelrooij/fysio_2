@@ -28,6 +28,12 @@ export const Sidebar = ({ fullName, email }: Props) => {
     signOutUser()
   }
 
+  const fontSizes = [
+    { size: "10px", label: "A", fontWeight: "lighter" },
+    { size: "12px", label: "A", fontWeight: "normal" },
+    { size: "14px", label: "A", fontWeight: "bold" },
+  ]
+
   return (
     <div
       className={`h-screen w-72 border-r border-gray-400 ${
@@ -89,28 +95,25 @@ export const Sidebar = ({ fullName, email }: Props) => {
               />
             </button>
           </div>
-          <div className="flex gap-5">
-            <button
-              onClick={() => setFontSize("10px")}
-              style={{ fontSize: "10px", fontWeight: "lighter" }}
-              className="cursor-pointer mt-2"
-            >
-              A
-            </button>
-            <button
-              onClick={() => setFontSize("12px")}
-              style={{ fontSize: "12px" }}
-              className="cursor-pointer mt-1"
-            >
-              A
-            </button>
-            <button
-              onClick={() => setFontSize("14px")}
-              style={{ fontSize: "14px", fontWeight: "bold" }}
-              className="cursor-pointer mt-1"
-            >
-              A
-            </button>
+          <div className="flex gap-3 items-end mb-3">
+            {fontSizes.map(({ size, label, fontWeight }) => (
+              <button
+                key={size}
+                onClick={() => setFontSize(size)}
+                style={{
+                  fontSize: size,
+                  fontWeight: fontWeight,
+                }}
+                className={`cursor-pointer px-2 py-1 rounded transition ${
+                  fontSize === size
+                    ? "bg-gray-800 text-white"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }`}
+                aria-label={`Set font size to ${size}`}
+              >
+                {label}
+              </button>
+            ))}
           </div>
         </div>
         <div className="p-5 border-t border-gray-400">

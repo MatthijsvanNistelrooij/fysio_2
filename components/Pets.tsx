@@ -72,10 +72,15 @@ const Pets = ({ client }: { client: Client }) => {
               <div className="flex flex-col">
                 <p className=" font-semibold">{pet.name}</p>
                 <div className="font-semibold">
-                  <div className="flex items-center gap-1 font-semibold mt-2">
-                    {pet.appointments?.map((_, i) => (
+                  <div className="flex flex-wrap gap-1 items-center">
+                    {pet.appointments?.slice(0, 4).map((_, i) => (
                       <CalendarRange key={i} size={14} />
                     ))}
+                    {pet.appointments && pet.appointments.length > 4 && (
+                      <span className="text-xs text-gray-600">
+                        (+{pet.appointments.length - 4} more)
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
