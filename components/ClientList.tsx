@@ -138,15 +138,20 @@ const ClientList = () => {
                     <div
                       key={pet.$id}
                       onClick={() => handleClickPet(client.$id, pet)}
-                      className={`flex gap-2 h-auto py-1 px-3 text-sm cursor-pointer text-gray-700 hover:bg-[#e9edf3] transition ${getPetColorClass(
+                      className={`flex flex-row gap-2 h-auto py-1 px-3 text-sm cursor-pointer text-gray-700 hover:bg-[#e9edf3] transition ${getPetColorClass(
                         pet.type
                       )}`}
                     >
                       <span>{pet.name}</span>
-                      <div className="flex gap-1">
-                        {pet.appointments?.map((_, i) => (
+                      <div className="flex flex-wrap gap-1 items-center">
+                        {pet.appointments?.slice(0, 4).map((_, i) => (
                           <CalendarRange key={i} size={14} />
                         ))}
+                        {pet.appointments && pet.appointments.length > 4 && (
+                          <span className="text-xs text-gray-600">
+                            (+{pet.appointments.length - 4} more)
+                          </span>
+                        )}
                       </div>
                     </div>
                   ))
