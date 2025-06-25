@@ -23,7 +23,7 @@ interface Props {
 export const Sidebar = ({ fullName, email }: Props) => {
   const pathname = usePathname()
   const [fontSize, setFontSize] = React.useState("12px")
-  const [darkmode, setDarkmod] = useAtom(darkmodeAtom)
+  const [darkmode, setDarkmode] = useAtom(darkmodeAtom)
 
   React.useEffect(() => {
     document.documentElement.style.setProperty("--global-font-size", fontSize)
@@ -53,14 +53,16 @@ export const Sidebar = ({ fullName, email }: Props) => {
                 key={item.name}
                 href={item.url}
                 className={`flex items-center gap-2 p-2 font-semibold transition
-                          ${
-                            !darkmode
-                              ? "text-gray-400 hover:text-gray-200"
-                              : "text-gray-800 hover:text-gray-900"
-                          }
-                          ${isActive && !darkmode ? "text-white" : ""}
-                          ${isActive && darkmode ? "text-black" : ""}
-                        `}
+                  ${
+                    darkmode
+                      ? isActive
+                        ? "text-gray-800"
+                        : "text-gray-200 hover:text-gray-800"
+                      : isActive
+                      ? "text-gray-200"
+                      : "text-gray-600 hover:text-gray-200"
+                  }
+                `}
               >
                 {item.icon === "client" ? (
                   <Contact size={20} />
@@ -78,7 +80,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
         <div className="flex text-end gap-2 m-10 rounded-xl justify-evenly">
           <div className="flex items-center space-x-2">
             <button
-              onClick={() => setDarkmod(!darkmode)}
+              onClick={() => setDarkmode(!darkmode)}
               className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-300 cursor-pointer ${
                 !darkmode ? "bg-gray-700" : "bg-gray-300"
               }`}

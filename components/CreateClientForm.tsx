@@ -7,6 +7,8 @@ import { createClient } from "@/lib/actions/client.actions"
 import { toast } from "sonner"
 import { Check, Contact, HomeIcon, Mail, Phone } from "lucide-react"
 import InfoCard from "./InfoCard"
+import { darkmodeAtom } from "@/lib/store"
+import { useAtom } from "jotai"
 
 interface Props {
   fullName?: string
@@ -69,66 +71,84 @@ export const CreateClientForm = ({ $id }: Props) => {
     }
   }
 
+  const [darkmode] = useAtom(darkmodeAtom)
+
   return (
-    <InfoCard>
-      <form onSubmit={handleSubmit} className="space-y-2 ">
-        <div className="">
-          <div className="flex flex-col md:flex-row gap-2 justify-between">
-            <div className="w-full flex border ">
-              <Contact size={18} className="text-gray-400 m-2" />
-              <Input
-                name="name"
-                placeholder={errors.name ? errors.name : "Name"}
-                value={formData.name}
-                onChange={handleChange}
-                className="border-none shadow-none rounded-none"
-              />
-            </div>
+    <div
+      className={`min-h-screen flex justify-center ${
+        darkmode ? "bg-[#e9edf3]" : "bg-gray-800"
+      }  `}
+    >
+      <div className="main-container w-full rounded-3xl m-5">
+        <InfoCard>
+          <form onSubmit={handleSubmit} className="space-y-2 ">
+            <div className="">
+              <div className="flex flex-col md:flex-row gap-2 justify-between">
+                <div className="w-full flex">
+                  <Contact size={18} className="text-gray-400 m-2" />
+                  <Input
+                    name="name"
+                    placeholder={errors.name ? errors.name : "Name"}
+                    value={formData.name}
+                    onChange={handleChange}
+                    className={`${
+                      darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                    } border-none shadow-none rounded p-0 mt-1 `}
+                  />
+                </div>
 
-            <div className="w-full flex border">
-              <HomeIcon size={18} className="text-gray-400 m-2" />
-              <Input
-                name="address"
-                placeholder={errors.address ? errors.address : "Address"}
-                value={formData.address}
-                onChange={handleChange}
-                className="border-none shadow-none rounded-none"
-              />
-            </div>
+                <div className="w-full flex ">
+                  <HomeIcon size={18} className="text-gray-400 m-2" />
+                  <Input
+                    name="address"
+                    placeholder={errors.address ? errors.address : "Address"}
+                    value={formData.address}
+                    onChange={handleChange}
+                    className={`${
+                      darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                    } border-none shadow-none rounded p-0 mt-1 `}
+                  />
+                </div>
 
-            <div className="w-full flex border">
-              <Mail size={18} className="text-gray-400 m-2" />
-              <Input
-                name="email"
-                placeholder={errors.email ? errors.email : "Email"}
-                value={formData.email}
-                onChange={handleChange}
-                className="border-none shadow-none rounded-none"
-              />
-            </div>
+                <div className="w-full flex ">
+                  <Mail size={18} className="text-gray-400 m-2" />
+                  <Input
+                    name="email"
+                    placeholder={errors.email ? errors.email : "Email"}
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`${
+                      darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                    } border-none shadow-none rounded p-0 mt-1 `}
+                  />
+                </div>
 
-            <div className="w-full flex border">
-              <Phone size={18} className="text-gray-400 m-2" />
-              <Input
-                name="phone"
-                placeholder={errors.phone ? errors.phone : "Phone"}
-                value={formData.phone}
-                onChange={handleChange}
-                className="border-none shadow-none rounded-none"
-              />
+                <div className="w-full flex ">
+                  <Phone size={18} className="text-gray-400 m-2" />
+                  <Input
+                    name="phone"
+                    placeholder={errors.phone ? errors.phone : "Phone"}
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={`${
+                      darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                    } border-none shadow-none rounded p-0 mt-1 `}
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <Button
+                    type="submit"
+                    className="cursor-pointer bg-white hover:bg-green-100 text-gray-800"
+                  >
+                    <Check />
+                  </Button>
+                </div>
+              </div>
             </div>
-            <div className="flex justify-end">
-              <Button
-                type="submit"
-                className="cursor-pointer bg-white hover:bg-green-100 text-gray-800"
-              >
-                <Check />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </InfoCard>
+          </form>
+        </InfoCard>
+      </div>
+    </div>
   )
 }
 

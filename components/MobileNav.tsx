@@ -10,6 +10,8 @@ import {
   LayoutDashboard,
   LogOutIcon,
 } from "lucide-react"
+import { darkmodeAtom } from "@/lib/store"
+import { useAtom } from "jotai"
 
 export const MobileNav = () => {
   const pathname = usePathname()
@@ -17,14 +19,13 @@ export const MobileNav = () => {
     signOutUser()
   }
 
+  const [darkmode, setDarkmode] = useAtom(darkmodeAtom)
+
   return (
     <div
-      style={
-        {
-          // boxShadow: "0 4px 10px rgba(2, 25, 156, 0.25)",
-        }
-      }
-      className="flex flex-col justify-between bg-white w-full text-black p-1 border-b"
+      className={`flex flex-col justify-between ${
+        darkmode ? "bg-white" : "bg-gray-800"
+      }  w-full text-gray-200 p-1 border-b`}
     >
       <div className="flex flex-row gap-2">
         <nav className="flex flex-row justify-between w-full">
@@ -39,9 +40,15 @@ export const MobileNav = () => {
                 <Link
                   key={item.name}
                   href={item.url}
-                  className={`p-2 rounded-xl hover:text-gray-800 font-bold transition w-10 ml-2 ${
-                    isActive ? "" : "text-gray-400"
-                  }`}
+                  className={`flex items-center gap-2 p-2 w-10 ml-2 font-semibold transition
+                  ${
+                    !darkmode
+                      ? "text-gray-200 hover:text-gray-200"
+                      : "text-gray-400 hover:text-gray-900"
+                  }
+                  ${isActive && !darkmode ? "text-white" : ""}
+                  ${isActive && darkmode ? "text-gray-800" : "text-gray-600"}
+                `}
                 >
                   {item.icon === "client" ? (
                     <Contact size={20} />
@@ -54,10 +61,24 @@ export const MobileNav = () => {
               )
             })}
           </div>
-          <div>
+          <div className="flex">
+            <div className="flex items-center space-x-2 mr-10">
+              <button
+                onClick={() => setDarkmode(!darkmode)}
+                className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-300 cursor-pointer ${
+                  !darkmode ? "bg-gray-700" : "bg-gray-300"
+                }`}
+              >
+                <div
+                  className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
+                    !darkmode ? "translate-x-6" : "translate-x-0"
+                  }`}
+                />
+              </button>
+            </div>
             <Link
               href={"/"}
-              className="rounded-xl hover:text-gray-800 text-gray-400 hover:shadow font-bold transition"
+              className="rounded-xl hover:text-gray-200 text-gray-600 hover:shadow font-bold transition"
               onClick={handleSignOut}
             >
               <LogOutIcon size={20} className="transform rotate-180 m-4" />
