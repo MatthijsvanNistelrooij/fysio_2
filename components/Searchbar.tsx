@@ -23,7 +23,7 @@ const Searchbar = () => {
       />
       <button
         onClick={handleToggleEdit}
-        className="ml-4 text-gray-600 hover:text-gray-800 transition cursor-pointer"
+        className={`ml-4 ${darkmode ? "text-gray-600 hover:text-gray-400" : "text-gray-200 hover:text-gray-800"}  transition cursor-pointer`} 
       >
         {edit ? <List size={20} /> : <Edit2 size={18} />}
       </button>

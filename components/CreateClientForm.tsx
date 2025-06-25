@@ -76,7 +76,7 @@ export const CreateClientForm = ({ $id }: Props) => {
   return (
     <div
       className={`min-h-screen flex justify-center ${
-        darkmode ? "bg-[#e9edf3]" : "bg-gray-800"
+        darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
       }  `}
     >
       <div className="main-container w-full rounded-3xl p-5">
