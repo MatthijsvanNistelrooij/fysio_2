@@ -12,7 +12,7 @@ const CustomContainer = ({ children }: Props) => {
   return (
     <div
       className={`flex min-h-screen ${
-        darkmode ? "bg-[#e9edf3]" : "bg-gray-800"
+        darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
       } `}
     >
       <div className="w-full p-5 md:p-5">{children}</div>
