@@ -50,7 +50,10 @@ export default function ClientForm({
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col justify-between w-full">
         <div className="w-full flex rounded">
-          <Contact size={20} className="text-gray-600 m-2" />
+          <Contact
+            size={20}
+            className={`${darkmode ? "text-gray-700" : "text-gray-200"}  m-2`}
+          />
           <Input
             name="name"
             value={formData.name}
@@ -61,7 +64,10 @@ export default function ClientForm({
           />
         </div>
         <div className="w-full flex rounded">
-          <HomeIcon size={20} className="text-gray-600 m-2" />
+          <HomeIcon
+            size={20}
+            className={`${darkmode ? "text-gray-700" : "text-gray-200"}  m-2`}
+          />
           <Input
             name="address"
             value={formData.address}
@@ -72,7 +78,10 @@ export default function ClientForm({
           />
         </div>
         <div className="w-full flex">
-          <Phone size={20} className="text-gray-600 m-2" />
+          <Phone
+            size={20}
+            className={`${darkmode ? "text-gray-700" : "text-gray-200"}  m-2`}
+          />
           <Input
             name="phone"
             value={formData.phone}
@@ -83,7 +92,10 @@ export default function ClientForm({
           />
         </div>
         <div className="w-full flex">
-          <Mail size={20} className="text-gray-600 m-2" />
+          <Mail
+            size={20}
+            className={`${darkmode ? "text-gray-700" : "text-gray-200"}  m-2`}
+          />
           <Input
             name="email"
             value={formData.email}
