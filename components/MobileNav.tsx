@@ -44,7 +44,7 @@ export const MobileNav = () => {
     >
       <div className="flex flex-row gap-2">
         <nav className="flex flex-row justify-between w-full">
-          <div className="mt-2 flex flex-row border">
+          <div className="mt-2 flex flex-row">
             {navItems.map((item) => {
               const isActive =
                 (item.url === "/clients" &&
