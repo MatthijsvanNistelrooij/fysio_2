@@ -71,21 +71,27 @@ export const MobileNav = () => {
                 <button
                   onClick={() => setFontSize("10px")}
                   style={{ fontSize: "10px", fontWeight: "lighter" }}
-                  className="cursor-pointer mt-2"
+                  className={`cursor-pointer mt-2 ${
+                    darkmode ? "text-gray-800" : "text-gray-200"
+                  }`}
                 >
                   A
                 </button>
                 <button
                   onClick={() => setFontSize("12px")}
                   style={{ fontSize: "12px" }}
-                  className="cursor-pointer mt-1"
+                  className={`cursor-pointer mt-2 ${
+                    darkmode ? "text-gray-800" : "text-gray-200"
+                  }`}
                 >
                   A
                 </button>
                 <button
                   onClick={() => setFontSize("14px")}
                   style={{ fontSize: "14px", fontWeight: "bold" }}
-                  className="cursor-pointer mt-1"
+                  className={`cursor-pointer mt-2 ${
+                    darkmode ? "text-gray-800" : "text-gray-200"
+                  }`}
                 >
                   A
                 </button>
