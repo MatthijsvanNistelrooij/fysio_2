@@ -1,6 +1,5 @@
 import {
   addPetAtom,
-  darkmodeAtom,
   localClientAtom,
   openAppointmentAtom,
   selectedPetAtom,
@@ -22,7 +21,6 @@ const Pets = ({ client }: { client: Client }) => {
   const [, setAddPet] = useAtom(addPetAtom)
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [, setOpenAppointment] = useAtom(openAppointmentAtom)
-  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleSelectPet = (pet: Pet) => {
     setAddPet(false)
@@ -67,7 +65,7 @@ const Pets = ({ client }: { client: Client }) => {
         <InfoCard
           key={pet.$id || index}
         >
-              <div className={`flex justify-center gap-2 ${darkmode ? "text-white" : "text-gray-800"}`}>
+              <div className={`flex justify-center gap-2 text-gray-800`}>
             <div
               className={`flex w-full justify-between space-y-1 rounded-md relative p-2 ${getPetColorClass(
                 pet.type
