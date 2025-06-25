@@ -131,8 +131,8 @@ const ClientList = () => {
               </div>
             </div>
 
-            <div className="flex flex-row w-full">
-              <div className="flex justify-end gap-2 w-full">
+            <div className="flex flex-col md:flex-row gap-2 w-full">
+              <div className="flex flex-col md:flex-row justify-end gap-2 w-full">
                 {client.pets.length ? (
                   client.pets.map((pet) => (
                     <div
