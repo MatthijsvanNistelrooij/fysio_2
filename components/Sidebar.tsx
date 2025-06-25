@@ -95,6 +95,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
               />
             </button>
           </div>
+
           <div className="flex gap-3 items-end mb-3">
             {fontSizes.map(({ size, label, fontWeight }) => (
               <button
