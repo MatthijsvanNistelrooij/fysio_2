@@ -73,7 +73,7 @@ export const MobileNav = () => {
           </div>
           <div className="flex">
             <div className="flex items-center space-x-2 mr-5">
-              <div className="flex gap-2 mr-5">
+              <div className="flex gap-3 items-end mb-2 mr-5">
                 {fontSizes.map(({ size, label, fontWeight }) => (
                   <button
                     key={size}
