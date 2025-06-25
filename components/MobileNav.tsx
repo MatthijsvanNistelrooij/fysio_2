@@ -8,7 +8,6 @@ import {
   CalendarRange,
   Contact,
   Edit,
-  LayoutDashboard,
   LogOutIcon,
 } from "lucide-react"
 import { darkmodeAtom } from "@/lib/store"
@@ -26,7 +25,7 @@ export const MobileNav = () => {
     <div
       className={`flex flex-col justify-between ${
         darkmode ? "bg-white" : "bg-gray-800"
-      }  w-full text-gray-200 p-1 border-b`}
+      }  w-full text-gray-200 p-1 border-b border-gray-500`}
     >
       <div className="flex flex-row gap-2">
         <nav className="flex flex-row justify-between w-full">
