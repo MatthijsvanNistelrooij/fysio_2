@@ -19,6 +19,12 @@ export const MobileNav = () => {
     signOutUser()
   }
 
+  const fontSizes = [
+    { size: "10px", label: "A", fontWeight: "lighter" },
+    { size: "12px", label: "A", fontWeight: "normal" },
+    { size: "14px", label: "A", fontWeight: "bold" },
+  ]
+
   const [darkmode, setDarkmode] = useAtom(darkmodeAtom)
 
   return (
@@ -68,33 +74,24 @@ export const MobileNav = () => {
           <div className="flex">
             <div className="flex items-center space-x-2 mr-5">
               <div className="flex gap-5 mr-10">
-                <button
-                  onClick={() => setFontSize("10px")}
-                  style={{ fontSize: "10px", fontWeight: "lighter" }}
-                  className={`cursor-pointer mt-2 ${
-                    darkmode ? "text-gray-800" : "text-gray-200"
-                  }`}
-                >
-                  A
-                </button>
-                <button
-                  onClick={() => setFontSize("12px")}
-                  style={{ fontSize: "12px" }}
-                  className={`cursor-pointer mt-2 ${
-                    darkmode ? "text-gray-800" : "text-gray-200"
-                  }`}
-                >
-                  A
-                </button>
-                <button
-                  onClick={() => setFontSize("14px")}
-                  style={{ fontSize: "14px", fontWeight: "bold" }}
-                  className={`cursor-pointer mt-2 ${
-                    darkmode ? "text-gray-800" : "text-gray-200"
-                  }`}
-                >
-                  A
-                </button>
+                {fontSizes.map(({ size, label, fontWeight }) => (
+                  <button
+                    key={size}
+                    onClick={() => setFontSize(size)}
+                    style={{
+                      fontSize: size,
+                      fontWeight: fontWeight,
+                    }}
+                    className={`cursor-pointer px-2 py-1 rounded transition ${
+                      fontSize === size
+                        ? "bg-gray-800 text-white"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    }`}
+                    aria-label={`Set font size to ${size}`}
+                  >
+                    {label}
+                  </button>
+                ))}
               </div>
               <button
                 onClick={() => setDarkmode(!darkmode)}
