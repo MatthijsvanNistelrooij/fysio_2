@@ -6,6 +6,7 @@ import { Appointment, User } from "@/lib/types"
 import { getCurrentUser } from "@/lib/actions/user.actions"
 import { getAppointmentsByUserId } from "@/lib/actions/appointment.actions"
 import InfoCard from "@/components/InfoCard"
+import CustomContainer from "@/components/CustomContainer"
 
 const Appointments = () => {
   const [events, setEvents] = useState<Event[]>([])
@@ -61,11 +62,11 @@ const Appointments = () => {
   console.log("appointments  here", appointments)
 
   return (
-    <div className="h-screen flex justify-center bg-gray-50 p-5">
+    <CustomContainer>
       <InfoCard>
         <MyCalendar events={events} setEvents={setEvents} />
       </InfoCard>
-    </div>
+    </CustomContainer>
   )
 }
 

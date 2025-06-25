@@ -163,7 +163,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
     setOpen(true)
   }
   return (
-    <div className="p-5">
+    <div className="text-white">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="bg-white">
           <DialogHeader>

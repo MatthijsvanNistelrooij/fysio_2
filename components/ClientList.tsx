@@ -1,6 +1,7 @@
 "use client"
 import {
   clientsAtom,
+  darkmodeAtom,
   openAppointmentAtom,
   searchAtom,
   usePetStore,
@@ -28,6 +29,7 @@ const ClientList = () => {
   const setSelectedGlobalPet = usePetStore(
     (state) => state.setSelectedGlobalPet
   )
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const router = useRouter()
 
@@ -67,16 +69,22 @@ const ClientList = () => {
   })
 
   return (
-    <div className="flex flex-col gap-3">
+    <div
+      className={`${
+        darkmode ? "text-gray-700" : "text-gray-200"
+      } flex flex-col gap-3 `}
+    >
       {filteredClients?.map((client) => (
         <InfoCard key={client.$id}>
-          <div className="flex flex-col w-full lg:flex-row justify-between gap-4 text-sm text-gray-700">
+          <div className="flex flex-col w-full lg:flex-row justify-between gap-4 text-sm">
             <div
               onClick={() => {
                 navigator.clipboard.writeText(client.name)
                 toast.success("Name copied to clipboard!")
               }}
-              className="flex items-center gap-2 hover:bg-[#e9edf3] rounded-md px-2 py-1 cursor-pointer transition w-full"
+              className={`flex items-center gap-2 ${
+                darkmode ? "hover:bg-[#e9edf3]" : "hover:bg-gray-700"
+              } rounded-md px-2 py-1 cursor-pointer transition w-full`}
             >
               <Contact size={16} className="text-gray-300" />
               <span>{client.name}</span>
@@ -87,7 +95,9 @@ const ClientList = () => {
                 navigator.clipboard.writeText(client.address)
                 toast.success("Address copied to clipboard!")
               }}
-              className="flex items-center gap-2 hover:bg-[#e9edf3] rounded-md px-2 py-1 cursor-pointer transition w-full"
+              className={`flex items-center gap-2 ${
+                darkmode ? "hover:bg-[#e9edf3]" : "hover:bg-gray-700"
+              } rounded-md px-2 py-1 cursor-pointer transition w-full`}
             >
               <HomeIcon size={16} className="text-gray-300" />
               <span>{client.address}</span>
@@ -98,7 +108,9 @@ const ClientList = () => {
                 navigator.clipboard.writeText(client.phone)
                 toast.success("Phone number copied to clipboard!")
               }}
-              className="flex items-center gap-2 hover:bg-[#e9edf3] rounded-md px-2 py-1 cursor-pointer transition w-full"
+              className={`flex items-center gap-2 ${
+                darkmode ? "hover:bg-[#e9edf3]" : "hover:bg-gray-700"
+              } rounded-md px-2 py-1 cursor-pointer transition w-full`}
             >
               <Phone size={14} className="text-gray-300" />
               <span>{client.phone}</span>
@@ -109,7 +121,9 @@ const ClientList = () => {
                 navigator.clipboard.writeText(client.email)
                 toast.success("Email copied to clipboard!")
               }}
-              className="flex items-center gap-2 hover:bg-[#e9edf3] rounded-md px-2 py-1 cursor-pointer transition w-full"
+              className={`flex items-center gap-2 ${
+                darkmode ? "hover:bg-[#e9edf3]" : "hover:bg-gray-700"
+              } rounded-md px-2 py-1 cursor-pointer transition w-full`}
             >
               <Mail size={16} className="text-gray-300" />
               <span>{client.email}</span>

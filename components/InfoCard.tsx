@@ -1,23 +1,22 @@
 import React from "react"
 import { Card } from "./ui/card"
 import { useAtom } from "jotai"
-import { selectedPetAtom } from "@/lib/store"
+import { darkmodeAtom } from "@/lib/store"
 
 interface InfoCardProps {
   title?: React.ReactNode
   action?: React.ReactNode
   children?: React.ReactNode
-  active?: boolean
 }
 
-const InfoCard = ({ title, action, children, active }: InfoCardProps) => {
-  const [selectedPet] = useAtom(selectedPetAtom)
+const InfoCard = ({ title, action, children }: InfoCardProps) => {
+  const [darkmode] = useAtom(darkmodeAtom)
 
   return (
     <Card
-      className={`w-full p-5 bg-white rounded-xl ${
-        selectedPet ? "" : ""
-      } shadow-xl ${active ? "bg-[#e9edf3]" : ""}`}
+      className={`w-full p-5 ${
+        darkmode ? "bg-white" : "bg-gray-800 border border-gray-700"
+      } rounded-xl shadow-xl ${darkmode ? "text-gray-800" : "text-amber-50"}`}
     >
       {(title || action) && (
         <div className="flex justify-between items-center mb-3">

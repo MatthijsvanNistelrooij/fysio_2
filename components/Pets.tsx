@@ -1,5 +1,6 @@
 import {
   addPetAtom,
+  darkmodeAtom,
   localClientAtom,
   openAppointmentAtom,
   selectedPetAtom,
@@ -9,7 +10,7 @@ import { useAtom } from "jotai"
 import React, { useEffect } from "react"
 import InfoCard from "./InfoCard"
 import { Button } from "./ui/button"
-import { MoreVertical, Shrink } from "lucide-react"
+import { CalendarRange, MoreVertical, Shrink } from "lucide-react"
 import Image from "next/image"
 import dog from "../public/dog_avatar.jpg"
 import cat from "../public/cat_avatar.jpg"
@@ -21,6 +22,7 @@ const Pets = ({ client }: { client: Client }) => {
   const [, setAddPet] = useAtom(addPetAtom)
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [, setOpenAppointment] = useAtom(openAppointmentAtom)
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleSelectPet = (pet: Pet) => {
     setAddPet(false)
@@ -62,10 +64,10 @@ const Pets = ({ client }: { client: Client }) => {
   return (
     <div className="grid grid-cols-1 gap-3">
       {localClient?.pets.map((pet: Pet, index: number) => (
-          <InfoCard
-            //   active={selectedPet?.$id === pet.$id}
-              key={pet.$id || index}>
-          <div className="flex justify-center gap-2">
+        <InfoCard
+          key={pet.$id || index}
+        >
+              <div className={`flex justify-center gap-2 ${darkmode ? "text-white" : "text-gray-800"}`}>
             <div
               className={`flex w-full justify-between space-y-1 rounded-md relative p-2 ${getPetColorClass(
                 pet.type
@@ -74,8 +76,10 @@ const Pets = ({ client }: { client: Client }) => {
               <div className="flex flex-col">
                 <p className=" font-semibold">{pet.name}</p>
                 <div className="font-semibold">
-                  <div className="flex items-center gap-1 font-semibold">
-                    Appointments: {pet?.appointments?.length}
+                  <div className="flex items-center gap-1 font-semibold mt-2">
+                    {pet.appointments?.map((_, i) => (
+                      <CalendarRange key={i} size={14} />
+                    ))}
                   </div>
                 </div>
               </div>

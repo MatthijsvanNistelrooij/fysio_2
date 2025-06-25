@@ -1,3 +1,5 @@
+import { darkmodeAtom } from "@/lib/store"
+import { useAtom } from "jotai"
 import React from "react"
 
 interface Props {
@@ -5,8 +7,14 @@ interface Props {
 }
 
 const CustomContainer = ({ children }: Props) => {
+  const [darkmode] = useAtom(darkmodeAtom)
+
   return (
-    <div className="flex justify-center [bg-[#e9edf3]">
+    <div
+      className={`flex min-h-screen ${
+        darkmode ? "bg-[#e9edf3]" : "bg-gray-800"
+      } `}
+    >
       <div className="w-full p-5 md:p-5">{children}</div>
     </div>
   )

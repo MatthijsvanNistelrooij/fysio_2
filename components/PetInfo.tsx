@@ -121,7 +121,8 @@ const PetInfo = () => {
               <div className="space-y-2 w-full">
                 <p className="text-sm font-medium">Name</p>
                 <p className="text-base">{selectedPet?.name || "N/A"}</p>
-
+                <p className="text-sm font-medium">Age</p>
+                <p className="text-base">{selectedPet?.age || "N/A"}</p>
                 <p className="text-sm font-medium">Type</p>
                 <p className="text-base">{selectedPet?.type || "N/A"}</p>
 
@@ -130,8 +131,6 @@ const PetInfo = () => {
               </div>
 
               <div className="space-y-2 w-full">
-                <p className="text-sm font-medium">Age</p>
-                <p className="text-base">{selectedPet?.age || "N/A"}</p>
                 <p className="text-sm font-medium">Description</p>
                 <p className="text-base">{selectedPet?.description || "N/A"}</p>
 

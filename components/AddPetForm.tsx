@@ -15,7 +15,7 @@ import { Pet } from "@/lib/types"
 import { Input } from "./ui/input"
 import InfoCard from "./InfoCard"
 import { useAtom } from "jotai"
-import { addPetAtom } from "@/lib/store"
+import { addPetAtom, darkmodeAtom } from "@/lib/store"
 
 interface AddPetFormProps {
   initialData?: Pet
@@ -65,6 +65,7 @@ export default function AddPetForm({
   }
 
   const [, setAddPet] = useAtom(addPetAtom)
+  const [darkmode] = useAtom(darkmodeAtom)
 
   return (
     <InfoCard
@@ -91,7 +92,9 @@ export default function AddPetForm({
             placeholder="name"
             value={formData.name}
             onChange={handleChange}
-            className="border p-1 w-full rounded"
+            className={`${
+              darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+            } border-none shadow-none rounded p-0 mt-1 `}
             required
           />
         </div>
@@ -107,7 +110,11 @@ export default function AddPetForm({
               setFormData({ ...formData, type: value })
             }
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger
+              className={`${
+                darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+              } border-none shadow-none rounded p-0 mt-1 w-full`}
+            >
               <SelectValue placeholder="Select pet type" />
             </SelectTrigger>
             <SelectContent>
@@ -132,7 +139,9 @@ export default function AddPetForm({
             placeholder="age"
             value={formData.age}
             onChange={handleChange}
-            className="border p-1 w-full rounded"
+            className={`${
+              darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+            } border-none shadow-none rounded p-0 mt-1 `}
           />
         </div>
 

@@ -186,7 +186,7 @@ const SelectedAppointment = () => {
                 </Button>
               }
             >
-              <div className="flex flex-col lg:flex-row bg-white pb-2 gap-6 p-1">
+              <div className="flex flex-col lg:flex-row pb-2 gap-6 p-1">
                 <div className="flex flex-col w-full">
                   <div>
                     {editAppointment ? (

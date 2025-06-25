@@ -4,8 +4,15 @@ import { Button } from "./ui/button"
 import { signOutUser } from "@/lib/actions/user.actions"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { CalendarRange, Contact, LayoutDashboard, LogOutIcon } from "lucide-react"
+import {
+  CalendarRange,
+  Contact,
+  LayoutDashboard,
+  LogOutIcon,
+} from "lucide-react"
 import { navItems } from "../constants"
+import { useAtom } from "jotai"
+import { darkmodeAtom } from "@/lib/store"
 
 interface Props {
   fullName: string
@@ -15,13 +22,23 @@ interface Props {
 
 export const Sidebar = ({ fullName, email }: Props) => {
   const pathname = usePathname()
+  const [fontSize, setFontSize] = React.useState("12px")
+  const [darkmode, setDarkmod] = useAtom(darkmodeAtom)
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty("--global-font-size", fontSize)
+  }, [fontSize])
 
   const handleSignOut = () => {
     signOutUser()
   }
 
   return (
-    <div className="h-screen w-72 bg-white">
+    <div
+      className={`h-screen w-72 border-r  ${
+        darkmode ? "bg-white text-gray-800" : "bg-gray-800 text-white"
+      } `}
+    >
       <div className=" flex flex-col justify-between h-full">
         <div className="flex flex-col h-full gap-2 p-3">
           {navItems.map((item) => {
@@ -35,9 +52,15 @@ export const Sidebar = ({ fullName, email }: Props) => {
               <Link
                 key={item.name}
                 href={item.url}
-                className={`flex items-center gap-2 p-2 hover:text-gray-800 font-semibold transition ${
-                  isActive ? "text-gray-800" : "text-gray-300"
-                }`}
+                className={`flex items-center gap-2 p-2 font-semibold transition
+                          ${
+                            !darkmode
+                              ? "text-gray-400 hover:text-gray-200"
+                              : "text-gray-800 hover:text-gray-900"
+                          }
+                          ${isActive && !darkmode ? "text-white" : ""}
+                          ${isActive && darkmode ? "text-black" : ""}
+                        `}
               >
                 {item.icon === "client" ? (
                   <Contact size={20} />
@@ -51,6 +74,45 @@ export const Sidebar = ({ fullName, email }: Props) => {
               </Link>
             )
           })}
+        </div>
+        <div className="flex text-end gap-2 m-10 rounded-xl justify-evenly">
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setDarkmod(!darkmode)}
+              className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-300 cursor-pointer ${
+                !darkmode ? "bg-gray-700" : "bg-gray-300"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
+                  !darkmode ? "translate-x-6" : "translate-x-0"
+                }`}
+              />
+            </button>
+          </div>
+          <div className="flex gap-5">
+            <button
+              onClick={() => setFontSize("10px")}
+              style={{ fontSize: "10px", fontWeight: "lighter" }}
+              className="cursor-pointer mt-2"
+            >
+              A
+            </button>
+            <button
+              onClick={() => setFontSize("12px")}
+              style={{ fontSize: "12px" }}
+              className="cursor-pointer mt-1"
+            >
+              A
+            </button>
+            <button
+              onClick={() => setFontSize("14px")}
+              style={{ fontSize: "14px", fontWeight: "bold" }}
+              className="cursor-pointer mt-1"
+            >
+              A
+            </button>
+          </div>
         </div>
         <div className="p-5 border-t">
           <div className="flex flex-col justify-center">

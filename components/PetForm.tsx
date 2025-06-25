@@ -12,6 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select"
+import { useAtom } from "jotai"
+import { darkmodeAtom } from "@/lib/store"
 
 interface PetFormProps {
   initialData?: Partial<Pet>
@@ -53,12 +55,17 @@ export default function PetForm({
     await onSubmit(formData)
   }
 
+  const [darkmode] = useAtom(darkmodeAtom)
+
   return (
     <>
-      <form onSubmit={handleSubmit} className="bg-white rounded">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className={`${darkmode ? "bg-white" : "bg-gray-800"} rounded`}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-1">
           {/* LEFT COLUMN */}
-          <div className="space-y-5">
+          <div className="space-y-3">
             <div>
               <label htmlFor="name" className="text-sm font-medium mb-1">
                 Name
@@ -70,11 +77,28 @@ export default function PetForm({
                 placeholder="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="border-none p-1 w-full rounded bg-[#e9edf3]"
+                className={`border-none p-1 w-full rounded ${
+                  darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                }`}
                 required
               />
             </div>
-
+            <div>
+              <label htmlFor="age" className="text-sm font-medium mb-1">
+                Age
+              </label>
+              <Input
+                id="age"
+                name="age"
+                placeholder="age"
+                type="number"
+                value={formData.age}
+                onChange={handleChange}
+                className={`border-none p-1 w-full rounded ${
+                  darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                }`}
+              />
+            </div>
             <div>
               <label htmlFor="type" className="text-sm font-medium mb-1">
                 Type
@@ -85,7 +109,11 @@ export default function PetForm({
                   setFormData((prev) => ({ ...prev, type: value }))
                 }
               >
-                <SelectTrigger className="w-full border-none bg-[#e9edf3]">
+                <SelectTrigger
+                  className={`border-none p-1 w-full rounded ${
+                    darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                  }`}
+                >
                   <SelectValue placeholder="Select pet type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -108,28 +136,15 @@ export default function PetForm({
                 placeholder="breed"
                 value={formData.breed}
                 onChange={handleChange}
-                className="border-none bg-[#e9edf3] p-1 w-full rounded"
+                className={`border-none p-1 w-full rounded ${
+                  darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                }`}
               />
             </div>
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="space-y-5">
-            <div>
-              <label htmlFor="age" className="text-sm font-medium mb-1">
-                Age
-              </label>
-              <Input
-                id="age"
-                name="age"
-                placeholder="age"
-                type="number"
-                value={formData.age}
-                onChange={handleChange}
-                className="border-none bg-[#e9edf3] p-1 w-full rounded"
-              />
-            </div>
-
+          <div className="space-y-3">
             <div>
               <label htmlFor="description" className="text-sm font-medium mb-1">
                 Description
@@ -140,7 +155,9 @@ export default function PetForm({
                 placeholder="description"
                 value={formData.description}
                 onChange={handleChange}
-                className="border-none bg-[#e9edf3] p-1 w-full rounded"
+                className={`border-none p-1 w-full rounded ${
+                  darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                }`}
               />
             </div>
 
@@ -154,26 +171,27 @@ export default function PetForm({
                 placeholder="notes"
                 value={formData.notes}
                 onChange={handleChange}
-                className="border-none bg-[#e9edf3] p-1 w-full rounded resize-none"
+                className={`border-none p-1 w-full rounded ${
+                  darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                }`}
                 rows={3}
               />
             </div>
-
-            <div className="flex gap-2 justify-end">
-              <Button
-                type="submit"
-                className="bg-white hover:bg-green-50 text-green-800 cursor-pointer"
-              >
-                <Check />
-              </Button>
-              <Button
-                onClick={() => handleDelete(formData.$id)}
-                className="text-orange-800 bg-white hover:bg-orange-100 cursor-pointer"
-              >
-                <Trash size={18} />
-              </Button>
-            </div>
           </div>
+        </div>
+        <div className="flex gap-2 justify-end">
+          <Button
+            type="submit"
+            className="bg-white hover:bg-green-50 text-green-800 cursor-pointer"
+          >
+            <Check />
+          </Button>
+          <Button
+            onClick={() => handleDelete(formData.$id)}
+            className="text-orange-800 bg-white hover:bg-orange-100 cursor-pointer"
+          >
+            <Trash size={18} />
+          </Button>
         </div>
       </form>
     </>

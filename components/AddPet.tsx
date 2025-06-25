@@ -1,4 +1,4 @@
-import { addPetAtom, selectedPetAtom } from "@/lib/store"
+import { addPetAtom, darkmodeAtom, selectedPetAtom } from "@/lib/store"
 import { useAtom } from "jotai"
 import React from "react"
 import { Button } from "./ui/button"
@@ -13,6 +13,8 @@ import InfoCard from "./InfoCard"
 const AddPet = ({ client }: { client: Client }) => {
   const [addPet, setAddPet] = useAtom(addPetAtom)
   const [, setSelectedPet] = useAtom(selectedPetAtom)
+  const [darkmode] = useAtom(darkmodeAtom)
+
   const router = useRouter()
 
   const handleCreate = async (data: Pet) => {
@@ -43,7 +45,11 @@ const AddPet = ({ client }: { client: Client }) => {
         <InfoCard>
           <Button
             onClick={() => setAddPet(true)}
-            className="bg-white w-full hover:bg-[#e9edf3] text-gray-800 cursor-pointer"
+            className={`${
+              darkmode
+                ? "bg-white hover:bg-[#e9edf3] cursor-pointer text-gray-800 border border-gray-200"
+                : "bg-gray-700 cursor-pointer hover:bg-gray-700 text-gray-400 hover:text-gray-200"
+            } "w-full" `}
           >
             Add Pet
             <Plus />

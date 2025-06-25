@@ -5,14 +5,14 @@ export const navItems = [
     url: "/clients",
   },
   {
-    name: "Calendar",
-    icon: "calendar",
-    url: "/appointments",
-  },
-  {
     name: "Dashboard",
     icon: "dashboard",
     url: "/dashboard",
+  },
+  {
+    name: "Calendar",
+    icon: "calendar",
+    url: "/appointments",
   },
 ]
 

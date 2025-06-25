@@ -14,6 +14,8 @@ import {
   SelectValue,
 } from "./ui/select"
 import { appointmentTypes } from "@/constants"
+import { darkmodeAtom } from "@/lib/store"
+import { useAtom } from "jotai"
 
 interface AppointmentFormProps {
   initialData?: Appointment
@@ -80,10 +82,13 @@ export default function AppointmentForm({
     onClick()
     onClick()
   }
+
+  const [darkmode] = useAtom(darkmodeAtom)
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 bg-white rounded-xl w-full"
+      className={`space-y-5 ${darkmode ? "bg-white" : "bg-gray-800" } rounded-xl w-full `}  
     >
       <div className="w-full">
         <label htmlFor="date" className="block font-semibold">
@@ -95,7 +100,9 @@ export default function AppointmentForm({
           type="date"
           value={formData.date ? formatDateForInput(formData.date) : ""}
           onChange={handleChange}
-          className="border-none bg-[#e9edf3] p-2 w-full rounded"
+          className={`border-none p-1 w-full rounded ${
+            darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+          }`}
         />
       </div>
       <div className="w-full">
@@ -108,7 +115,11 @@ export default function AppointmentForm({
             setFormData({ ...formData, type: value })
           }
         >
-          <SelectTrigger className="w-full bg-[#e9edf3] border-none">
+          <SelectTrigger
+            className={`border-none p-1 w-full rounded ${
+              darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+            }`}
+          >
             <SelectValue placeholder="Select pet type" />
           </SelectTrigger>
           <SelectContent>
@@ -130,7 +141,9 @@ export default function AppointmentForm({
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="border-none bg-[#e9edf3] w-full  rounded"
+          className={`border-none p-1 w-full rounded ${
+            darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+          }`}
           required
           rows={3}
         />
@@ -145,7 +158,9 @@ export default function AppointmentForm({
           type="text"
           value={formData.treatment}
           onChange={handleChange}
-          className="border-none bg-[#e9edf3] w-full rounded"
+          className={`border-none p-1 w-full rounded ${
+            darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+          }`}
           required
         />
       </div>

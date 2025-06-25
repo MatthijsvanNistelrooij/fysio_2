@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Check, Contact, HomeIcon, Mail, Phone, Trash } from "lucide-react"
 import { Input } from "./ui/input"
 import { Client } from "@/lib/types"
+import { darkmodeAtom } from "@/lib/store"
+import { useAtom } from "jotai"
 
 interface ClientFormProps {
   initialData?: Partial<Client>
@@ -42,6 +44,8 @@ export default function ClientForm({
     await onSubmit(formData)
   }
 
+  const [darkmode] = useAtom(darkmodeAtom)
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col justify-between w-full">
@@ -51,7 +55,9 @@ export default function ClientForm({
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="bg-[#e9edf3] border-none shadow-none rounded text-gray-800  p-0 mt-1"
+            className={`${
+              darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+            } border-none shadow-none rounded   p-0 mt-1 `}
           />
         </div>
         <div className="w-full flex rounded">
@@ -60,7 +66,9 @@ export default function ClientForm({
             name="address"
             value={formData.address}
             onChange={handleChange}
-            className="bg-[#e9edf3] border-none shadow-none p-0 rounded text-gray-800 mt-1"
+            className={`${
+              darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+            } border-none shadow-none rounded   p-0 mt-1 `}
           />
         </div>
         <div className="w-full flex">
@@ -69,7 +77,9 @@ export default function ClientForm({
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="bg-[#e9edf3] border-none shadow-none p-0 rounded text-gray-800 mt-1"
+            className={`${
+              darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+            } border-none shadow-none rounded   p-0 mt-1 `}
           />
         </div>
         <div className="w-full flex">
@@ -78,7 +88,9 @@ export default function ClientForm({
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="bg-[#e9edf3] border-none shadow-none p-0 rounded text-gray-800 mt-1"
+            className={`${
+              darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+            } border-none shadow-none rounded p-0 mt-1 `}
           />
         </div>
       </div>

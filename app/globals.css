@@ -5,10 +5,13 @@
   display: none;
 }
 
-* {
-  font-size: 12px;
+:root {
+  --global-font-size: 12px;
 }
 
+* {
+  font-size: var(--global-font-size);
+}
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

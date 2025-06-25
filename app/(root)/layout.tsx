@@ -11,7 +11,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   if (!currentUser) return redirect("/sign-in")
 
   return (
-    <main className="flex min-h-screen bg-[#e9edf3]">
+    <main className="flex min-h-screen">
       {/* Sidebar - static, full height */}
       <div className="hidden md:flex w-72 h-screen sticky top-0">
         <Sidebar {...currentUser} />
@@ -19,7 +19,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
       {/* Main content */}
       <section className="flex-1 flex flex-col">
-        <div className="md:hidden sticky top-0 z-50">
+        <div className="md:hidden sticky top-0 ">
           <MobileNav {...currentUser} />
         </div>
 
