@@ -9,7 +9,7 @@ import {
   Contact,
   Edit,
   LogOutIcon,
-  Settings,
+  Settings2,
 } from "lucide-react"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
@@ -80,9 +80,9 @@ export const MobileNav = () => {
             })}
           </div>
           <div className="flex">
-            <Settings
+            <Settings2
               onClick={() => setShowSettings(!showSettings)}
-              className="text-gray-500 mt-8 cursor-pointer select-none"
+              className="text-gray-500 mt-7 cursor-pointer select-none"
               size={18}
             />
 
@@ -104,7 +104,7 @@ export const MobileNav = () => {
                         }}
                         className={`cursor-pointer px-2 py-1 rounded transition ${
                           fontSize === size
-                            ? "bg-gray-800 text-white"
+                            ? "bg-gray-800 text-white border-b"
                             : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                         }`}
                         aria-label={`Set font size to ${size}`}
