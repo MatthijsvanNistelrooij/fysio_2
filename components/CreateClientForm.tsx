@@ -41,7 +41,6 @@ export const CreateClientForm = ({ $id }: Props) => {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log("SUBMIT")
     e.preventDefault()
 
     const newErrors = {

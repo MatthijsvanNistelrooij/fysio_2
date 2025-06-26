@@ -60,8 +60,6 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   const [open, setOpen] = useState(false)
   const [editingEventId, setEditingEventId] = useState<string | null>(null)
 
-  console.log(editingEventId)
-
   const combineDateAndTime = (date: Date, time: string): Date => {
     const [hours, minutes] = time.split(":").map(Number)
     const combined = new Date(date)

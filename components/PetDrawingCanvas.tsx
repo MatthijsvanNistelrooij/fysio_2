@@ -70,7 +70,6 @@ export const PetDrawingCanvas: React.FC<PetDrawingCanvasProps> = ({
         drawingJson: paths,
       })
 
-      console.log("SUCCESS")
       toast.success("Canvas saved!")
     } catch (err) {
       console.error("Failed to export drawing:", err)

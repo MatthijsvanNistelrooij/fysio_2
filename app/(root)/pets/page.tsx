@@ -31,8 +31,6 @@ export interface Client {
 const Pets = () => {
   const [pets, setPets] = useState<Pet[]>([])
 
-  console.log(pets)
-
   useEffect(() => {
     const fetchPets = async () => {
       const data = await getAllPets()

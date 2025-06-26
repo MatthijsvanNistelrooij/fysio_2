@@ -59,7 +59,7 @@ const Appointments = () => {
     fetchClients()
   }, [user])
 
-  console.log("appointments  here", appointments)
+  console.log("appointments here", appointments)
 
   return (
     <CustomContainer>

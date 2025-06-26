@@ -81,7 +81,6 @@ export default function PetDetailsComponent({
     userId: string,
     data: Appointment
   ) => {
-    console.log(data)
     try {
       const appointment = await createAppointment(petId, {
         ...data,
