@@ -1,6 +1,6 @@
 import { Client, Databases, ID, Query } from "node-appwrite"
-import { appwriteConfig } from "../../appwrite/config"
 import { Appointment } from "@/lib/types"
+import { appwriteConfig } from "@/appwrite/config"
 
 const client = new Client()
   .setEndpoint(appwriteConfig.endpointUrl)

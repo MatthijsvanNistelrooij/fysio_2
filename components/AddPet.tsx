@@ -5,10 +5,10 @@ import { Button } from "./ui/button"
 import { Dog, Plus } from "lucide-react"
 import AddPetForm from "./AddPetForm"
 import { Client, Pet } from "@/lib/types"
-import { addPetToClient, createPet } from "@/lib/actions/pet.actions"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import InfoCard from "./InfoCard"
+import { addPetToClient, createPet } from "@/app/api/pets/route"
 
 const AddPet = ({ client }: { client: Client }) => {
   const [addPet, setAddPet] = useAtom(addPetAtom)

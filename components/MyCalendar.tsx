@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { updateAppointment } from "@/lib/actions/appointment.actions"
+import { updateAppointment } from "@/app/api/appointments/route"
 
 const locales = {
   "en-US": enUS,

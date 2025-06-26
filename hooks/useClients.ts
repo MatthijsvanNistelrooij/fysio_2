@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import { getClientsByUserId } from "@/lib/actions/client.actions"
-import { getCurrentUser } from "@/lib/actions/user.actions"
+
 import { Client } from "@/lib/types"
 import { useAtom } from "jotai"
 import { clientsAtom, loadingAtom, userAtom } from "@/lib/store"
+import { getCurrentUser } from "@/app/api/users/route"
+import { getClientsByUserId } from "@/app/api/clients/route"
 
 export const useClients = () => {
   const [, setClients] = useAtom(clientsAtom)

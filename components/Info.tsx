@@ -6,10 +6,10 @@ import { toast } from "sonner"
 import { darkmodeAtom, toggleEditAtom, userAtom } from "@/lib/store"
 import { useAtom } from "jotai"
 import { useRouter } from "next/navigation"
-import { deleteClient, updateClient } from "@/lib/actions/client.actions"
 import type { Client } from "@/lib/types" // or wherever your Client type is defined
 import ClientForm from "./ClientForm"
 import OwnerInfo from "./OwnerInfo"
+import { deleteClient, updateClient } from "@/app/api/clients/route"
 
 const Info = ({ client }: { client: Client }) => {
   const [edit, setEdit] = useAtom(toggleEditAtom)

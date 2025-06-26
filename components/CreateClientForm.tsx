@@ -3,12 +3,12 @@ import React, { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/actions/client.actions"
 import { toast } from "sonner"
 import { Check, Contact, HomeIcon, Mail, Phone } from "lucide-react"
 import InfoCard from "./InfoCard"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
+import { createClient } from "@/app/api/clients/route"
 
 interface Props {
   fullName?: string

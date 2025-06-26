@@ -1,5 +1,6 @@
+import { getCurrentUser } from "@/app/api/users/route"
 import CreateForm from "@/components/CreateClientForm"
-import { getCurrentUser } from "@/lib/actions/user.actions"
+
 import { redirect } from "next/navigation"
 import React from "react"
 

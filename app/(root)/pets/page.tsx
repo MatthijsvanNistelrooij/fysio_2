@@ -9,7 +9,7 @@ import {
   TableCell,
 } from "@/components/ui/table"
 import { redirect } from "next/navigation"
-import { getAllPets } from "@/lib/actions/pet.actions"
+import { getAllPets } from "@/app/api/pets/route"
 
 export interface Pet {
   $id: string

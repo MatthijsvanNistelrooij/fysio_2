@@ -3,10 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-import {
-  deleteAppointment,
-  updateAppointment,
-} from "@/lib/actions/appointment.actions"
+
 import AppointmentForm from "./AppointmentForm"
 import { toast } from "sonner"
 import { CalendarRange, Edit, X } from "lucide-react"
@@ -16,6 +13,7 @@ import Image from "next/image"
 import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import horse from "../public/horse_1.png"
+import { deleteAppointment, updateAppointment } from "@/app/api/appointments/route"
 
 export default function AppointmentDetailsComponent({
   appointment,

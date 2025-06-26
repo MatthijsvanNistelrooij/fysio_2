@@ -1,7 +1,7 @@
 "use client"
 import React from "react"
 import { Button } from "./ui/button"
-import { signOutUser } from "@/lib/actions/user.actions"
+
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import {
@@ -14,6 +14,7 @@ import {
 import { navItems } from "../constants"
 import { useAtom } from "jotai"
 import { darkmodeAtom } from "@/lib/store"
+import { signOutUser } from "@/app/api/users/route"
 
 interface Props {
   fullName: string

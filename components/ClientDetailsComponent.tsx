@@ -4,7 +4,6 @@
 import React, { useEffect } from "react"
 
 import { Client } from "@/lib/types"
-import { getCurrentUser } from "@/lib/actions/user.actions"
 
 import { useAtom } from "jotai"
 import {
@@ -26,6 +25,7 @@ import Pets from "./Pets"
 import Appointments from "./Appointments"
 import SelectedAppointment from "./SelectedAppointment"
 import AddAppointment from "./AddAppointment"
+import { getCurrentUser } from "@/app/api/users/route"
 
 export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [, setSavedImage] = useAtom(savedImageAtom)

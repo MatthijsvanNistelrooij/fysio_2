@@ -4,20 +4,20 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Edit, Plus, X } from "lucide-react"
-import { deletePet, updatePet } from "@/lib/actions/pet.actions"
-import {
-  addAppointmentToPet,
-  createAppointment,
-} from "@/lib/actions/appointment.actions"
 
 import PetForm from "./PetForm"
 import CreateAppointmentForm from "./CreateAppointmentForm"
 import { toast } from "sonner"
 import { Appointment, Pet, User } from "@/lib/types"
-import { getCurrentUser } from "@/lib/actions/user.actions"
 import { Button } from "./ui/button"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
+import { getCurrentUser } from "@/app/api/users/route"
+import { deletePet, updatePet } from "@/app/api/pets/route"
+import {
+  addAppointmentToPet,
+  createAppointment,
+} from "@/app/api/appointments/route"
 
 export default function PetDetailsComponent({
   pet,

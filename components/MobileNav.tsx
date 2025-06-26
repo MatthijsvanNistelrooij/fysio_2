@@ -3,7 +3,6 @@ import React, { useState } from "react"
 import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { signOutUser } from "@/lib/actions/user.actions"
 import {
   CalendarRange,
   Contact,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
+import { signOutUser } from "@/app/api/users/route"
 
 export const MobileNav = () => {
   const [fontSize, setFontSize] = React.useState("12px")

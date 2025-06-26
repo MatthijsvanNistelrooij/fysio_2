@@ -12,10 +12,7 @@ import {
 } from "@/lib/store"
 import { useAtom } from "jotai"
 import { Appointment } from "@/lib/types"
-import {
-  deleteAppointment,
-  updateAppointment,
-} from "@/lib/actions/appointment.actions"
+
 import { toast } from "sonner"
 import AppointmentForm from "./AppointmentForm"
 import { Button } from "./ui/button"
@@ -26,6 +23,10 @@ import cat from "../public/cat.jpg"
 
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import InfoCard from "./InfoCard"
+import {
+  deleteAppointment,
+  updateAppointment,
+} from "@/app/api/appointments/route"
 
 type PetType = "Dog" | "Horse" | "Cat" | "Other"
 

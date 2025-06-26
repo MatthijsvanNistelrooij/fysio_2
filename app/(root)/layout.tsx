@@ -1,9 +1,10 @@
 import React from "react"
 import { redirect } from "next/navigation"
-import { getCurrentUser } from "@/lib/actions/user.actions"
+
 import Sidebar from "@/components/Sidebar"
 import { Toaster } from "sonner"
 import { MobileNav } from "@/components/MobileNav"
+import { getCurrentUser } from "../api/users/route"
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const currentUser = await getCurrentUser()

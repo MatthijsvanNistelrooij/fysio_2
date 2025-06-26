@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react"
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import { Event, MyCalendar } from "@/components/MyCalendar"
 import { Appointment, User } from "@/lib/types"
-import { getCurrentUser } from "@/lib/actions/user.actions"
-import { getAppointmentsByUserId } from "@/lib/actions/appointment.actions"
+
 import InfoCard from "@/components/InfoCard"
 import CustomContainer from "@/components/CustomContainer"
+import { getCurrentUser } from "@/app/api/users/route"
+import { getAppointmentsByUserId } from "@/app/api/appointments/route"
 
 const Appointments = () => {
   const [events, setEvents] = useState<Event[]>([])

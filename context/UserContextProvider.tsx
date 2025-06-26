@@ -6,8 +6,9 @@ import React, {
   useContext,
   ReactNode,
 } from "react"
-import { getCurrentUser } from "@/lib/actions/user.actions"
+
 import { User } from "@/lib/types"
+import { getCurrentUser } from "@/app/api/users/route"
 
 interface UserContextProps {
   user: User | null

@@ -13,12 +13,10 @@ import { Button } from "./ui/button"
 import { X } from "lucide-react"
 import { Appointment } from "@/lib/types"
 import CreateAppointmentForm from "./CreateAppointmentForm"
-import {
-  addAppointmentToPet,
-  createAppointment,
-} from "@/lib/actions/appointment.actions"
+
 import { toast } from "sonner"
 import InfoCard from "./InfoCard"
+import { addAppointmentToPet, createAppointment } from "@/app/api/appointments/route"
 
 const AddAppointment = () => {
   const [, setAddAppointment] = useAtom(addAppointmentAtom)

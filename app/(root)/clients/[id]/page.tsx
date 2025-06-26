@@ -1,5 +1,6 @@
+import { getClientById } from "@/app/api/clients/route"
 import ClientDetailsComponent from "@/components/ClientDetailsComponent"
-import { getClientById } from "@/lib/actions/client.actions"
+
 import { Client } from "@/lib/types"
 import { notFound } from "next/navigation"
 

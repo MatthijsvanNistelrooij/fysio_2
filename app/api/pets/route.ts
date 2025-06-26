@@ -1,5 +1,5 @@
+import { appwriteConfig } from "@/appwrite/config"
 import { Client, Databases, ID } from "node-appwrite"
-import { appwriteConfig } from "../../appwrite/config"
 
 const client = new Client()
   .setEndpoint(appwriteConfig.endpointUrl)

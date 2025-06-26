@@ -1,6 +1,7 @@
+import { getAppointmentsByPetId } from "@/app/api/appointments/route"
+import { getPetById } from "@/app/api/pets/route"
 import PetDetailsComponent from "@/components/PetDetailsComponent"
-import { getAppointmentsByPetId } from "@/lib/actions/appointment.actions"
-import { getPetById } from "@/lib/actions/pet.actions"
+
 import { Appointment, Pet } from "@/lib/types"
 import { notFound } from "next/navigation"
 
