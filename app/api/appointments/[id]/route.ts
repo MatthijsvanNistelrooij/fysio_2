@@ -8,16 +8,16 @@ import {
 
 type Params = { params: { id: string } };
 
-export async function GET(req: NextRequest, context: Params) {
-  const { id } = context.params;
-  const appointment = await getAppointmentById(id);
+// export async function GET(req: NextRequest, context: Params) {
+//   const { id } = context.params;
+//   const appointment = await getAppointmentById(id);
 
-  if (!appointment) {
-    return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
-  }
+//   if (!appointment) {
+//     return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
+//   }
 
-  return NextResponse.json(appointment);
-}
+//   return NextResponse.json(appointment);
+// }
 
 export async function PUT(req: NextRequest, context: Params) {
   const { id } = context.params;
