@@ -26,6 +26,8 @@ const Clients = () => {
   if (loading && clients?.length === 0) return <Loading />
   if (clients?.length === 0) return <NoClients />
 
+  console.log("Logged in user id:", user?.$id)
+
   return (
     <CustomContainer>
       <Searchbar />

@@ -102,7 +102,7 @@ export const getCurrentUser = async () => {
     const user = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.usersCollectionId,
-      [Query.equal("accountId", result.$id)]
+      [Query.equal("userId", result.$id)]
     )
 
     if (user.total <= 0) return null
