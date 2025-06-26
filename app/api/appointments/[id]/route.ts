@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
+// import { NextRequest, NextResponse } from "next/server";
 // import type { Appointment } from "@/lib/types";
 import {
 //   getAppointmentById,
 //   updateAppointment,
-  deleteAppointment,
+//   deleteAppointment,
 } from "@/lib/appwrite/appointments";
 
-type Params = { params: { id: string } };
+// type Params = { params: { id: string } };
 
 // export async function GET(req: NextRequest, context: Params) {
 //   const { id } = context.params;
@@ -33,8 +33,8 @@ type Params = { params: { id: string } };
 //   return NextResponse.json(updated);
 // }
 
-export async function DELETE(req: NextRequest, context: Params) {
-  const { id } = context.params;
-  await deleteAppointment(id);
-  return NextResponse.json({ message: "Appointment deleted successfully" });
-}
+// export async function DELETE(req: NextRequest, context: Params) {
+//   const { id } = context.params;
+//   await deleteAppointment(id);
+//   return NextResponse.json({ message: "Appointment deleted successfully" });
+// }
