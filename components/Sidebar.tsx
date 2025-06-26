@@ -147,7 +147,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
               {email}
             </p>
             <Button
-              className="cursor-pointer bg-gray-900 rounded-sm hover:bg-gray-800"
+              className="cursor-pointer bg-gray-900 rounded-sm hover:bg-gray-700"
               onClick={handleSignOut}
             >
               Sign Out
