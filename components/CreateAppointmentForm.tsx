@@ -74,8 +74,6 @@ export default function CreateAppointmentForm({
         date: new Date(formData.date),
       }
 
-      console.log("Submitting payload:", payload)
-
       await onSubmit(payload)
     } finally {
       setIsSubmitting(false)

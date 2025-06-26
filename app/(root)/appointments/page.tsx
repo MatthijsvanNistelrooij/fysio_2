@@ -52,7 +52,6 @@ const Appointments = () => {
           userId: doc.userId,
           type: doc.type,
         }))
-        console.log("DATA", data)
 
         setAppointments(formattedAppointments)
 

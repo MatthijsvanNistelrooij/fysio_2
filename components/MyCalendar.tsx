@@ -72,7 +72,6 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
     petName: "",
   })
 
-  console.log(events)
   const [open, setOpen] = useState(false)
   const [editingEventId, setEditingEventId] = useState<string | null>(null)
   const [clients] = useAtom(clientsAtom)
@@ -222,7 +221,6 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
             <DialogTitle>Edit Appointment</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <label>Pet:</label>
             <Select
               value={formData.petId}
               disabled={!!formData.petId} // true als petId bestaat, dus select is uitgeschakeld

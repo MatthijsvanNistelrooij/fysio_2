@@ -26,8 +26,6 @@ const Clients = () => {
   if (loading && clients?.length === 0) return <Loading />
   if (clients?.length === 0) return <NoClients />
 
-  console.log("clients", clients)
-
   return (
     <CustomContainer>
       <Searchbar />

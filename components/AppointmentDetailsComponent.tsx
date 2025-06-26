@@ -99,8 +99,6 @@ export default function AppointmentDetailsComponent({
     drawingJson: any
   }) => {
     try {
-      console.log("Saving canvas...")
-
       const key = `petDrawing-${selectedAppointment.$id}`
 
       localStorage.setItem(
