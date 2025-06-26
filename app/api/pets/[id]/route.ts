@@ -1,11 +1,10 @@
-import { NextResponse } from "next/server"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextRequest, NextResponse } from "next/server"
 import { updatePet, deletePet, getPetById } from "@/lib/appwrite/pets"
 
-export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, context: any) {
   try {
+    const params = await context.params
     const id = params.id
     const data = await request.json()
 
@@ -43,11 +42,9 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, context: any) {
   try {
+    const params = await context.params
     const id = params.id
     await deletePet(id)
     return NextResponse.json({ success: true })
