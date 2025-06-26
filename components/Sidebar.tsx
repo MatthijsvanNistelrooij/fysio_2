@@ -156,7 +156,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
               className="cursor-pointer bg-gray-900 rounded-sm hover:bg-gray-700"
               onClick={handleSignOut}
             >
-              Sign Out
+              Sign Out:
               <LogOutIcon size={20} className="transform rotate-180" />
             </Button>
           </div>
