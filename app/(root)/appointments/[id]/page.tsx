@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation"
 
-import { getAppointmentById } from "@/lib/actions/appointment.actions"
 import AppointmentDetailsComponent from "@/components/AppointmentDetailsComponent"
 import { Appointment } from "@/lib/types"
+import { getAppointmentById } from "@/app/api/appointments/route"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapDocumentToAppointment(doc: any): Appointment {

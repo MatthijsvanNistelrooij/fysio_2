@@ -19,8 +19,8 @@ import { Input } from "./ui/input"
 
 import logo_banner from "/public/logo.png"
 
-import { createAccount, signInUser } from "@/lib/actions/user.actions"
 import OtpModal from "./OTPModal"
+import { createAccount, signInUser } from "@/app/api/users/route"
 
 type FormType = "sign-in" | "sign-up"
 

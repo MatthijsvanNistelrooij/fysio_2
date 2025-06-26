@@ -16,7 +16,7 @@ import React, { useState } from "react"
 import { Button } from "./ui/button"
 import { useRouter } from "next/navigation"
 import { ExternalLinkIcon, Loader } from "lucide-react"
-import { sendEmailOTP, verifySecret } from "@/lib/actions/user.actions"
+import { sendEmailOTP, verifySecret } from "@/app/api/users/route"
 
 const OtpModal = ({
   accountId,
