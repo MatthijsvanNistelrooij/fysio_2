@@ -1,4 +1,4 @@
-import { Client, Databases, ID, Query   Permission, Role} from "node-appwrite"
+import { Client, Databases, ID, Query  } from "node-appwrite"
 import { appwriteConfig } from "../../appwrite/config"
 
 const client = new Client()
