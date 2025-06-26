@@ -31,6 +31,8 @@ const ClientList = () => {
   )
   const [darkmode] = useAtom(darkmodeAtom)
 
+  console.log("contacts", clients)
+
   const router = useRouter()
 
   const handleTableRowClick = (id: string) => {
