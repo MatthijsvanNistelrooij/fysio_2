@@ -11,7 +11,7 @@ import { getCurrentUser } from "@/lib/appwrite/users"
 const Appointments = () => {
   const [events, setEvents] = useState<Event[]>([])
   const [user, setUser] = useState<User | null>(null)
-  const [appointments, setAppointments] = useState<Appointment[]>([])
+  const [, setAppointments] = useState<Appointment[]>([])
 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -78,10 +78,18 @@ const Appointments = () => {
     fetchAppointments()
   }, [user])
 
-  console.log("appointments here", appointments)
-
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>{error}</div>
+  if (loading)
+    return (
+      <div className="h-screen w-full flex justify-center items-center text-center">
+        Loading...
+      </div>
+    )
+  if (error)
+    return (
+      <div className="h-screen w-full flex justify-center items-center text-center">
+        {error}
+      </div>
+    )
 
   return (
     <CustomContainer>
