@@ -213,7 +213,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   return (
     <div
       className={
-        !darkmode ? "text-white bg-gray-800" : "text-gray-800 bg-gray-100"
+        !darkmode ? "text-white bg-gray-800" : "text-gray-800 bg-white"
       }
     >
       <Dialog open={open} onOpenChange={setOpen}>
@@ -222,8 +222,10 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
             <DialogTitle>Edit Appointment</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
+            <label>Pet:</label>
             <Select
               value={formData.petId}
+              disabled={!!formData.petId} // true als petId bestaat, dus select is uitgeschakeld
               onValueChange={(value: string) => {
                 const selectedPet = pets.find((p) => p.$id === value)
                 setFormData({
