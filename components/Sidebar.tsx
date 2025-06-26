@@ -96,26 +96,49 @@ export const Sidebar = ({ fullName, email }: Props) => {
             </button>
           </div>
 
-          <div className="flex gap-3 items-end mb-3">
-            {fontSizes.map(({ size, label, fontWeight }) => (
-              <button
-                key={size}
-                onClick={() => setFontSize(size)}
-                style={{
-                  fontSize: size,
-                  fontWeight: fontWeight,
-                }}
-                className={`cursor-pointer px-2 py-1 rounded transition ${
-                  fontSize === size
-                    ? "bg-gray-800 text-white border-b"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-                aria-label={`Set font size to ${size}`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+          {darkmode ? (
+            <div className="flex gap-3 items-end mb-3">
+              {fontSizes.map(({ size, label, fontWeight }) => (
+                <button
+                  key={size}
+                  onClick={() => setFontSize(size)}
+                  style={{
+                    fontSize: size,
+                    fontWeight: fontWeight,
+                  }}
+                  className={`cursor-pointer px-2 py-1 rounded transition ${
+                    fontSize === size
+                      ? "bg-gray-800 text-gray-200 border-b"
+                      : "bg-gray-200 text-gray-800 hover:bg-gray-200"
+                  }`}
+                  aria-label={`Set font size to ${size}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="flex gap-3 items-end mb-3">
+              {fontSizes.map(({ size, label, fontWeight }) => (
+                <button
+                  key={size}
+                  onClick={() => setFontSize(size)}
+                  style={{
+                    fontSize: size,
+                    fontWeight: fontWeight,
+                  }}
+                  className={`cursor-pointer px-2 py-1 rounded transition ${
+                    fontSize === size
+                      ? "bg-gray-200 text-gray-800 border-b"
+                      : "bg-gray-800 text-gray-200 hover:bg-gray-800"
+                  }`}
+                  aria-label={`Set font size to ${size}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <div className="p-5 border-t border-gray-400">
           <div className="flex flex-col justify-center">
