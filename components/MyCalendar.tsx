@@ -16,7 +16,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { updateAppointment } from "@/lib/actions/appointment.actions"
-import Link from "next/link"
 
 const locales = {
   "en-US": enUS,
@@ -167,17 +166,11 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="bg-white">
           <DialogHeader>
-            <DialogTitle>
-              {editingEventId && (
-                <Link href={`/appointments/${editingEventId}`}>
-                  Go to Appointment
-                </Link>
-              )}
-            </DialogTitle>
+            <DialogTitle></DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-              placeholder="Your Name"
+              placeholder="Name"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -185,7 +178,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
               required
             />
             <Input
-              placeholder="Service (e.g. Massage, Eexercise)"
+              placeholder="Service (e.g. Massage, Exercise)"
               value={formData.service}
               onChange={(e) =>
                 setFormData({ ...formData, service: e.target.value })
