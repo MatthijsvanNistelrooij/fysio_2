@@ -1,40 +1,52 @@
-// import { NextRequest, NextResponse } from "next/server";
-// import type { Appointment } from "@/lib/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextRequest, NextResponse } from "next/server"
+import type { Appointment } from "@/lib/types"
 import {
-//   getAppointmentById,
-//   updateAppointment,
-//   deleteAppointment,
-} from "@/lib/appwrite/appointments";
+  getAppointmentById,
+  updateAppointment,
+  deleteAppointment,
+} from "@/lib/appwrite/appointments"
 
-// type Params = { params: { id: string } };
+export async function GET(req: NextRequest, context: any) {
+  const params = await context.params
+  const id = params.id
 
-// export async function GET(req: NextRequest, context: Params) {
-//   const { id } = context.params;
-//   const appointment = await getAppointmentById(id);
+  const appointment = await getAppointmentById(id)
 
-//   if (!appointment) {
-//     return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
-//   }
+  if (!appointment) {
+    return NextResponse.json(
+      { error: "Appointment not found" },
+      { status: 404 }
+    )
+  }
 
-//   return NextResponse.json(appointment);
-// }
+  return NextResponse.json(appointment)
+}
 
-// export async function PUT(req: NextRequest, context: Params) {
-//   const { id } = context.params;
-//   const data: Appointment = await req.json();
+export async function PUT(req: NextRequest, context: any) {
+  const params = await context.params
+  const id = params.id
 
-//   await updateAppointment(id, data);
-//   const updated = await getAppointmentById(id);
+  const data: Appointment = await req.json()
 
-//   if (!updated) {
-//     return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
-//   }
+  await updateAppointment(id, data)
 
-//   return NextResponse.json(updated);
-// }
+  const updated = await getAppointmentById(id)
+  if (!updated) {
+    return NextResponse.json(
+      { error: "Appointment not found" },
+      { status: 404 }
+    )
+  }
 
-// export async function DELETE(req: NextRequest, context: Params) {
-//   const { id } = context.params;
-//   await deleteAppointment(id);
-//   return NextResponse.json({ message: "Appointment deleted successfully" });
-// }
+  return NextResponse.json(updated)
+}
+
+export async function DELETE(req: NextRequest, context: any) {
+  const params = await context.params
+  const id = params.id
+
+  await deleteAppointment(id)
+
+  return NextResponse.json({ message: "Appointment deleted successfully" })
+}
