@@ -1,4 +1,4 @@
-import { Client, Databases, ID, Query  } from "node-appwrite"
+import { Client, Databases, ID, Query, Permission, Role} from "node-appwrite"
 import { appwriteConfig } from "../../appwrite/config"
 
 const client = new Client()
@@ -46,10 +46,14 @@ export const createClient = async ({
       phone,
       address,
       userId,
-    }
+    },
+    [
+      Permission.read(Role.user(userId)),
+      Permission.write(Role.user(userId)),
+    ]
   )
 
-  return newClient // This includes the newClient.$id
+  return newClient
 }
 
 export const updateClient = async (
