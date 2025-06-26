@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { updateAppointment } from "@/app/api/appointments/route"
 
 const locales = {
   "en-US": enUS,
@@ -98,15 +97,15 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
       const combinedStart = combineDateAndTime(formData.start, formData.time)
       const combinedEnd = new Date(combinedStart.getTime() + 30 * 60 * 1000) // 30min default duration
 
-      const newEventData = {
-        name: formData.name,
-        service: formData.service,
-        date: combinedStart.toISOString(),
-      }
+      // const newEventData = {
+      //   name: formData.name,
+      //   service: formData.service,
+      //   date: combinedStart.toISOString(),
+      // }
 
       try {
         if (editingEventId) {
-          await updateAppointment(editingEventId, newEventData as any)
+          // await updateAppointment(editingEventId, newEventData as any)
 
           setEvents((prev) =>
             prev.map((evt) =>
