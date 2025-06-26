@@ -32,6 +32,8 @@ export default function ClientForm({
     userId: userId,
   })
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
@@ -41,9 +43,16 @@ export default function ClientForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await onSubmit(formData)
-  }
 
+    if (isSubmitting) return // voorkom dubbele submit
+
+    setIsSubmitting(true)
+    try {
+      await onSubmit(formData)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
   const [darkmode] = useAtom(darkmodeAtom)
 
   return (
@@ -118,6 +127,7 @@ export default function ClientForm({
           <Check />
         </Button>
         <Button
+          disabled={isSubmitting}
           className={` ${
             darkmode
               ? "bg-white hover:bg-orange-50 text-orange-800"

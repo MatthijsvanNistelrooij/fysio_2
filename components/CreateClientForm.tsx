@@ -18,6 +18,7 @@ interface Props {
 
 export const CreateClientForm = ({ $id }: Props) => {
   const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [errors, setErrors] = useState({
     name: "",
@@ -42,6 +43,8 @@ export const CreateClientForm = ({ $id }: Props) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    if (isSubmitting) return // voorkom dubbele submit
+
     const newErrors = {
       name: formData.name ? "" : "Name is required!",
       email: formData.email ? "" : "Email is required!",
@@ -54,6 +57,8 @@ export const CreateClientForm = ({ $id }: Props) => {
 
     const hasErrors = Object.values(newErrors).some((msg) => msg !== "")
     if (hasErrors) return
+
+    setIsSubmitting(true) // zet isSubmitting aan
 
     try {
       const response = await fetch("/api/clients", {
@@ -80,6 +85,8 @@ export const CreateClientForm = ({ $id }: Props) => {
     } catch (error) {
       console.error("Error creating client:", error)
       toast.error("Error creating client")
+    } finally {
+      setIsSubmitting(false) // zet isSubmitting weer uit
     }
   }
 
@@ -150,6 +157,7 @@ export const CreateClientForm = ({ $id }: Props) => {
               </div>
               <div className="flex justify-end mt-5">
                 <Button
+                  disabled={isSubmitting}
                   type="submit"
                   className={` ${
                     darkmode

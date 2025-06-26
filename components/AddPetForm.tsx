@@ -47,6 +47,7 @@ export default function AddPetForm({
     appointments: initialData.appointments || [],
     drawing: initialData.drawing || "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -60,8 +61,15 @@ export default function AddPetForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Submitting form data:", formData)
-    await onSubmit(formData)
+
+    if (isSubmitting) return // voorkom dubbele submits
+
+    setIsSubmitting(true)
+    try {
+      await onSubmit(formData)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const [, setAddPet] = useAtom(addPetAtom)
@@ -152,6 +160,7 @@ export default function AddPetForm({
         {/* Submit Button */}
         <div className="flex justify-end pt-2">
           <Button
+            disabled={isSubmitting}
             type="submit"
             className={` ${
               darkmode

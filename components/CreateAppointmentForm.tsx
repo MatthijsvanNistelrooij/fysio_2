@@ -38,6 +38,7 @@ export default function CreateAppointmentForm({
     type: "massage",
   })
   const [darkmode] = useAtom(darkmodeAtom)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const formatDateForInput = (date: Date | string) => {
     const d = typeof date === "string" ? new Date(date) : date
@@ -64,14 +65,21 @@ export default function CreateAppointmentForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const payload: Appointment = {
-      ...formData,
-      date: new Date(formData.date),
+    if (isSubmitting) return // voorkom dubbele submit
+
+    setIsSubmitting(true)
+    try {
+      const payload: Appointment = {
+        ...formData,
+        date: new Date(formData.date),
+      }
+
+      console.log("Submitting payload:", payload)
+
+      await onSubmit(payload)
+    } finally {
+      setIsSubmitting(false)
     }
-
-    console.log("Submitting payload:", payload)
-
-    await onSubmit(payload)
   }
 
   return (
@@ -151,6 +159,7 @@ export default function CreateAppointmentForm({
 
       <div className="flex justify-end mt-2">
         <Button
+          disabled={isSubmitting}
           type="submit"
           className={` ${
             darkmode
