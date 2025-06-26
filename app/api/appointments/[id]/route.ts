@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { NextResponse, type NextRequest } from "next/server"
 import type { Appointment } from "@/lib/types"
 import {
   getAppointmentById,
@@ -6,8 +6,10 @@ import {
   deleteAppointment,
 } from "@/lib/appwrite/appointments"
 
-export async function GET(req: Request, context: { params: { id: string } }) {
-  const id = context.params.id
+type Params = { params: { id: string } }
+
+export async function GET(req: NextRequest, context: Params) {
+  const { id } = context.params
 
   const appointment = await getAppointmentById(id)
 
@@ -20,19 +22,15 @@ export async function GET(req: Request, context: { params: { id: string } }) {
 
   return NextResponse.json(appointment)
 }
-export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+
+export async function PUT(req: NextRequest, context: Params) {
   try {
+    const { id } = context.params
     const data: Appointment = await req.json()
 
-    // Update appointment with jouw helper
-    await updateAppointment(params.id, data)
+    await updateAppointment(id, data)
 
-    // Daarna de geüpdatete appointment ophalen (optioneel)
-    const updatedAppointment = await getAppointmentById(params.id)
-
+    const updatedAppointment = await getAppointmentById(id)
     if (!updatedAppointment) {
       return NextResponse.json(
         { error: "Appointment not found" },
@@ -50,12 +48,11 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  _req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(req: NextRequest, context: Params) {
   try {
-    await deleteAppointment(params.id)
+    const { id } = context.params
+    await deleteAppointment(id)
+
     return NextResponse.json({ message: "Appointment deleted successfully" })
   } catch (error) {
     console.error("Failed to delete appointment:", error)
