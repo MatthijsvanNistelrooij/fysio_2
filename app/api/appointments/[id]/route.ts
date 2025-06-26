@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { NextResponse, type NextRequest } from "next/server"
 import type { Appointment } from "@/lib/types"
 import {
   getAppointmentById,
@@ -7,33 +7,35 @@ import {
 } from "@/lib/appwrite/appointments"
 
 export async function GET(
-  req: Request,
-  context: { params: Record<string, string> }
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const { id } = context.params
-
-  const appointment = await getAppointmentById(id)
+  const appointment = await getAppointmentById(params.id)
 
   if (!appointment) {
-    return NextResponse.json({ error: "Appointment not found" }, { status: 404 })
+    return NextResponse.json(
+      { error: "Appointment not found" },
+      { status: 404 }
+    )
   }
 
   return NextResponse.json(appointment)
 }
 
 export async function PUT(
-  req: Request,
-  context: { params: Record<string, string> }
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = context.params
     const data: Appointment = await req.json()
+    await updateAppointment(params.id, data)
 
-    await updateAppointment(id, data)
-
-    const updated = await getAppointmentById(id)
+    const updated = await getAppointmentById(params.id)
     if (!updated) {
-      return NextResponse.json({ error: "Appointment not found" }, { status: 404 })
+      return NextResponse.json(
+        { error: "Appointment not found" },
+        { status: 404 }
+      )
     }
 
     return NextResponse.json(updated)
@@ -44,15 +46,11 @@ export async function PUT(
 }
 
 export async function DELETE(
-  req: Request,
-  context: { params: Record<string, string> }
+  req: NextRequest,
+  context: { params: { id: string } }
 ) {
-  try {
-    const { id } = context.params
-    await deleteAppointment(id)
-    return NextResponse.json({ message: "Appointment deleted successfully" })
-  } catch (error) {
-    console.error("Delete error:", error)
-    return NextResponse.json({ error: "Failed to delete" }, { status: 500 })
-  }
+  const id = (await context).params.id
+
+  await deleteAppointment(id)
+  return NextResponse.json({ message: "Appointment deleted successfully" })
 }
