@@ -111,29 +111,56 @@ export const MobileNav = () => {
           {showSettings && (
             <div
               className={`absolute top-18 right-32 ${
-                darkmode ? "bg-white border-gray-200" : "bg-gray-800 border-gray-600"
+                darkmode
+                  ? "bg-white border-gray-200"
+                  : "bg-gray-800 border-gray-600"
               } p-5 border `}
             >
               <div className="flex items-center space-x-2">
                 <div className="flex gap-3 items-end mb-2 mr-10">
-                  {fontSizes.map(({ size, label, fontWeight }) => (
-                    <button
-                      key={size}
-                      onClick={() => setFontSize(size)}
-                      style={{
-                        fontSize: size,
-                        fontWeight: fontWeight,
-                      }}
-                      className={`cursor-pointer px-2 py-1 rounded transition ${
-                        fontSize === size
-                          ? "bg-gray-800 text-white"
-                          : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                      }`}
-                      aria-label={`Set font size to ${size}`}
-                    >
-                      {label}
-                    </button>
-                  ))}
+                  {darkmode ? (
+                    <div className="flex gap-3 items-end mb-3">
+                      {fontSizes.map(({ size, label, fontWeight }) => (
+                        <button
+                          key={size}
+                          onClick={() => setFontSize(size)}
+                          style={{
+                            fontSize: size,
+                            fontWeight: fontWeight,
+                          }}
+                          className={`cursor-pointer px-2 py-1 rounded transition ${
+                            fontSize === size
+                              ? "bg-gray-800 text-gray-200 border-b"
+                              : "bg-gray-200 text-gray-800 hover:bg-gray-200"
+                          }`}
+                          aria-label={`Set font size to ${size}`}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex gap-3 items-end mb-3">
+                      {fontSizes.map(({ size, label, fontWeight }) => (
+                        <button
+                          key={size}
+                          onClick={() => setFontSize(size)}
+                          style={{
+                            fontSize: size,
+                            fontWeight: fontWeight,
+                          }}
+                          className={`cursor-pointer px-2 py-1 rounded transition ${
+                            fontSize === size
+                              ? "bg-gray-200 text-gray-800 border-b"
+                              : "bg-gray-800 text-gray-200 hover:bg-gray-800"
+                          }`}
+                          aria-label={`Set font size to ${size}`}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <button
                   onClick={() => setDarkmode(!darkmode)}
@@ -153,7 +180,9 @@ export const MobileNav = () => {
           {signout && (
             <div
               className={`absolute top-18 right-5 ${
-                darkmode ? "bg-white text-gray-800 border-gray-200" : "bg-gray-800 border-gray-600"
+                darkmode
+                  ? "bg-white text-gray-800 border-gray-200"
+                  : "bg-gray-800 border-gray-600"
               } p-5 border `}
             >
               Signout?
