@@ -8,7 +8,6 @@ import { Check, Contact, HomeIcon, Mail, Phone } from "lucide-react"
 import InfoCard from "./InfoCard"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
-import { createClient } from "@/app/api/clients/route"
 
 interface Props {
   fullName?: string
@@ -57,12 +56,26 @@ export const CreateClientForm = ({ $id }: Props) => {
     if (hasErrors) return
 
     try {
-      const payload = { ...formData, userId: $id! }
-      const newClient = await createClient(payload)
+      const response = await fetch("/api/clients", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          userId: $id,
+        }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to create client")
+      }
+
+      const newClient = await response.json()
 
       toast.success("Client added successfully!")
-
-      // Redirect to the new client's detail page using the new ID
       router.push(`/clients/${newClient.$id}`)
     } catch (error) {
       console.error("Error creating client:", error)

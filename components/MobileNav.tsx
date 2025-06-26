@@ -13,7 +13,7 @@ import {
 } from "lucide-react"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
-import { signOutUser } from "@/app/api/users/route"
+import { signOutUser } from "@/lib/appwrite/users"
 
 export const MobileNav = () => {
   const [fontSize, setFontSize] = React.useState("12px")

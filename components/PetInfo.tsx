@@ -5,7 +5,7 @@ import {
   selectedPetAtom,
 } from "@/lib/store"
 import { useAtom } from "jotai"
-import React from "react"
+import React, { useState } from "react"
 import InfoCard from "./InfoCard"
 import { Button } from "./ui/button"
 import PetForm from "./PetForm"
@@ -16,13 +16,13 @@ import dog from "../public/dog_avatar.jpg"
 import cat from "../public/cat_avatar.jpg"
 import horse from "../public/horse_avatar.jpg"
 import Image from "next/image"
-import { deletePet, updatePet } from "@/app/api/pets/route"
 
 type PetType = "Dog" | "Horse" | "Cat" | "Other"
 
 const PetInfo = () => {
   const [, setLocalClient] = useAtom(localClientAtom)
   const [editPet, setEditPet] = useAtom(editPetAtom)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [darkmode] = useAtom(darkmodeAtom)
@@ -46,7 +46,18 @@ const PetInfo = () => {
 
   const handleUpdatePet = async (data: Pet) => {
     try {
-      await updatePet(data.$id, data)
+      const response = await fetch(`/api/pets/${data.$id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to update pet")
+      }
+
+      const updatedPet = await response.json()
 
       toast.success("Pet info updated successfully!")
       setLocalClient((prevClient) => {
@@ -55,7 +66,7 @@ const PetInfo = () => {
         return {
           ...prevClient,
           pets: prevClient.pets.map((pet) =>
-            pet.$id === data.$id ? data : pet
+            pet.$id === data.$id ? updatedPet : pet
           ),
         }
       })
@@ -64,7 +75,7 @@ const PetInfo = () => {
 
         return {
           ...prevPet,
-          ...data, // spreads in the new fields (name, description, etc.)
+          ...updatedPet,
           appointments: prevPet.appointments, // keep existing appointments
         }
       })
@@ -83,8 +94,20 @@ const PetInfo = () => {
     if (!confirmDelete) return
 
     try {
-      await deletePet(id)
+      setIsDeleting(true) // blokkeert rendering tijdens delete
+
+      const response = await fetch(`/api/pets/${id}`, {
+        method: "DELETE",
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to delete pet")
+      }
+
       toast.success("Pet deleted successfully!")
+
+      // Reset state
       setSelectedPet(null)
       setLocalClient((prevClient) => {
         if (!prevClient) return prevClient
@@ -97,9 +120,17 @@ const PetInfo = () => {
     } catch (error) {
       console.error("Error deleting pet:", error)
       toast.error("Failed to delete pet.")
+      setIsDeleting(false)
     }
   }
 
+  if (isDeleting) {
+    return (
+      <div className="flex justify-center items-center p-5 text-gray-500">
+        Deleting pet...
+      </div>
+    )
+  }
   return (
     <div className="flex flex-col md:flex-row gap-2 row-span-8">
       <InfoCard

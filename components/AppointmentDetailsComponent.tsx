@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-
 import AppointmentForm from "./AppointmentForm"
 import { toast } from "sonner"
 import { CalendarRange, Edit, X } from "lucide-react"
@@ -13,7 +12,6 @@ import Image from "next/image"
 import { Button } from "./ui/button"
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import horse from "../public/horse_1.png"
-import { deleteAppointment, updateAppointment } from "@/app/api/appointments/route"
 
 export default function AppointmentDetailsComponent({
   appointment,
@@ -25,29 +23,49 @@ export default function AppointmentDetailsComponent({
   const [showCanvas, setShowCanvas] = useState(false)
   const [savedImage, setSavedImage] = useState<string | null>(null)
 
-  const handleDelete = async (id: string) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this appointment?"
-    )
-    if (!confirmDelete) return
-
-    try {
-      await deleteAppointment(id)
-      toast.success("Appointment deleted successfully!")
-      router.push("/appointments")
-    } catch (error) {
-      console.error("Error deleting appointment:", error)
-      toast.success("Failed to delete appointment.")
-    }
-  }
-
   const handleEditToggle = () => {
     setEdit((prev) => !prev)
   }
 
+  async function deleteAppointmentApi(id: string) {
+    const res = await fetch(`/api/appointments/${id}`, { method: "DELETE" })
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.error || "Failed to delete appointment")
+    }
+    return await res.json()
+  }
+
+  async function updateAppointmentApi(id: string, data: Appointment) {
+    const res = await fetch(`/api/appointments/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.error || "Failed to update appointment")
+    }
+    return await res.json()
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this appointment?"))
+      return
+
+    try {
+      await deleteAppointmentApi(id)
+      toast.success("Appointment deleted successfully!")
+      router.push("/appointments")
+    } catch (error) {
+      console.error("Error deleting appointment:", error)
+      toast.error("Failed to delete appointment.")
+    }
+  }
+
   const handleUpdate = async (data: Appointment) => {
     try {
-      await updateAppointment(appointment.$id, data)
+      await updateAppointmentApi(appointment.$id, data)
       toast.success("Appointment updated successfully!")
       setEdit(false)
       router.refresh()

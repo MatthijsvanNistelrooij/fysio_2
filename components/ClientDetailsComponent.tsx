@@ -25,7 +25,7 @@ import Pets from "./Pets"
 import Appointments from "./Appointments"
 import SelectedAppointment from "./SelectedAppointment"
 import AddAppointment from "./AddAppointment"
-import { getCurrentUser } from "@/app/api/users/route"
+import { getCurrentUser } from "@/lib/appwrite/users"
 
 export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [, setSavedImage] = useAtom(savedImageAtom)

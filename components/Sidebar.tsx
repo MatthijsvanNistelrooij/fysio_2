@@ -14,7 +14,7 @@ import {
 import { navItems } from "../constants"
 import { useAtom } from "jotai"
 import { darkmodeAtom } from "@/lib/store"
-import { signOutUser } from "@/app/api/users/route"
+import { signOutUser } from "@/lib/appwrite/users"
 
 interface Props {
   fullName: string

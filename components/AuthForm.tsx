@@ -20,7 +20,6 @@ import { Input } from "./ui/input"
 import logo_banner from "/public/logo.png"
 
 import OtpModal from "./OTPModal"
-import { createAccount, signInUser } from "@/app/api/users/route"
 
 type FormType = "sign-in" | "sign-up"
 
@@ -53,17 +52,32 @@ const AuthForm = ({ type }: { type: FormType }) => {
     setErrorMessage("")
 
     try {
-      const user =
-        type === "sign-up"
-          ? await createAccount({
-              fullName: values.fullName || "",
-              email: values.email,
-            })
-          : await signInUser({ email: values.email })
+      const endpoint =
+        type === "sign-up" ? "/api/users/sign-up" : "/api/users/sign-in"
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          fullName: values.fullName,
+          email: values.email,
+        }),
+      })
 
-      setAccountId(user.accountId)
-    } catch {
-      setErrorMessage("Failed to create account. Please try again.")
+      const result = await response.json()
+
+      if (!response.ok || result.error) {
+        throw new Error(result.error || "Failed to authenticate")
+      }
+
+      setAccountId(result.accountId)
+    } catch (err) {
+      console.error(err)
+      setErrorMessage(
+        type === "sign-up"
+          ? "Failed to create account. Please try again."
+          : "Failed to sign in. Please try again."
+      )
     } finally {
       setIsLoading(false)
     }

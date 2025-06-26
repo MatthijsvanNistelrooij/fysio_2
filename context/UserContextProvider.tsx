@@ -1,4 +1,5 @@
 "use client"
+
 import React, {
   createContext,
   useState,
@@ -8,7 +9,6 @@ import React, {
 } from "react"
 
 import { User } from "@/lib/types"
-import { getCurrentUser } from "@/app/api/users/route"
 
 interface UserContextProps {
   user: User | null
@@ -25,9 +25,24 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   useEffect(() => {
     async function fetchUser() {
-      const currentUser = await getCurrentUser()
-      setUser(currentUser)
+      try {
+        const res = await fetch("/api/users", {
+          method: "GET",
+          credentials: "include", // belangrijk als je cookies gebruikt
+        })
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch user")
+        }
+
+        const currentUser = await res.json()
+        setUser(currentUser)
+      } catch (err) {
+        console.error("Could not fetch user:", err)
+        setUser(null)
+      }
     }
+
     fetchUser()
   }, [])
 

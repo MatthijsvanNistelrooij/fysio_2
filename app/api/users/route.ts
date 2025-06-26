@@ -1,146 +1,73 @@
-"use server"
+import {
+  createAccount,
+  getCurrentUser,
+  sendEmailOTP,
+  verifySecret,
+} from "@/lib/appwrite/users"
+import { NextResponse } from "next/server"
 
-import { Query, ID } from "node-appwrite"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
-
-import { appwriteConfig } from "@/appwrite/config"
-import { createAdminClient, createSessionClient } from "@/appwrite"
-import { parseStringify } from "@/lib/utils"
-
-const getUserByEmail = async (email: string) => {
-  const { databases } = await createAdminClient()
-
-  const result = await databases.listDocuments(
-    appwriteConfig.databaseId,
-    appwriteConfig.usersCollectionId,
-    [Query.equal("email", [email])]
-  )
-
-  return result.total > 0 ? result.documents[0] : null
-}
-
-const handleError = (error: unknown, message: string) => {
-  console.log(error, message)
-  throw error
-}
-
-export const sendEmailOTP = async ({ email }: { email: string }) => {
-  const { account } = await createAdminClient()
-
+export async function GET() {
   try {
-    const session = await account.createEmailToken(ID.unique(), email)
+    const user = await getCurrentUser()
 
-    return session.userId
-  } catch (error) {
-    handleError(error, "Failed to send email OTP")
-  }
-}
-
-export const createAccount = async ({
-  fullName,
-  email,
-}: {
-  fullName: string
-  email: string
-}) => {
-  const existingUser = await getUserByEmail(email)
-
-  const accountId = await sendEmailOTP({ email })
-  if (!accountId) throw new Error("Failed to send an OTP")
-
-  if (!existingUser) {
-    const { databases } = await createAdminClient()
-
-    await databases.createDocument(
-      appwriteConfig.databaseId,
-      appwriteConfig.usersCollectionId,
-      ID.unique(),
-      {
-        fullName,
-        email,
-        avatar: "avatarPlaceholderUrl",
-        accountId,
-      }
-    )
-  }
-
-  return parseStringify({ accountId })
-}
-
-export const verifySecret = async ({
-  accountId,
-  password,
-}: {
-  accountId: string
-  password: string
-}) => {
-  try {
-    const { account } = await createAdminClient()
-
-    const session = await account.createSession(accountId, password)
-
-    ;(await cookies()).set("appwrite-session", session.secret, {
-      path: "/",
-      httpOnly: true,
-      sameSite: "strict",
-      secure: true,
-    })
-
-    return parseStringify({ sessionId: session.$id })
-  } catch (error) {
-    handleError(error, "Failed to verify OTP")
-  }
-}
-
-export const getCurrentUser = async () => {
-  try {
-    const { databases, account } = await createSessionClient()
-
-    const result = await account.get()
-
-    console.log("result", result)
-
-    const user = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      appwriteConfig.usersCollectionId,
-      [Query.equal("accountId", result.$id)]
-    )
-    console.log("user", user)
-
-    if (user.total <= 0) return null
-
-    return parseStringify(user.documents[0])
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-export const signOutUser = async () => {
-  const { account } = await createSessionClient()
-
-  try {
-    await account.deleteSession("current")
-    ;(await cookies()).delete("appwrite-session")
-  } catch (error) {
-    handleError(error, "Failed to sign out user")
-  } finally {
-    redirect("/sign-in")
-  }
-}
-
-export const signInUser = async ({ email }: { email: string }) => {
-  try {
-    const existingUser = await getUserByEmail(email)
-
-    // User exists, send OTP
-    if (existingUser) {
-      await sendEmailOTP({ email })
-      return parseStringify({ accountId: existingUser.accountId })
+    if (!user) {
+      return NextResponse.json({ error: "No user found" }, { status: 404 })
     }
 
-    return parseStringify({ accountId: null, error: "User not found" })
+    return NextResponse.json(user)
   } catch (error) {
-    handleError(error, "Failed to sign in user")
+    console.log(error)
+    return NextResponse.json({ error: "Failed to fetch user" }, { status: 500 })
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+
+    if (body.type === "sign-up") {
+      const { fullName, email } = body
+      if (!fullName || !email) {
+        return NextResponse.json(
+          { error: "Missing required fields" },
+          { status: 400 }
+        )
+      }
+      const account = await createAccount({ fullName, email })
+      return NextResponse.json(account, { status: 201 })
+    } else if (body.type === "otp") {
+      const { email } = body
+      if (!email) {
+        return NextResponse.json(
+          { error: "Missing email field for OTP" },
+          { status: 400 }
+        )
+      }
+      // Hier moet je je logica voor versturen OTP zetten, bijvoorbeeld:
+      await sendEmailOTP(email) // implementeer deze functie
+      return NextResponse.json({ message: "OTP sent" })
+    } else if (body.type === "verify") {
+      const { accountId, password } = body
+      if (!accountId || !password) {
+        return NextResponse.json(
+          { error: "Missing accountId or password for verification" },
+          { status: 400 }
+        )
+      }
+      // Hier verifieer je de OTP code
+      const sessionId = await verifySecret({ accountId, password }) // implementeer deze functie
+      if (!sessionId) {
+        return NextResponse.json({ error: "Invalid OTP" }, { status: 401 })
+      }
+      return NextResponse.json({ sessionId })
+    } else {
+      return NextResponse.json({ error: "Invalid type" }, { status: 400 })
+    }
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json(
+      { error: "Failed to process request" },
+      { status: 500 }
+    )
   }
 }

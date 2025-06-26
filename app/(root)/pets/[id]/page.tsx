@@ -1,7 +1,4 @@
-import { getAppointmentsByPetId } from "@/app/api/appointments/route"
-import { getPetById } from "@/app/api/pets/route"
 import PetDetailsComponent from "@/components/PetDetailsComponent"
-
 import { Appointment, Pet } from "@/lib/types"
 import { notFound } from "next/navigation"
 
@@ -11,24 +8,44 @@ const PetDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (!id) return notFound()
 
-  const rawPet = await getPetById(id)
+  // Haal pet data op via fetch naar je API
+  const petRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/pets?id=${id}`,
+    {
+      cache: "no-store",
+    }
+  )
+
+  if (!petRes.ok) return notFound()
+
+  const rawPet = await petRes.json()
 
   const pet: Pet = {
-    $id: rawPet?.$id || "",
-    ownerId: rawPet?.ownerId,
-    name: rawPet?.name,
-    type: rawPet?.type,
-    age: rawPet?.age,
-    breed: rawPet?.breed,
-    notes: rawPet?.notes,
-    description: rawPet?.description,
-    appointments: rawPet?.appointments ?? [],
-    drawing: rawPet?.drawing,
+    $id: rawPet.$id || "",
+    ownerId: rawPet.ownerId,
+    name: rawPet.name,
+    type: rawPet.type,
+    age: rawPet.age,
+    breed: rawPet.breed,
+    notes: rawPet.notes,
+    description: rawPet.description,
+    appointments: rawPet.appointments ?? [],
+    drawing: rawPet.drawing,
   }
 
-  if (!pet) return notFound()
+  // Haal appointments via fetch op naar aparte endpoint (zorg dat die bestaat)
+  const appointmentsRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/appointments/byPet?petId=${pet.$id}`,
+    {
+      cache: "no-store",
+    }
+  )
 
-  const rawAppointments = await getAppointmentsByPetId(pet.$id)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let rawAppointments: any[] = []
+  if (appointmentsRes.ok) {
+    rawAppointments = await appointmentsRes.json()
+  }
 
   const appointments: Appointment[] = rawAppointments.map((doc) => ({
     $id: doc.$id,

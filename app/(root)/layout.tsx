@@ -4,11 +4,10 @@ import { redirect } from "next/navigation"
 import Sidebar from "@/components/Sidebar"
 import { Toaster } from "sonner"
 import { MobileNav } from "@/components/MobileNav"
-import { getCurrentUser } from "../api/users/route"
+import { getCurrentUser } from "@/lib/appwrite/users"
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const currentUser = await getCurrentUser()
-
   if (!currentUser) return redirect("/sign-in")
 
   return (
@@ -20,7 +19,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
       {/* Main content */}
       <section className="flex-1 flex flex-col">
-        <div className="md:hidden sticky top-0 ">
+        <div className="md:hidden sticky top-0">
           <MobileNav {...currentUser} />
         </div>
 

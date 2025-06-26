@@ -1,11 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
+import { useAtom } from "jotai"
 
 import { Client } from "@/lib/types"
-import { useAtom } from "jotai"
 import { clientsAtom, loadingAtom, userAtom } from "@/lib/store"
-import { getCurrentUser } from "@/app/api/users/route"
-import { getClientsByUserId } from "@/app/api/clients/route"
 
 export const useClients = () => {
   const [, setClients] = useAtom(clientsAtom)
@@ -14,15 +11,29 @@ export const useClients = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const currentUser = await getCurrentUser()
-      setUser(currentUser)
-
-      if (!currentUser) return
-
       setLoading(true)
 
-      const data = await getClientsByUserId(currentUser.$id)
+      // 👉 fetch user from your own API route
+      const userRes = await fetch("/api/users", {
+        method: "GET",
+        credentials: "include", // ✅ belangrijk voor cookies/session
+      })
 
+      const currentUser = await userRes.json()
+      setUser(currentUser)
+
+      if (!currentUser?.$id) {
+        setLoading(false)
+        return
+      }
+
+      // 👉 fetch clients by userId from your own API
+      const clientsRes = await fetch(`/api/clients?userId=${currentUser.$id}`, {
+        method: "GET",
+        credentials: "include",
+      })
+
+      const data = await clientsRes.json()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const formattedClients: Client[] = data.map((doc: any) => ({
         $id: doc.$id,

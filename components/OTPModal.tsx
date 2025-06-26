@@ -16,7 +16,6 @@ import React, { useState } from "react"
 import { Button } from "./ui/button"
 import { useRouter } from "next/navigation"
 import { ExternalLinkIcon, Loader } from "lucide-react"
-import { sendEmailOTP, verifySecret } from "@/app/api/users/route"
 
 const OtpModal = ({
   accountId,
@@ -35,17 +34,44 @@ const OtpModal = ({
     setIsLoading(true)
 
     try {
-      const sessionId = await verifySecret({ accountId, password })
-      if (sessionId) router.push("/")
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          type: "verify",
+          accountId,
+          password,
+        }),
+      })
+
+      const result = await res.json()
+
+      if (res.ok && result?.sessionId) {
+        router.push("/")
+      } else {
+        throw new Error("OTP verification failed")
+      }
     } catch (error) {
       console.error("Failed to verify OTP", error)
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   const handleResendOtp = async () => {
-    await sendEmailOTP({ email })
+    try {
+      await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "otp",
+          email,
+        }),
+      })
+    } catch (error) {
+      console.error("Failed to resend OTP", error)
+    }
   }
 
   return (

@@ -35,7 +35,7 @@ export default function CreateAppointmentForm({
     date: new Date(),
     petId: petId,
     userId: userId,
-    type: "",
+    type: "massage",
   })
   const [darkmode] = useAtom(darkmodeAtom)
 

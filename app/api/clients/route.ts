@@ -1,156 +1,96 @@
-import { appwriteConfig } from "@/appwrite/config"
-import { Client, Databases, ID, Query } from "node-appwrite"
+// app/api/clients/route.ts
+import { NextResponse } from "next/server"
+import {
+  getClientsByUserId,
+  getClientById,
+  createClient,
+  updateClient,
+  deleteClient,
+} from "@/lib/appwrite/clients"
 
-const client = new Client()
-  .setEndpoint(appwriteConfig.endpointUrl)
-  .setProject(appwriteConfig.projectId)
-
-const databases = new Databases(client)
-
-export { client, databases }
-
-export const getClientsByUserId = async (userId: string) => {
-  console.log("[getClientsByUserId] Fetching clients for userId:", userId)
-
-  try {
-    const response = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      appwriteConfig.clientsCollectionId,
-      [Query.equal("userId", userId)]
-    )
-    console.log("[getClientsByUserId] Found clients:", response.documents)
-    return response.documents
-  } catch (error) {
-    console.error("[getClientsByUserId] Failed to fetch clients:", error)
-    return []
-  }
-}
-
-export const createClient = async ({
-  name,
-  email,
-  phone,
-  address,
-  userId,
-}: {
-  name: string
-  email: string
-  phone: string
-  address: string
-  userId: string
-}) => {
-  console.log("[createClient] Creating client with data:", {
-    name,
-    email,
-    phone,
-    address,
-    userId,
-  })
+export async function GET(request: Request) {
+  const url = new URL(request.url)
+  const id = url.searchParams.get("id")
+  const userId = url.searchParams.get("userId")
 
   try {
-    const newClient = await databases.createDocument(
-      appwriteConfig.databaseId,
-      appwriteConfig.clientsCollectionId,
-      ID.unique(),
-      {
-        name,
-        email,
-        phone,
-        address,
-        userId,
+    if (id) {
+      // 1 client ophalen via id
+      const client = await getClientById(id)
+      if (!client) {
+        return NextResponse.json({ error: "Client not found" }, { status: 404 })
       }
-    )
-    console.log("[createClient] Created client:", newClient)
-    return newClient
+      return NextResponse.json(client)
+    } else if (userId) {
+      // alle clients ophalen van 1 user
+      const clients = await getClientsByUserId(userId)
+      return NextResponse.json(clients)
+    } else {
+      // fallback, als je een endpoint wilt om alle clients te krijgen (optioneel)
+      return NextResponse.json(
+        { error: "Missing query param id or userId" },
+        { status: 400 }
+      )
+    }
   } catch (error) {
-    console.error("[createClient] Failed to create client:", error)
-    throw error
+    console.log(error)
+    return NextResponse.json(
+      { error: "Failed to fetch client(s)" },
+      { status: 500 }
+    )
   }
 }
 
-export const updateClient = async (
-  id: string,
-  {
-    name,
-    email,
-    phone,
-    address,
-    pets,
-    userId,
-  }: {
-    name: string
-    email: string
-    phone: string
-    address: string
-    userId: string
-    pets: {
-      name: string
-      type: string
-      age?: string
-      ownerId?: string
-    }[]
-  }
-) => {
-  console.log("[updateClient] Updating client", id, "with data:", {
-    name,
-    email,
-    phone,
-    address,
-    pets,
-    userId,
-  })
-
+export async function POST(request: Request) {
   try {
-    const updated = await databases.updateDocument(
-      appwriteConfig.databaseId,
-      appwriteConfig.clientsCollectionId,
-      id,
-      {
-        name,
-        email,
-        phone,
-        address,
-        pets,
-        userId,
-      }
-    )
-    console.log("[updateClient] Update successful:", updated)
-    return updated
+    const data = await request.json()
+    // verwacht data: { name, email, phone, address, userId }
+    if (!data.name || !data.email || !data.userId) {
+      return NextResponse.json({ error: "Invalid data" }, { status: 400 })
+    }
+    const newClient = await createClient(data)
+    return NextResponse.json(newClient, { status: 201 })
   } catch (error) {
-    console.error("[updateClient] Failed to update client:", error)
-    throw error
+    console.log(error)
+    return NextResponse.json(
+      { error: "Failed to create client" },
+      { status: 500 }
+    )
   }
 }
 
-export const deleteClient = async (id: string) => {
-  console.log("[deleteClient] Deleting client with id:", id)
-
+export async function PUT(request: Request) {
   try {
-    await databases.deleteDocument(
-      appwriteConfig.databaseId,
-      appwriteConfig.clientsCollectionId,
-      id
-    )
-    console.log("[deleteClient] Client deleted:", id)
+    const data = await request.json()
+    // verwacht data: { id, updateData }
+    if (!data.id || !data.updateData) {
+      return NextResponse.json({ error: "Invalid data" }, { status: 400 })
+    }
+    const updated = await updateClient(data.id, data.updateData)
+    return NextResponse.json({ message: "Client updated", updated })
   } catch (error) {
-    console.error("[deleteClient] Failed to delete client:", error)
-    throw error
+    console.log(error)
+    return NextResponse.json(
+      { error: "Failed to update client" },
+      { status: 500 }
+    )
   }
 }
 
-export const getClientById = async (id: string) => {
-  console.log("[getClientById] Fetching client with id:", id)
-
+export async function DELETE(request: Request) {
   try {
-    const response = await databases.getDocument(
-      appwriteConfig.databaseId,
-      appwriteConfig.clientsCollectionId,
-      id
-    )
-    console.log("[getClientById] Found client:", response)
-    return response
+    const url = new URL(request.url)
+    const id = url.searchParams.get("id")
+    if (!id) {
+      return NextResponse.json({ error: "Missing client id" }, { status: 400 })
+    }
+    await deleteClient(id)
+    return NextResponse.json({ message: "Client deleted" })
   } catch (error) {
-    console.error("[getClientById] Failed to fetch client:", error)
-    return null
+    console.log(error)
+    return NextResponse.json(
+      { error: "Failed to delete client" },
+      { status: 500 }
+    )
   }
 }

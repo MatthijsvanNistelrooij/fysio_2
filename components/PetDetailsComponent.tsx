@@ -12,12 +12,6 @@ import { Appointment, Pet, User } from "@/lib/types"
 import { Button } from "./ui/button"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
-import { getCurrentUser } from "@/app/api/users/route"
-import { deletePet, updatePet } from "@/app/api/pets/route"
-import {
-  addAppointmentToPet,
-  createAppointment,
-} from "@/app/api/appointments/route"
 
 export default function PetDetailsComponent({
   pet,
@@ -34,8 +28,11 @@ export default function PetDetailsComponent({
 
   useEffect(() => {
     async function fetchUser() {
-      const currentUser = await getCurrentUser()
-      setUser(currentUser)
+      const res = await fetch("/api/user")
+      if (res.ok) {
+        const userData = await res.json()
+        setUser(userData)
+      }
     }
     fetchUser()
   }, [])
@@ -47,22 +44,33 @@ export default function PetDetailsComponent({
     if (!confirmDelete) return
 
     try {
-      await deletePet(id)
+      const res = await fetch(`/api/pets/${id}`, {
+        method: "DELETE",
+      })
+
+      if (!res.ok) throw new Error("Delete failed")
+
       toast.success("Pet deleted successfully!")
+      setEdit(false)
       router.push("/pets")
     } catch (error) {
       console.error("Error deleting pet:", error)
-      toast.success("Failed to delete pet.")
+      toast.error("Failed to delete pet.")
     }
-  }
-
-  const handleEditToggle = () => {
-    setEdit((prev) => !prev)
   }
 
   const handleUpdate = async (data: Pet) => {
     try {
-      await updatePet(pet.$id, data)
+      const res = await fetch(`/api/pets/${data.$id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (!res.ok) throw new Error("Update failed")
+
       toast.success("Pet info updated successfully!")
       setEdit(false)
       router.refresh()
@@ -72,25 +80,28 @@ export default function PetDetailsComponent({
     }
   }
 
-  const handleToggleAddAppointment = () => {
-    setAddAppointment((prev) => !prev)
-  }
-
   const handleCreate = async (
     petId: string,
     userId: string,
     data: Appointment
   ) => {
     try {
-      const appointment = await createAppointment(petId, {
-        ...data,
-        date: data.date.toISOString(),
+      // 1. Create appointment
+      const res = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          date: data.date.toISOString(),
+          petId,
+          userId,
+        }),
       })
 
-      await addAppointmentToPet(petId, appointment.$id)
+      if (!res.ok) throw new Error("Create failed")
 
       toast.success("Appointment added successfully!")
-      setAddAppointment((prev) => !prev)
+      setAddAppointment(false)
       router.refresh()
     } catch (error) {
       console.error("Error creating appointment:", error)
@@ -114,14 +125,14 @@ export default function PetDetailsComponent({
           <div className="p-1">
             <div className="flex justify-end p-5 pb-0">
               <Button
-                onClick={handleEditToggle}
+                onClick={() => setEdit((prev) => !prev)}
                 className={` ${
                   darkmode
                     ? "bg-white hover:bg-gray-100 text-gray-800"
                     : "bg-gray-600 text-gray-200 hover:bg-gray-700"
                 }  cursor-pointer `}
               >
-                {edit ? <X /> : <Edit size={18} />} dd
+                {edit ? <X /> : <Edit size={18} />}
               </Button>
             </div>
             <div className="flex justify-between p-5 gap-2">
@@ -130,34 +141,33 @@ export default function PetDetailsComponent({
                   <PetForm
                     initialData={pet}
                     onSubmit={handleUpdate}
-                    handleClose={handleEditToggle}
+                    handleClose={() => setEdit(false)}
                     handleDelete={handleDelete}
                   />
                 ) : (
-                  <div className="">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="pt-2">
-                        <p className="text-sm font-medium mb-1">Name</p>
-                        <p className="text-base mb-4">{pet?.name || "N/A"}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="pt-2">
+                      <p className="text-sm font-medium mb-1">Name</p>
+                      <p className="text-base mb-4">{pet.name || "N/A"}</p>
 
-                        <p className="text-sm font-medium mb-1">Type</p>
-                        <p className="text-base mb-4">{pet?.type || "N/A"}</p>
+                      <p className="text-sm font-medium mb-1">Type</p>
+                      <p className="text-base mb-4">{pet.type || "N/A"}</p>
 
-                        <p className="text-sm font-medium mb-1">Breed</p>
-                        <p className="text-base mb-4">{pet?.breed || "N/A"}</p>
-                      </div>
+                      <p className="text-sm font-medium mb-1">Breed</p>
+                      <p className="text-base mb-4">{pet.breed || "N/A"}</p>
+                    </div>
 
-                      <div className="">
-                        <p className="text-sm font-medium mb-1">Age</p>
-                        <p className="text-base mb-4">{pet?.age || "N/A"}</p>
-                        <p className="text-sm font-medium mb-1">Description:</p>
-                        <p className="text-base mb-4">
-                          {pet?.description || "N/A"}
-                        </p>
+                    <div>
+                      <p className="text-sm font-medium mb-1">Age</p>
+                      <p className="text-base mb-4">{pet.age || "N/A"}</p>
 
-                        <p className="text-sm font-medium mb-1">Notes</p>
-                        <p className="text-base mb-4">{pet?.notes || "N/A"}</p>
-                      </div>
+                      <p className="text-sm font-medium mb-1">Description</p>
+                      <p className="text-base mb-4">
+                        {pet.description || "N/A"}
+                      </p>
+
+                      <p className="text-sm font-medium mb-1">Notes</p>
+                      <p className="text-base mb-4">{pet.notes || "N/A"}</p>
                     </div>
                   </div>
                 )}
@@ -175,21 +185,23 @@ export default function PetDetailsComponent({
                 Add New Appointment
                 <X
                   size={18}
-                  onClick={() => handleToggleAddAppointment()}
+                  onClick={() => setAddAppointment(false)}
                   className="cursor-pointer text-gray-400 hover:text-gray-200"
                 />
               </div>
               <CreateAppointmentForm
                 userId={user.$id}
                 petId={pet.$id}
-                onSubmit={(data) => handleCreate(pet.$id, pet.ownerId, data)}
+                onSubmit={(data) =>
+                  handleCreate(pet.$id, pet.ownerId, data)
+                }
               />
             </div>
           ) : (
             <div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div
-                  onClick={() => handleToggleAddAppointment()}
+                  onClick={() => setAddAppointment(true)}
                   className="cursor-pointer rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
                 >
                   <div className="bg-gray-100 px-4 py-2 rounded-t text-sm font-medium">
@@ -200,38 +212,29 @@ export default function PetDetailsComponent({
                   </div>
                 </div>
 
-                {Array.isArray(appointments) && appointments.length > 0 ? (
-                  appointments.map(
-                    (appointment: Appointment, index: number) => (
-                      <Link
-                        key={appointment.$id || index}
-                        href={`/appointments/${appointment.$id}`}
-                        className="block rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
-                      >
-                        <div className="bg-gray-100 px-4 py-2 rounded-t text-sm font-medium">
-                          {new Date(appointment.date).toLocaleDateString(
-                            "en-US",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            }
-                          )}
-                        </div>
-                        <div className="p-4 space-y-1">
-                          <p className="text-gray-800 font-semibold">
-                            Description: {appointment.description}
-                          </p>
-                          <p className="text-gray-500 font-light">
-                            Treatment: {appointment.treatment}
-                          </p>
-                        </div>
-                      </Link>
-                    )
-                  )
-                ) : (
-                  <p className="text-gray-500 col-span-full" />
-                )}
+                {appointments.map((appointment) => (
+                  <Link
+                    key={appointment.$id}
+                    href={`/appointments/${appointment.$id}`}
+                    className="block rounded shadow hover:shadow-md transition-shadow bg-white text-sm"
+                  >
+                    <div className="bg-gray-100 px-4 py-2 rounded-t text-sm font-medium">
+                      {new Date(appointment.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </div>
+                    <div className="p-4 space-y-1">
+                      <p className="text-gray-800 font-semibold">
+                        Description: {appointment.description}
+                      </p>
+                      <p className="text-gray-500 font-light">
+                        Treatment: {appointment.treatment}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
           )}

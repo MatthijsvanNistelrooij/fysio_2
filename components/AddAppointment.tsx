@@ -16,7 +16,6 @@ import CreateAppointmentForm from "./CreateAppointmentForm"
 
 import { toast } from "sonner"
 import InfoCard from "./InfoCard"
-import { addAppointmentToPet, createAppointment } from "@/app/api/appointments/route"
 
 const AddAppointment = () => {
   const [, setAddAppointment] = useAtom(addAppointmentAtom)
@@ -27,7 +26,7 @@ const AddAppointment = () => {
   const [, setSelectedAppointment] = useAtom(selectedAppointmentAtom)
 
   const [, setOpenAppointment] = useAtom(openAppointmentAtom)
-  const [ darkmode] = useAtom(darkmodeAtom)
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleCreateAppointment = async (
     petId: string,
@@ -35,12 +34,27 @@ const AddAppointment = () => {
     data: Appointment
   ) => {
     try {
-      const appointment = await createAppointment(petId, {
-        ...data,
-        date: data.date.toISOString(),
+      const response = await fetch(`/api/appointments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          petId,
+          userId,
+          description: data.description,
+          treatment: data.treatment,
+          date: data.date.toISOString(),
+          type: data.type,
+        }),
       })
 
-      await addAppointmentToPet(petId, appointment.$id)
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to create appointment")
+      }
+
+      const appointment = await response.json()
 
       const cleanAppointment: Appointment = {
         $id: appointment.$id,
@@ -52,10 +66,10 @@ const AddAppointment = () => {
         type: appointment.type,
       }
 
-      // Set selected appointment here
+      // Zet hier jouw state updates zoals in jouw component:
       setSelectedAppointment(cleanAppointment)
       setOpenAppointment(true)
-      // Update selected pet with new appointment
+
       setSelectedPet((prevPet) => {
         if (!prevPet) return null
         return {
@@ -66,7 +80,6 @@ const AddAppointment = () => {
 
       setLocalClient((prevClient) => {
         if (!prevClient) return prevClient
-
         return {
           ...prevClient,
           pets: prevClient.pets.map((pet) =>
@@ -81,7 +94,7 @@ const AddAppointment = () => {
       })
 
       toast.success("Appointment added successfully!")
-      setAddAppointment((prev) => !prev)
+      setAddAppointment(false)
     } catch (error) {
       console.error("Error creating appointment:", error)
       toast.error("Failed to create appointment.")

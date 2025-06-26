@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "./ui/button"
 import { Edit, X } from "lucide-react"
 import InfoCard from "./InfoCard"
@@ -9,13 +9,13 @@ import { useRouter } from "next/navigation"
 import type { Client } from "@/lib/types" // or wherever your Client type is defined
 import ClientForm from "./ClientForm"
 import OwnerInfo from "./OwnerInfo"
-import { deleteClient, updateClient } from "@/app/api/clients/route"
 
 const Info = ({ client }: { client: Client }) => {
   const [edit, setEdit] = useAtom(toggleEditAtom)
   const [user] = useAtom(userAtom)
   const [darkmode] = useAtom(darkmodeAtom)
   const router = useRouter()
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const handleEditToggle = () => {
     setEdit((prev) => !prev)
@@ -23,7 +23,17 @@ const Info = ({ client }: { client: Client }) => {
 
   const handleUpdate = async (data: Client) => {
     try {
-      await updateClient(client.$id, data)
+      const response = await fetch(`/api/clients/${client.$id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to update client")
+      }
+
       toast.success("Saved!")
       setEdit(false)
       router.refresh()
@@ -39,14 +49,25 @@ const Info = ({ client }: { client: Client }) => {
     )
     if (!confirmDelete) return
 
-    try {
-      await deleteClient(id)
-      toast.success("Client deleted successfully!")
+    setIsDeleting(true)
 
+    try {
+      const response = await fetch(`/api/clients/${id}`, {
+        method: "DELETE",
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to delete client")
+      }
+
+      toast.success("Client deleted successfully!")
       router.push("/clients")
     } catch (error) {
       console.error("Error deleting client:", error)
       toast.error("Failed to delete client.")
+    } finally {
+      setIsDeleting(false)
     }
   }
 
@@ -85,7 +106,9 @@ const Info = ({ client }: { client: Client }) => {
         )
       }
     >
-      {edit ? (
+      {isDeleting ? (
+        <p className="text-center text-sm text-gray-500">Deleting client...</p>
+      ) : edit ? (
         <ClientForm
           initialData={client}
           userId={user?.$id || ""}

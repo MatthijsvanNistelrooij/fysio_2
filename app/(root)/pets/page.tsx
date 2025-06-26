@@ -8,41 +8,40 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table"
-import { redirect } from "next/navigation"
-import { getAllPets } from "@/app/api/pets/route"
+import { useRouter } from "next/navigation"
 
 export interface Pet {
   $id: string
   name: string
   type: string
   age?: string
-  appointments: []
-}
-
-export interface Client {
-  $id: string
-  name: string
-  email: string
-  phone: string
-  address: string
-  pets: Pet[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  appointments: any[]
 }
 
 const Pets = () => {
   const [pets, setPets] = useState<Pet[]>([])
+  const router = useRouter()
 
   useEffect(() => {
     const fetchPets = async () => {
-      const data = await getAllPets()
+      const res = await fetch("/api/pets", { cache: "no-store" })
 
-      // explicitly cast each document to your Client type
+      if (!res.ok) {
+        console.error("Failed to fetch pets")
+        return
+      }
+
+      const data = await res.json()
+
       const formattedPets = data.map(
-        (doc): Pet => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (doc: any): Pet => ({
           $id: doc.$id,
           name: doc.name,
           age: doc.age,
-          appointments: doc.appointments,
-          type: "",
+          appointments: doc.appointments || [],
+          type: doc.type || "",
         })
       )
 
@@ -53,7 +52,7 @@ const Pets = () => {
   }, [])
 
   const handleTableRowClick = (id: string) => {
-    redirect(`/pets/${id}`)
+    router.push(`/pets/${id}`)
   }
 
   return (

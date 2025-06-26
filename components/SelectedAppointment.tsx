@@ -1,4 +1,5 @@
-import React from "react"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from "react"
 import { Edit, X } from "lucide-react"
 import {
   darkmodeAtom,
@@ -23,12 +24,32 @@ import cat from "../public/cat.jpg"
 
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import InfoCard from "./InfoCard"
-import {
-  deleteAppointment,
-  updateAppointment,
-} from "@/app/api/appointments/route"
 
 type PetType = "Dog" | "Horse" | "Cat" | "Other"
+
+// Helper functions die via fetch naar je API routes gaan:
+async function deleteAppointment(id: string) {
+  const res = await fetch(`/api/appointments/${id}`, { method: "DELETE" })
+  if (!res.ok) {
+    const err = await res.json()
+    throw new Error(err.error || "Failed to delete appointment")
+  }
+}
+
+async function updateAppointment(id: string, data: Appointment) {
+  const res = await fetch(`/api/appointments/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    const err = await res.json()
+    throw new Error(err.error || "Failed to update appointment")
+  }
+
+  return res.json()
+}
 
 const SelectedAppointment = () => {
   const [selectedAppointment, setSelectedAppointment] = useAtom(
@@ -41,6 +62,11 @@ const SelectedAppointment = () => {
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
   const [, setLocalClient] = useAtom(localClientAtom)
   const [darkmode] = useAtom(darkmodeAtom)
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  const handleEditToggleAppointment = () => {
+    setEditAppointment((prev) => !prev)
+  }
 
   const handleDeleteAppointment = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -48,7 +74,9 @@ const SelectedAppointment = () => {
     )
     if (!confirmDelete) return
 
-    // Optimistically update localClient
+    setIsDeleting(true)
+
+    // Optimistisch updaten van localClient
     setLocalClient((prevClient) => {
       if (!prevClient) return null
 
@@ -70,8 +98,9 @@ const SelectedAppointment = () => {
       toast.success("Appointment deleted successfully!")
       setOpenAppointment(false)
       setEditAppointment(false)
+      setSelectedAppointment(null) // selectie leegmaken na delete
 
-      // Update selectedPet as well
+      // Update selectedPet ook lokaal
       setSelectedPet((prevPet) => {
         if (!prevPet) return null
 
@@ -85,26 +114,30 @@ const SelectedAppointment = () => {
     } catch (error) {
       console.error("Error deleting appointment:", error)
       toast.error("Failed to delete appointment.")
+    } finally {
+      setIsDeleting(false)
     }
-  }
-
-  const handleEditToggleAppointment = () => {
-    setEditAppointment((prev) => !prev)
   }
 
   const handleUpdateAppointment = async (appointment: Appointment) => {
     try {
-      await updateAppointment(appointment.$id, appointment)
+      const updatedAppointment = await updateAppointment(
+        appointment.$id,
+        appointment
+      )
       toast.success("Appointment updated successfully!")
       setEditAppointment(false)
 
-      // Update selectedPet.appointments array
       setSelectedPet((prevPet) => {
         if (!prevPet) return null
 
         const updatedAppointments = prevPet.appointments.map((a) =>
-          a.$id === appointment.$id
-            ? { ...a, ...appointment, date: new Date(appointment.date) }
+          a.$id === updatedAppointment.$id
+            ? {
+                ...a,
+                ...updatedAppointment,
+                date: new Date(updatedAppointment.date),
+              }
             : a
         )
 
@@ -114,10 +147,9 @@ const SelectedAppointment = () => {
         }
       })
 
-      // ✅ Update selectedAppointment
       setSelectedAppointment({
-        ...appointment,
-        date: new Date(appointment.date),
+        ...updatedAppointment,
+        date: new Date(updatedAppointment.date),
       })
     } catch (error) {
       console.error("Error updating appointment:", error)
@@ -134,7 +166,6 @@ const SelectedAppointment = () => {
     drawingJson,
   }: {
     imageDataUrl: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     drawingJson: any
   }) => {
     if (!selectedAppointment) return
@@ -165,6 +196,14 @@ const SelectedAppointment = () => {
       default:
         return horse // fallback
     }
+  }
+
+  if (isDeleting) {
+    return (
+      <div className="flex justify-center items-center p-5 text-gray-500">
+        Deleting appointment...
+      </div>
+    )
   }
 
   return (
