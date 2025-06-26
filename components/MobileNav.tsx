@@ -8,6 +8,7 @@ import {
   CalendarRange,
   Contact,
   Edit,
+  LayoutDashboard,
   LogOutIcon,
   Settings2,
 } from "lucide-react"
@@ -72,7 +73,7 @@ export const MobileNav = () => {
                   ) : item.icon === "calendar" ? (
                     <CalendarRange size={20} />
                   ) : item.icon === "dashboard" ? (
-                    <CalendarRange size={20} />
+                    <LayoutDashboard size={20} />
                   ) : item.icon === "create" ? (
                     <Edit size={20} />
                   ) : null}

@@ -4,7 +4,13 @@ import { Button } from "./ui/button"
 import { signOutUser } from "@/lib/actions/user.actions"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { CalendarRange, Contact, Edit, LogOutIcon } from "lucide-react"
+import {
+  CalendarRange,
+  Contact,
+  Edit,
+  LayoutDashboard,
+  LogOutIcon,
+} from "lucide-react"
 import { navItems } from "../constants"
 import { useAtom } from "jotai"
 import { darkmodeAtom } from "@/lib/store"
@@ -70,7 +76,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
                 ) : item.icon === "calendar" ? (
                   <CalendarRange size={20} />
                 ) : item.icon === "dashboard" ? (
-                  <CalendarRange size={20} />
+                  <LayoutDashboard size={20} />
                 ) : item.icon === "create" ? (
                   <Edit size={20} />
                 ) : null}
