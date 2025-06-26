@@ -8,15 +8,14 @@ import {
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Record<string, string> }
 ) {
-  const appointment = await getAppointmentById(params.id)
+  const { id } = context.params
+
+  const appointment = await getAppointmentById(id)
 
   if (!appointment) {
-    return NextResponse.json(
-      { error: "Appointment not found" },
-      { status: 404 }
-    )
+    return NextResponse.json({ error: "Appointment not found" }, { status: 404 })
   }
 
   return NextResponse.json(appointment)
@@ -24,43 +23,36 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Record<string, string> }
 ) {
   try {
+    const { id } = context.params
     const data: Appointment = await req.json()
 
-    await updateAppointment(params.id, data)
+    await updateAppointment(id, data)
 
-    const updatedAppointment = await getAppointmentById(params.id)
-    if (!updatedAppointment) {
-      return NextResponse.json(
-        { error: "Appointment not found" },
-        { status: 404 }
-      )
+    const updated = await getAppointmentById(id)
+    if (!updated) {
+      return NextResponse.json({ error: "Appointment not found" }, { status: 404 })
     }
 
-    return NextResponse.json(updatedAppointment)
+    return NextResponse.json(updated)
   } catch (error) {
-    console.error("Failed to update appointment:", error)
-    return NextResponse.json(
-      { error: "Failed to update appointment" },
-      { status: 500 }
-    )
+    console.error("Update error:", error)
+    return NextResponse.json({ error: "Failed to update" }, { status: 500 })
   }
 }
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Record<string, string> }
 ) {
   try {
-    await deleteAppointment(params.id)
+    const { id } = context.params
+    await deleteAppointment(id)
     return NextResponse.json({ message: "Appointment deleted successfully" })
   } catch (error) {
-    console.error("Failed to delete appointment:", error)
-    return NextResponse.json(
-      { error: "Failed to delete appointment" },
-      { status: 500 }
-    )
+    console.error("Delete error:", error)
+    return NextResponse.json({ error: "Failed to delete" }, { status: 500 })
   }
 }
