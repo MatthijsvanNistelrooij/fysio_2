@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { useState } from "react"
 import { Calendar, dateFnsLocalizer, SlotInfo } from "react-big-calendar"
@@ -15,10 +14,21 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { clientsAtom, darkmodeAtom } from "@/lib/store"
+import { useAtom } from "jotai"
+import { Pet } from "@/lib/types"
+import { useClients } from "@/hooks/useClients"
+import { Select } from "@radix-ui/react-select"
+import {
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select"
+import { appointmentTypes } from "@/constants"
+import { toast } from "sonner"
 
-const locales = {
-  "en-US": enUS,
-}
+const locales = { "en-US": enUS }
 
 const localizer = dateFnsLocalizer({
   format,
@@ -33,16 +43,19 @@ export interface Event {
   title: string
   start: Date
   end: Date
+  petId?: string
+  petName?: string
 }
 
 interface FormData {
   name: string
-  service: string
+  type: string
   time: string
   start: Date | null
   end: Date | null
+  petId: string
+  petName: string
 }
-
 interface MyCalendarProps {
   events: Event[]
   setEvents: React.Dispatch<React.SetStateAction<Event[]>>
@@ -51,26 +64,30 @@ interface MyCalendarProps {
 export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    service: "",
+    type: "",
     time: "",
     start: null,
     end: null,
+    petId: "",
+    petName: "",
   })
+
+  console.log(events)
   const [open, setOpen] = useState(false)
   const [editingEventId, setEditingEventId] = useState<string | null>(null)
+  const [clients] = useAtom(clientsAtom)
+  useClients()
+
+  const pets: Pet[] = clients?.flatMap((client) => client.pets || []) || []
 
   const combineDateAndTime = (date: Date, time: string): Date => {
     const [hours, minutes] = time.split(":").map(Number)
     const combined = new Date(date)
-    combined.setHours(hours)
-    combined.setMinutes(minutes)
-    combined.setSeconds(0)
-    combined.setMilliseconds(0)
+    combined.setHours(hours, minutes, 0, 0)
     return combined
   }
 
   const handleSlotSelect = (slotInfo: SlotInfo) => {
-    // Check for overlapping event
     const overlappingEvent = events.find(
       (event) => slotInfo.start >= event.start && slotInfo.start < event.end
     )
@@ -81,10 +98,12 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
       setEditingEventId(null)
       setFormData({
         name: "",
-        service: "",
+        type: "",
         time: "",
         start: slotInfo.start,
         end: slotInfo.end,
+        petId: "",
+        petName: "",
       })
       setOpen(true)
     }
@@ -92,80 +111,157 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!formData.start || !formData.time || !formData.petId) {
+      console.warn("Missing required data")
+      return
+    }
 
-    if (formData.start && formData.time) {
-      const combinedStart = combineDateAndTime(formData.start, formData.time)
-      const combinedEnd = new Date(combinedStart.getTime() + 30 * 60 * 1000) // 30min default duration
+    const combinedStart = combineDateAndTime(formData.start, formData.time)
 
-      // const newEventData = {
-      //   name: formData.name,
-      //   service: formData.service,
-      //   date: combinedStart.toISOString(),
-      // }
+    const payload = {
+      description: formData.name,
+      treatment: formData.type,
+      date: combinedStart.toISOString(),
+      petId: formData.petId,
+      type: formData.type,
+    }
 
-      try {
-        if (editingEventId) {
-          // await updateAppointment(editingEventId, newEventData as any)
+    try {
+      if (editingEventId) {
+        // update appointment
+        const response = await fetch(`/api/appointments/${editingEventId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+        if (!response.ok) throw new Error("Failed to update")
+        const updated = await response.json()
 
-          setEvents((prev) =>
-            prev.map((evt) =>
-              evt.id === editingEventId
-                ? {
-                    ...evt,
-                    title: `${formData.name} – ${formData.service}`,
-                    start: combinedStart,
-                    end: combinedEnd,
-                  }
-                : evt
-            )
+        const matchedPet = pets.find((p) => p.$id === updated.petId)
+        setEvents((prev) =>
+          prev.map((evt) =>
+            evt.id === editingEventId
+              ? {
+                  id: updated.$id,
+                  title: `${updated.description} – ${updated.treatment}`,
+                  start: new Date(updated.date),
+                  end: new Date(
+                    new Date(updated.date).getTime() + 30 * 60 * 1000
+                  ),
+                  petId: updated.petId,
+                  petName: matchedPet?.name || "",
+                }
+              : evt
           )
-        } else {
-          // const newAppointment = await createAppointment(petId, newEventData)
-          // setEvents([
-          //   ...events,
-          //   {
-          //     id: newAppointment.$id,
-          //     title: `${formData.name} – ${formData.service}`,
-          //     start: combinedStart,
-          //     end: combinedEnd,
-          //   },
-          // ])
-        }
+        )
+        toast.success("Appointment updated successfully!")
+      } else {
+        // create appointment
+        const response = await fetch(`/api/appointments`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+        if (!response.ok) throw new Error("Failed to create")
+        const created = await response.json()
 
-        setOpen(false)
-        setEditingEventId(null)
-      } catch (error) {
-        console.error("Failed to save appointment", error)
+        const matchedPet = pets.find((p) => p.$id === created.petId)
+        setEvents((prev) => [
+          ...prev,
+          {
+            id: created.$id,
+            title: `${created.description} – ${created.treatment}`,
+            start: new Date(created.date),
+            end: new Date(new Date(created.date).getTime() + 30 * 60 * 1000),
+            petId: created.petId,
+            petName: matchedPet?.name || "",
+          },
+        ])
+        toast.success("Appointment added successfully!")
       }
+
+      setOpen(false)
+      setEditingEventId(null)
+    } catch (error) {
+      console.error("Failed to save appointment", error)
     }
   }
 
   const handleEventClick = (event: Event) => {
-    // router.push(`/appointments/${event.id}`)
     setEditingEventId(event.id)
 
-    const [name, service] = event.title.split(" – ")
+    const [name, type] = event.title.split(" – ")
     const hours = event.start.getHours().toString().padStart(2, "0")
     const minutes = event.start.getMinutes().toString().padStart(2, "0")
+    const matchedPet = pets.find((p) => p.$id === event.petId)
 
     setFormData({
       name,
-      service,
+      type,
       time: `${hours}:${minutes}`,
       start: event.start,
       end: event.end,
+      petId: event?.petId || "",
+      petName: matchedPet?.name || "",
     })
 
     setOpen(true)
   }
+
+  const [darkmode] = useAtom(darkmodeAtom)
+
   return (
-    <div className="text-white">
+    <div
+      className={
+        !darkmode ? "text-white bg-gray-800" : "text-gray-800 bg-gray-100"
+      }
+    >
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="bg-white">
+        <DialogContent className="text-gray-700">
           <DialogHeader>
-            <DialogTitle></DialogTitle>
+            <DialogTitle>Edit Appointment</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
+            <Select
+              value={formData.petId}
+              onValueChange={(value: string) => {
+                const selectedPet = pets.find((p) => p.$id === value)
+                setFormData({
+                  ...formData,
+                  petId: value,
+                  petName: selectedPet?.name || "",
+                })
+              }}
+            >
+              <SelectTrigger className={`w-full rounded`}>
+                <SelectValue placeholder="Select pet" />
+              </SelectTrigger>
+              <SelectContent>
+                {pets?.map((pet) => (
+                  <SelectItem key={pet.$id} value={pet.$id}>
+                    {pet.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={formData.type}
+              onValueChange={(value: string) =>
+                setFormData({ ...formData, type: value })
+              }
+            >
+              <SelectTrigger className={`w-full rounded `}>
+                <SelectValue placeholder="Select appointment type" />
+              </SelectTrigger>
+              <SelectContent>
+                {appointmentTypes.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Input
               placeholder="Description"
               value={formData.name}
@@ -174,14 +270,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
               }
               required
             />
-            <Input
-              placeholder="Service (e.g. Massage, Exercise)"
-              value={formData.service}
-              onChange={(e) =>
-                setFormData({ ...formData, service: e.target.value })
-              }
-              required
-            />
+
             <Input
               type="time"
               value={formData.time}
@@ -190,8 +279,11 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
               }
               required
             />
+
             <DialogFooter>
-              <Button type="submit">Confirm Appointment</Button>
+              <Button type="submit" className="bg-gray-800 cursor-pointer">
+                Confirm
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>

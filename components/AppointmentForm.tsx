@@ -122,7 +122,7 @@ export default function AppointmentForm({
               darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
             }`}
           >
-            <SelectValue placeholder="Select pet type" />
+            <SelectValue placeholder="Select appointment type" />
           </SelectTrigger>
           <SelectContent>
             {appointmentTypes.map((type) => (

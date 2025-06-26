@@ -52,6 +52,7 @@ const Appointments = () => {
           userId: doc.userId,
           type: doc.type,
         }))
+        console.log("DATA", data)
 
         setAppointments(formattedAppointments)
 
@@ -62,9 +63,11 @@ const Appointments = () => {
 
           return {
             id: appt.$id,
-            title: `${appt.description} – ${appt.treatment}`,
+            title: `${appt.description} – ${appt.type}`,
             start,
             end,
+            petId: appt.petId,
+            type: appt.type,
           }
         })
         setEvents(calendarEvents)
