@@ -170,7 +170,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-              placeholder="Name"
+              placeholder="Description"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
