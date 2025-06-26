@@ -6,11 +6,10 @@ import {
   deleteAppointment,
 } from "@/lib/appwrite/appointments"
 
-export async function GET(
-  _req: Request,
-  { params }: { params: { id: string } }
-) {
-  const appointment = await getAppointmentById(params.id)
+export async function GET(req: Request, context: { params: { id: string } }) {
+  const id = context.params.id
+
+  const appointment = await getAppointmentById(id)
 
   if (!appointment) {
     return NextResponse.json(
@@ -21,7 +20,6 @@ export async function GET(
 
   return NextResponse.json(appointment)
 }
-
 export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
