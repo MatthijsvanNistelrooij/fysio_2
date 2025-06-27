@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Calendar, dateFnsLocalizer, SlotInfo } from "react-big-calendar"
 import { format, parse, startOfWeek, getDay } from "date-fns"
 import { enUS } from "date-fns/locale"
@@ -48,7 +48,7 @@ export interface Event {
 }
 
 interface FormData {
-  description: string
+  description: string // ipv name
   type: string
   time: string
   start: Date | null
@@ -56,6 +56,7 @@ interface FormData {
   petId: string
   petName: string
 }
+
 interface MyCalendarProps {
   events: Event[]
   setEvents: React.Dispatch<React.SetStateAction<Event[]>>
@@ -142,7 +143,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
             evt.id === editingEventId
               ? {
                   id: updated.$id,
-                  title: `${matchedPet?.name || "Pet"} – ${updated.treatment}`,
+                  title: `${matchedPet?.name || "Pet"} – ${updated.petName}`,
                   start: new Date(updated.date),
                   end: new Date(
                     new Date(updated.date).getTime() + 30 * 60 * 1000
@@ -169,7 +170,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
           ...prev,
           {
             id: created.$id,
-            title: `${matchedPet?.name || "Pet"} – ${created.treatment}`,
+            title: `${matchedPet?.name || "Pet"} – ${created.petName}`,
             start: new Date(created.date),
             end: new Date(new Date(created.date).getTime() + 30 * 60 * 1000),
             petId: created.petId,
@@ -189,13 +190,13 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   const handleEventClick = (event: Event) => {
     setEditingEventId(event.id)
 
-    const [, type] = event.title.split(" – ")
+    const [description, type] = event.title.split(" – ")
     const hours = event.start.getHours().toString().padStart(2, "0")
     const minutes = event.start.getMinutes().toString().padStart(2, "0")
     const matchedPet = pets.find((p) => p.$id === event.petId)
 
     setFormData({
-      description: event.title.split(" – ")[0], // bijvoorbeeld "Max"
+      description,
       type,
       time: `${hours}:${minutes}`,
       start: event.start,
@@ -209,14 +210,6 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
 
   const [darkmode] = useAtom(darkmodeAtom)
 
-  useEffect(() => {
-    if (!darkmode) {
-      document.body.classList.add("darkmode")
-    } else {
-      document.body.classList.remove("darkmode")
-    }
-  }, [darkmode])
-
   return (
     <div
       className={
@@ -227,7 +220,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
         <DialogContent className="text-gray-700">
           <DialogHeader>
             <DialogTitle>
-              {!!formData.petId ? "Update Appointment" : "Add Appointment"}
+              {!!formData.petId ? "Edit Appointment" : "Add Appointment"}
             </DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -272,14 +265,6 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
                 ))}
               </SelectContent>
             </Select>
-            <Input
-              placeholder="Description"
-              value={formData.description}
-              onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
-              }
-              required
-            />
 
             <Input
               type="time"
