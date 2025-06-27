@@ -142,12 +142,31 @@
 .darkmode .rbc-toolbar .rbc-btn {
   color: white !important;
   background-color: transparent !important;
-  /* border: none !important; */
   box-shadow: none !important;
 }
 
 .darkmode .rbc-toolbar .rbc-btn:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
   color: white !important;
-  border: white !important
+  border: white !important;
+}
+
+/* Normale mode */
+.darkmode .rbc-off-range-bg {
+  background-color: #2d333b; /* donkergrijs */
+}
+/* Lichte modus voor dagen buiten de maand */
+.rbc-off-range-bg {
+  background-color: #f3f4f6; /* lichtgrijs */
+}
+
+/* Of voor darkmode, bijvoorbeeld wat donkerder blauw */
+.darkmode .rbc-today {
+  background-color: #abadb8 !important; /* donkerblauw */
+  color: white !important;
+}
+
+.darkmode .rbc-row-segment,
+.darkmode .rbc-day-bg {
+  border-color: #4b5563 !important; /* donkere grijstint voor darkmode */
 }
