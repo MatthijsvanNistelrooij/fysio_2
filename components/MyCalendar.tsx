@@ -118,7 +118,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
     const combinedStart = combineDateAndTime(formData.start, formData.time)
 
     const payload = {
-      description: formData.name,
+      description: formData.petName,
       treatment: formData.type,
       date: combinedStart.toISOString(),
       petId: formData.petId,
