@@ -218,7 +218,9 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="text-gray-700">
           <DialogHeader>
-            <DialogTitle>Edit Appointment</DialogTitle>
+            <DialogTitle>
+              {!!formData.petId ? "Update Appointment" : "Add Appointment"}
+            </DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <Select
