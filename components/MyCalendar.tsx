@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Calendar, dateFnsLocalizer, SlotInfo } from "react-big-calendar"
 import { format, parse, startOfWeek, getDay } from "date-fns"
 import { enUS } from "date-fns/locale"
@@ -208,6 +208,14 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   }
 
   const [darkmode] = useAtom(darkmodeAtom)
+
+  useEffect(() => {
+    if (!darkmode) {
+      document.body.classList.add("darkmode")
+    } else {
+      document.body.classList.remove("darkmode")
+    }
+  }, [darkmode])
 
   return (
     <div

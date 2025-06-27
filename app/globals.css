@@ -133,22 +133,21 @@
   }
 }
 
-/* Knoppen in toolbar wit maken */
-.rbc-toolbar .rbc-btn {
-  color: white !important;
-  background-color: transparent !important;
-  border: none !important;
-  /* Optioneel hover-effect: */
-}
-.rbc-toolbar .rbc-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  color: white !important;
+/* Scoped styles only when darkmode class is present */
+.darkmode .rbc-toolbar {
+  background-color: #1f2937;
 }
 
-/* Eventueel achtergrond toolbar donker maken */
-.rbc-toolbar {
-  background-color: rgb(255, 255, 255); /* Tailwind's gray-800 */
-  padding: 0.5rem;
-  border-radius: 0.375rem; /* rounded-md */
-  color: black;
+.darkmode .rbc-toolbar button,
+.darkmode .rbc-toolbar .rbc-btn {
+  color: white !important;
+  background-color: transparent !important;
+  /* border: none !important; */
+  box-shadow: none !important;
+}
+
+.darkmode .rbc-toolbar .rbc-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  border: white !important
 }
