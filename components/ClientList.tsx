@@ -138,7 +138,7 @@ const ClientList = () => {
                     <div
                       key={pet.$id}
                       onClick={() => handleClickPet(client.$id, pet)}
-                      className={`flex flex-row gap-2 h-auto py-1 px-3 text-sm cursor-pointer text-gray-700 hover:bg-[#e9edf3] transition ${getPetColorClass(
+                      className={`flex flex-row justify-end gap-2 h-auto py-1 px-3 text-sm cursor-pointer text-gray-700 hover:bg-[#e9edf3] transition ${getPetColorClass(
                         pet.type
                       )}`}
                     >

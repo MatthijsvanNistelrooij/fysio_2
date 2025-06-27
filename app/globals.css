@@ -11,6 +11,7 @@
 
 * {
   font-size: var(--global-font-size);
+  scrollbar-width: none; /* hides scrollbar */
 }
 @custom-variant dark (&:is(.dark *));
 
@@ -149,5 +150,5 @@
   background-color: rgb(255, 255, 255); /* Tailwind's gray-800 */
   padding: 0.5rem;
   border-radius: 0.375rem; /* rounded-md */
-  color: black
+  color: black;
 }

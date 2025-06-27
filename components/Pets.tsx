@@ -71,7 +71,7 @@ const Pets = ({ client }: { client: Client }) => {
                 pet.type
               )}`}
             >
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-2">
                 <p className=" font-semibold">{pet.name}</p>
                 <div className="font-semibold">
                   <div className="flex flex-wrap gap-1 items-center">
