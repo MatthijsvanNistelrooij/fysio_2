@@ -218,11 +218,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   })
 
   return (
-    <div
-      className={
-        !darkmode ? "text-white bg-gray-800" : "text-gray-800 bg-white"
-      }
-    >
+    <div className={`calendar-wrapper ${!darkmode ? "darkmode" : ""}`}>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="text-gray-700">
           <DialogHeader>
