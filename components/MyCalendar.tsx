@@ -48,7 +48,7 @@ export interface Event {
 }
 
 interface FormData {
-  name: string
+  description: string
   type: string
   time: string
   start: Date | null
@@ -63,7 +63,7 @@ interface MyCalendarProps {
 
 export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
+    description: "",
     type: "",
     time: "",
     start: null,
@@ -96,7 +96,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
     } else {
       setEditingEventId(null)
       setFormData({
-        name: "",
+        description: "",
         type: "",
         time: "",
         start: slotInfo.start,
@@ -118,7 +118,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
     const combinedStart = combineDateAndTime(formData.start, formData.time)
 
     const payload = {
-      description: formData.petName,
+      description: formData.description,
       treatment: formData.type,
       date: combinedStart.toISOString(),
       petId: formData.petId,
@@ -189,13 +189,13 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   const handleEventClick = (event: Event) => {
     setEditingEventId(event.id)
 
-    const [name, type] = event.title.split(" – ")
+    const [, type] = event.title.split(" – ")
     const hours = event.start.getHours().toString().padStart(2, "0")
     const minutes = event.start.getMinutes().toString().padStart(2, "0")
     const matchedPet = pets.find((p) => p.$id === event.petId)
 
     setFormData({
-      name,
+      description: event.title.split(" – ")[0], // bijvoorbeeld "Max"
       type,
       time: `${hours}:${minutes}`,
       start: event.start,
@@ -274,9 +274,9 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
             </Select>
             <Input
               placeholder="Description"
-              value={formData.name}
+              value={formData.description}
               onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
+                setFormData({ ...formData, description: e.target.value })
               }
               required
             />
