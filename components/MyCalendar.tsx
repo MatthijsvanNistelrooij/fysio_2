@@ -142,7 +142,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
             evt.id === editingEventId
               ? {
                   id: updated.$id,
-                  title: `${updated.description} – ${updated.treatment}`,
+                  title: `${matchedPet?.name || "Pet"} – ${updated.treatment}`,
                   start: new Date(updated.date),
                   end: new Date(
                     new Date(updated.date).getTime() + 30 * 60 * 1000
@@ -169,7 +169,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
           ...prev,
           {
             id: created.$id,
-            title: `${created.description} – ${created.treatment}`,
+            title: `${matchedPet?.name || "Pet"} – ${created.treatment}`,
             start: new Date(created.date),
             end: new Date(new Date(created.date).getTime() + 30 * 60 * 1000),
             petId: created.petId,
