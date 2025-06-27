@@ -48,7 +48,7 @@ export interface Event {
 }
 
 interface FormData {
-  description: string // ipv name
+  name: string
   type: string
   time: string
   start: Date | null
@@ -56,7 +56,6 @@ interface FormData {
   petId: string
   petName: string
 }
-
 interface MyCalendarProps {
   events: Event[]
   setEvents: React.Dispatch<React.SetStateAction<Event[]>>
@@ -64,7 +63,7 @@ interface MyCalendarProps {
 
 export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   const [formData, setFormData] = useState<FormData>({
-    description: "",
+    name: "",
     type: "",
     time: "",
     start: null,
@@ -97,7 +96,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
     } else {
       setEditingEventId(null)
       setFormData({
-        description: "",
+        name: "",
         type: "",
         time: "",
         start: slotInfo.start,
@@ -119,7 +118,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
     const combinedStart = combineDateAndTime(formData.start, formData.time)
 
     const payload = {
-      description: formData.description,
+      description: formData.name,
       treatment: formData.type,
       date: combinedStart.toISOString(),
       petId: formData.petId,
@@ -143,7 +142,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
             evt.id === editingEventId
               ? {
                   id: updated.$id,
-                  title: `${matchedPet?.name || "Pet"} – ${updated.petName}`,
+                  title: `${updated.description} – ${updated.treatment}`,
                   start: new Date(updated.date),
                   end: new Date(
                     new Date(updated.date).getTime() + 30 * 60 * 1000
@@ -170,7 +169,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
           ...prev,
           {
             id: created.$id,
-            title: `${matchedPet?.name || "Pet"} – ${created.petName}`,
+            title: `${created.description} – ${created.treatment}`,
             start: new Date(created.date),
             end: new Date(new Date(created.date).getTime() + 30 * 60 * 1000),
             petId: created.petId,
@@ -190,13 +189,13 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
   const handleEventClick = (event: Event) => {
     setEditingEventId(event.id)
 
-    const [description, type] = event.title.split(" – ")
+    const [name, type] = event.title.split(" – ")
     const hours = event.start.getHours().toString().padStart(2, "0")
     const minutes = event.start.getMinutes().toString().padStart(2, "0")
     const matchedPet = pets.find((p) => p.$id === event.petId)
 
     setFormData({
-      description,
+      name,
       type,
       time: `${hours}:${minutes}`,
       start: event.start,
@@ -265,6 +264,14 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
                 ))}
               </SelectContent>
             </Select>
+            <Input
+              placeholder="Description"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+            />
 
             <Input
               type="time"
