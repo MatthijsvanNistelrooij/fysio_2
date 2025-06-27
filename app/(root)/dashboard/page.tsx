@@ -39,10 +39,13 @@ const Dashboard = () => {
     setChartKey((prev) => prev + 1) // Triggers re-render
   }
 
-  // Initial calculation
+  const isReady = clients && clients.length > 0
+
   useEffect(() => {
-    recalculateData()
-  }, [clients])
+    if (isReady) {
+      recalculateData()
+    }
+  }, [isReady])
 
   return (
     <CustomContainer>
@@ -72,23 +75,28 @@ const Dashboard = () => {
             }
           >
             <div className="w-full h-96">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart key={chartKey}>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    dataKey="value"
-                    label
-                  >
-                    {pieData.map((_, index) => (
-                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
+              {isReady && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart key={chartKey}>
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={80}
+                      dataKey="value"
+                      label
+                    >
+                      {pieData.map((_, index) => (
+                        <Cell
+                          key={index}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              )}
             </div>
           </InfoCard>
         </div>
