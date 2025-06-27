@@ -188,11 +188,9 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
 
   const handleEventClick = (event: Event) => {
     setEditingEventId(event.id)
-
-    const [name, type] = event.title.split(" – ")
+    const [petName, name, type] = event.title.split(" – ")
     const hours = event.start.getHours().toString().padStart(2, "0")
     const minutes = event.start.getMinutes().toString().padStart(2, "0")
-    const matchedPet = pets.find((p) => p.$id === event.petId)
 
     setFormData({
       name,
@@ -201,13 +199,23 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
       start: event.start,
       end: event.end,
       petId: event?.petId || "",
-      petName: matchedPet?.name || "",
+      petName: petName || "",
     })
 
     setOpen(true)
   }
 
   const [darkmode] = useAtom(darkmodeAtom)
+
+  const enrichedEvents = events.map((event) => {
+    const matchedPet = pets.find((p) => p.$id === event.petId)
+    const petName = matchedPet?.name || "Pet"
+    const [name, type] = event.title.split(" – ")
+    return {
+      ...event,
+      title: `${petName} – ${name} – ${type}`,
+    }
+  })
 
   return (
     <div
@@ -293,7 +301,7 @@ export const MyCalendar = ({ events, setEvents }: MyCalendarProps) => {
 
       <Calendar
         localizer={localizer}
-        events={events}
+        events={enrichedEvents}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500 }}
