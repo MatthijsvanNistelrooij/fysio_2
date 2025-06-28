@@ -9,7 +9,7 @@ const Create = async () => {
 
   if (!currentUser) return redirect("/sign-in")
 
-  return <CreateForm {...currentUser} />
+  return <CreateForm {...currentUser} padding="p-5" />
 }
 
 export default Create

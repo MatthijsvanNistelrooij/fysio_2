@@ -14,9 +14,10 @@ interface Props {
   $id?: string
   email?: string
   edit?: boolean
+  padding: string
 }
 
-export const CreateClientForm = ({ $id }: Props) => {
+export const CreateClientForm = ({ $id, padding }: Props) => {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -98,7 +99,7 @@ export const CreateClientForm = ({ $id }: Props) => {
         darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
       }  `}
     >
-      <div className="main-container w-full rounded-3xl p-5">
+      <div className={`main-container w-full rounded-3xl ${padding} `}>
         <InfoCard title="Create New Contact">
           <form onSubmit={handleSubmit} className="space-y-2 ">
             <div className="">

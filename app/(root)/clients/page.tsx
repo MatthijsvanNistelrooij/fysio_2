@@ -29,7 +29,7 @@ const Clients = () => {
   return (
     <CustomContainer>
       <Searchbar />
-      {edit ? <CreateClientForm $id={user?.$id} /> : <ClientList />}
+      {edit ? <CreateClientForm $id={user?.$id} padding="" /> : <ClientList />}
     </CustomContainer>
   )
 }
