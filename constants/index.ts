@@ -1,5 +1,15 @@
 export const navItems = [
   {
+    name: "Account",
+    icon: "account",
+    url: "/account",
+  },
+  {
+    name: "Calendar",
+    icon: "calendar",
+    url: "/appointments",
+  },
+  {
     name: "Contacts",
     icon: "client",
     url: "/clients",
@@ -13,16 +23,6 @@ export const navItems = [
     name: "Dashboard",
     icon: "dashboard",
     url: "/dashboard",
-  },
-  {
-    name: "Calendar",
-    icon: "calendar",
-    url: "/appointments",
-  },
-  {
-    name: "Account",
-    icon: "account",
-    url: "/account",
   },
 ]
 
