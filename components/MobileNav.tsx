@@ -4,6 +4,7 @@ import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import {
+  AlignCenterHorizontal,
   CalendarRange,
   Contact,
   Edit,
@@ -11,7 +12,7 @@ import {
   LogOutIcon,
   Settings,
 } from "lucide-react"
-import { darkmodeAtom } from "@/lib/store"
+import { darkmodeAtom, openSettingsAtom } from "@/lib/store"
 import { useAtom } from "jotai"
 import { signOutUser } from "@/lib/appwrite/users"
 
@@ -22,7 +23,12 @@ export const MobileNav = () => {
   }
 
   const [darkmode] = useAtom(darkmodeAtom)
+  const [, setOpenSettings] = useAtom(openSettingsAtom)
   const [signout, setSignout] = useState(false)
+
+  const handleClickSettings = () => {
+    setOpenSettings(true)
+  }
 
   return (
     <div
@@ -61,8 +67,8 @@ export const MobileNav = () => {
                     <CalendarRange size={20} />
                   ) : item.icon === "dashboard" ? (
                     <LayoutDashboard size={20} />
-                  ) : item.icon === "settings" ? (
-                    <Settings size={20} />
+                  ) : item.icon === "account" ? (
+                    <AlignCenterHorizontal size={20} />
                   ) : item.icon === "create" ? (
                     <Edit size={20} />
                   ) : null}
@@ -71,6 +77,16 @@ export const MobileNav = () => {
             })}
           </div>
           <div className="flex flex-row mt-2 mr-5">
+            <div
+              onClick={handleClickSettings}
+              className={`m-2 flex w-full justify-start gap-2 text-center cursor-pointer ${
+                darkmode
+                  ? "text-gray-400 hover:text-gray-800"
+                  : "text-gray-500 hover:text-gray-200"
+              }`}
+            >
+              <Settings size={20} />
+            </div>
             <Link
               href={""}
               onClick={() => setSignout(!signout)}

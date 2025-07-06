@@ -213,24 +213,7 @@ const SelectedAppointment = () => {
         <>
           <div className="w-full flex flex-col gap-2 lg:w-2/3">
             <InfoCard
-              action={
-                <Button
-                  className={` ${
-                    darkmode
-                      ? "bg-white hover:bg-gray-100 text-gray-800"
-                      : "bg-gray-600 text-gray-200 hover:bg-gray-700"
-                  }  cursor-pointer `}
-                >
-                  <X />
-                </Button>
-              }
-              title="Speech2Text"
-            >
-              <Deepgram />
-            </InfoCard>
-
-            <InfoCard
-              title={"Selected Appointment"}
+              title={"Appointment Details"}
               action={
                 <Button
                   type="button"
@@ -298,6 +281,22 @@ const SelectedAppointment = () => {
                   </div>
                 </div>
               </div>
+            </InfoCard>
+            <InfoCard
+              action={
+                <Button
+                  className={` ${
+                    darkmode
+                      ? "bg-white hover:bg-gray-100 text-gray-800"
+                      : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+                  }  cursor-pointer `}
+                >
+                  <X />
+                </Button>
+              }
+              title="Speech2Text"
+            >
+              <Deepgram />
             </InfoCard>
           </div>
           <div className="w-full">

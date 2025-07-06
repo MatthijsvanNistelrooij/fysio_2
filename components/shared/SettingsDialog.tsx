@@ -7,6 +7,15 @@ import {
 } from "@/components/ui/dialog"
 import { darkmodeAtom, openSettingsAtom } from "@/lib/store"
 import { useAtom } from "jotai"
+import {
+  AlignCenter,
+  AlignCenterHorizontal,
+  AlignCenterHorizontalIcon,
+  AlignCenterVertical,
+  AlignEndHorizontal,
+  AlignEndVerticalIcon,
+  AlignVerticalSpaceAround,
+} from "lucide-react"
 import { useEffect, useState } from "react"
 
 const SettingsDialog = () => {
@@ -35,7 +44,6 @@ const SettingsDialog = () => {
         <DialogHeader>
           <DialogTitle>Appearance</DialogTitle>
         </DialogHeader>
-
         <div className="space-y-4 py-10">
           <div
             className={` ${
@@ -96,6 +104,19 @@ const SettingsDialog = () => {
               </span>
             </div>
           </div>
+        </div>
+        <hr />
+        <DialogHeader className="mt-10">
+          <DialogTitle>Layout</DialogTitle>
+        </DialogHeader>
+        <div className="flex justify-between py-10 gap-6">
+          <AlignCenterHorizontalIcon />
+          <AlignVerticalSpaceAround />
+          <AlignCenterHorizontal />
+          <AlignEndVerticalIcon />
+          <AlignCenterVertical />
+          <AlignEndHorizontal />
+          <AlignCenter />
         </div>
       </DialogContent>
     </Dialog>
