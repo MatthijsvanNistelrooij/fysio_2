@@ -2,20 +2,19 @@ import React from "react"
 import { useAtom } from "jotai"
 import {
   addAppointmentAtom,
-  darkmodeAtom,
   localClientAtom,
   openAppointmentAtom,
   selectedAppointmentAtom,
   selectedPetAtom,
   userAtom,
 } from "@/lib/store"
-import { Button } from "./ui/button"
 import { X } from "lucide-react"
 import { Appointment } from "@/lib/types"
 import CreateAppointmentForm from "./CreateAppointmentForm"
 
 import { toast } from "sonner"
 import InfoCard from "./InfoCard"
+import CustomButton from "./shared/CustomButton"
 
 const AddAppointment = () => {
   const [, setAddAppointment] = useAtom(addAppointmentAtom)
@@ -26,7 +25,6 @@ const AddAppointment = () => {
   const [, setSelectedAppointment] = useAtom(selectedAppointmentAtom)
 
   const [, setOpenAppointment] = useAtom(openAppointmentAtom)
-  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleCreateAppointment = async (
     petId: string,
@@ -106,16 +104,16 @@ const AddAppointment = () => {
       <InfoCard
         title="Add Appointment"
         action={
-          <Button
-            onClick={() => setAddAppointment(false)}
-            className={` ${
-              darkmode
-                ? "bg-white hover:bg-gray-100 text-gray-800"
-                : "bg-gray-600 text-gray-200 hover:bg-gray-700"
-            }  cursor-pointer `}
-          >
+          <CustomButton onClick={() => setAddAppointment(false)}>
             <X />
-          </Button>
+          </CustomButton>
+
+          // <Button
+          //   onClick={() => setAddAppointment(false)}
+
+          // >
+
+          // </Button>
         }
       >
         <CreateAppointmentForm

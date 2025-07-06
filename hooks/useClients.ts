@@ -13,10 +13,9 @@ export const useClients = () => {
     const fetchData = async () => {
       setLoading(true)
 
-      // 👉 fetch user from your own API route
       const userRes = await fetch("/api/users", {
         method: "GET",
-        credentials: "include", // ✅ belangrijk voor cookies/session
+        credentials: "include",
       })
 
       const currentUser = await userRes.json()
@@ -27,7 +26,6 @@ export const useClients = () => {
         return
       }
 
-      // 👉 fetch clients by userId from your own API
       const clientsRes = await fetch(`/api/clients?userId=${currentUser.$id}`, {
         method: "GET",
         credentials: "include",

@@ -10,6 +10,7 @@ import NoClients from "@/components/NoClients"
 import Searchbar from "@/components/Searchbar"
 import Loading from "@/components/Loading"
 import CustomContainer from "@/components/CustomContainer"
+import Head from "next/head"
 
 const Clients = () => {
   useClients()
@@ -27,10 +28,20 @@ const Clients = () => {
   if (clients?.length === 0) return <NoClients />
 
   return (
-    <CustomContainer>
-      <Searchbar />
-      {edit ? <CreateClientForm $id={user?.$id} padding="" /> : <ClientList />}
-    </CustomContainer>
+    <>
+      <Head>
+        <title>Fysio App 2025</title>
+        <meta name="description" content="Fysio App 2025" />
+      </Head>
+      <CustomContainer>
+        <Searchbar />
+        {edit ? (
+          <CreateClientForm $id={user?.$id} padding="" />
+        ) : (
+          <ClientList />
+        )}
+      </CustomContainer>
+    </>
   )
 }
 

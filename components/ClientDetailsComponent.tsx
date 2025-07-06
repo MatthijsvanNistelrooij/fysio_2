@@ -11,7 +11,6 @@ import {
   selectedPetAtom,
   localClientAtom,
   selectedAppointmentAtom,
-  userAtom,
   addPetAtom,
   addAppointmentAtom,
   usePetStore,
@@ -25,7 +24,7 @@ import Pets from "./Pets"
 import Appointments from "./Appointments"
 import SelectedAppointment from "./SelectedAppointment"
 import AddAppointment from "./AddAppointment"
-import { getCurrentUser } from "@/lib/appwrite/users"
+import { useUser } from "@/context/UserContextProvider"
 
 export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [, setSavedImage] = useAtom(savedImageAtom)
@@ -33,7 +32,6 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [selectedAppointment] = useAtom(selectedAppointmentAtom)
   const [addAppointMent] = useAtom(addAppointmentAtom)
   const [selectedPet, setSelectedPet] = useAtom(selectedPetAtom)
-  const [user, setUser] = useAtom(userAtom)
   const [, setAddPet] = useAtom(addPetAtom)
 
   const selectedGlobalPet = usePetStore((state) => state.selectedGlobalPet)
@@ -58,13 +56,7 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
     setLocalClient(client)
   }, [client])
 
-  useEffect(() => {
-    async function fetchUser() {
-      const currentUser = await getCurrentUser()
-      setUser(currentUser)
-    }
-    fetchUser()
-  }, [])
+  const { user } = useUser()
 
   useEffect(() => {
     if (!selectedAppointment) return

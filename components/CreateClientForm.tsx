@@ -8,6 +8,7 @@ import { Check, Contact, HomeIcon, Mail, Phone } from "lucide-react"
 import InfoCard from "./InfoCard"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
+import Head from "next/head"
 
 interface Props {
   fullName?: string
@@ -94,86 +95,92 @@ export const CreateClientForm = ({ $id, padding }: Props) => {
   const [darkmode] = useAtom(darkmodeAtom)
 
   return (
-    <div
-      className={`min-h-screen flex justify-center ${
-        darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
-      }  `}
-    >
-      <div className={`main-container w-full rounded-3xl ${padding} `}>
-        <InfoCard title="Create New Contact">
-          <form onSubmit={handleSubmit} className="space-y-2 ">
-            <div className="">
-              <div className="flex flex-col md:flex-row gap-2 justify-between">
-                <div className="w-full flex">
-                  <Contact size={18} className="text-gray-400 m-2" />
-                  <Input
-                    name="name"
-                    placeholder={errors.name ? errors.name : "Name"}
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`${
-                      darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
-                    } border-none shadow-none rounded p-0 mt-1 `}
-                  />
-                </div>
+    <>
+      <Head>
+        <title>Fysio App 2025</title>
+        <meta name="description" content="Fysio App 2025" />
+      </Head>
+      <div
+        className={`min-h-screen flex justify-center ${
+          darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+        }  `}
+      >
+        <div className={`main-container w-full rounded-3xl ${padding} `}>
+          <InfoCard title="Create New Contact">
+            <form onSubmit={handleSubmit} className="space-y-2 ">
+              <div className="">
+                <div className="flex flex-col md:flex-row gap-2 justify-between">
+                  <div className="w-full flex">
+                    <Contact size={18} className="text-gray-400 m-2" />
+                    <Input
+                      name="name"
+                      placeholder={errors.name ? errors.name : "Name"}
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={`${
+                        darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                      } border-none shadow-none rounded p-0 mt-1 `}
+                    />
+                  </div>
 
-                <div className="w-full flex ">
-                  <HomeIcon size={18} className="text-gray-400 m-2" />
-                  <Input
-                    name="address"
-                    placeholder={errors.address ? errors.address : "Address"}
-                    value={formData.address}
-                    onChange={handleChange}
-                    className={`${
-                      darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
-                    } border-none shadow-none rounded p-0 mt-1 `}
-                  />
-                </div>
+                  <div className="w-full flex ">
+                    <HomeIcon size={18} className="text-gray-400 m-2" />
+                    <Input
+                      name="address"
+                      placeholder={errors.address ? errors.address : "Address"}
+                      value={formData.address}
+                      onChange={handleChange}
+                      className={`${
+                        darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                      } border-none shadow-none rounded p-0 mt-1 `}
+                    />
+                  </div>
 
-                <div className="w-full flex ">
-                  <Mail size={18} className="text-gray-400 m-2" />
-                  <Input
-                    name="email"
-                    placeholder={errors.email ? errors.email : "Email"}
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`${
-                      darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
-                    } border-none shadow-none rounded p-0 mt-1 `}
-                  />
-                </div>
+                  <div className="w-full flex ">
+                    <Mail size={18} className="text-gray-400 m-2" />
+                    <Input
+                      name="email"
+                      placeholder={errors.email ? errors.email : "Email"}
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={`${
+                        darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                      } border-none shadow-none rounded p-0 mt-1 `}
+                    />
+                  </div>
 
-                <div className="w-full flex ">
-                  <Phone size={18} className="text-gray-400 m-2" />
-                  <Input
-                    name="phone"
-                    placeholder={errors.phone ? errors.phone : "Phone"}
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className={`${
-                      darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
-                    } border-none shadow-none rounded p-0 mt-1 `}
-                  />
+                  <div className="w-full flex ">
+                    <Phone size={18} className="text-gray-400 m-2" />
+                    <Input
+                      name="phone"
+                      placeholder={errors.phone ? errors.phone : "Phone"}
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className={`${
+                        darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
+                      } border-none shadow-none rounded p-0 mt-1 `}
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end mt-5">
+                  <Button
+                    disabled={isSubmitting}
+                    type="submit"
+                    className={` ${
+                      darkmode
+                        ? "bg-white hover:bg-green-50 text-green-800"
+                        : "bg-gray-600 hover:bg-gray-700 text-green-200"
+                    }  cursor-pointer p-5 `}
+                  >
+                    <Check />
+                  </Button>
                 </div>
               </div>
-              <div className="flex justify-end mt-5">
-                <Button
-                  disabled={isSubmitting}
-                  type="submit"
-                  className={` ${
-                    darkmode
-                      ? "bg-white hover:bg-green-50 text-green-800"
-                      : "bg-gray-600 hover:bg-gray-700 text-green-200"
-                  }  cursor-pointer p-5 `}
-                >
-                  <Check />
-                </Button>
-              </div>
-            </div>
-          </form>
-        </InfoCard>
+            </form>
+          </InfoCard>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

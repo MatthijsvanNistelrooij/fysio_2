@@ -28,7 +28,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       try {
         const res = await fetch("/api/users", {
           method: "GET",
-          credentials: "include", // belangrijk als je cookies gebruikt
+          credentials: "include",
         })
 
         if (!res.ok) {

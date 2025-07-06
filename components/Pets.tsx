@@ -62,7 +62,7 @@ const Pets = ({ client }: { client: Client }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-3">
+    <div className="grid grid-cols-1 gap-2">
       {localClient?.pets.map((pet: Pet, index: number) => (
         <InfoCard key={pet.$id || index}>
           <div className={`flex justify-center gap-2 text-gray-800`}>

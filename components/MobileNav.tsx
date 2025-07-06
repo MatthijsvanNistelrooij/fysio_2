@@ -9,32 +9,19 @@ import {
   Edit,
   LayoutDashboard,
   LogOutIcon,
-  Settings2,
+  Settings,
 } from "lucide-react"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
 import { signOutUser } from "@/lib/appwrite/users"
 
 export const MobileNav = () => {
-  const [fontSize, setFontSize] = React.useState("12px")
-  React.useEffect(() => {
-    document.documentElement.style.setProperty("--global-font-size", fontSize)
-  }, [fontSize])
-
   const pathname = usePathname()
   const handleSignOut = () => {
     signOutUser()
   }
 
-  const [showSettings, setShowSettings] = useState(false)
-
-  const fontSizes = [
-    { size: "10px", label: "A", fontWeight: "lighter" },
-    { size: "12px", label: "A", fontWeight: "normal" },
-    { size: "14px", label: "A", fontWeight: "bold" },
-  ]
-
-  const [darkmode, setDarkmode] = useAtom(darkmodeAtom)
+  const [darkmode] = useAtom(darkmodeAtom)
   const [signout, setSignout] = useState(false)
 
   return (
@@ -74,6 +61,8 @@ export const MobileNav = () => {
                     <CalendarRange size={20} />
                   ) : item.icon === "dashboard" ? (
                     <LayoutDashboard size={20} />
+                  ) : item.icon === "settings" ? (
+                    <Settings size={20} />
                   ) : item.icon === "create" ? (
                     <Edit size={20} />
                   ) : null}
@@ -82,19 +71,6 @@ export const MobileNav = () => {
             })}
           </div>
           <div className="flex flex-row mt-2 mr-5">
-            <Link
-              href={""}
-              onClick={() => setShowSettings(!showSettings)}
-              className={`flex items-center gap-2 p-2 font-semibold transition
-                  ${
-                    darkmode
-                      ? "text-gray-400 hover:text-gray-800"
-                      : "text-gray-500 hover:text-gray-200"
-                  }
-                `}
-            >
-              <Settings2 size={20} />
-            </Link>
             <Link
               href={""}
               onClick={() => setSignout(!signout)}
@@ -109,75 +85,7 @@ export const MobileNav = () => {
               <LogOutIcon size={20} className="transform rotate-180" />
             </Link>
           </div>
-          {showSettings && (
-            <div
-              className={`absolute top-18 right-32 ${
-                darkmode
-                  ? "bg-white border-gray-200"
-                  : "bg-gray-800 border-gray-600"
-              } p-5 border `}
-            >
-              <div className="flex items-center space-x-2">
-                <div className="flex gap-3 items-end mb-2 mr-10">
-                  {darkmode ? (
-                    <div className="flex gap-3 items-end mb-3">
-                      {fontSizes.map(({ size, label, fontWeight }) => (
-                        <button
-                          key={size}
-                          onClick={() => setFontSize(size)}
-                          style={{
-                            fontSize: size,
-                            fontWeight: fontWeight,
-                          }}
-                          className={`cursor-pointer px-2 py-1 rounded transition ${
-                            fontSize === size
-                              ? "bg-gray-800 text-gray-200 border-b"
-                              : "bg-gray-200 text-gray-800 hover:bg-gray-200"
-                          }`}
-                          aria-label={`Set font size to ${size}`}
-                        >
-                          {label}
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex gap-3 items-end mb-3">
-                      {fontSizes.map(({ size, label, fontWeight }) => (
-                        <button
-                          key={size}
-                          onClick={() => setFontSize(size)}
-                          style={{
-                            fontSize: size,
-                            fontWeight: fontWeight,
-                          }}
-                          className={`cursor-pointer px-2 py-1 rounded transition ${
-                            fontSize === size
-                              ? "bg-gray-200 text-gray-800 border-b"
-                              : "bg-gray-800 text-gray-200 hover:bg-gray-800"
-                          }`}
-                          aria-label={`Set font size to ${size}`}
-                        >
-                          {label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <button
-                  onClick={() => setDarkmode(!darkmode)}
-                  className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-300 cursor-pointer ${
-                    !darkmode ? "bg-gray-700" : "bg-gray-300"
-                  }`}
-                >
-                  <div
-                    className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
-                      !darkmode ? "translate-x-6" : "translate-x-0"
-                    }`}
-                  />
-                </button>
-              </div>
-            </div>
-          )}
+
           {signout && (
             <div
               className={`absolute top-18 right-5 ${

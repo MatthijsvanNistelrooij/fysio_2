@@ -2,16 +2,17 @@
 
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Edit, Plus, X } from "lucide-react"
 
 import PetForm from "./PetForm"
 import CreateAppointmentForm from "./CreateAppointmentForm"
 import { toast } from "sonner"
-import { Appointment, Pet, User } from "@/lib/types"
+import { Appointment, Pet } from "@/lib/types"
 import { Button } from "./ui/button"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
+import { useUser } from "@/context/UserContextProvider"
 
 export default function PetDetailsComponent({
   pet,
@@ -23,19 +24,9 @@ export default function PetDetailsComponent({
   const router = useRouter()
   const [edit, setEdit] = useState(false)
   const [addAppointment, setAddAppointment] = useState(false)
-  const [user, setUser] = useState<User | null>(null)
   const [darkmode] = useAtom(darkmodeAtom)
 
-  useEffect(() => {
-    async function fetchUser() {
-      const res = await fetch("/api/user")
-      if (res.ok) {
-        const userData = await res.json()
-        setUser(userData)
-      }
-    }
-    fetchUser()
-  }, [])
+  const { user } = useUser()
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -192,9 +183,7 @@ export default function PetDetailsComponent({
               <CreateAppointmentForm
                 userId={user.$id}
                 petId={pet.$id}
-                onSubmit={(data) =>
-                  handleCreate(pet.$id, pet.ownerId, data)
-                }
+                onSubmit={(data) => handleCreate(pet.$id, pet.ownerId, data)}
               />
             </div>
           ) : (

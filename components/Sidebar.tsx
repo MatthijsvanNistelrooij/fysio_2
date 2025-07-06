@@ -10,6 +10,7 @@ import {
   Edit,
   LayoutDashboard,
   LogOutIcon,
+  Settings,
 } from "lucide-react"
 import { navItems } from "../constants"
 import { useAtom } from "jotai"
@@ -24,22 +25,11 @@ interface Props {
 
 export const Sidebar = ({ fullName, email }: Props) => {
   const pathname = usePathname()
-  const [fontSize, setFontSize] = React.useState("12px")
-  const [darkmode, setDarkmode] = useAtom(darkmodeAtom)
-
-  React.useEffect(() => {
-    document.documentElement.style.setProperty("--global-font-size", fontSize)
-  }, [fontSize])
+  const [darkmode] = useAtom(darkmodeAtom)
 
   const handleSignOut = () => {
     signOutUser()
   }
-
-  const fontSizes = [
-    { size: "10px", label: "A", fontWeight: "lighter" },
-    { size: "12px", label: "A", fontWeight: "normal" },
-    { size: "14px", label: "A", fontWeight: "bold" },
-  ]
 
   return (
     <div
@@ -78,6 +68,8 @@ export const Sidebar = ({ fullName, email }: Props) => {
                   <CalendarRange size={20} />
                 ) : item.icon === "dashboard" ? (
                   <LayoutDashboard size={20} />
+                ) : item.icon === "settings" ? (
+                  <Settings size={20} />
                 ) : item.icon === "create" ? (
                   <Edit size={20} />
                 ) : null}
@@ -87,66 +79,8 @@ export const Sidebar = ({ fullName, email }: Props) => {
             )
           })}
         </div>
-        <div className="flex text-end gap-2 m-1 rounded-xl justify-evenly">
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setDarkmode(!darkmode)}
-              className={`w-12 h-6 rounded-full flex items-center px-1 transition-colors duration-300 cursor-pointer ${
-                !darkmode ? "bg-gray-700" : "bg-gray-300"
-              }`}
-            >
-              <div
-                className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
-                  !darkmode ? "translate-x-6" : "translate-x-0"
-                }`}
-              />
-            </button>
-          </div>
 
-          {darkmode ? (
-            <div className="flex gap-3 items-end mb-3">
-              {fontSizes.map(({ size, label, fontWeight }) => (
-                <button
-                  key={size}
-                  onClick={() => setFontSize(size)}
-                  style={{
-                    fontSize: size,
-                    fontWeight: fontWeight,
-                  }}
-                  className={`cursor-pointer px-2 py-1 rounded transition ${
-                    fontSize === size
-                      ? "bg-gray-800 text-gray-200 border-b"
-                      : "bg-gray-200 text-gray-800 hover:bg-gray-200"
-                  }`}
-                  aria-label={`Set font size to ${size}`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="flex gap-3 items-end mb-3">
-              {fontSizes.map(({ size, label, fontWeight }) => (
-                <button
-                  key={size}
-                  onClick={() => setFontSize(size)}
-                  style={{
-                    fontSize: size,
-                    fontWeight: fontWeight,
-                  }}
-                  className={`cursor-pointer px-2 py-1 rounded transition ${
-                    fontSize === size
-                      ? "bg-gray-200 text-gray-800 border-b"
-                      : "bg-gray-800 text-gray-200 hover:bg-gray-800"
-                  }`}
-                  aria-label={`Set font size to ${size}`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+
         <div className="p-5 border-t border-gray-400">
           <div className="flex flex-col justify-center">
             <p className="font-semibold flex justify-start">{fullName}</p>
