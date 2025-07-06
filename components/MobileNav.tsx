@@ -4,7 +4,7 @@ import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import {
-  AlignCenterHorizontal,
+  AlignVerticalJustifyStart,
   CalendarRange,
   Contact,
   Edit,
@@ -68,7 +68,7 @@ export const MobileNav = () => {
                   ) : item.icon === "dashboard" ? (
                     <LayoutDashboard size={20} />
                   ) : item.icon === "account" ? (
-                    <AlignCenterHorizontal size={20} />
+                    <AlignVerticalJustifyStart size={20} />
                   ) : item.icon === "create" ? (
                     <Edit size={20} />
                   ) : null}
