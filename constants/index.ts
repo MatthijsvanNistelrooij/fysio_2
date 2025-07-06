@@ -20,9 +20,9 @@ export const navItems = [
     url: "/appointments",
   },
   {
-    name: "Settings",
-    icon: "settings",
-    url: "/settings",
+    name: "Account",
+    icon: "account",
+    url: "/account",
   },
 ]
 

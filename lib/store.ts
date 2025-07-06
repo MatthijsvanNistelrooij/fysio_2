@@ -17,7 +17,10 @@ export const toggleEditAtom = atom(false)
 export const loadingAtom = atom(false)
 export const searchAtom = atom("")
 export const showAtom = atom(false)
+export const openSettingsAtom = atom(false)
 export const darkmodeAtom = atom(true)
+
+export const isActiveAtom = atom(false)
 export const clientsAtom = atom<Client[] | null>([])
 
 type PetStore = {

@@ -212,7 +212,20 @@ const SelectedAppointment = () => {
       {selectedAppointment && openAppointment && (
         <>
           <div className="w-full flex flex-col gap-2 lg:w-2/3">
-            <InfoCard>
+            <InfoCard
+              action={
+                <Button
+                  className={` ${
+                    darkmode
+                      ? "bg-white hover:bg-gray-100 text-gray-800"
+                      : "bg-gray-600 text-gray-200 hover:bg-gray-700"
+                  }  cursor-pointer `}
+                >
+                  <X />
+                </Button>
+              }
+              title="Speech2Text"
+            >
               <Deepgram />
             </InfoCard>
 

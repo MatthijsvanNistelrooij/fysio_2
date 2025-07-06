@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar"
 import { Toaster } from "sonner"
 import { MobileNav } from "@/components/MobileNav"
 import { getCurrentUser } from "@/lib/appwrite/users"
+import SettingsDialog from "@/components/shared/SettingsDialog"
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const currentUser = await getCurrentUser()
@@ -22,7 +23,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         <div className="md:hidden sticky top-0">
           <MobileNav {...currentUser} />
         </div>
-
+        <SettingsDialog />
         <div className="flex-1">
           {children}
           <Toaster richColors position="bottom-right" />

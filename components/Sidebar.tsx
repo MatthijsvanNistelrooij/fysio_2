@@ -5,6 +5,7 @@ import { Button } from "./ui/button"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import {
+  AlignVerticalJustifyStart,
   CalendarRange,
   Contact,
   Edit,
@@ -14,7 +15,7 @@ import {
 } from "lucide-react"
 import { navItems } from "../constants"
 import { useAtom } from "jotai"
-import { darkmodeAtom } from "@/lib/store"
+import { darkmodeAtom, openSettingsAtom } from "@/lib/store"
 import { signOutUser } from "@/lib/appwrite/users"
 
 interface Props {
@@ -26,9 +27,14 @@ interface Props {
 export const Sidebar = ({ fullName, email }: Props) => {
   const pathname = usePathname()
   const [darkmode] = useAtom(darkmodeAtom)
+  const [, setOpenSettings] = useAtom(openSettingsAtom)
 
   const handleSignOut = () => {
     signOutUser()
+  }
+
+  const handleClickSettings = () => {
+    setOpenSettings(true)
   }
 
   return (
@@ -38,19 +44,20 @@ export const Sidebar = ({ fullName, email }: Props) => {
       } `}
     >
       <div className=" flex flex-col justify-between h-full">
-        <div className="flex flex-col h-full gap-2 p-3">
-          {navItems.map((item) => {
-            const isActive =
-              (item.url === "/clients" &&
-                (pathname.includes("/clients") ||
-                  pathname.includes("/pets"))) ||
-              (pathname.startsWith(item.url) && item.url !== "/clients")
+        <div className="flex flex-col justify-between h-full gap-2 p-3">
+          <div>
+            {navItems.map((item) => {
+              const isActive =
+                (item.url === "/clients" &&
+                  (pathname.includes("/clients") ||
+                    pathname.includes("/pets"))) ||
+                (pathname.startsWith(item.url) && item.url !== "/clients")
 
-            return (
-              <Link
-                key={item.name}
-                href={item.url}
-                className={`flex items-center gap-2 p-2 font-semibold transition
+              return (
+                <Link
+                  key={item.name}
+                  href={item.url}
+                  className={`flex items-center gap-2 p-2 font-semibold transition
                   ${
                     darkmode
                       ? isActive
@@ -61,25 +68,37 @@ export const Sidebar = ({ fullName, email }: Props) => {
                       : "text-gray-600 hover:text-gray-200"
                   }
                 `}
-              >
-                {item.icon === "client" ? (
-                  <Contact size={20} />
-                ) : item.icon === "calendar" ? (
-                  <CalendarRange size={20} />
-                ) : item.icon === "dashboard" ? (
-                  <LayoutDashboard size={20} />
-                ) : item.icon === "settings" ? (
-                  <Settings size={20} />
-                ) : item.icon === "create" ? (
-                  <Edit size={20} />
-                ) : null}
+                >
+                  {item.icon === "client" ? (
+                    <Contact size={20} />
+                  ) : item.icon === "calendar" ? (
+                    <CalendarRange size={20} />
+                  ) : item.icon === "dashboard" ? (
+                    <LayoutDashboard size={20} />
+                  ) : item.icon === "account" ? (
+                    <AlignVerticalJustifyStart size={20} />
+                  ) : item.icon === "create" ? (
+                    <Edit size={20} />
+                  ) : null}
 
-                <span className="text-sm font-sans">{item.name}</span>
-              </Link>
-            )
-          })}
+                  <span className="text-sm font-sans">{item.name}</span>
+                </Link>
+              )
+            })}
+          </div>
+
+          <div
+            onClick={handleClickSettings}
+            className={`m-2 flex w-full justify-start gap-2 text-center cursor-pointer ${
+              darkmode
+                ? "text-gray-400 hover:text-gray-800"
+                : "text-gray-500 hover:text-gray-200"
+            }`}
+          >
+            <Settings size={20} />
+            Settings
+          </div>
         </div>
-
 
         <div className="p-5 border-t border-gray-400">
           <div className="flex flex-col justify-center">
