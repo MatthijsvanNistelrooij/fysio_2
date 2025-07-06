@@ -4,13 +4,13 @@ import { navItems } from "../constants"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import {
-  AlignVerticalJustifyStart,
   CalendarRange,
   Contact,
   Edit,
   LayoutDashboard,
   LogOutIcon,
   Settings,
+  User,
 } from "lucide-react"
 import { darkmodeAtom, openSettingsAtom } from "@/lib/store"
 import { useAtom } from "jotai"
@@ -68,7 +68,7 @@ export const MobileNav = () => {
                   ) : item.icon === "dashboard" ? (
                     <LayoutDashboard size={20} />
                   ) : item.icon === "account" ? (
-                    <AlignVerticalJustifyStart size={20} />
+                    <User size={20} />
                   ) : item.icon === "create" ? (
                     <Edit size={20} />
                   ) : null}
