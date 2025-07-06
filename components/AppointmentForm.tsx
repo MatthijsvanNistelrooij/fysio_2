@@ -16,7 +16,6 @@ import {
 import { appointmentTypes } from "@/constants"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
-import Deepgram from "./Deepgram"
 
 interface AppointmentFormProps {
   initialData?: Appointment
@@ -136,7 +135,7 @@ export default function AppointmentForm({
       </div>
 
       <div>
-        <Deepgram />
+
         <label htmlFor="description" className="block font-semibold mt-2">
           Description
         </label>

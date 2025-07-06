@@ -24,6 +24,7 @@ import cat from "../public/cat.jpg"
 
 import { PetDrawingCanvas } from "./PetDrawingCanvas"
 import InfoCard from "./InfoCard"
+import Deepgram from "./Deepgram"
 
 type PetType = "Dog" | "Horse" | "Cat" | "Other"
 
@@ -208,6 +209,7 @@ const SelectedAppointment = () => {
 
   return (
     <div className="flex flex-col md:flex-row gap-2">
+      <Deepgram />
       {selectedAppointment && openAppointment && (
         <>
           <div className="w-full lg:w-2/3">
