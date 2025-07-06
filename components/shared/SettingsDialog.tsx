@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { darkmodeAtom, openSettingsAtom } from "@/lib/store"
+import { DialogOverlay } from "@radix-ui/react-dialog"
 import { useAtom } from "jotai"
 import {
   AlignCenter,
@@ -34,6 +35,7 @@ const SettingsDialog = () => {
   ]
   return (
     <Dialog open={openSettings} onOpenChange={setOpenSettings}>
+      <DialogOverlay className="bg-black/30 backdrop-blur-sm" />
       <DialogContent
         className={`p-10 ${
           darkmode

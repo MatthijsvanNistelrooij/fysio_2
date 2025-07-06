@@ -15,7 +15,7 @@ const Deepgram: React.FC = () => {
 
   return (
     <div className="w-full mx-auto">
-      <div className={`p-4 ${darkmode ? "bg-[#e9edf3] text-gray-800": "bg-gray-700 text-gray-100"} rounded min-h-[100px] whitespace-pre-wrap`}>
+      <div className={`rounded-md p-4 ${darkmode ? "bg-[#e9edf3] text-gray-800": "bg-gray-700 text-gray-100"} rounded min-h-[100px] whitespace-pre-wrap`}>
         {transcript || "Nog geen input..."}
       </div>
       <div className="mt-4 flex gap-2">
