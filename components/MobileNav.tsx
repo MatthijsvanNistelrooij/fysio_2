@@ -67,7 +67,7 @@ export const MobileNav = () => {
                     <CalendarRange size={20} />
                   ) : item.icon === "dashboard" ? (
                     <LayoutDashboard size={20} />
-                  ) : item.icon === "account" ? (
+                  ) : item.icon === "profile" ? (
                     <User size={20} />
                   ) : item.icon === "create" ? (
                     <Edit size={20} />

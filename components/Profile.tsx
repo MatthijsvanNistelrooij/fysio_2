@@ -8,7 +8,7 @@ import { useAtom } from "jotai"
 import { Edit } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
-const AccountPage = () => {
+const Profile = () => {
   const [fontSize] = useState("12px")
   const [darkmode] = useAtom(darkmodeAtom)
   const { user } = useUser()
@@ -50,4 +50,4 @@ const AccountPage = () => {
   )
 }
 
-export default AccountPage
+export default Profile

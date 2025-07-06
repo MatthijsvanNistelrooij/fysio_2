@@ -1,8 +1,8 @@
 export const navItems = [
   {
-    name: "Account",
-    icon: "account",
-    url: "/account",
+    name: "Profile",
+    icon: "profile",
+    url: "/profile",
   },
   {
     name: "Calendar",

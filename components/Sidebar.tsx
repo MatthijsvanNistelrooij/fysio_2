@@ -75,7 +75,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
                     <CalendarRange size={20} />
                   ) : item.icon === "dashboard" ? (
                     <LayoutDashboard size={20} />
-                  ) : item.icon === "account" ? (
+                  ) : item.icon === "profile" ? (
                     <User size={20} />
                   ) : item.icon === "create" ? (
                     <Edit size={20} />
@@ -89,7 +89,7 @@ export const Sidebar = ({ fullName, email }: Props) => {
 
           <div
             onClick={handleClickSettings}
-            className={`m-2 flex w-full justify-start gap-2 text-center cursor-pointer ${
+            className={`m-2 flex w-full justify-start font-semibold gap-2 text-center cursor-pointer ${
               darkmode
                 ? "text-gray-400 hover:text-gray-800"
                 : "text-gray-500 hover:text-gray-200"

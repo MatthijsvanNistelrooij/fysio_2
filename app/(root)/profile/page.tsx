@@ -1,8 +1,8 @@
-import AccountPage from "@/components/AccountPage"
+import Profile from "@/components/Profile"
 import React from "react"
 
 const Account = () => {
-  return <AccountPage />
+  return <Profile />
 }
 
 export default Account
