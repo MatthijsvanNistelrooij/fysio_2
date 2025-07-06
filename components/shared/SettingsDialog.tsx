@@ -33,7 +33,7 @@ const SettingsDialog = () => {
         }`}
       >
         <DialogHeader>
-          <DialogTitle>Settings</DialogTitle>
+          <DialogTitle>Appearance</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4 py-10">
