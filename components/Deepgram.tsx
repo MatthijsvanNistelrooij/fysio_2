@@ -14,7 +14,7 @@ const Deepgram: React.FC = () => {
   const [darkmode] = useAtom(darkmodeAtom)
 
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="w-full mx-auto">
       <div className="bg-[#e9edf3] p-4 rounded min-h-[100px] whitespace-pre-wrap">
         {transcript || "Nog geen input..."}
       </div>

@@ -209,10 +209,13 @@ const SelectedAppointment = () => {
 
   return (
     <div className="flex flex-col md:flex-row gap-2">
-      <Deepgram />
       {selectedAppointment && openAppointment && (
         <>
-          <div className="w-full lg:w-2/3">
+          <div className="w-full flex flex-col gap-2 lg:w-2/3">
+            <InfoCard>
+              <Deepgram />
+            </InfoCard>
+
             <InfoCard
               title={"Selected Appointment"}
               action={
