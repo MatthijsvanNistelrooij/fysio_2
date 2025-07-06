@@ -5,14 +5,14 @@ export const navItems = [
     url: "/clients",
   },
   {
-    name: "Dashboard",
-    icon: "dashboard",
-    url: "/dashboard",
-  },
-  {
     name: "Create",
     icon: "create",
     url: "/create",
+  },
+  {
+    name: "Dashboard",
+    icon: "dashboard",
+    url: "/dashboard",
   },
   {
     name: "Calendar",
