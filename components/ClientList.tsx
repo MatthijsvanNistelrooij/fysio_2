@@ -72,7 +72,7 @@ const ClientList = () => {
     <div
       className={`${
         darkmode ? "text-gray-700" : "text-gray-200"
-      } flex flex-col gap-3 `}
+      } flex flex-col gap-2`}
     >
       {filteredClients?.map((client) => (
         <InfoCard key={client.$id}>
