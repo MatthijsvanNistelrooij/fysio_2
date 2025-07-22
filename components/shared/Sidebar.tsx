@@ -30,7 +30,7 @@ export const Sidebar = () => {
 
           <div className="lg:w-full">
             <Button
-              className="bg-gray-900 rounded-sm hover:bg-gray-700 w-full h-10"
+              className="bg-gray-900 rounded-sm hover:bg-gray-700 w-full h-10 cursor-pointer"
               onClick={handleSignOut}
             >
               <span className="hidden sm:inline">Sign Out</span>
