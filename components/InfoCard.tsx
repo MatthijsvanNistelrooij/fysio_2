@@ -16,7 +16,7 @@ const InfoCard = ({ title, action, children }: InfoCardProps) => {
     <Card
       className={`w-full p-5 ${
         darkmode ? "bg-white" : "bg-gray-800 border border-gray-700"
-      } rounded-xl shadow-xl ${darkmode ? "text-gray-800" : "text-amber-50"}`}
+      } rounded-md shadow-xl ${darkmode ? "text-gray-800" : "text-amber-50"}`}
     >
       {(title || action) && (
         <div className="flex justify-between items-center mb-3">
