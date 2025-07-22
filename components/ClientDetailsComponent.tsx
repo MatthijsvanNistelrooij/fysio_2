@@ -25,6 +25,7 @@ import Appointments from "./Appointments"
 import SelectedAppointment from "./SelectedAppointment"
 import AddAppointment from "./AddAppointment"
 import { useUser } from "@/context/UserContextProvider"
+import PetShadow from "./PetShadow"
 
 export default function ClientDetailsComponent({ client }: { client: Client }) {
   const [, setSavedImage] = useAtom(savedImageAtom)
@@ -84,12 +85,14 @@ export default function ClientDetailsComponent({ client }: { client: Client }) {
 
         <div className="lg:col-span-4">
           <div className="flex flex-col justify-start gap-2">
-            {selectedPet && (
+            {selectedPet ? (
               <>
                 <PetInfo />
                 <Appointments />
                 {addAppointMent ? <AddAppointment /> : <SelectedAppointment />}
               </>
+            ) : (
+              <PetShadow />
             )}
           </div>
         </div>
