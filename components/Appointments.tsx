@@ -75,7 +75,7 @@ const Appointments = () => {
         {darkmode ? (
           <Button
             onClick={() => handleToggleAddAppointment()}
-            className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl rounded-xl cursor-pointer w-full ${
+            className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl rounded-md cursor-pointer w-full ${
               addAppointment ? "bg-[#e9edf3]" : ""
             }`}
           >
@@ -86,7 +86,7 @@ const Appointments = () => {
         ) : (
           <Button
             onClick={() => handleToggleAddAppointment()}
-            className={`bg-gray-600 hover:bg-gray-800 text-gray-200 shadow-xl rounded-xl cursor-pointer w-full ${
+            className={`bg-gray-600 hover:bg-gray-800 text-gray-200 shadow-xl rounded-md cursor-pointer w-full ${
               addAppointment ? "bg-gray-800 text-gray-200" : ""
             }`}
           >
@@ -101,7 +101,7 @@ const Appointments = () => {
             <Button
               key={appointment.$id || index}
               onClick={() => handleSelectAppointment(appointment)}
-              className={`bg-gray-600 hover:bg-gray-800 text-gray-200 shadow-xl rounded-xl cursor-pointer px-4 py-4 flex justify-between w-full
+              className={`bg-gray-600 hover:bg-gray-800 text-gray-200 shadow-xl rounded-md cursor-pointer px-4 py-4 flex justify-between w-full
         ${
           !addAppointment && selectedAppointment?.$id === appointment.$id
             ? "bg-gray-800"
@@ -122,7 +122,7 @@ const Appointments = () => {
             <Button
               key={appointment.$id || index}
               onClick={() => handleSelectAppointment(appointment)}
-              className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl border border-gray-200 rounded-xl cursor-pointer px-4 py-4 flex justify-between w-full
+              className={`bg-white hover:bg-[#e9edf3] text-gray-800 shadow-xl border border-gray-200 rounded-md cursor-pointer px-4 py-4 flex justify-between w-full
         ${
           !addAppointment && selectedAppointment?.$id === appointment.$id
             ? "bg-[#e9edf3]"
