@@ -1,4 +1,4 @@
-import CreateForm from "@/components/CreateClientForm"
+import CreateClientForm from "@/components/CreateClientForm"
 import { getCurrentUser } from "@/lib/appwrite/users"
 
 import { redirect } from "next/navigation"
@@ -9,7 +9,7 @@ const Create = async () => {
 
   if (!currentUser) return redirect("/sign-in")
 
-  return <CreateForm {...currentUser} padding="p-5" />
+  return <CreateClientForm {...currentUser} padding="p-5" />
 }
 
 export default Create

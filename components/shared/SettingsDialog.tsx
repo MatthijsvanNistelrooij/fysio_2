@@ -5,16 +5,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { darkmodeAtom, openSettingsAtom } from "@/lib/store"
+import { darkmodeAtom, layoutModeAtom, openSettingsAtom } from "@/lib/store"
 import { DialogOverlay } from "@radix-ui/react-dialog"
 import { useAtom } from "jotai"
 import {
-  AlignCenter,
-  AlignCenterHorizontal,
-  AlignCenterHorizontalIcon,
-  AlignCenterVertical,
+  // AlignCenter,
+  // AlignCenterHorizontalIcon,
+  // AlignCenterVertical,
   AlignEndHorizontal,
-  AlignEndVerticalIcon,
   AlignVerticalSpaceAround,
 } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -23,6 +21,7 @@ const SettingsDialog = () => {
   const [darkmode, setDarkmode] = useAtom(darkmodeAtom)
   const [openSettings, setOpenSettings] = useAtom(openSettingsAtom)
   const [fontSize, setFontSize] = useState("12px")
+  const [layoutMode, setLayoutMode] = useAtom(layoutModeAtom)
 
   useEffect(() => {
     document.documentElement.style.setProperty("--global-font-size", fontSize)
@@ -33,6 +32,15 @@ const SettingsDialog = () => {
     { size: "12px", label: "A", fontWeight: "normal" },
     { size: "14px", label: "A", fontWeight: "bold" },
   ]
+
+  const layoutPresets = {
+    horizontalSplit: "flex flex-row justify-between w-full gap-2 mb-20",
+    verticalSplit: "flex flex-col justify-between w-full gap-2 mb-20",
+    reverseSplit: "flex flex-row justify-between w-full gap-2 mb-20",
+    centered: "flex flex-row justify-between w-full gap-2 mb-20",
+    endAligned: "flex flex-row justify-between w-full gap-2 mb-20",
+  }
+
   return (
     <Dialog open={openSettings} onOpenChange={setOpenSettings}>
       <DialogOverlay className="bg-black/30 backdrop-blur-sm" />
@@ -111,14 +119,23 @@ const SettingsDialog = () => {
         <DialogHeader className="mt-10">
           <DialogTitle>Layout</DialogTitle>
         </DialogHeader>
-        <div className="flex justify-between py-10 gap-6">
-          <AlignCenterHorizontalIcon />
-          <AlignVerticalSpaceAround />
-          <AlignCenterHorizontal />
-          <AlignEndVerticalIcon />
-          <AlignCenterVertical />
-          <AlignEndHorizontal />
-          <AlignCenter />
+        <div className="flex justify-start py-10 gap-6">
+          <AlignEndHorizontal
+            className={`cursor-pointer ${
+              layoutMode === layoutPresets.horizontalSplit
+                ? "text-gray-500"
+                : "text-gray-400"
+            }`}
+            onClick={() => setLayoutMode(layoutPresets.horizontalSplit)}
+          />
+          <AlignVerticalSpaceAround
+            className={`cursor-pointer ${
+              layoutMode === layoutPresets.verticalSplit
+                ? "text-gray-500"
+                : "text-gray-400"
+            }`}
+            onClick={() => setLayoutMode(layoutPresets.verticalSplit)}
+          />
         </div>
       </DialogContent>
     </Dialog>

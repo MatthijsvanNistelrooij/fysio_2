@@ -1,35 +1,25 @@
 import React from "react"
 import { redirect } from "next/navigation"
-
-import Sidebar from "@/components/Sidebar"
 import { Toaster } from "sonner"
-import { MobileNav } from "@/components/MobileNav"
 import { getCurrentUser } from "@/lib/appwrite/users"
+
 import SettingsDialog from "@/components/shared/SettingsDialog"
+import Sidebar from "@/components/shared/Sidebar"
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const currentUser = await getCurrentUser()
   if (!currentUser) return redirect("/sign-in")
 
   return (
-    <main className="flex min-h-screen">
-      {/* Sidebar - static, full height */}
-      <div className="hidden md:flex w-72 h-screen sticky top-0">
-        <Sidebar {...currentUser} />
-      </div>
-
-      {/* Main content */}
-      <section className="flex-1 flex flex-col">
-        <div className="md:hidden sticky top-0">
-          <MobileNav {...currentUser} />
-        </div>
+    <div className="min-h-screen flex flex-col lg:flex-row">
+      <Sidebar {...currentUser} />
+      <main className="w-full h-screen bg-amber-500 overflow-x-auto">
         <SettingsDialog />
-        <div className="flex-1">
-          {children}
-          <Toaster richColors position="bottom-right" />
-        </div>
-      </section>
-    </main>
+
+        {children}
+        <Toaster richColors position="bottom-right" />
+      </main>
+    </div>
   )
 }
 

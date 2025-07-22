@@ -100,11 +100,7 @@ export const CreateClientForm = ({ $id, padding }: Props) => {
         <title>Fysio App 2025</title>
         <meta name="description" content="Fysio App 2025" />
       </Head>
-      <div
-        className={`min-h-screen flex justify-center ${
-          darkmode ? "bg-[#e9edf3]" : "bg-gray-700"
-        }  `}
-      >
+      <div>
         <div className={`main-container w-full rounded-3xl ${padding} `}>
           <InfoCard title="Create New Contact">
             <form onSubmit={handleSubmit} className="space-y-2 ">

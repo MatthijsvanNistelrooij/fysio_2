@@ -170,3 +170,12 @@
 .darkmode .rbc-day-bg {
   border-color: #4b5563 !important; /* donkere grijstint voor darkmode */
 }
+
+.navItem {
+  background-color: red;
+  margin: 2px;
+}
+
+.navItem:hover {
+  background-color: orange;
+}

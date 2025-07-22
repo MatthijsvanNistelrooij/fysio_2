@@ -18,7 +18,11 @@ export const loadingAtom = atom(false)
 export const searchAtom = atom("")
 export const showAtom = atom(false)
 export const openSettingsAtom = atom(false)
+export const openCreateDialogAtom = atom(false)
 export const darkmodeAtom = atom(true)
+export const layoutModeAtom = atom(
+  "flex flex-row justify-between w-full gap-2 mb-20"
+)
 
 export const isActiveAtom = atom(false)
 export const clientsAtom = atom<Client[] | null>([])
