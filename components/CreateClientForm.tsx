@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { Check, Contact, HomeIcon, Mail, Phone } from "lucide-react"
+import { Check } from "lucide-react"
 import InfoCard from "./InfoCard"
 import { darkmodeAtom } from "@/lib/store"
 import { useAtom } from "jotai"
@@ -107,7 +107,6 @@ export const CreateClientForm = ({ $id, padding }: Props) => {
               <div className="">
                 <div className="flex flex-col md:flex-row gap-2 justify-between">
                   <div className="w-full flex">
-                    <Contact size={18} className="text-gray-400 m-2" />
                     <Input
                       name="name"
                       placeholder={errors.name ? errors.name : "Name"}
@@ -120,7 +119,6 @@ export const CreateClientForm = ({ $id, padding }: Props) => {
                   </div>
 
                   <div className="w-full flex ">
-                    <HomeIcon size={18} className="text-gray-400 m-2" />
                     <Input
                       name="address"
                       placeholder={errors.address ? errors.address : "Address"}
@@ -133,7 +131,6 @@ export const CreateClientForm = ({ $id, padding }: Props) => {
                   </div>
 
                   <div className="w-full flex ">
-                    <Mail size={18} className="text-gray-400 m-2" />
                     <Input
                       name="email"
                       placeholder={errors.email ? errors.email : "Email"}
@@ -146,7 +143,6 @@ export const CreateClientForm = ({ $id, padding }: Props) => {
                   </div>
 
                   <div className="w-full flex ">
-                    <Phone size={18} className="text-gray-400 m-2" />
                     <Input
                       name="phone"
                       placeholder={errors.phone ? errors.phone : "Phone"}

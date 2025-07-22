@@ -7,15 +7,7 @@ import {
   usePetStore,
 } from "@/lib/store"
 import { Pet } from "@/lib/types"
-import {
-  CalendarRange,
-  Contact,
-  HomeIcon,
-  Mail,
-  Phone,
-  MoreVertical,
-  Plus,
-} from "lucide-react"
+import { CalendarRange, MoreVertical, Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 import React from "react"
 import { toast } from "sonner"
@@ -87,7 +79,6 @@ const ClientList = () => {
                   darkmode ? "hover:bg-[#e9edf3]" : "hover:bg-gray-700"
                 } rounded-md px-2 py-1 cursor-pointer transition w-full`}
               >
-                <Contact size={16} className="text-gray-300" />
                 <span>{client.name}</span>
               </div>
 
@@ -100,7 +91,6 @@ const ClientList = () => {
                   darkmode ? "hover:bg-[#e9edf3]" : "hover:bg-gray-700"
                 } rounded-md px-2 py-1 cursor-pointer transition w-full`}
               >
-                <HomeIcon size={16} className="text-gray-300" />
                 <span>{client.address}</span>
               </div>
 
@@ -113,7 +103,6 @@ const ClientList = () => {
                   darkmode ? "hover:bg-[#e9edf3]" : "hover:bg-gray-700"
                 } rounded-md px-2 py-1 cursor-pointer transition w-full`}
               >
-                <Phone size={14} className="text-gray-300" />
                 <span>{client.phone}</span>
               </div>
 
@@ -126,7 +115,6 @@ const ClientList = () => {
                   darkmode ? "hover:bg-[#e9edf3]" : "hover:bg-gray-700"
                 } rounded-md px-2 py-1 cursor-pointer transition w-full`}
               >
-                <Mail size={16} className="text-gray-300" />
                 <span>{client.email}</span>
               </div>
             </div>
