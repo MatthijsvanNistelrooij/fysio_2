@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation"
 import React from "react"
 import { toast } from "sonner"
 import { useAtom } from "jotai"
-import InfoCard from "./InfoCard"
+import ListCard from "./ListCard"
 
 const ClientList = () => {
   const [clients] = useAtom(clientsAtom)
@@ -75,7 +75,7 @@ const ClientList = () => {
       } flex flex-col gap-2`}
     >
       {filteredClients?.map((client) => (
-        <InfoCard key={client.$id}>
+        <ListCard key={client.$id}>
           <div className="flex flex-row md:flex-col w-full lg:flex-row justify-between gap-4 text-sm">
             <div className="flex flex-col md:flex-row w-full justify-start md:justify-between gap-2">
               <div
@@ -174,7 +174,7 @@ const ClientList = () => {
               </div>
             </div>
           </div>
-        </InfoCard>
+        </ListCard>
       ))}
     </div>
   )

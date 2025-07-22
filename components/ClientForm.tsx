@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Check, Contact, HomeIcon, Mail, Phone, Trash } from "lucide-react"
+import { Check, Trash } from "lucide-react"
 import { Input } from "./ui/input"
 import { Client } from "@/lib/types"
 import { darkmodeAtom } from "@/lib/store"
@@ -59,10 +59,6 @@ export default function ClientForm({
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col justify-between w-full">
         <div className="w-full flex rounded">
-          <Contact
-            size={20}
-            className={`${darkmode ? "text-gray-700" : "text-gray-200"}  m-2`}
-          />
           <Input
             name="name"
             value={formData.name}
@@ -73,10 +69,6 @@ export default function ClientForm({
           />
         </div>
         <div className="w-full flex rounded">
-          <HomeIcon
-            size={20}
-            className={`${darkmode ? "text-gray-700" : "text-gray-200"}  m-2`}
-          />
           <Input
             name="address"
             value={formData.address}
@@ -87,10 +79,6 @@ export default function ClientForm({
           />
         </div>
         <div className="w-full flex">
-          <Phone
-            size={20}
-            className={`${darkmode ? "text-gray-700" : "text-gray-200"}  m-2`}
-          />
           <Input
             name="phone"
             value={formData.phone}
@@ -101,10 +89,6 @@ export default function ClientForm({
           />
         </div>
         <div className="w-full flex">
-          <Mail
-            size={20}
-            className={`${darkmode ? "text-gray-700" : "text-gray-200"}  m-2`}
-          />
           <Input
             name="email"
             value={formData.email}

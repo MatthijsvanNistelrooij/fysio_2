@@ -194,8 +194,8 @@ export default function PetForm({
             onClick={() => handleDelete(formData.$id)}
             className={` ${
               darkmode
-                ? "bg-white hover:bg-gray-100 text-orange-800"
-                : "bg-gray-600 text-orange-200 hover:bg-gray-700"
+                ? "bg-white hover:bg-orange-50 text-orange-800"
+                : "bg-gray-600 text-orange-200 hover:bg-orange-700"
             }  cursor-pointer `}
           >
             <Trash size={18} />

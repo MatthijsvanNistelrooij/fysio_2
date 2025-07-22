@@ -1,5 +1,4 @@
 import React from "react"
-import { Contact, HomeIcon, Mail, Phone } from "lucide-react"
 import { toast } from "sonner"
 import { Client } from "@/lib/types"
 import { useAtom } from "jotai"
@@ -23,12 +22,6 @@ const OwnerInfo = ({ client }: OwnerInfoProps) => {
           toast.success("Client name copied to clipboard!")
         }}
       >
-        <Contact
-          size={18}
-          className={`text-xs ${
-            darkmode ? "text-gray-300" : "text-gray-600"
-          }  m-1`}
-        />
         <div className="text-sm ml-1">{client.name}</div>
       </div>
       <div
@@ -40,12 +33,6 @@ const OwnerInfo = ({ client }: OwnerInfoProps) => {
           toast.success("Address copied to clipboard!")
         }}
       >
-        <HomeIcon
-          size={18}
-          className={`text-xs ${
-            darkmode ? "text-gray-300" : "text-gray-600"
-          }  m-1`}
-        />
         <div className="ml-1">{client.address}</div>
       </div>
       <div
@@ -57,13 +44,6 @@ const OwnerInfo = ({ client }: OwnerInfoProps) => {
           toast.success("Phone number copied to clipboard!")
         }}
       >
-        <Phone
-          size={18}
-          className={`text-xs ${
-            darkmode ? "text-gray-300" : "text-gray-600"
-          }  m-1`}
-        />
-
         <div className="ml-1">{client.phone}</div>
       </div>
 
@@ -76,12 +56,6 @@ const OwnerInfo = ({ client }: OwnerInfoProps) => {
           toast.success("Email copied to clipboard!")
         }}
       >
-        <Mail
-          size={18}
-          className={`text-xs ${
-            darkmode ? "text-gray-300" : "text-gray-600"
-          }  m-1`}
-        />
         <div className="ml-1">{client.email}</div>
       </div>
     </div>
