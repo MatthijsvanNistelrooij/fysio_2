@@ -14,7 +14,7 @@ const Appointments = () => {
 
   if (loading)
     return (
-      <div className="h-screen text-white w-full flex justify-center items-center text-center">
+      <div className="h-screen text-gray-800 w-full flex justify-center items-center text-center">
         Loading...
       </div>
     )
