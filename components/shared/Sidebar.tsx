@@ -6,8 +6,12 @@ import { LogOutIcon } from "lucide-react"
 import { navItems } from "../../constants"
 
 import { signOutUser } from "@/lib/appwrite/users"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
 
 export const Sidebar = () => {
+  const pathname = usePathname()
+
   const handleSignOut = () => {
     signOutUser()
   }
@@ -21,7 +25,10 @@ export const Sidebar = () => {
               <Link
                 key={idx}
                 href={item.url}
-                className="bg-amber-500 hover:bg-amber-600 p-1 py-2 text-white rounded"
+                className={cn(
+                  "p-1 py-2 text-white rounded hover:bg-gray-800",
+                  pathname === item.url ? "bg-gray-800" : "bg-gray-700"
+                )}
               >
                 {item.icon}
               </Link>
