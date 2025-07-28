@@ -13,7 +13,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       <Sidebar {...currentUser} />
-      <main className="w-full h-screen bg-amber-500 overflow-x-auto">
+      <main className="w-full h-screen bg-gray-200 overflow-x-auto">
         <SettingsDialog />
 
         {children}

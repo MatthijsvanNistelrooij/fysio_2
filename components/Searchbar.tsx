@@ -18,7 +18,7 @@ const Searchbar = () => {
       <Input
         className={`${
           darkmode ? "bg-white text-gray-800" : "bg-gray-800 text-gray-200"
-        } border border-amber-400 focus:border-gray-600 rounded-md w-full text-sm p-5 `}
+        } border border-gray-400 focus:border-gray-600 rounded-md w-full text-sm p-5 `}
         placeholder="Search by name, email, phone, or address..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
