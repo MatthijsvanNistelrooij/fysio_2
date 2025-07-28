@@ -9,7 +9,7 @@ interface InfoCardProps {
 
 const ShadowCard = ({ title, action, children }: InfoCardProps) => {
   return (
-    <Card className={`w-full p-5 bg-amber-100`}>
+    <Card className={`w-full p-5 bg-gray-100`}>
       {(title || action) && (
         <div className="flex justify-between items-center mb-3">
           {title && <h2 className="text-lg font-semibold">{title}</h2>}
